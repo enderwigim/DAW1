@@ -7,63 +7,75 @@
 </head>
 <body>
     <h1>Encuesta al profesorado</h1>
-    <p><b>por favor, si es usted docente responda a las cuestiones:</b></p>
-    <ol>
-        <li>
-            <label>Información Personal</label>
-            <br>
-            <label>Apellidos y nombre: </label><input>
-            <br>
-            <label>Sexo: </label>
-            <input type="radio">hombre
-            <input type="radio">mujer
-            <br>
-            <label>Telefono: </label><input>
-            <label>E-mail: </label><input>
-        </li>
-        <br>
-        <li>
-            <label>Datos Profesionales</label>
-            <br>
-            <label>Centro de trabajo: </label><input>
-            <label>Localidad</label><input>
-            <br>
-            <label>Especialidad: </label>
-            <br>
-            <select>
-                <option>Lengua y literatura</option>
-                <option>Matemáticas</option>
-                <option>Informática</option>
-                <option>Geografía e historia</option>
-            </select>
-        </li>
-        <br>
-        <li>
-            <label>Por favor, facilítanos la siguiente información</label>
-            <br>
-            <label>¿Cómo llegó hasta aquí?:</label>
-            <select>
-                <option>Desde un buscador</option>
-            </select>
-            <br>
-            <label>Comentarios:</label>
-            <br>
-            <textarea rows="4" cols="50"></textarea>
-            <br>
-            <label>¿Desearía recibir más información sobre ... ?</label>
-            <br>
-            <input type="checkbox"> Material audiovisual
-            <input type="checkbox"> Textos electrónicos
-            <input type="checkbox"> Libros de texto 
-        </li>
-        <br>
-        <hr>
-        <div align="center">
-            <button >Enviar datos</button>
-        <button >Borrar datos</button>
-        </div>
-        
-        
-    </ol>
+    <div>
+        <b>por favor, si es usted docente responda a las cuestiones:</b>
+    </div>
+    <div>
+        <fieldset>
+            <ol>
+                <li>
+                        <legend>Información Personal</legend>
+                        <br>
+                        <label for="name_surname">Apellidos y nombre: </label>
+                        <input name="name_surname" id="name_surname">
+                        <br>
+                        <label>Sexo: </label>
+                        <input name="genre" value="hombre" type="radio">hombre
+                        <input name="genre" value="mujer" type="radio">mujer
+                        <br>
+                        <label for="phone_dial">Telefono: </label>
+                        <input id="phone_dial" name="phone_dial">
+                        <label for="email">E-mail: </label>
+                        <input id="email" name="email">
+                </li>
+                <br>
+                <li>
+                    <legend>Datos Profesionales</legend>
+                    <br>
+                    <label for="working_place">Centro de trabajo: </label>
+                    <input name="working_place" id="working_place">
+                    <label for="town">Localidad</label>
+                    <input name="town" id="town">
+                    <br>
+                    <label>Especialidad: </label>
+                    <br>
+                    <select name="speciality">
+                        <option value="lengua_literatura">Lengua y literatura</option>
+                        <option value="matematicas">Matemáticas</option>
+                        <option value="informatica">Informática</option>
+                        <option value="geografia_historia">Geografía e historia</option>
+                    </select>
+                </li>
+                <br>
+                <li>
+                    <legend>Por favor, facilítanos la siguiente información</legend>
+                    <br>
+                    <span>¿Cómo llegó hasta aquí?:</span>
+                    <select name="get_here">
+                        <option value="web">Desde un buscador</option>
+                        <option value="friend">Me trajo un amigo</option>
+                    </select>
+                    <br>
+                    <label for="comments">Comentarios:</label>
+                    <br>
+                    <textarea rows="4" cols="50" placeholder="Escriba su comentario aqui..." id="comments" name="comments"></textarea>
+                    <br>
+                    <label>¿Desearía recibir más información sobre ... ?</label>
+                    <br>
+                    <input type="checkbox"> Material audiovisual
+                    <input type="checkbox"> Textos electrónicos
+                    <input type="checkbox"> Libros de texto 
+                </li>
+                <br>
+                <hr>
+                <div align="center">
+                    <button>Enviar datos</button>
+                    <button>Borrar datos</button>
+                </div>
+                
+                
+            </ol>
+        </fieldset>
+    </div>
 </body>
 </html>

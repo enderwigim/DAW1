@@ -16,15 +16,15 @@
         </div>
         <div>
             <label for="password">Contraseña</label>
-            <input name="password" id="password" type="text">
+            <input name="password" id="password" type="text" minlength="6">
             <label>(Longitud mínima 6 caracteres)</label>
             <br>
         </div>
         <div>
             <span>Tipo de Cliente</span>
-            <input name="client" id="particular" type="radio"><label for="particular">Particular</label>
-            <input name="client" id="asociacion"type="radio"><label for="asociacion">Asociación</label>
-            <input name="client" id="company"type="radio"><label for="company">Empresa</label>
+            <input name="client" id="particular" type="radio" value="particular"><label for="particular">Particular</label>
+            <input name="client" id="asociacion"type="radio" value="asociacion"><label for="asociacion">Asociación</label>
+            <input name="client" id="company"type="radio" value="empresa"><label for="company">Empresa</label>
         </div>
         <div>
             <span><b>Datos de productos:</b><span><br>
@@ -65,7 +65,8 @@
             <br>
             <input name="get-info" id="get-info" type="checkbox"> 
             <label for="get-info">Acepto recibir información publicitaria</label>
-            <br><br>
+            <br>
+            <br>
         </div>
         <input type="submit" value="Enviar"><button>Cancelar</button>
     </form>

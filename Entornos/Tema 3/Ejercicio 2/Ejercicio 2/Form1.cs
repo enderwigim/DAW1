@@ -39,14 +39,14 @@ namespace Ejercicio_10
                 tipoTelegrama = 'o';
             }
             //Obtengo el número de palabras que forma el telegrama 
-            numPalabras = (textoTelegrama.Split()).Lenght;
+            numPalabras = textoTelegrama.Split(' ').Length;
             //Si el telegrama es ordinario
             if (tipoTelegrama == 'o')
                 if (numPalabras <= 10)
                     coste = 2.5;
                 else
                 {
-                    coste = 0.5 * numPalabras;
+                    coste = 2.5 + 0.5 * (numPalabras - 10);
                 }
             else
             {

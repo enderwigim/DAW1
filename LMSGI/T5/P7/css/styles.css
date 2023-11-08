@@ -5,8 +5,8 @@ a:visited {
     color:green;
 }
 a:hover {
-    color:yellow;
+    color:blue;
 }
 a:active {
-    color:blue;
+    color:yellow;
 }

@@ -1,0 +1,14 @@
+body {
+    background-color: aquamarine;
+    color: black;
+}
+a:link {
+    color:red;
+}
+a:hover {
+    color:aliceblue;
+}
+h1 {
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 3em;
+}

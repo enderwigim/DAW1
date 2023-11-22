@@ -1,0 +1,13 @@
+body {
+    border: solid black 3px;
+}
+.header {
+    background-color: brown;
+}
+.title {
+    font-size: 3em ;
+}
+.text1 {
+    border: solid black 3px;
+    float:left;
+}

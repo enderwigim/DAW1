@@ -1,13 +1,53 @@
 body {
     border: solid black 3px;
+    margin: 0px;
+    padding: 0px;
 }
+h1 {
+    color: white;
+}
+h2 {
+    margin-top: 0px;
+}
+
 .header {
     background-color: brown;
+    padding-bottom: 2%;
+    padding-left: 1%;
 }
 .title {
-    font-size: 3em ;
+    font-size: 3em;
+    margin: 0px;
 }
-.text1 {
-    border: solid black 3px;
-    float:left;
+.quote {
+    
+    width: 200px;
+    height: 450px;
+    padding: 1em;
+    float: left;
+}
+.text {
+    height: 450px;
+    margin-left: 250px;
+    padding-top: 40px;
+    padding-left: 20px;
+    border-left: solid gray 2px;
+}
+.footer {
+    clear: both;
+    text-align: center;
+    color: grey;
+    border-top: solid gray 2px;
+    background-color: #3d4145;
+    height: 35px;
+}
+.footer>p {
+    position: relative;
+    margin: 0px;
+    top: 10px;
+}
+.text p {
+    margin-top: 3%;
+    margin-bottom: 0%;;
+
 }

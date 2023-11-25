@@ -1,7 +1,7 @@
 body {
     border: solid;
-    padding-left: 10%;
-    padding-right: 10%;
+    padding-left: 15%;
+    padding-right: 15%;
     padding-top: 1%;
 }
 .navbar {
@@ -17,4 +17,19 @@ body {
     padding: 8px 15px 5px 15px;
     color: #fff;
 
+}
+.container {
+    display: flex;
+    gap: 10px;
+}
+.cards {
+    width: 75%;
+    display: flex;
+    flex-direction: column;
+    gap:10%;
+}
+.article-title {
+    padding: 1%;
+    font-size: 2em;
+    background-color: #eb8034;
 }

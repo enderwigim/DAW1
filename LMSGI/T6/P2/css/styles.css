@@ -21,6 +21,10 @@ body {
     color: #fff;
 
 }
+.navbar a:hover {
+    background-color: #fff;
+    color:#3655b3 ;
+}
 .container {
     display: flex;
     margin-left: 2%;
@@ -90,14 +94,40 @@ body {
 .sobre-mi p:hover {
     font-weight: bold;
 }
-.sobre-mi h4 + p {
-    font-weight: bold;
-}
+
 .sobre-mi p:last-child {
     text-decoration: underline;
 }
+.categorias p {
+    padding: 2% 2% 2% 10%;
+    margin: 4% 0px 0px 0px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 0.8em;
+    color:#06268a;
+    border-bottom: solid 1px #b3c5f8;
+}
+.categorias p:hover {
+    background-color: #b3c5f8;
+    font-weight: bold;
+}
+.enlaces {
+    display: flex;
+    flex-direction: column;
 
-
+}
+.enlaces a {
+    padding: 2% 2% 2% 10%;
+    margin: 4% 0px 0px 0px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 0.8em;
+    color:#06268a;
+    border-bottom: solid 1px #b3c5f8;
+    text-decoration: none;
+}
+.enlaces a:hover {
+    background-color: #b3c5f8;
+    font-weight: bold;
+}
 
 
 

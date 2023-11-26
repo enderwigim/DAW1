@@ -23,7 +23,6 @@ body {
 }
 .container {
     display: flex;
-    gap: 10px;
     margin-left: 2%;
 }
 .cards {
@@ -33,7 +32,7 @@ body {
     gap:10%;
 }
 .article-title {
-    padding: 1% 1% 1% 2%;
+    padding: 7px 7px 7px 14px;
     font-size: 2em;
     background-color: #eb8034;
     margin-bottom: 0px;
@@ -65,6 +64,43 @@ body {
     color: #06268a;
     text-decoration: underline;
 }
+.menu {
+    background-color: #6f93fda5;
+    width: 25%;
+    margin: 2% 2% 0% 0%;
+
+}
+.menu-title {
+    font-size: 1.2em;
+    margin-top: 8px;
+    margin-bottom: 7%;
+    padding: 13px 7px 15.5px 14px;
+    background-color: #6e8add;
+    text-decoration: underline;
+    font-weight: bold;
+    color:#06268a;
+}
+.sobre-mi p {
+    padding-left: 10%;
+    margin: 2% 0px 0px 0px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 0.8em;
+    color:#06268a;
+}
+.sobre-mi p:hover {
+    font-weight: bold;
+}
+.sobre-mi h4 + p {
+    font-weight: bold;
+}
+.sobre-mi p:last-child {
+    text-decoration: underline;
+}
+
+
+
+
+
 .footer {
     margin: 3%;
     color: #5571c4;

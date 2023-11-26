@@ -1,9 +1,9 @@
 body {
-    border: solid;
     padding-left: 15%;
     padding-right: 15%;
     padding-top: 1%;
 }
+
 .content {
     border: solid blue 2px;
 }
@@ -63,10 +63,15 @@ body {
     color: #06268a;
     text-decoration: underline;
 }
+.blog-p {
+    font-size: 0.8rem;
+    padding-right: 5%;
+}
 .seguir-leyendo {
     margin-left: 3%;
     color: #06268a;
     text-decoration: underline;
+    font-size: 0.8rem;
 }
 .menu {
     background-color: #6f93fda5;

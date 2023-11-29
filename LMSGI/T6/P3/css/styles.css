@@ -1,0 +1,9 @@
+h1 {
+    margin-top: 5%;
+    text-align: center;
+}
+.content {
+    margin: 5% 20% 5% 20%;
+    border: solid blue 2px;
+    padding: 2%;
+}

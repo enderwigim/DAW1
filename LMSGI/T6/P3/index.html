@@ -9,69 +9,80 @@
 </head>
 <body>
     
-    <h1>Industrias ACME. Formulario de pedido</h1>
+    
     <div class="content">
-            <b class="izquierda">Datos del Cliente:</b><br>
-        <form action= "" method="post">
-            <label class="izquierda" for="name">Nombre</label>
-            <input class="derecha" name="name" id="name">
-            <div>
-                <label class="izquierda" for="email">Correo Electrónico</label>
-                <input class="derecha" name="email" id="email" type="email">
-            </div>
-            <div>
-                <span class="izquierda">Tipo de Cliente</span>
-                <div class="derecha">
-                    <input name="client" id="particular" type="radio" value="particular"><label for="particular">Particular</label>
-                    <br>
-                    <input name="client" id="asociacion"type="radio" value="asociacion"><label for="asociacion">Asociación</label>
-                    <br>
-                    <input name="client" id="company"type="radio" value="empresa"><label for="company">Empresa</label>  
+        <h1>Industrias ACME. Formulario de pedido</h1>
+        <div class="formulario">
+            <form action= "" method="post">
+                <div class="seccion">
+                    <span class="izquierda "><b>Datos del Cliente:</b></span><br>
+                    <label class="izquierda" for="name">Nombre</label>
+                    <input class="derecha" name="name" id="name">
+                    <label class="izquierda" for="email">Correo Electrónico</label>
+                    <input class="derecha" name="email" id="email" type="email">
                 </div>
-            </div>
-            <div>
-                <span class="izquierda"><b>Datos de productos:</b></span><br>
-                <select class="derecha" name="product-data">
-                    <option value="gold">AR001 Oro Reluciente</option>
-                    <option value="silver">AR002 Plata Pulida</option>
-                    <option value="bronze">AR003 Bronce Reforzado</option>
-                    <option value="shield">EX001 Escudo</option>
-                    <option value="invisibility">EX002 Invisibilidad</option>
-                </select>
-            </div>
-            <div>
-                <b class="izquierda">Datos del envío:</b>
-                <br>
-                <label class="izquierda" for="address">Dirección</label><br>
-                <input class="derecha" name="address" type="text" id="address"><br>
-                <label class="izquierda" for="city">Ciudad</label><br>
-                <input class="derecha" name="city" id="city">
-                <label class="izquierda" for="postal-code">Código Postal</label>
-                <input class="derecha" name="postal-code" id="postal-code">
-            </div>
-            <div>
-                <span class="izquierda"><b>Datos Bancarios:</b></span>
-                <br>
-                <label class="izquierda" for="entity-name">Nombre de la Entidad</label>
-                <br>
-                <input class="derecha" name="entity-name" id="entity-name">
-                <br>
-                <label class="izquierda" for="account-number">Nº de Cuenta</label><br>
-                <input class="derecha" name="account-number" id="account-number">
-                <br>
-            </div>
-            <div>
-                <span class="izquierda"><b>Otra información del pedido:</b></span>
-                <br>
-                <label class="izquierda" for="comment">Comentarios</label><br>
-                <textarea class="derecha" placeholder="Escriba su comentario aqui..."rows="4" cols="50" name="comment" id="comment"></textarea>
-                <br>
-                <label class="izquierda" for="get-info">Acepto recibir información publicitaria</label>
-                <input class="derecha" name="get-info" id="get-info" type="checkbox"> 
-            </div>
-            <input class="izquierda" type="submit" value="Enviar">
-            <input class="derecha" type="submit" value="Cancelar">
-        </form>
+                
+                <div class="seccion">
+                    <span class="izquierda ">Tipo de Cliente</span>
+                    <div class="derecha radio-buttons">
+                        <input name="client" id="particular" type="radio" value="particular"><label for="particular">Particular</label>
+                        <br>
+                        <input name="client" id="asociacion"type="radio" value="asociacion"><label for="asociacion">Asociación</label>
+                        <br>
+                        <input name="client" id="company"type="radio" value="empresa"><label for="company">Empresa</label>  
+                    </div>
+                </div>
+                <div class="seccion">
+                    <span class="izquierda "><b>Datos de productos:</b></span><br>
+                    <label class="izquierda">Productos solicitados</label>
+                    <select class="derecha" name="product-data">
+                        <option value="gold">AR001 Oro Reluciente</option>
+                        <option value="silver">AR002 Plata Pulida</option>
+                        <option value="bronze">AR003 Bronce Reforzado</option>
+                        <option value="shield">EX001 Escudo</option>
+                        <option value="invisibility">EX002 Invisibilidad</option>
+                    </select>
+                </div>
+                <div class="seccion">
+                    <span class="izquierda primero"><b>Datos del envío:</b></span>
+                    <br>
+                    <label class="izquierda" for="address">Dirección</label><br>
+                    <input class="derecha" name="address" type="text" id="address"><br>
+                    <label class="izquierda" for="city">Ciudad</label><br>
+                    <input class="derecha" name="city" id="city">
+                    <label class="izquierda" for="postal-code">Código Postal</label>
+                    <input class="derecha" name="postal-code" id="postal-code">
+                </div>
+                <div class="seccion">
+                    <span class="izquierda "><b>Datos Bancarios:</b></span>
+                    <br>
+                    <label class="izquierda" for="entity-name">Nombre de la Entidad</label>
+                    <br>
+                    <input class="derecha" name="entity-name" id="entity-name">
+                    <br>
+                    <label class="izquierda" for="account-number">Nº de Cuenta</label><br>
+                    <input class="derecha" name="account-number" id="account-number">
+                    <br>
+                </div>
+                <div class="seccion">
+                    <span class="izquierda "><b>Otra información del pedido:</b></span>
+                    <br>
+                    <label class="izquierda" for="comment">Comentarios</label><br>
+                    <textarea class="derecha" placeholder="Escriba su comentario aqui..."rows="4" cols="50" name="comment" id="comment"></textarea>
+                    <br>
+                    <label class="izquierda" for="get-info">Acepto recibir información publicitaria</label>
+                    <div class="derecha">
+                        <input class="checkbox" name="get-info" id="get-info" type="checkbox"> 
+                    </div>
+                </div>
+                <div class="seccion submit-buttons">
+                    <input class="button" type="submit" value="Enviar">
+                    <input class="button" type="submit" value="Cancelar">
+                </div>
+            </form>
+        </div>
+            
+       
     </div>
     
 </body>

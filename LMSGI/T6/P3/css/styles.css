@@ -1,24 +1,52 @@
 h1 {
-    margin-top: 5%;
     text-align: center;
 }
 .content {
-    margin: 5% 20% 5% 20%;
+    margin: 2.5% 20% 2.5% 20%;
+    border: solid blue 2px;
+    padding: 0% 5% 10%;
+    height: 800px;
+}
+.formulario {
     border: solid blue 2px;
     padding: 5%;
-    height: 600px;
+    height: 700px;
+    margin: 0px;
+    background-color: #CFFFFF
 }
-
 .izquierda {
     float: left;
     clear: both;
     width: 49%;
     text-align: right;
-    margin-bottom: 2%;
 }
 .derecha {
     float: right;
     clear: right;
     width: 45%;
 }
-
+.seccion span {
+    margin-top: 15px;
+    margin-bottom: 20px;
+}
+label {
+    margin-top: 10px;
+}
+input {
+    margin-top: 10px;
+}
+.radio-buttons {
+    margin-top: 10px;
+}
+.submit-buttons{
+    clear: both;
+    margin-left: 190px;
+}
+.checkbox {
+    float: left;
+}
+.button {
+    width: 100px;
+    text-align: center;
+    margin-left: 35px;
+}

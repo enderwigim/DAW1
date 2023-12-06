@@ -8,40 +8,30 @@
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-    <div class="content">
-        <b class="izquierda">Datos del Cliente:</b><br>
-    <form action= "" method="post">
-        <div>
-            <label class="izquierda" for="email">Correo Electrónico</label>
-            <input class="derecha" name="email" id="email" type="email">
-        </div>
-        <div>
-            <label class="izquierda" for="password">Contraseña</label>
-            <input class="derecha" name="password" id="password" type="text" minlength="6">
-    <!--
+    
     <h1>Industrias ACME. Formulario de pedido</h1>
     <div class="content">
-            <b>Datos del Cliente:</b><br>
+            <b class="izquierda">Datos del Cliente:</b><br>
         <form action= "" method="post">
+            <label class="izquierda" for="name">Nombre</label>
+            <input class="derecha" name="name" id="name">
             <div>
-                <label for="email">Correo Electrónico</label>
-                <input name="email" id="email" type="email">
+                <label class="izquierda" for="email">Correo Electrónico</label>
+                <input class="derecha" name="email" id="email" type="email">
             </div>
             <div>
-                <label for="password">Contraseña</label>
-                <input name="password" id="password" type="text" minlength="6">
-                <label>(Longitud mínima 6 caracteres)</label>
-                <br>
+                <span class="izquierda">Tipo de Cliente</span>
+                <div class="derecha">
+                    <input name="client" id="particular" type="radio" value="particular"><label for="particular">Particular</label>
+                    <br>
+                    <input name="client" id="asociacion"type="radio" value="asociacion"><label for="asociacion">Asociación</label>
+                    <br>
+                    <input name="client" id="company"type="radio" value="empresa"><label for="company">Empresa</label>  
+                </div>
             </div>
             <div>
-                <span>Tipo de Cliente</span>
-                <input name="client" id="particular" type="radio" value="particular"><label for="particular">Particular</label>
-                <input name="client" id="asociacion"type="radio" value="asociacion"><label for="asociacion">Asociación</label>
-                <input name="client" id="company"type="radio" value="empresa"><label for="company">Empresa</label>
-            </div>
-            <div>
-                <span><b>Datos de productos:</b><span><br>
-                <select name="product-data">
+                <span class="izquierda"><b>Datos de productos:</b></span><br>
+                <select class="derecha" name="product-data">
                     <option value="gold">AR001 Oro Reluciente</option>
                     <option value="silver">AR002 Plata Pulida</option>
                     <option value="bronze">AR003 Bronce Reforzado</option>
@@ -50,40 +40,39 @@
                 </select>
             </div>
             <div>
-                <b>Datos del envío:</b>
+                <b class="izquierda">Datos del envío:</b>
                 <br>
-                <label for="address">Dirección</label><br>
-                <input name="address" type="text" id="address"><br>
-                <label for="city">Ciudad</label><br>
-                <input name="city" id="city">
-                <label for="postal-code">Código Postal</label>
-                <input name="postal-code" id="postal-code">
+                <label class="izquierda" for="address">Dirección</label><br>
+                <input class="derecha" name="address" type="text" id="address"><br>
+                <label class="izquierda" for="city">Ciudad</label><br>
+                <input class="derecha" name="city" id="city">
+                <label class="izquierda" for="postal-code">Código Postal</label>
+                <input class="derecha" name="postal-code" id="postal-code">
             </div>
             <div>
-                <span><b>Datos Bancarios:</b></span>
+                <span class="izquierda"><b>Datos Bancarios:</b></span>
                 <br>
-                <label for="entity-name">Nombre de la Entidad</label>
+                <label class="izquierda" for="entity-name">Nombre de la Entidad</label>
                 <br>
-                <input name="entity-name" id="entity-name">
+                <input class="derecha" name="entity-name" id="entity-name">
                 <br>
-                <label for="account-number">Nº de Cuenta</label><br>
-                <input name="account-number" id="account-number">
+                <label class="izquierda" for="account-number">Nº de Cuenta</label><br>
+                <input class="derecha" name="account-number" id="account-number">
                 <br>
             </div>
             <div>
-                <span><b>Información de interés:</b></span>
+                <span class="izquierda"><b>Otra información del pedido:</b></span>
                 <br>
-                <label for="comment">Comentarios</label><br>
-                <textarea placeholder="Escriba su comentario aqui..."rows="4" cols="50" name="comment" id="comment"></textarea>
+                <label class="izquierda" for="comment">Comentarios</label><br>
+                <textarea class="derecha" placeholder="Escriba su comentario aqui..."rows="4" cols="50" name="comment" id="comment"></textarea>
                 <br>
-                <input name="get-info" id="get-info" type="checkbox"> 
-                <label for="get-info">Acepto recibir información publicitaria</label>
-                <br>
-                <br>
+                <label class="izquierda" for="get-info">Acepto recibir información publicitaria</label>
+                <input class="derecha" name="get-info" id="get-info" type="checkbox"> 
             </div>
-            <input type="submit" value="Enviar"><button>Cancelar</button>
+            <input class="izquierda" type="submit" value="Enviar">
+            <input class="derecha" type="submit" value="Cancelar">
         </form>
     </div>
-    -->
+    
 </body>
 </html>

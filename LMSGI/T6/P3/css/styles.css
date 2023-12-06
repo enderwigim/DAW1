@@ -5,7 +5,8 @@ h1 {
 .content {
     margin: 5% 20% 5% 20%;
     border: solid blue 2px;
-    padding: 2%;
+    padding: 5%;
+    height: 600px;
 }
 
 .izquierda {
@@ -13,9 +14,11 @@ h1 {
     clear: both;
     width: 49%;
     text-align: right;
-    border: 1px solid black;
+    margin-bottom: 2%;
 }
 .derecha {
     float: right;
+    clear: right;
     width: 45%;
 }
+

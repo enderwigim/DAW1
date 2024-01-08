@@ -46,6 +46,7 @@
         function initGame() {
             pacman.x = 200
             pacman.y = 150
+            pacman.color = "yellow"
 
 
             window.requestAnimationFrame(onFrame)
@@ -66,6 +67,7 @@
             let ctx = c.getContext("2d")
             ctx.clearRect(0, 0, c.width, c.height);
 
+            
             ctx.beginPath();
             ctx.arc(pacman.x, pacman.y, 40, 0, 2 * Math.PI * 0.85)
             ctx.stroke();

@@ -86,6 +86,7 @@ SELECT codPedido,
  WHERE fecha_entrega <= DATEADD(DAY, -2, fecha_esperada) ;
 
 -- 11. Misma consulta pero utilizando la función DATEDIFF
+
 SELECT codPedido,
        codCliente,
 	   fecha_esperada,

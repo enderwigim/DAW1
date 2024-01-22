@@ -10,7 +10,7 @@
 ---------------------------------------
 -- A) Consultas sobre una tabla (16) --
 ---------------------------------------
-
+USE JARDINERIA;
 -- 1. Devuelve un listado con el código de oficina y la ciudad donde hay oficinas.
 SELECT codOficina, 
        ciudad
@@ -200,37 +200,151 @@ SELECT codPedido,
 
 
 -- 28. Calcula la suma de la cantidad total de todos los productos que aparecen en cada uno de los pedidos
-SELECT ;
+SELECT codPedido,
+       SUM(cantidad) AS cantidadProductos
+  FROM DETALLE_PEDIDOS
+ GROUP BY codPedido;
 
 -- 29. Devuelve un listado de los 20 productos más vendidos y el número total de unidades que se han vendido de cada uno.
 -- El listado deberá estar ordenado por el número total de unidades vendidas.
-SELECT ;
+SELECT TOP(20)  codProducto,
+       SUM(cantidad) AS productosVendidos
+  FROM DETALLE_PEDIDOS
+ GROUP BY codProducto
+ ORDER BY productosVendidos DESC;
 
 -- 30. Obtener el número de empleados por oficina, siempre que el número de empleados sea mayor que 4.
-SELECT ;
+SELECT codOficina,
+       COUNT(codEmpleado) AS cantidadEmpleados
+  FROM EMPLEADOS
+ GROUP BY codOficina
+ HAVING COUNT(codEmpleado) > 4;
 
 -- 31. Obtener los clientes que hayan realizado más de dos pagos de mínimo 1000 euros.
 -- Mostrar también el número de pagos realizados.
-SELECT ;
+
+SELECT codCliente,
+       MIN(importe_pago) AS minPago,
+       COUNT(id_transaccion) AS cantidadTransacciones
+  FROM PAGOS
+ WHERE importe_pago >= 1000
+ GROUP BY codCliente
+ HAVING COUNT(id_transaccion) > 2
 
 ----------------------------------------------------------------
 --				C) Consultas multitabla (10)				  --
 ----------------------------------------------------------------
 
 -- 32. Obtén los nombres de los productos, la cantidad y el precio para los productos incluidos en los pedidos 3 y 5. Ordénalo por número de pedido y número de producto ascendentemente.
-SELECT ;
+SELECT  ped.codPedido, 
+        prod.codProducto,
+        prod.nombre, 
+        prod.precio_venta,
+        detPed.cantidad
+  FROM PEDIDOS ped,
+       PRODUCTOS prod,
+       DETALLE_PEDIDOS detPed
+ WHERE ped.codPedido = detPed.codPedido 
+   AND detPed.codProducto = prod.codProducto
+   AND ped.codPedido IN(3, 5)
+ ORDER BY ped.codPedido, prod.codProducto ASC;
+
 
 -- 33. Obtén un listado con los nombres de los clientes que han realizado algún pago. Deben aparecer los campos nombre cliente, fecha de pago y total ordenado ascendentemente por cliente y fecha.
-SELECT ;
+SELECT cl.nombre_cliente,
+       COUNT(pg.id_transaccion) AS cantidadTransacciones
+  FROM PAGOS pg,
+       CLIENTES cl
+  WHERE pg.codCliente = cl.codCliente
+  GROUP BY cl.nombre_cliente
 
+SELECT cl.nombre_cliente,
+       COUNT(pg.id_transaccion) AS cantidadTransacciones
+  FROM PAGOS pg 
+ INNER JOIN CLIENTES cl
+    ON pg.codCliente = cl.codCliente
+ GROUP BY cl.nombre_cliente
 -- 34. Obtén un listado con el nombre de cada cliente y el nombre y apellido de su representante de ventas.
-SELECT ;
+SELECT cl.nombre_cliente,
+       emp.nombre AS nombreRep,
+       emp.apellido1 AS apellido1Rep,
+       emp.apellido2 AS apellido2Rep
+  FROM CLIENTES cl,
+       EMPLEADOS emp
+  WHERE cl.codEmpl_ventas = emp.codEmpleado;
 
+
+-- EL INNER JOIN FUNCIONA EN ESTE CASO SOLO PORQUE CADA CLIENTE TIENE ASOCIADO UN REPRESENTANTE DE VENTAS.
+SELECT cl.nombre_cliente,
+       emp.nombre AS nombreRep,
+       emp.apellido1 AS apellido1Rep,
+       emp.apellido2 AS apellido2Rep
+  FROM CLIENTES cl
+ INNER JOIN EMPLEADOS emp
+    ON cl.codEmpl_ventas = emp.codEmpleado; 
+
+-- EL RESULTADO SERIA DISTINTO SI HUBIERA UN CLIENTE SIN UN REPRESENTANTE????????
+-- INSERTAREMOS UN CLIENTE PARA LUEGO BORRARLO
+/*
+INSERT INTO CLIENTES (
+  codCliente, 
+  nombre_cliente, 
+  nombre_contacto,
+  apellido_contacto,
+  telefono,
+  linea_direccion1,
+  ciudad)
+VALUES (
+  39,
+  'Pedrito',
+  'Test',
+  'Testito',
+  '613403222',
+  'Santi 123',
+  'Roma')
+*/
+-- AL HACER ESTO SE NOTA LA DIFERENCIA. El primer select muestra a todos, al que tiene y al que no
+-- El inner join no lo hace. Voy a testear el LEFT ahora.
+SELECT cl.nombre_cliente,
+       emp.nombre AS nombreRep,
+       emp.apellido1 AS apellido1Rep,
+       emp.apellido2 AS apellido2Rep
+  FROM CLIENTES cl
+  LEFT JOIN EMPLEADOS emp
+    ON cl.codEmpl_ventas = emp.codEmpleado; 
+-- EN ESTE CASO SI FUNCIONA. Ahora voy a borrar el registro.
+/*
+DELETE FROM CLIENTES
+ WHERE codCliente = 39
+*/
 -- 35. Muestra el nombre de los clientes que hayan realizado pagos junto con el nombre de sus representantes de ventas. Solo deben aparecer una vez.
-SELECT ;
+SELECT DISTINCT cl.nombre_cliente,
+       emp.nombre AS nombreRepresentante
+  FROM CLIENTES cl,
+       EMPLEADOS emp,
+       PAGOS pg
+ WHERE cl.codEmpl_ventas = emp.codEmpleado 
+   AND cl.codCliente = pg.codCliente
+
 
 -- 36. Devuelve el nombre de los clientes que han hecho pedidos y el nombre de sus representantes junto con la ciudad de la oficina a la que pertenece el representante.
-SELECT ;
+SELECT cl.nombre_cliente,
+       emp.nombre AS nombreRepresentante,
+       ofi.ciudad AS ciudadOficina,
+       ped.codPedido
+  FROM PEDIDOS ped,
+       EMPLEADOS emp,
+       OFICINAS ofi,
+       CLIENTES cl  
+  WHERE ped.codCliente = cl.codCliente
+    AND cl.codEmpl_ventas = emp.codEmpleado
+    AND emp.codOficina = ofi.codOficina 
+
+       
+
+
+
+SELECT * FROM OFICINAS
 
 -- 37. Lista la dirección de las oficinas que tengan clientes en Fuenlabrada.
 SELECT ;

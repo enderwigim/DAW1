@@ -252,23 +252,26 @@ SELECT  ped.codPedido,
 
 -- 33. Obtén un listado con los nombres de los clientes que han realizado algún pago. Deben aparecer los campos nombre cliente, fecha de pago y total ordenado ascendentemente por cliente y fecha.
 SELECT cl.nombre_cliente,
-       COUNT(pg.id_transaccion) AS cantidadTransacciones
+       pg.fechaHora_pago,
+       pg.importe_pago
   FROM PAGOS pg,
        CLIENTES cl
   WHERE pg.codCliente = cl.codCliente
-  GROUP BY cl.nombre_cliente
+  ORDER BY cl.codCliente,  pg.fechaHora_pago ASC
+  
+
 
 SELECT cl.nombre_cliente,
-       COUNT(pg.id_transaccion) AS cantidadTransacciones
+       pg.fechaHora_pago,
+       pg.importe_pago
   FROM PAGOS pg 
  INNER JOIN CLIENTES cl
     ON pg.codCliente = cl.codCliente
- GROUP BY cl.nombre_cliente
+
 -- 34. Obtén un listado con el nombre de cada cliente y el nombre y apellido de su representante de ventas.
 SELECT cl.nombre_cliente,
        emp.nombre AS nombreRep,
-       emp.apellido1 AS apellido1Rep,
-       emp.apellido2 AS apellido2Rep
+       CONCAT(emp.apellido1, ' ', emp.apellido2) AS apellidoRep
   FROM CLIENTES cl,
        EMPLEADOS emp
   WHERE cl.codEmpl_ventas = emp.codEmpleado;
@@ -328,10 +331,10 @@ SELECT DISTINCT cl.nombre_cliente,
 
 
 -- 36. Devuelve el nombre de los clientes que han hecho pedidos y el nombre de sus representantes junto con la ciudad de la oficina a la que pertenece el representante.
-SELECT cl.nombre_cliente,
+
+SELECT DISTINCT cl.nombre_cliente,
        emp.nombre AS nombreRepresentante,
-       ofi.ciudad AS ciudadOficina,
-       ped.codPedido
+       ofi.ciudad AS ciudadOficina
   FROM PEDIDOS ped,
        EMPLEADOS emp,
        OFICINAS ofi,
@@ -344,23 +347,56 @@ SELECT cl.nombre_cliente,
 
 
 
-SELECT * FROM OFICINAS
 
 -- 37. Lista la dirección de las oficinas que tengan clientes en Fuenlabrada.
-SELECT ;
+
+SELECT cl.codCliente,
+       cl.ciudad,
+       ofi.linea_direccion1,
+       ofi.linea_direccion2
+  FROM CLIENTES cl,
+       EMPLEADOS emp,
+       OFICINAS ofi
+  WHERE cl.codEmpl_ventas = emp.codEmpleado
+    AND emp.codOficina = ofi.codOficina
+    AND LOWER(cl.ciudad) = 'fuenlabrada';
+
 
 -- 38. Devuelve un listado con el nombre de los empleados junto con el nombre de sus jefes (debes utilizar dos alias para la tabla EMPLEADOS).
-SELECT ;
+SELECT emp1.nombre AS nombreEmpleado,
+       CONCAT(emp1.apellido1, ' ', emp1.apellido2) AS apellidoEmpleado,
+       emp2.nombre AS nombreJefe,
+       CONCAT(emp1.apellido1, ' ', emp1.apellido2) AS apellidoJefe
+  FROM EMPLEADOS emp1,
+       EMPLEADOS emp2
+  WHERE emp1.codEmplJefe = emp2.codEmpleado;
 
 -- 39. Devuelve el nombre de los clientes a los que no se les ha entregado a tiempo un pedido. Si se han retrasado varios pedidos, el cliente solo debe aparecer una vez.
-SELECT ;
+SELECT DISTINCT cl.nombre_cliente
+  FROM PEDIDOS ped,
+       CLIENTES cl
+ WHERE cl.codCliente = ped.codCliente 
+   AND DATEDIFF(DAY, fecha_esperada, fecha_entrega) > 0;
+
+
 
 -- 40. Muestra el nombre de los clientes y el número de pagos que han realizado.
 -- Deben aparecer todos, independientemente de si han realizado un pago o no.
-SELECT ;
+SELECT cl.nombre_cliente,
+       COUNT(1) AS cantidadPagos
+  FROM CLIENTES cl
+  LEFT JOIN PAGOS pg 
+    ON cl.codCliente = pg.codCliente
+ GROUP BY cl.codCliente, cl.nombre_cliente;
 
 -- 41. Muestra el nombre de los clientes y el número de pedidos que han sido Entregados.
 -- Deben aparecer todos, independientemente de si han realizado un pedido o no.
-SELECT ;
+SELECT cl.nombre_cliente,
+       COUNT(1) AS numeroPedEntregados
+  FROM CLIENTES cl 
+  LEFT JOIN PEDIDOS pg 
+    ON pg.codCliente = cl.codCliente
+ WHERE pg.codEstado = 'E'
+ GROUP BY cl.nombre_cliente;
 
 

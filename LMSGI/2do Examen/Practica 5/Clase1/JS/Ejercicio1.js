@@ -75,10 +75,8 @@
 // document.write(sum);
 
 //Ej3
-
 const random_number = Math.floor(Math.random()*10)+1;
 let founded = false;
-
 for(let i = 1; i <= 3 && !founded; i++) {
     let num = parseInt(prompt("Enter a number"));
     if (num === random_number) {

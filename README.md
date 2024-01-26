@@ -1,5 +1,6 @@
 # 1daw
-This is the repository that I'm going to use for class
-------------------------------------------------------
+This is all the work that I needed to complete to grade from my first year of my degree as Web Application Developer
+--------------------------------------------------------------------------------------------------------------------
 Santiago Lorenzano
-------------------------------------------------------
+
+--------------------------------------------------------------------------------------------------------------------

@@ -17,8 +17,7 @@ SELECT codOficina,
   FROM OFICINAS;
 
 -- 2. Devuelve un listado con la ciudad y el teléfono de las oficinas del país España.
-SELECT codOficina,
-       ciudad,
+SELECT ciudad,
        telefono
   FROM OFICINAS
  WHERE pais = 'España';
@@ -26,17 +25,17 @@ SELECT codOficina,
 -- 3. Devuelve un listado con el nombre, apellidos y email de los empleados cuyo jefe tiene un código de jefe igual a 7.
 SELECT nombre,
        apellido1,
-	   apellido2,
-	   email
+	    apellido2,
+	    email
   FROM EMPLEADOS
  WHERE codEmplJefe = 7;
 
 -- 4. Devuelve el nombre del puesto, nombre, apellidos y email del empleado que NO tiene ningún jefe/a
 SELECT puesto_cargo,
        nombre,
-	   apellido1,
-	   apellido2,
-	   email
+	     apellido1,
+	     apellido2,
+	     email
   FROM EMPLEADOS
  WHERE codEmplJefe IS NULL;
 
@@ -44,10 +43,10 @@ SELECT puesto_cargo,
 
 SELECT nombre,
        apellido1,
-	   apellido2,
-	   puesto_cargo
+	    apellido2,
+	    puesto_cargo
   FROM EMPLEADOS
- WHERE LOWER(puesto_cargo) = 'representante ventas';
+ WHERE LOWER(puesto_cargo) != 'representante ventas';
 
 -- 6. Devuelve un listado con el nombre de los todos los clientes españoles.
 SELECT nombre_cliente
@@ -67,9 +66,8 @@ SELECT DISTINCT codCliente
 -- 9. Devuelve un listado con el código de pedido, código de cliente, fecha esperada y fecha de entrega de los pedidos que no han sido entregados a tiempo.
 SELECT codPedido,
        codCliente,
-	   fecha_esperada,
-	   fecha_entrega,
-	   DATEDIFF(DAY,fecha_esperada, fecha_entrega) AS dias_diferencia
+	     fecha_esperada,
+	     fecha_entrega
   FROM PEDIDOS
  WHERE DATEDIFF(DAY,fecha_esperada, fecha_entrega) > 0;
 
@@ -79,43 +77,39 @@ SELECT codPedido,
 
 SELECT codPedido,
        codCliente,
-	   fecha_esperada,
-	   fecha_entrega,
-	   DATEADD(DAY, -2, fecha_esperada)
+	     fecha_esperada,
+	     fecha_entrega
   FROM PEDIDOS
- WHERE fecha_entrega <= DATEADD(DAY, -2, fecha_esperada) ;
+ WHERE fecha_entrega <= DATEADD(DAY, -2, fecha_esperada);
 
 -- 11. Misma consulta pero utilizando la función DATEDIFF
 
 SELECT codPedido,
        codCliente,
-	   fecha_esperada,
-	   fecha_entrega,
-	   DATEDIFF(DAY,fecha_esperada, fecha_entrega) AS dias_diferencia
+	     fecha_esperada,
+	     fecha_entrega
   FROM PEDIDOS
  WHERE DATEDIFF(DAY,fecha_esperada, fecha_entrega) <= -2;
 
 -- 12. Devuelve un listado de todos los pedidos que fueron rechazados en 2022
-SELECT codPedido, 
-       codEstado,
-	   fecha_pedido
+
+SELECT *
   FROM PEDIDOS
- WHERE YEAR(fecha_pedido) = 2022;
+ WHERE YEAR(fecha_pedido) = 2022
+   AND codEstado = 'R';
 
 -- 13. Devuelve un listado de todos los pedidos que han sido entregados en el mes de enero de cualquier año
-SELECT codPedido,
-       fecha_pedido,
-	   fecha_esperada,
-	   fecha_entrega,
-	   codEstado,
-	   comentarios
+SELECT *
   FROM PEDIDOS
- WHERE MONTH(fecha_entrega) = 1;
+ WHERE MONTH(fecha_entrega) = 1
+   AND codEstado = 'E';
 
 -- 14. Devuelve un listado con todos los pagos que se realizaron en el año 2022 mediante Paypal. Ordena el resultado de mayor a menor
-SELECT codCliente, id_transaccion
+SELECT *
   FROM PAGOS
-  WHERE codFormaPago = 'P' AND YEAR(fechaHora_pago) = 2022;
+  WHERE codFormaPago = 'P' 
+    AND YEAR(fechaHora_pago) = 2022
+  ORDER BY id_transaccion DESC;
 
 -- 15. Devuelve un listado con todas las formas de pago que aparecen en la tabla PAGOS. Ten en cuenta que no deben aparecer formas de pago repetidas.
 SELECT DISTINCT codFormaPago
@@ -123,9 +117,10 @@ SELECT DISTINCT codFormaPago
 
 -- 16. Devuelve un listado con todos los productos que pertenecen a la categoría Ornamentales y que tienen más de 100 unidades en stock.
 -- El listado deberá estar ordenado por su precio de venta, mostrando en primer lugar los de mayor precio.
-SELECT codProducto, nombre, codCategoria, precio_venta
+SELECT *
   FROM PRODUCTOS
  WHERE codCategoria = 'OR'
+   AND cantidad_en_stock > 100
  ORDER BY precio_venta DESC;
 
 -- 17. Devuelve un listado con todos los clientes que sean de la ciudad de Madrid y cuyo representante de ventas tenga el código de empleado 11 o 30
@@ -143,8 +138,8 @@ SELECT COUNT(codEmpleado) AS cantidadEmpleados
   FROM EMPLEADOS;
 
 -- 19. ¿Cuántos clientes tiene cada país?
-SELECT COUNT(1) AS cantidadClientes,
-       pais
+SELECT pais,
+       COUNT(1) AS cantidadClientes
   FROM CLIENTES
   GROUP BY pais;
 
@@ -182,8 +177,7 @@ SELECT ciudad,
 SELECT codEmpl_ventas,
        COUNT(codCliente) AS clientesAtentidos
   FROM CLIENTES
- GROUP BY codEmpl_ventas
- ORDER BY clientesAtentidos DESC;
+ GROUP BY codEmpl_ventas;
 
 
 -- 26. Calcula el número de clientes que no tiene asignado representante de ventas.
@@ -236,18 +230,16 @@ SELECT codCliente,
 ----------------------------------------------------------------
 
 -- 32. Obtén los nombres de los productos, la cantidad y el precio para los productos incluidos en los pedidos 3 y 5. Ordénalo por número de pedido y número de producto ascendentemente.
-SELECT  ped.codPedido, 
-        prod.codProducto,
-        prod.nombre, 
-        prod.precio_venta,
-        detPed.cantidad
-  FROM PEDIDOS ped,
-       PRODUCTOS prod,
-       DETALLE_PEDIDOS detPed
- WHERE ped.codPedido = detPed.codPedido 
-   AND detPed.codProducto = prod.codProducto
-   AND ped.codPedido IN(3, 5)
- ORDER BY ped.codPedido, prod.codProducto ASC;
+  SELECT  prod.nombre, 
+          detPed.cantidad,
+          detPed.precio_unidad
+    FROM PEDIDOS ped,
+        PRODUCTOS prod,
+        DETALLE_PEDIDOS detPed
+  WHERE ped.codPedido = detPed.codPedido 
+    AND detPed.codProducto = prod.codProducto
+    AND ped.codPedido IN(3, 5)
+  ORDER BY ped.codPedido, prod.codProducto ASC;
 
 
 -- 33. Obtén un listado con los nombres de los clientes que han realizado algún pago. Deben aparecer los campos nombre cliente, fecha de pago y total ordenado ascendentemente por cliente y fecha.
@@ -270,8 +262,7 @@ SELECT cl.nombre_cliente,
 
 -- 34. Obtén un listado con el nombre de cada cliente y el nombre y apellido de su representante de ventas.
 SELECT cl.nombre_cliente,
-       emp.nombre AS nombreRep,
-       CONCAT(emp.apellido1, ' ', emp.apellido2) AS apellidoRep
+       CONCAT(emp.nombre, ' ', emp.apellido1, ' ', emp.apellido2) AS NombreRepresentante
   FROM CLIENTES cl,
        EMPLEADOS emp
   WHERE cl.codEmpl_ventas = emp.codEmpleado;
@@ -279,9 +270,7 @@ SELECT cl.nombre_cliente,
 
 -- EL INNER JOIN FUNCIONA EN ESTE CASO SOLO PORQUE CADA CLIENTE TIENE ASOCIADO UN REPRESENTANTE DE VENTAS.
 SELECT cl.nombre_cliente,
-       emp.nombre AS nombreRep,
-       emp.apellido1 AS apellido1Rep,
-       emp.apellido2 AS apellido2Rep
+       CONCAT(emp.nombre, ' ', emp.apellido1, ' ', emp.apellido2) AS NombreRepresentante
   FROM CLIENTES cl
  INNER JOIN EMPLEADOS emp
     ON cl.codEmpl_ventas = emp.codEmpleado; 
@@ -322,18 +311,18 @@ DELETE FROM CLIENTES
 */
 -- 35. Muestra el nombre de los clientes que hayan realizado pagos junto con el nombre de sus representantes de ventas. Solo deben aparecer una vez.
 SELECT DISTINCT cl.nombre_cliente,
-       emp.nombre AS nombreRepresentante
+       CONCAT(emp.nombre, ' ', emp.apellido1, ' ', emp.apellido2) AS NombreRepresentante
   FROM CLIENTES cl,
        EMPLEADOS emp,
        PAGOS pg
  WHERE cl.codEmpl_ventas = emp.codEmpleado 
-   AND cl.codCliente = pg.codCliente
+   AND cl.codCliente = pg.codCliente;
 
 
 -- 36. Devuelve el nombre de los clientes que han hecho pedidos y el nombre de sus representantes junto con la ciudad de la oficina a la que pertenece el representante.
 
 SELECT DISTINCT cl.nombre_cliente,
-       emp.nombre AS nombreRepresentante,
+       CONCAT(emp.nombre, ' ', emp.apellido1, ' ', emp.apellido2) AS NombreRepresentante,
        ofi.ciudad AS ciudadOficina
   FROM PEDIDOS ped,
        EMPLEADOS emp,
@@ -341,7 +330,7 @@ SELECT DISTINCT cl.nombre_cliente,
        CLIENTES cl  
   WHERE ped.codCliente = cl.codCliente
     AND cl.codEmpl_ventas = emp.codEmpleado
-    AND emp.codOficina = ofi.codOficina 
+    AND emp.codOficina = ofi.codOficina;
 
        
 
@@ -350,26 +339,23 @@ SELECT DISTINCT cl.nombre_cliente,
 
 -- 37. Lista la dirección de las oficinas que tengan clientes en Fuenlabrada.
 
-SELECT cl.codCliente,
-       cl.ciudad,
-       ofi.linea_direccion1,
+SELECT DISTINCT ofi.linea_direccion1,
        ofi.linea_direccion2
   FROM CLIENTES cl,
        EMPLEADOS emp,
        OFICINAS ofi
   WHERE cl.codEmpl_ventas = emp.codEmpleado
     AND emp.codOficina = ofi.codOficina
-    AND LOWER(cl.ciudad) = 'fuenlabrada';
+    AND LOWER(cl.ciudad) = 'fuenlabrada'
 
 
 -- 38. Devuelve un listado con el nombre de los empleados junto con el nombre de sus jefes (debes utilizar dos alias para la tabla EMPLEADOS).
-SELECT emp1.nombre AS nombreEmpleado,
-       CONCAT(emp1.apellido1, ' ', emp1.apellido2) AS apellidoEmpleado,
-       emp2.nombre AS nombreJefe,
-       CONCAT(emp1.apellido1, ' ', emp1.apellido2) AS apellidoJefe
-  FROM EMPLEADOS emp1,
-       EMPLEADOS emp2
-  WHERE emp1.codEmplJefe = emp2.codEmpleado;
+  SELECT CONCAT(emp1.nombre, ' ', emp1.apellido1, ' ', emp1.apellido2) AS apellidoEmpleado,
+         CONCAT(emp2.nombre, ' ', emp2.apellido1, ' ', emp2.apellido2) AS apellidoJefe
+    FROM EMPLEADOS emp1,
+        EMPLEADOS emp2
+    WHERE emp1.codEmplJefe = emp2.codEmpleado
+    ORDER BY emp2.nombre ASC;
 
 -- 39. Devuelve el nombre de los clientes a los que no se les ha entregado a tiempo un pedido. Si se han retrasado varios pedidos, el cliente solo debe aparecer una vez.
 SELECT DISTINCT cl.nombre_cliente
@@ -382,8 +368,9 @@ SELECT DISTINCT cl.nombre_cliente
 
 -- 40. Muestra el nombre de los clientes y el número de pagos que han realizado.
 -- Deben aparecer todos, independientemente de si han realizado un pago o no.
-SELECT cl.nombre_cliente,
-       COUNT(1) AS cantidadPagos
+SELECT cl.codCliente,
+       cl.nombre_cliente,
+       COUNT(pg.codCliente) AS cantidadPagos
   FROM CLIENTES cl
   LEFT JOIN PAGOS pg 
     ON cl.codCliente = pg.codCliente
@@ -391,12 +378,13 @@ SELECT cl.nombre_cliente,
 
 -- 41. Muestra el nombre de los clientes y el número de pedidos que han sido Entregados.
 -- Deben aparecer todos, independientemente de si han realizado un pedido o no.
-SELECT cl.nombre_cliente,
-       COUNT(1) AS numeroPedEntregados
+SELECT cl.codCliente,
+       cl.nombre_cliente,
+       COUNT(pg.codCliente) AS numeroPedEntregados
   FROM CLIENTES cl 
   LEFT JOIN PEDIDOS pg 
     ON pg.codCliente = cl.codCliente
- WHERE pg.codEstado = 'E'
- GROUP BY cl.nombre_cliente;
+   AND pg.codEstado = 'E'
+ GROUP BY cl.codCliente, cl.nombre_cliente
 
 

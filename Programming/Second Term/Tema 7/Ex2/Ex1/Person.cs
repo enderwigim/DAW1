@@ -8,7 +8,7 @@ using System.Windows.Forms;
 
 namespace Ex1
 {
-    internal class Person
+    public class Person
     {
         private string name;
         private int age;

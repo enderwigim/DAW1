@@ -18,8 +18,9 @@ namespace Ex1
         {
             InitializeComponent();
         }
-        Person person = new Person();
-        public void AddInfo()
+
+        List<Person> population = new List<Person>();
+        public void AddInfo(Person person)
         {
 
             person.PName = Interaction.InputBox("Add Name");
@@ -43,12 +44,16 @@ namespace Ex1
 
         private void btnAddPerson_Click(object sender, EventArgs e)
         {
-            AddInfo();
+            Person newPerson = new Person();
+            AddInfo(newPerson);
+            population.Add(newPerson);
+            
         }
 
         private void btnShowPerson_Click(object sender, EventArgs e)
         {
-            MessageBox.Show(person.GetPerson());
+            int index = int.Parse(Interaction.InputBox("What's the index of the person?"));
+            population[index].GetPerson();
         }
     }
 }

@@ -30,6 +30,7 @@
         {
             this.btnAddPerson = new System.Windows.Forms.Button();
             this.btnShowPerson = new System.Windows.Forms.Button();
+            this.btnShowEveryone = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnAddPerson
@@ -44,7 +45,7 @@
             // 
             // btnShowPerson
             // 
-            this.btnShowPerson.Location = new System.Drawing.Point(282, 259);
+            this.btnShowPerson.Location = new System.Drawing.Point(282, 169);
             this.btnShowPerson.Name = "btnShowPerson";
             this.btnShowPerson.Size = new System.Drawing.Size(175, 80);
             this.btnShowPerson.TabIndex = 1;
@@ -52,11 +53,21 @@
             this.btnShowPerson.UseVisualStyleBackColor = true;
             this.btnShowPerson.Click += new System.EventHandler(this.btnShowPerson_Click);
             // 
+            // btnShowEveryone
+            // 
+            this.btnShowEveryone.Location = new System.Drawing.Point(282, 274);
+            this.btnShowEveryone.Name = "btnShowEveryone";
+            this.btnShowEveryone.Size = new System.Drawing.Size(175, 80);
+            this.btnShowEveryone.TabIndex = 2;
+            this.btnShowEveryone.Text = "Show Every Text";
+            this.btnShowEveryone.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.btnShowEveryone);
             this.Controls.Add(this.btnShowPerson);
             this.Controls.Add(this.btnAddPerson);
             this.Name = "Form1";
@@ -69,6 +80,7 @@
 
         private System.Windows.Forms.Button btnAddPerson;
         private System.Windows.Forms.Button btnShowPerson;
+        private System.Windows.Forms.Button btnShowEveryone;
     }
 }
 

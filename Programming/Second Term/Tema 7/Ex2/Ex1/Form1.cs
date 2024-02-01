@@ -40,6 +40,37 @@ namespace Ex1
 
         }
 
+        public string GetEveryPerson(List<Person> people)
+        {
+            string fullText = "";
+            if (people.Count != 0)
+            {
+                foreach (Person person in people)
+                {
+                    fullText += person.GetPerson() + "\n";
+                }
+
+            }
+            else
+            {
+                fullText = "There's no people in this population. Add one";
+            }
+            return fullText;
+            
+        }
+
+        public int GetPersonId(List<Person> people, string name)
+        {
+            int index = -1;
+            for(int i = 0; i < people.Count; i++)
+            {
+                if (name == people[i].PName)
+                {
+                    index = i;
+                }
+            }
+            return index;
+        }
 
 
         private void btnAddPerson_Click(object sender, EventArgs e)
@@ -53,7 +84,27 @@ namespace Ex1
         private void btnShowPerson_Click(object sender, EventArgs e)
         {
             int index = int.Parse(Interaction.InputBox("What's the index of the person?"));
-            population[index].GetPerson();
+
+            MessageBox.Show(population[index].GetPerson());
+        }
+
+        private void btnShowEveryone_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show(GetEveryPerson(population));
+        }
+
+        private void btnSearchByName_Click(object sender, EventArgs e)
+        {
+            string personName = Interaction.InputBox("Introduce the name of the person that you are looking for.");
+            int personIndex = GetPersonId(population, personName);
+            if (personIndex > 0)
+            {
+                MessageBox.Show($"{personName} index is: {personIndex}");
+            }
+            else
+            {
+                MessageBox.Show("That person does not live in this population");
+            }
         }
     }
 }

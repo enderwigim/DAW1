@@ -1,47 +1,56 @@
-
-public class avion             {	
-	public avion (float ALTURA, float 
-    vel,  float combustible, int o)	{
-	this.ALTURA = ALTURA;this.v = vel;
-	this.combustible = combustible;this.o = o;	}
-	
-			public float Altura 	{		get { return ALTURA;}
-			}
-	
-					public int Orientacion
-					{
-						get { 
-			return
-				o;}
-	}
-	public void Virar(int 
-	  grados){
-		o= (o + 
-		    grados)%360;consumir_fuel (grados * 0.1);
-	}
-
-	public float Combustible
-	{get{return combustible;}}
-//Metodos que sirve para ascender los metros indicados
-public void a(float M) //M son los metros
+public class avion
 {
-ALTURA=ALTURA+M;consumir_fuel(M*0.3);		
+    private float altura;
+    private float velocidad; 
+    private float combustible; 
+    private int orientacion;
+
+    public avion(float altura, float velocidad, float combustible, int orientacion)
+    {
+        this.altura = altura; 
+        this.velocidad = velocidad;
+        this.combustible = combustible; 
+        this.orientacion = orientacion;
+    }
+
+    public float Altura
+    {
+        get { return altura; }
+    }
+
+    public int Orientacion
+    {
+        get { return orientacion; }
+    }
+
+    public float Combustible
+    { 
+        get { return combustible; } 
+    }
+
+    //Metodo que sirve para virar el avion los grados indicados.
+    public void Virar(int grados)
+    {
+        orientacion = (orientacion + grados) % 360;
+        ConsumirCombustible(grados * 0.1);
+    }
+    //Metodo que sirve para ascender los metros indicados
+    private void Ascender(float metros) 
+    {
+        altura = altura + metros; 
+        ConsumirCombustible(metros * 0.3);
+    }
+    //Metodo que sirve para descender los metros indicados
+    private void Descender(float metros)
+    {
+        altura = altura - metros;
+        if (altura < 0)
+            altura = 0;
+    }
+    private void ConsumirCombustible(float litros)
+    {
+        combustible = combustible - litros;
+        if (combustible < 0)
+            combustible = 0;
+    }
 }
-	//Metodos que sirve para descender los metros indicados
-	public void m(float 
-	                      metros)
-	{
-		ALTURA=ALTURA-metros;
-		if (ALTURA<0)		
-		ALTURA=0;		
-	}	
-	private float ALTURA;
-	private float v; // Velocidad del avion
-	private float combustible;private int o;	
-private void consumir_fuel (float litros)
-{		combustible=combustible-litros;
-	if (combustible<0)
-combustible = 0;		
-}
-	
-		}

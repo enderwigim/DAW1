@@ -34,19 +34,23 @@ public class avion
         orientacion = (orientacion + grados) % 360;
         ConsumirCombustible(grados * 0.1);
     }
+
     //Metodo que sirve para ascender los metros indicados
-    private void Ascender(float metros) 
+    public void Ascender(float metros) 
     {
         altura = altura + metros; 
         ConsumirCombustible(metros * 0.3);
     }
+
     //Metodo que sirve para descender los metros indicados
-    private void Descender(float metros)
+    public void Descender(float metros)
     {
         altura = altura - metros;
         if (altura < 0)
             altura = 0;
     }
+
+    //Metodo que sirve para consumir los litros indicados de combustible.
     private void ConsumirCombustible(float litros)
     {
         combustible = combustible - litros;

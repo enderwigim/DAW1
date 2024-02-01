@@ -41,6 +41,7 @@ namespace Exercise2
                 {
                     newList.Add(Oldlist[i]);
                     Oldlist.RemoveAt(i);
+                    i--;
                 }
             }
         }

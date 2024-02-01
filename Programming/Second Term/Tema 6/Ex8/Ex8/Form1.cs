@@ -69,16 +69,28 @@ namespace Ex8
                 {
                     guessedNumbers++;
                 }
-
-                foreach (int num in listPrimitiva)
-                {
-                    if (userList[i] == num)
-                    {
-                        guessedNumbers++;
-                    }
-                }
             }
             return guessedNumbers;
+        }
+
+        void readPrimitivaTicket (List<int> listPrimitiva)
+        {
+            if (listPrimitiva.Count != 0)
+            {
+                listPrimitiva.Clear();
+            }
+            int randomNumber;
+            int i = 1;
+            while (i <= 6)
+            {
+                randomNumber = GenerateRandomNumber();
+                if (!listPrimitiva.Contains(randomNumber))
+                {
+                    listPrimitiva.Add(randomNumber);
+                    i++;
+                }
+
+            }
         }
 
         private void btnCompare_Click(object sender, EventArgs e)
@@ -97,28 +109,17 @@ namespace Ex8
                     MessageBox.Show("WOOOOW, YOU ARE A WINNER!");
                 }
             }
-            MessageBox.Show("You need to generate the Primitiva and buy your ticket to play.");
+            else
+            {
+                MessageBox.Show("You need to generate the Primitiva and buy your ticket to play.");
+            }
+            
             
         }
 
         private void btnGeneratePrimitiva_Click(object sender, EventArgs e)
         {
-            if (primitivaTicket.Count != 0)
-            {
-                primitivaTicket.Clear();
-            }
-            int randomNumber;
-            int i = 1;
-            while(i <= 6)
-            {
-                randomNumber = GenerateRandomNumber();
-                if (!primitivaTicket.Contains(randomNumber))
-                {
-                    primitivaTicket.Add(randomNumber);
-                    i++;
-                }
-
-            }
+            readPrimitivaTicket(primitivaTicket);
         }
 
         private void btnBuyTicket_Click(object sender, EventArgs e)

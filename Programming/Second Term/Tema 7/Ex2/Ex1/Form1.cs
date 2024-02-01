@@ -64,7 +64,7 @@ namespace Ex1
             int index = -1;
             for(int i = 0; i < people.Count; i++)
             {
-                if (name == people[i].PName)
+                if (name.ToLower() == people[i].PName.ToLower())
                 {
                     index = i;
                 }
@@ -97,7 +97,7 @@ namespace Ex1
         {
             string personName = Interaction.InputBox("Introduce the name of the person that you are looking for.");
             int personIndex = GetPersonId(population, personName);
-            if (personIndex > 0)
+            if (personIndex >= 0)
             {
                 MessageBox.Show($"{personName} index is: {personIndex}");
             }

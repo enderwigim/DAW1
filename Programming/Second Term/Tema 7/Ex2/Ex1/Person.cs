@@ -74,7 +74,7 @@ namespace Ex1
             get { return gender; }
             set 
             { 
-                if (value == 'M' || value == 'N')
+                if (char.ToLower(value) == 'm' || char.ToLower(value) == 'fs')
                 {
                     gender = value;
                 }  

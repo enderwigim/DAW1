@@ -6,4 +6,3 @@ button.addEventListener("click", function() {
     link[0].href = "https://www.google.com";
     document.getElementById('intro').style.textAlign = "justify";
 })
-

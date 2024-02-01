@@ -46,7 +46,7 @@
             // 
             // btnShowPerson
             // 
-            this.btnShowPerson.Location = new System.Drawing.Point(282, 138);
+            this.btnShowPerson.Location = new System.Drawing.Point(42, 339);
             this.btnShowPerson.Name = "btnShowPerson";
             this.btnShowPerson.Size = new System.Drawing.Size(175, 80);
             this.btnShowPerson.TabIndex = 1;
@@ -56,7 +56,7 @@
             // 
             // btnShowEveryone
             // 
-            this.btnShowEveryone.Location = new System.Drawing.Point(282, 235);
+            this.btnShowEveryone.Location = new System.Drawing.Point(282, 310);
             this.btnShowEveryone.Name = "btnShowEveryone";
             this.btnShowEveryone.Size = new System.Drawing.Size(175, 80);
             this.btnShowEveryone.TabIndex = 2;
@@ -66,7 +66,7 @@
             // 
             // btnSearchByName
             // 
-            this.btnSearchByName.Location = new System.Drawing.Point(282, 339);
+            this.btnSearchByName.Location = new System.Drawing.Point(282, 174);
             this.btnSearchByName.Name = "btnSearchByName";
             this.btnSearchByName.Size = new System.Drawing.Size(175, 80);
             this.btnSearchByName.TabIndex = 3;

@@ -99,7 +99,7 @@ namespace Ex1
             int personIndex = GetPersonId(population, personName);
             if (personIndex >= 0)
             {
-                MessageBox.Show($"{personName} index is: {personIndex}");
+                MessageBox.Show(population[personIndex].GetPerson());
             }
             else
             {

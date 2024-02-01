@@ -37,7 +37,7 @@ namespace Ex1
             }
             else
             {
-                personText += "Marry: No";
+                personText += "Marry: No" + "\n";
             }
 
             return personText;
@@ -76,7 +76,7 @@ namespace Ex1
             { 
                 if (char.ToLower(value) == 'm' || char.ToLower(value) == 'f')
                 {
-                    gender = value;
+                    gender = char.ToUpper(value);
                 }  
             }
         }

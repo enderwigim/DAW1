@@ -1,6 +1,7 @@
 
 let button = document.getElementById("cambioImagen");
-let image = document.getElementsByTagName("img")[0]
+let image = document.getElementsByTagName("img")[0];
+let audio = new Audio("./music/1.mp3");
 
 button.addEventListener("click", function() {
     if (image.alt === "toothless1"){
@@ -12,8 +13,11 @@ button.addEventListener("click", function() {
     }
 });
 
+
+
 function changeImg() 
 {  
+  audio.play();
   window.setTimeout(function() {
     image.src = "t2.gif";
   }, 3500);   

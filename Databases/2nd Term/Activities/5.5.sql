@@ -160,7 +160,15 @@ SELECT codCliente
    AND codCliente IN (SELECT codCliente
                         FROM PEDIDOS);
 
+SELECT codCliente
+ FROM CLIENTES 
+ WHERE codCliente NOT IN (SELECT codCliente
+                            FROM PAGOS)
 
+SELECT codCliente
+ FROM CLIENTES 
+ WHERE codCliente IN (SELECT codCliente
+                        FROM PEDIDOS);
 ------------------------------------------
 -- Subconsultas con EXISTS y NOT EXISTS --
 ------------------------------------------

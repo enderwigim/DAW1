@@ -37,7 +37,7 @@ namespace Cuenta
         /// Metodo utilizado para retirar dinero de la cuenta corriente.
         /// </summary>
         /// <param>El valor del parámetro <paramref name="cantidad"/> debe ser menor que <see cref="saldo"/> y mayor a 0</param>
-        /// <returns>Devolverá la cantidad de dinero a retirar.</returns>
+        /// <returns>Devolverá la cantidad de dinero a retirar, o 0 si no se pudo retirar.</returns>
         public decimal retirar (decimal cantidad)
         {
             decimal retirado = 0;

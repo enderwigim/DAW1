@@ -15,7 +15,7 @@
 
 SELECT codCliente
   FROM PEDIDOS
- WHERE YEAR(fecha_pedido) = '2022'
+ WHERE YEAR(fecha_pedido) = 2022
  UNION
 SELECT codCliente
   FROM PAGOS
@@ -23,13 +23,13 @@ SELECT codCliente
 
 
 -- 2. Devuelve los códigos de los clientes que realizaron pedidos en 2022 y que también realizaron algún pago por transferencia. Utiliza la intersección.
-SELECT codCliente
-  FROM PEDIDOS
- WHERE YEAR(fecha_pedido) = '2022'
+   SELECT codCliente
+     FROM PEDIDOS
+    WHERE YEAR(fecha_pedido) = 2022
 INTERSECT
-SELECT codCliente
-  FROM PAGOS
- WHERE codFormaPago = 'T';
+   SELECT codCliente
+     FROM PAGOS
+    WHERE codFormaPago = 'T';
 
 -- 3. Devuelve los códigos de los clientes que realizaron pedidos en 2022 PERO QUE NO los clientes que realizaron pagos por transferencia. Utiliza la diferencia.
 SELECT codCliente
@@ -41,8 +41,15 @@ SELECT codCliente
  WHERE codFormaPago = 'T';
 
 -- 4. Propón el enunciado de una consulta de conjuntos y escribe la consulta SQL.
-SELECT ;
-
+-- Devuelve los empleados que cobran mas de la media en salario y que trabajen en las oficinas de España
+   SELECT *
+     FROM EMPLEADOS
+    WHERE salario >= (SELECT AVG(salario)
+                      FROM EMPLEADOS)
+INTERSECT
+   SELECT *
+     FROM EMPLEADOS
+    WHERE RIGHT(codOficina, 2) = 'ES'; 
 
 ----------------------------------
 --    B) Subconsultas (20)      --
@@ -83,10 +90,16 @@ SELECT *
 
 
 -- 6. Propón el enunciado de una consulta de conjuntos y escribe la consulta SQL (puede ser de cualquier tipo, con IN, NOT IN, ALL, ANY, etc).
-SELECT ;
-
+-- Devuelve los clientes pertenecientes a la clientela de Mariko Kishi
+SELECT *
+  FROM CLIENTES
+ WHERE codEmpl_ventas = (SELECT codEmpleado
+                           FROM EMPLEADOS
+                          WHERE LOWER(nombre) = 'mariko'
+                            AND LOWER(apellido1) = 'kishi')
 
 --------------------------------------------------------------------
+
 --  Subconsultas con ALL y ANY  --
 --  IMPORTANTE: NO UTILIZAR MAX o MIN en las subconsultas
 --------------------------------------------------------------------
@@ -107,7 +120,7 @@ SELECT nombre
 SELECT *
   FROM PRODUCTOS
  WHERE cantidad_en_stock <= ALL (SELECT cantidad_en_stock
-                              FROM PRODUCTOS);
+                                   FROM PRODUCTOS);
 
 
 ----------------------------------
@@ -117,20 +130,20 @@ SELECT *
 -- 1. Devuelve un listado que muestre solamente los clientes que no han realizado ningún pago.
 SELECT *
   FROM CLIENTES cl 
-  WHERE cl.codCliente NOT IN (SELECT pg.codCliente
+ WHERE cl.codCliente NOT IN (SELECT pg.codCliente
                                 FROM PAGOS pg);
 
 
 -- 2. Devuelve un listado que muestre solamente los clientes que han realizado algún pago.
 SELECT *
   FROM CLIENTES cl 
-  WHERE cl.codCliente IN (SELECT pg.codCliente
-                                FROM PAGOS pg);
+ WHERE cl.codCliente IN (SELECT pg.codCliente
+                            FROM PAGOS pg);
 
 -- 3. Devuelve un listado de los productos que nunca han aparecido en un pedido.
 SELECT *
   FROM PRODUCTOS
-  WHERE codProducto NOT IN (SELECT codProducto
+ WHERE codProducto NOT IN (SELECT codProducto
                               FROM DETALLE_PEDIDOS);
 
 
@@ -143,30 +156,35 @@ SELECT emp.codEmpleado,
        ofi.telefono
   FROM EMPLEADOS emp,
        OFICINAS ofi
-  WHERE emp.codOficina = ofi.codOficina
-    AND codEmpleado NOT IN (SELECT cl.codEmpl_ventas
-                              FROM CLIENTES cl)
-
+ WHERE emp.codOficina = ofi.codOficina
+   AND codEmpleado NOT IN (SELECT cl.codEmpl_ventas
+                             FROM CLIENTES cl)
 
 
 -- 5. Devuelve las oficinas donde trabajan alguno de los empleados.
-SELECT ;
+
+SELECT *
+  FROM OFICINAS
+ WHERE codOficina IN (SELECT codOficina
+                        FROM EMPLEADOS);
 				   
 -- 6. Devuelve un listado con los clientes que han realizado algún pedido pero no que hayan realizado ningún pago.
+
 SELECT codCliente
- FROM CLIENTES 
+  FROM CLIENTES 
  WHERE codCliente NOT IN (SELECT codCliente
                             FROM PAGOS)
    AND codCliente IN (SELECT codCliente
                         FROM PEDIDOS);
 
+
 SELECT codCliente
- FROM CLIENTES 
+  FROM CLIENTES 
  WHERE codCliente NOT IN (SELECT codCliente
                             FROM PAGOS)
 
 SELECT codCliente
- FROM CLIENTES 
+  FROM CLIENTES 
  WHERE codCliente IN (SELECT codCliente
                         FROM PEDIDOS);
 ------------------------------------------
@@ -174,16 +192,35 @@ SELECT codCliente
 ------------------------------------------
 
 -- 1. Devuelve un listado que muestre solamente los clientes que no han realizado ningún pago.
-SELECT ;
+SELECT *
+  FROM CLIENTES cli
+  WHERE NOT EXISTS (SELECT *
+                      FROM PAGOS pg
+                     WHERE cli.codCliente = pg.codCliente);
 
 -- 2. Devuelve un listado que muestre solamente los clientes que han realizado algún pago.
-SELECT ;
+SELECT *
+  FROM CLIENTES cli
+ WHERE EXISTS (SELECT *
+                 FROM PAGOS pg
+                WHERE cli.codCliente = pg.codCliente);
 
 -- 3. Devuelve un listado de los productos que nunca han aparecido en un pedido.
-SELECT ;
+SELECT *
+  FROM PRODUCTOS prod
+  WHERE NOT EXISTS (SELECT *
+                      FROM DETALLE_PEDIDOS det
+                     WHERE prod.codProducto = det.codProducto);
+
+
 
 -- 4. Devuelve un listado de los productos que han aparecido en un pedido alguna vez.
-SELECT ;
+SELECT *
+  FROM PRODUCTOS prod
+ WHERE EXISTS (SELECT *
+                 FROM DETALLE_PEDIDOS det
+                WHERE prod.codProducto = det.codProducto);
+
 
 
 ---------------------------
@@ -191,10 +228,20 @@ SELECT ;
 ---------------------------
 
 -- 1. Crea una vista que devuelva los códigos de los clientes que realizaron pedidos en 2009 y los clientes que realizaron pagos por transferencia. Utiliza la unión.
+CREATE VIEW VClientesTransferencia2009 AS
+SELECT codCliente
+  FROM PEDIDOS
+ WHERE YEAR(fecha_pedido) = '2009'
+ UNION
+SELECT codCliente
+  FROM PAGOS
+ WHERE codFormaPago = 'T';
+
 
 
 -- 2. Escribe el código SQL para realizar una consulta a dicha vista
-
+SELECT *
+  FROM VClientesTransferencia2009;
 
 -- 3. Escribe el código SQL para eliminar dicha vista.
-
+DROP VIEW VClientesTransferencia2009;

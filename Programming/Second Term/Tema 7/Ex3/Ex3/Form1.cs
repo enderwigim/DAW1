@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Ex3
 {
@@ -19,39 +20,14 @@ namespace Ex3
         }
         List<Date> dateList = new List<Date>();
 
-        public bool DateIsValid(Date date)
-        {
-            bool isValid = false;
-            if (date.DMonth == 2)
-            {
-                if (date.DDay <= 28)
-                {
-                    isValid = true;
-                }
-            }
-            else if (date.DMonth == 4 || date.DMonth == 5 || date.DMonth == 9 || date.DMonth == 11)
-            {
-                if (date.DDay <= 30)
-                {
-                    isValid = true;
-                }
-            } else
-            {
-                if (date.DDay <= 31)
-                {
-                    isValid = true;
-
-                }
-            }
-            return isValid;
-        }
+        
         public void AddDateToList()
         {
             Date newDate = new Date();
             newDate.DDay = int.Parse(Interaction.InputBox("Add a Day to this Date"));
             newDate.DMonth = int.Parse(Interaction.InputBox("Add a Month to this Date"));
             newDate.DYear = int.Parse(Interaction.InputBox("Add a Year to this Date"));
-            if (DateIsValid(newDate))
+            if (newDate.DateIsValid())
             {
                 dateList.Add(newDate);
             }
@@ -60,14 +36,75 @@ namespace Ex3
                 MessageBox.Show("The Date is not Valid");
             }
         }
+        public bool isDatePrevious(Date firstDate, Date newDate)
+        {
+            bool isDatePrevious = true;
+            if (firstDate.DYear > newDate.DYear)
+            {
+                isDatePrevious = false;
+            }
+            else if (firstDate.DYear == newDate.DYear)
+            {
+                if (firstDate.DMonth > newDate.DMonth)
+                {
+                    isDatePrevious = false;
+                }
+                else if (firstDate.DDay == newDate.DDay)
+                {
+                    if (firstDate.DDay > newDate.DDay)
+                    {
+                        isDatePrevious = false;
+                    }
+                }
+            }
+            return isDatePrevious;
+        }
+
+        public void OrderList(List<Date> list)
+        {
+            for (int i = 0; i < list.Count - 1; i++)
+            {
+                for (int j = i + 1; j < list.Count; j++)
+                {
+                    if (! isDatePrevious(list[i], list[j]) )
+                    {
+                        Date changeDate = list[i];
+                        list[i] = list[j];
+                        list[j] = changeDate;
+                    }
+                }
+            }
+        }
+        public string ShowList(List<Date> dates)
+        {
+            string text = "";
+            for (int i = 0; i < dateList.Count; i++)
+            {
+                text += dateList[i].GetDate();
+            }
+            return text;
+        }
+
         private void btnReadDate_Click(object sender, EventArgs e)
         {
-            AddDateToList();
+            DialogResult moreDates = DialogResult.Yes;
+            while (moreDates == DialogResult.Yes)
+            {
+                AddDateToList();
+                moreDates = MessageBox.Show("Do you want to add a new date?", "" ,MessageBoxButtons.YesNo);
+            }
         }
 
         private void btnShowDate_Click(object sender, EventArgs e)
         {
-            MessageBox.Show(dateList[0].GetDate());
+            string text = "";
+            text = ShowList(dateList);
+            MessageBox.Show(text);
+        }
+
+        private void btnOrder_Click(object sender, EventArgs e)
+        {
+            OrderList(dateList);
         }
     }
 }

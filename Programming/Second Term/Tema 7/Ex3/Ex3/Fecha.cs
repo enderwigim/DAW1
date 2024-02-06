@@ -18,30 +18,56 @@ namespace Ex3
             month = 0;
             year = 0;
         }
+        public int Dday
+        {
+            get { return day; }
+            set 
+            { 
+               day = value; 
+            }
+
+        }
+        public int Dmonth
+        {
+            get { return month; }
+            set
+            {
+                if (value > 0 && value < 12)
+                {
+                    month = value;
+                }
+            }
+        }
+        public int DYear
+        {
+            get { return year; }
+            set { year = value; }
+        }
 
         public bool DateIsValid()
         {
             bool isValid = false;
-            if (this.DMonth == 2)
+            if (this.month == 2)
             {
-                if (this.DDay <= 29 && LeapYear(this.DDay))
+                if (day <= 29 && LeapYear(day))
                 {
                     isValid = true;
-                } else if (this.DDay <= 28)
+                }
+                else if (day <= 28)
                 {
                     isValid = true;
                 }
             }
-            else if (this.DMonth == 4 || this.DMonth == 5 || this.DMonth == 9 || this.DMonth == 11)
+            else if (month == 4 || month == 5 || month == 9 || month == 11)
             {
-                if (this.DDay <= 30)
+                if (day <= 30)
                 {
                     isValid = true;
                 }
             }
             else
             {
-                if (this.DDay <= 31)
+                if (day <= 31)
                 {
                     isValid = true;
 
@@ -66,35 +92,11 @@ namespace Ex3
             }
             return isLeap;
         }
-        public int DDay
-        {
-            get { return day; }
-            set 
-            { 
-               day = value; 
-            }
-        }
-        public int DMonth
-        {
-            get { return month; }
-            set
-            {
-                if (value > 0 && value < 12)
-                {
-                    month = value;
-                }
-            }
-        }
-        public int DYear
-        {
-            get { return year; }
-            set { year = value; }
-        }
 
         public string GetDate()
         {
             string dateText = "";
-            dateText += this.DYear + "/" + this.DMonth + "/" + this.DDay + "\n";
+            dateText += this.DYear + "/" + this.month + "/" + this.day + "\n";
             return dateText;
         }
     }

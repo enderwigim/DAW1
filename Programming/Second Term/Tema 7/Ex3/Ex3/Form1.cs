@@ -24,8 +24,8 @@ namespace Ex3
         public void AddDateToList()
         {
             Date newDate = new Date();
-            newDate.DDay = int.Parse(Interaction.InputBox("Add a Day to this Date"));
-            newDate.DMonth = int.Parse(Interaction.InputBox("Add a Month to this Date"));
+            newDate.day = int.Parse(Interaction.InputBox("Add a Day to this Date"));
+            newDate.month = int.Parse(Interaction.InputBox("Add a Month to this Date"));
             newDate.DYear = int.Parse(Interaction.InputBox("Add a Year to this Date"));
             if (newDate.DateIsValid())
             {
@@ -45,13 +45,13 @@ namespace Ex3
             }
             else if (firstDate.DYear == newDate.DYear)
             {
-                if (firstDate.DMonth > newDate.DMonth)
+                if (firstDate.month > newDate.month)
                 {
                     isDatePrevious = false;
                 }
-                else if (firstDate.DDay == newDate.DDay)
+                else if (firstDate.day == newDate.day)
                 {
-                    if (firstDate.DDay > newDate.DDay)
+                    if (firstDate.day > newDate.day)
                     {
                         isDatePrevious = false;
                     }

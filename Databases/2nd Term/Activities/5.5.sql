@@ -228,6 +228,7 @@ SELECT *
 ---------------------------
 
 -- 1. Crea una vista que devuelva los códigos de los clientes que realizaron pedidos en 2009 y los clientes que realizaron pagos por transferencia. Utiliza la unión.
+GO
 CREATE VIEW VClientesTransferencia2009 AS
 SELECT codCliente
   FROM PEDIDOS
@@ -236,7 +237,7 @@ SELECT codCliente
 SELECT codCliente
   FROM PAGOS
  WHERE codFormaPago = 'T';
-
+GO
 
 
 -- 2. Escribe el código SQL para realizar una consulta a dicha vista

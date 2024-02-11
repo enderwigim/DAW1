@@ -54,6 +54,22 @@ function addNewLiElement(new_text) {
     ul.appendChild(li);
 }
 
+// Esta función cambiará el estilo de cualquier item, cambiando el textDecoration de "none" a "line-through",
+// y viceversa.
+function changeLineThrough(label_to_change) {
+    // Si el 
+    if (label_to_change.children[1].style.textDecoration != 'line-through'){
+        label_to_change.children[0].checked = true;
+        label_to_change.children[1].style.textDecoration = 'line-through';
+        
+
+
+    } else {
+        label_to_change.children[1].style.textDecoration = 'none';
+        label_to_change.children[0].checked = false;
+    }
+}
+
 add_element_btn.addEventListener("click", function() {
     // Le pediremos al usuario que ingrese un texto nuevo.
     let new_text = prompt("Añade un nuevo elemento.");
@@ -85,15 +101,16 @@ ul.addEventListener("click", function(e) {
 
         
         if (to_do_label.style.textDecoration != 'line-through'){
-            to_do_label.style.textDecoration = 'line-through';
-
-        } else {
-            to_do_label.style.textDecoration = 'none';
-        }
+        changeLineThrough(e.target.parentElement);
         
     }
-    else if (e.target.nodeName == "LABEL" && e.target.class == "trash_label") {
-        // If the .trash_label label was clicked, we will select its parent and we will remove it.
+    else if (e.target.nodeName == "LABEL" && e.target.className == "trash_label") {
+        // Si se da click a .trash_label, seleccionaremos al padre y lo borraremos.
         e.target.parentElement.remove();
+    }
+    // En caso de que se de click a un LABEL, y este sea el to_do_label, cambiaremos el estado del texto.
+    else if (e.target.nodeName == "LABEL" && e.target.className == "to_do_label") {
+        
+        changeLineThrough(e.target.parentElement);
     }
 })

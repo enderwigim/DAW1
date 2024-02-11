@@ -4,14 +4,24 @@ let delete_last_btn = document.getElementById("delete_last_element");
 
 
 add_element_btn.addEventListener("click", function() {
+    // Le pediremos al usuario que ingrese un texto nuevo.
     let new_text = prompt("Añade un nuevo elemento.");
-    let li = document.createElement("li");
-    let checkbox = document.createElement("input");
-    checkbox.type = "checkbox";
-    let li_text = document.createTextNode(new_text);
-    li.appendChild(checkbox);
-    li.appendChild(li_text);
-    ul.appendChild(li);
+    // Si el texto nuevo, no se encuentra vacio, lo añadiremos.
+    // No queremos añadir elementos vacios a la lista.
+    if (new_text !== '') {
+        let li = document.createElement("li");
+
+        let checkbox = document.createElement("input");
+        checkbox.type = "checkbox";
+        
+        let li_text = document.createTextNode(new_text);
+        li.appendChild(checkbox);
+        li.appendChild(li_text);
+        ul.appendChild(li);
+    } else {
+        alert("El elemento agregado, estaba vacio. Completa el espacio.")
+    }
+    
 })
 
 delete_last_btn.addEventListener("click", function() {

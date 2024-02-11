@@ -3,12 +3,24 @@ body {
     padding: 0px;
     border: 0px;
 }
+ul {
+    list-style-type: none;
+}
+h1 {
+    margin-bottom: 0%;
+}
 
 
 .to_do_list_cont {
-    margin-top: 5%;
+    border: 5px solid;
+    margin: auto;
+    width: 50%;
+    padding: 10px;
     display: flex;
     flex-direction: column;
-    text-align: center;
+    align-items: center;
+    
 }
+
+
 

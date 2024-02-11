@@ -9,7 +9,12 @@ ul {
 h1 {
     margin-bottom: 0%;
 }
-
+.to_do_label:hover {
+    text-decoration: line-through;
+}
+.trash_label:hover{
+    font-style: italic;
+}
 
 .to_do_list_cont {
     border: 5px solid;
@@ -21,6 +26,8 @@ h1 {
     align-items: center;
     
 }
+
+
 
 
 

@@ -95,12 +95,6 @@ ul.addEventListener("click", function(e) {
     // e is used in JS as an event.
     // After that, we will use target to select the item clicked, and we will check if it was an input.
     if(e.target.nodeName == "INPUT") {
-        // As target is the checkbox, its next sibiling is the "to_do_list" label, so we will catch it through
-        // nextSibling property.
-        let to_do_label = e.target.nextSibling;
-
-        
-        if (to_do_label.style.textDecoration != 'line-through'){
         changeLineThrough(e.target.parentElement);
         
     }

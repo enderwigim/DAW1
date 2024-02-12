@@ -30,7 +30,13 @@ SELECT pr.nombre,
 
 -- 3. Devuelve una lista con el identificador del producto, nombre del producto, identificador del fabricante y 
 --		nombre del fabricante, de todos los productos de la base de datos.
-
+SELECT pr.codigo, 
+	   pr.nombre,
+	   fb.codigo, 
+	   fb.nombre
+  FROM PRODUCTO pr,
+       FABRICANTE fb
+ WHERE pr.codigo_fabricante = fb.codigo;
 
 -- 4. Devuelve el nombre del producto, su precio y el nombre de su fabricante, del producto más barato.
 

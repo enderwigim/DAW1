@@ -54,19 +54,19 @@ function addNewLiElement(new_text) {
     ul.appendChild(li);
 }
 
-// Esta función cambiará el estilo de cualquier item, cambiando el textDecoration de "none" a "line-through",
-// y viceversa.
-function changeLineThrough(label_to_change) {
-    // Si el 
-    if (label_to_change.children[1].style.textDecoration != 'line-through'){
-        label_to_change.children[0].checked = true;
-        label_to_change.children[1].style.textDecoration = 'line-through';
+// Esta función recibira un LI, el cual será el padre del input, y de los dos labels.
+// De aquí se cambiará el estilo del textDecoration y se activará el checkbox o desactivara en conjunto.
+function changeLineThrough(li_parent) {
+    // Si el label donde se encuentra el texto añadido, no se encuentra tachado, lo tacharemos y activaremos el checkbox.
+    if (li_parent.children[1].style.textDecoration != 'line-through'){
+        li_parent.children[0].checked = true;
+        li_parent.children[1].style.textDecoration = 'line-through';
         
 
-
+    // En caso de que ya se encuentre tachado, le quitaremos eso y desactivaremos el checkbox.
     } else {
-        label_to_change.children[1].style.textDecoration = 'none';
-        label_to_change.children[0].checked = false;
+        li_parent.children[1].style.textDecoration = 'none';
+        li_parent.children[0].checked = false;
     }
 }
 
@@ -83,28 +83,33 @@ add_element_btn.addEventListener("click", function() {
     
 })
 
+// Este botón solo borrará el ultimo archivo de la lista.
 delete_last_btn.addEventListener("click", function() {
     let ul_every_element = ul.getElementsByTagName("li");
     ul_every_element[ul_every_element.length - 1].remove();
 
 })
 
-// With this, we'll create an eventListenert for the father, the UL.
+/* Dado a que queremos ver que ocurre cuando el usuario haga click en cualquiera de los distintos apartados de cada
+<li>, le cederemos el evento al padre, y a partir del evento de click que se desate, actuaremos en consecuencia.
+*/
 ul.addEventListener("click", function(e) {
-    // Once ul was clicked, we'll triger a function that recieves e as a parameter.
-    // e is used in JS as an event.
-    // After that, we will use target to select the item clicked, and we will check if it was an input.
+    /*Una vez algún sector del ul sea clickeado, se activará esta función, que utiliza e como paramentro.
+    e es utilizado en JavaScript como el evento.
+    Utilizaremos e.target, para actuar sobre el objeto que ha desatado el evento.*/
+    
+    // Revisaremos que sea un INPUT
     if(e.target.nodeName == "INPUT") {
+        // Llamaremos a esta función, que tachará el texto del to_do_label y encenderá el checkbox.
         changeLineThrough(e.target.parentElement);
-        
+    }
+    // Revisaremos si se hizo click sobre un LABEL y si <label> recibe la clase de "to_do_label".
+    else if (e.target.nodeName == "LABEL" && e.target.className == "to_do_label") {
+        // Con esto, tacharemos el texto y encenderemos el checkbox. Si esta ya tachado, podremos reactivarlo.
+        changeLineThrough(e.target.parentElement);
     }
     else if (e.target.nodeName == "LABEL" && e.target.className == "trash_label") {
         // Si se da click a .trash_label, seleccionaremos al padre y lo borraremos.
         e.target.parentElement.remove();
-    }
-    // En caso de que se de click a un LABEL, y este sea el to_do_label, cambiaremos el estado del texto.
-    else if (e.target.nodeName == "LABEL" && e.target.className == "to_do_label") {
-        
-        changeLineThrough(e.target.parentElement);
     }
 })

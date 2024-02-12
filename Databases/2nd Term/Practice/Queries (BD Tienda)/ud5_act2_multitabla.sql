@@ -8,10 +8,24 @@
 
 
 -- 1. Devuelve una lista con el nombre del producto, precio y nombre de fabricante de todos los productos de la BD.
+USE TIENDA
+SELECT pr.nombre,
+       pr.precio,
+	   fr.nombre
+  FROM PRODUCTO pr,
+       FABRICANTE fr
+ WHERE pr.codigo_fabricante = fr.codigo;
 
 
 -- 2. Devuelve una lista con el nombre del producto, precio y nombre de fabricante de todos los productos de la BD.
 --		Ordena el resultado por el nombre del fabricante, por orden alfabético.
+SELECT pr.nombre,
+       pr.precio,
+	   fr.nombre
+  FROM PRODUCTO pr,
+       FABRICANTE fr
+ WHERE pr.codigo_fabricante = fr.codigo
+ ORDER BY fr.nombre ASC
 
 
 -- 3. Devuelve una lista con el identificador del producto, nombre del producto, identificador del fabricante y 

@@ -182,13 +182,22 @@ SELECT nombre
 -- 30. Lista los nombres de los fabricantes cuyo nombre contenga el carácter w.
 SELECT nombre
   FROM FABRICANTE
- WHERE;
+ WHERE nombre LIKE('%w%');
+
 
 -- 31. Lista los nombres de los fabricantes cuyo nombre sea de 4 caracteres.
+SELECT nombre
+  FROM FABRICANTE
+ WHERE LEN(nombre) = 4;
 
 
 -- 32. Devuelve una lista con el nombre de todos los productos que contienen la cadena Portátil en el nombre
-
+SELECT nombre
+  FROM PRODUCTO
+ WHERE LOWER(nombre) LIKE '%port_til%';
 
 -- 33. Devuelve una lista con el nombre de todos los productos que contienen la cadena Monitor en el nombre y tienen un precio inferior a 215 €.
-
+SELECT nombre
+  FROM PRODUCTO
+ WHERE LOWER(nombre) LIKE '%monitor%'
+   AND precio <= 215.00

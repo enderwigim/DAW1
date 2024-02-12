@@ -49,12 +49,12 @@ namespace Ex3
                 {
                     isDatePrevious = false;
                 }
-                else if (firstDate.Dday == newDate.Dday)
+                else if (firstDate.Dmonth == newDate.Dmonth)
                 {
                     if (firstDate.Dday > newDate.Dday)
                     {
                         isDatePrevious = false;
-                    }
+                    }   
                 }
             }
             return isDatePrevious;

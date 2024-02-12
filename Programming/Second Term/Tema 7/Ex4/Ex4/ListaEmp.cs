@@ -48,15 +48,28 @@ namespace Ex4
             return text;
         }
 
-        public void HappyBirthDay(string name)
+        public bool HappyBirthDay(string name)
         {
+            bool wasAdded = false;
             int index = GetIndexByName(name);
-            employees[index].CumpleAnyos();
+            if (index != -1)
+            {
+                employees[index].CumpleAnyos();
+                wasAdded = true;
+            }
+            return wasAdded;
+            
         }
-        public void AddSell(string name, double sale)
+        public bool AddSell(string name, double sale)
         {
+            bool wasAdded = false;
             int index = GetIndexByName(name);
-            employees[index].AnyadirVenta(sale);
+            if (index != -1)
+            {
+                employees[index].AnyadirVenta(sale);
+                wasAdded = true;
+            }
+            return wasAdded;
         }
 
     }

@@ -3,6 +3,7 @@ let change_h1_btn = document.getElementById("change_h1");
 let change_p_btn = document.getElementById("change_p");
 
 
+
 change_img_btn.addEventListener("click", function() {
     
     let img = document.getElementsByTagName("img")[0];

@@ -32,21 +32,42 @@ namespace Ex4
 
         private void btnShowEmployeeList_Click(object sender, EventArgs e)
         {
-            string text;
-            MessageBox.Show(employeeList.ShowEveryEmployee());
+            string text = "";
+            text = employeeList.ShowEveryEmployee();
+            if (text == "")
+            {
+                MessageBox.Show("The list is still empty");
+            } else
+            {
+                MessageBox.Show(text);
+            }
         }
 
         private void btnBirthDay_Click(object sender, EventArgs e)
         {
             string name = Interaction.InputBox("Who is our birthday boy???");
-            employeeList.HappyBirthDay(name);
+            if (employeeList.HappyBirthDay(name))
+            {
+                MessageBox.Show("Happy Birthday to " + name);
+            } else
+            {
+                MessageBox.Show("An error ocurred. Check if the employee's name was inserted correctly.");
+            }
+            
         }
 
         private void btnAddSell_Click(object sender, EventArgs e)
         {
             string name = Interaction.InputBox("Who did make a big sale????");
-            double sale = double.Parse(Interaction.InputBox("Who did make a big sale????"));
-            employeeList.AddSell(name, sale);
+            double sale = double.Parse(Interaction.InputBox("What's the sale ammount"));
+            if (employeeList.AddSell(name, sale))
+            {
+                MessageBox.Show("The sale was added correctly.");
+            }
+            else
+            {
+                MessageBox.Show("An error ocurred. Check if the employee's name was inserted correctly.");
+            }
         }
     }
 }

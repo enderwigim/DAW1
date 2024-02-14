@@ -1,10 +1,10 @@
-let change_img_btn = document.getElementById("change_img");
-let change_h1_btn = document.getElementById("change_h1");
-let change_p_btn = document.getElementById("change_p");
+let changeImgBtn = document.getElementById("change_img");
+let changeH1Btn = document.getElementById("change_h1");
+let changePBtn = document.getElementById("change_p");
 
 
 
-change_img_btn.addEventListener("click", function() {
+changeImgBtn.addEventListener("click", function() {
     
     let img = document.getElementsByTagName("img")[0];
     if (img.alt == 'toothless') {
@@ -16,7 +16,7 @@ change_img_btn.addEventListener("click", function() {
     }
 })
 
-change_h1_btn.addEventListener("click", function() {
+changeH1Btn.addEventListener("click", function() {
     let h1 = document.getElementsByTagName("h1")[0];
     if (h1.innerText == "Tu dragon") {
         h1.innerText = "Este es mi dragon";
@@ -26,7 +26,7 @@ change_h1_btn.addEventListener("click", function() {
     
 })
 
-change_p_btn.addEventListener("click", function() {
+changePBtn.addEventListener("click", function() {
     let p = document.getElementsByTagName("p")[0];
     if (p.innerText == "Ahora solo hay memes.") {
         p.innerText = "Cuando era niño, habia dragones."

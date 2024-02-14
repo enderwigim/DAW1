@@ -27,7 +27,15 @@ namespace Ex4
 
             newEmployeeName = Interaction.InputBox("What's your employees name");
             newEmployeeAge = int.Parse(Interaction.InputBox("What's your employees age?"));
-            employeeList.NewEmployee(newEmployeeName, newEmployeeAge);
+            if (employeeList.NewEmployee(newEmployeeName, newEmployeeAge))
+            {
+                MessageBox.Show("The employee was Added.");
+            }
+            else
+            {
+                MessageBox.Show("An error ocurred.");
+            }
+            
         }
 
         private void btnShowEmployeeList_Click(object sender, EventArgs e)

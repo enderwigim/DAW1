@@ -30,12 +30,21 @@ namespace Ex4
             return index;
         }
         
-        public void NewEmployee(string name, int age)
+        public bool NewEmployee(string name, int age)
         {
+            bool newEmployeeAdded = false;
+
             Empleado new_employee = new Empleado();
-            new_employee.Nombre = name;
-            new_employee.Edad = age;
-            employees.Add(new_employee);
+            
+            if (age > 0 && name != "")
+            {
+                new_employee.Nombre = name;
+                new_employee.Edad = age;
+                employees.Add(new_employee);
+                newEmployeeAdded = true;
+            }
+            return newEmployeeAdded;
+            
         }
 
         public string ShowEveryEmployee()

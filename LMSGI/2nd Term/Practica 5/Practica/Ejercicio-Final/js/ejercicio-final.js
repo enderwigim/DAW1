@@ -46,7 +46,7 @@ deleteRow.addEventListener("click", function() {
 deleteRow.addEventListener("click", function() {
     let rowNumber = prompt("¿Que fila quieres borrar?");
     let columnNum = prompt("¿Que columna?")
-    if (rowNumber <= 0 && columnNum <= 0 && typeof(rowNumber) != ) {
+    if (rowNumber <= 0 && columnNum <= 0 && typeof(rowNumber)  ) {
         alert("No existe eso.");
     } else {
         SelectCell(rowNumber, columnNum);

@@ -50,19 +50,21 @@ namespace Ex4
                 MessageBox.Show(text);
             }
         }
-
-        private void btnBirthDay_Click(object sender, EventArgs e)
+        private void btnShowEmployeeData_Click(object sender, EventArgs e)
         {
-            string name = Interaction.InputBox("Who is our birthday boy???");
-            if (employeeList.HappyBirthDay(name))
+            string name = Interaction.InputBox("Whose information do you want to see?");
+            string text = employeeList.ShowAnEmployeeByName(name);
+            if (text != "")
             {
-                MessageBox.Show("Happy Birthday to " + name);
+                MessageBox.Show(text);
             } else
             {
-                MessageBox.Show("An error ocurred. Check if the employee's name was inserted correctly.");
+                MessageBox.Show("An error ocurred. Check if the employee's name was inserted correctly");
             }
             
         }
+
+        
 
         private void btnAddSell_Click(object sender, EventArgs e)
         {
@@ -75,6 +77,49 @@ namespace Ex4
             else
             {
                 MessageBox.Show("An error ocurred. Check if the employee's name was inserted correctly.");
+            }
+        }
+
+        private void btnDelete_Employee_Click(object sender, EventArgs e)
+        {
+            string name = Interaction.InputBox("Who's going to be fired soon?");
+            if (employeeList.DeleteEmployee(name))
+            {
+                MessageBox.Show("Fired!");
+            } else
+            {
+                MessageBox.Show("An error ocurred. Check if the employee's name was inserted correctly.");
+            }
+        }
+
+        private void btnOrderEmployees_Click(object sender, EventArgs e)
+        {
+            employeeList.OrderEmployees();
+        }
+
+        private void btnMostSellerEmployee_Click(object sender, EventArgs e)
+        {
+            int index = employeeList.CalcMaxSell();
+            if (index != -1)
+            {
+                MessageBox.Show(employeeList.ShowAnEmployeeByIndex(index));
+            }
+            else
+            {
+                MessageBox.Show("An error ocurred.");
+            }
+            
+        }
+
+        private void btnDeleteSells_Click(object sender, EventArgs e)
+        {
+            string name = Interaction.InputBox("What's the name of the employee whose sales you want to delete");
+            if (employeeList.DeleteSells(name))
+            {
+                MessageBox.Show("Sells Deleted");
+            } else
+            {
+                MessageBox.Show("An error ocurred.");
             }
         }
     }

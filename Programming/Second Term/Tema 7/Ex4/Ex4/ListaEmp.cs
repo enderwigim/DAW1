@@ -17,10 +17,10 @@ namespace Ex4
             employees = new List<Empleado>();
         }
 
-        public int GetIndexByName(string name)
+        private int GetIndexByName(string name)
         {
             int index = -1;
-            for (int i = 0; i < employees.Count; i++)
+            for (int i = 0; i < employees.Count && index == -1; i++)
             {
                 if (employees[i].Nombre.ToLower() == name.ToLower())
                 {
@@ -29,13 +29,13 @@ namespace Ex4
             }
             return index;
         }
-        
+
         public bool NewEmployee(string name, int age)
         {
             bool newEmployeeAdded = false;
 
             Empleado new_employee = new Empleado();
-            
+
             if (age > 0 && name != "")
             {
                 new_employee.Nombre = name;
@@ -44,17 +44,50 @@ namespace Ex4
                 newEmployeeAdded = true;
             }
             return newEmployeeAdded;
-            
+
         }
+
 
         public string ShowEveryEmployee()
         {
             string text = "";
-            for (int i = 0;  i < employees.Count; i++)
+            for (int i = 0; i < employees.Count; i++)
             {
                 text += employees[i].MostrarDatos() + "\n";
             }
             return text;
+        }
+
+        public string ShowAnEmployeeByName(string name)
+        {
+            string text = "";
+            int index = GetIndexByName(name);
+            if (index != -1)
+            {
+                text = employees[index].MostrarDatos();
+            }
+            return text;
+        }
+
+        public string ShowAnEmployeeByIndex(int index)
+        {
+            string text = "";
+            if (index != -1)
+            {
+                text = employees[index].MostrarDatos();
+            }
+            return text;
+        }
+        public bool DeleteEmployee(string name)
+        {
+            bool wasDeleted = false;
+            int index = GetIndexByName(name);
+            if (index != -1)
+            {
+                employees.RemoveAt(index);
+                wasDeleted = true;
+            }
+            return wasDeleted;
         }
 
         public bool HappyBirthDay(string name)
@@ -67,7 +100,7 @@ namespace Ex4
                 wasAdded = true;
             }
             return wasAdded;
-            
+
         }
         public bool AddSell(string name, double sale)
         {
@@ -81,5 +114,47 @@ namespace Ex4
             return wasAdded;
         }
 
+        public void OrderEmployees()
+        {
+            for (int i = 0; i < employees.Count - 1; i++)
+            {
+                for (int j = i + 1; j < employees.Count; j++)
+                {
+                    if (string.Compare(employees[i].Nombre, employees[j].Nombre) > 0)
+                    {
+                        Empleado change_employee = employees[i];
+                        employees[i] = employees[j];
+                        employees[j] = change_employee;
+                    }
+                }
+            }
+        }
+
+        public int CalcMaxSell()
+        {
+            double maxSell = 0;
+            int indexMaxSeller = -1;
+            for (int i = 0; i < employees.Count; i++)
+            {
+                double employeeSellAddition = employees[i].CalcSellAdditions();
+                if (maxSell < employeeSellAddition)
+                {
+                    maxSell = employeeSellAddition;
+                    indexMaxSeller = i;
+                }
+            }
+            return indexMaxSeller;
+        }
+        public bool DeleteSells(string name)
+        {
+            bool sellsErased = false;
+            int index = GetIndexByName(name);
+            if (index != -1)
+            {
+                employees[index].DeleteSells();
+                sellsErased = true;
+            }
+            return sellsErased;
+        }
     }
 }

@@ -32,7 +32,7 @@ namespace Ex4
                     edad = value;
             }
         }
-
+        
         // Constructor
         public Empleado()
         {
@@ -84,6 +84,21 @@ namespace Ex4
             texto = texto + "Edad: " + edad + "\n";
             texto = texto + MostrarVentas();
             return texto;
+        }
+
+        public double CalcSellAdditions()
+        {
+            double addition = 0;
+            for (int i = 0; i < mVentas.Count; i++)
+            {
+                addition += mVentas[i];
+            }
+            return addition;
+        }
+
+        public void DeleteSells()
+        {
+            mVentas.Clear();
         }
     }
     

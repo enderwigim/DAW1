@@ -3,7 +3,7 @@
 ---------------------------
 -- Actividad. Jardinería --
 ---------------------------
-
+USE JARDINERIA
 -- 1. Inserta una nueva oficina en Alicante.
 INSERT INTO OFICINAS (codOficina, ciudad, pais,
                       codPostal, telefono, linea_direccion1,
@@ -196,7 +196,7 @@ DELETE FROM CLIENTES
  WHERE codCliente IN (SELECT codCliente
                         FROM PEDIDOS
                        GROUP BY codCliente
-                      HAVING COUNT(1) > 2);
+                      HAVING COUNT(1) < 2);
 
 
 SELECT codCliente
@@ -204,8 +204,7 @@ SELECT codCliente
  WHERE codCliente IN (SELECT codCliente
                         FROM PEDIDOS
                        GROUP BY codCliente
-                      HAVING COUNT(1) > 2);
-
+                      HAVING COUNT(1) < 2);
 
 
 
@@ -226,23 +225,69 @@ SELECT *
 
 
 --16. Actualiza la ciudad a Alicante para aquellos clientes que tengan un límite de crédito inferior a TODOS los precios de los productos de la categoría Ornamentales (puede que no haya ninguno).
+UPDATE CLIENTES
+SET ciudad = 'Alicante'
+WHERE limite_credito < (SELECT SUM(precio_venta)
+                          FROM PRODUCTOS
+                         WHERE UPPER(codCategoria) = 'OR')
+
+SELECT *
+  FROM CLIENTES
+ WHERE limite_credito < (SELECT SUM(precio_venta)
+                           FROM PRODUCTOS
+                          WHERE UPPER(codCategoria) = 'OR')
+SELECT *
+  FROM CLIENTES
+ WHERE limite_credito < ALL (SELECT precio_venta
+                               FROM PRODUCTOS
+                              WHERE UPPER(codCategoria) = 'OR')
+
+
 
 
 
 --17. Actualiza la ciudad a Madrid para aquellos clientes que tengan un límite de crédito mensual inferior a ALGUNO de los precios de los productos de la categoría Ornamentales.
+UPDATE CLIENTES
+   SET ciudad = 'Madrid'
+ WHERE limite_credito < ANY (SELECT precio_venta
+                               FROM PRODUCTOS
+                              WHERE UPPER(codCategoria) = 'OR')
+
+
+
+SELECT *
+  FROM CLIENTES
+ WHERE limite_credito < ANY (SELECT precio_venta
+                               FROM PRODUCTOS
+                              WHERE UPPER(codCategoria) = 'OR')
 
 
 
 --18. Establece a 0 el límite de crédito del cliente que menos unidades pedidas del producto OR-179.
 
 
+UPDATE CLIENTES
+   SET limite_credito = 0
+ WHERE codCliente = (SELECT TOP(1) codCliente
+                       FROM DETALLE_PEDIDOS dp,
+                            PEDIDOS pd,
+                            PRODUCTOS pr
+                      WHERE pd.codPedido = dp.codPedido 
+                        AND pr.codProducto = dp.codProducto
+                        AND pr.refInterna = 'OR-179'
+                      ORDER BY cantidad ASC)
+
 
 --19. Modifica la tabla detalle_pedido para insertar un campo numérico llamado IVA. Establece el
 --valor de ese campo a 18 para aquellos registros cuyo pedido tenga fecha a partir de Enero de
 --2009. A continuación, actualiza el resto de pedidos estableciendo el IVA al 21.
+ALTER TABLE DETALLE_PEDIDOS
+  ADD IVA FLOAT;
 
-
-
+SELECT DETALLE_PEDIDOS
+SELECT codPedido
+  FROM PEDIDOS
+ WHERE YEAR(fecha_pedido) >= 2009;
 --20. Modifica la tabla detalle_pedido para incorporar un campo numérico llamado total_linea y
 --actualiza todos sus registros para calcular su valor con la fórmula:
 --total_linea = precio_unidad*cantidad * (1 + (iva/100));

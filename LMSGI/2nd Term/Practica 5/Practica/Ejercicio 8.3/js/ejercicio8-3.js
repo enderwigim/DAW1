@@ -26,9 +26,57 @@ stop_counter.addEventListener("click", function() {
 
 
 
+
+
+
+
 // Probar videojuego
 let start_game = document.getElementById("start_game");
 let div_container = document.getElementsByClassName("container")[0];
+let isGameStarted = false;
+
+start_game.addEventListener("click", function() {
+    if (!isGameStarted){
+        document.body.style.backgroundImage = "url(img/castle.jpg)";
+    start_counter.remove();
+
+    let oldLabel = document.getElementById("random-number");
+    if (oldLabel) {
+        oldLabel.remove()
+    }
+    createGameElements();
+    addToCounterEverySec = setInterval(addToCounterFrom1To10, 20);
+    start_game.innerHTML = "Guess My Number!";
+    isGameStarted = true;
+
+    } else {
+        clearInterval(addToCounterEverySec);
+        let guessedNumber = document.getElementById("counter");
+        let random_number = document.getElementById("random-number");
+        if (guessedNumber == random_number) {
+            random_number.innerHTML = "You won!!";
+        } else {
+            random_number.innerHTML = "You lost :("
+        }
+        isGameStarted = false;
+        start_game.innerHTML = "Play Again";
+
+    }   
+
+    
+})
+
+
+
+
+function addToCounterFrom1To10() {
+    let text_area = document.getElementById("counter");
+    counter++;
+    if (counter > 10) {
+        counter = 1;
+    }
+    text_area.innerHTML = counter;
+}
 
 
 function generateRandomNumber() {
@@ -36,31 +84,27 @@ function generateRandomNumber() {
     return random_number;
 }
 
-function createRandomLabel() {
+function createGameElements() {
+    // Delete start and stop buttons.
+    start_counter.remove();
+    stop_counter.remove();
+
+    // Change Div Style
+    div_container.style = "border: 5px solid; margin: auto; width: 50%; padding: 10px; display: flex; flex-direction: column; align-items: center;"
+
+
+    // Create new label.
     let label = document.createElement("label")
-    label.style = "color: white; font-size 20rem;"
+    label.style = "color: white; font-size: 200px;"
     label.innerHTML = generateRandomNumber();
     label.id = "random-number";
-    return label
-}
-function centerContainerAndAddLabel() {
-    div_container.style = "border: 5px solid; margin: auto; width: 50%; padding: 10px; display: flex; flex-direction: column; align-items: center;"
-    let new_label = createRandomLabel();
-    div_container.appendChild(new_label);
-
-    
-}
-
-start_game.addEventListener("click", function() {
-    document.body.style.backgroundImage = "url(img/castle.jpg)";
-    start_counter.remove();
-
-    let oldLabel = document.getElementById("random-number");
-    if (oldLabel) {
-        oldLabel.remove()
-    }
-    centerContainerAndAddLabel();
     
 
-})
+    div_container.appendChild(label);
+
+}
+
+
+
+
 

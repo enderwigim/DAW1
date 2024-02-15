@@ -1,5 +1,6 @@
 let insertColumn = document.getElementById("insert-column");
 let deleteRow = document.getElementById("delete-row");
+let changeText = document.getElementById("change-text");
 
 function CreateColumns(columnNum) {
     let tr = document.createElement("tr");
@@ -18,11 +19,19 @@ function DeleteRow(rowNumber) {
 }
 
 function SelectCell(rowNumber, columnNum) {
+    
     let everyTR = document.getElementsByTagName("tr");
-    let everyThInTR = everyTR[rowNumber - 1].children;
-    let tHSelected = everyThInTR[columnNum - 1];
-
-    tHSelected.remove();
+    if (rowNumber <= everyTR.length) {
+        let everyThInTR = everyTR[rowNumber - 1].children;
+        if (columnNum <= everyThInTR.length) {
+            let tHSelected = everyThInTR[columnNum - 1];
+            return tHSelected;
+        }
+    } else {
+        return false;
+    }
+    
+    
 }
 
 insertColumn.addEventListener("click", function() {
@@ -43,12 +52,30 @@ deleteRow.addEventListener("click", function() {
     }
 })
 
-deleteRow.addEventListener("click", function() {
-    let rowNumber = prompt("¿Que fila quieres borrar?");
-    let columnNum = prompt("¿Que columna?")
-    if (rowNumber <= 0 && columnNum <= 0 && typeof(rowNumber)  ) {
-        alert("No existe eso.");
-    } else {
-        SelectCell(rowNumber, columnNum);
+changeText.addEventListener("click", function() {
+    let input = document.getElementById("myInput");
+    if (input.value != "") {
+        let rowNumber = parseInt(prompt("¿Que fila quieres borrar?"));
+        let columnNum = parseInt(prompt("¿Que columna?"));
+        if (rowNumber <= 0 || columnNum <= 0) {
+            alert("No existe eso.");
+        } else if (isNaN(columnNum) || isNaN(rowNumber)){
+            alert("No existen esas columnas.");
+        }
+        else {
+            
+            let cellSelected = SelectCell(rowNumber, columnNum);
+            if (cellSelected != false) {
+                cellSelected.innerHTML = input.value; 
+            } else {
+                alert("Esa celda no existe.")
+            }
+            
+
+        }
+        
+    }
+    else {
+        alert("There's no text in the input.")
     }
 })

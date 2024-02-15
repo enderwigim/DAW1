@@ -13,15 +13,19 @@ function addToCounter() {
 
 // Declaro mi variable para que funcione dentro del global-scope.
 let addToCounterEverySec;
-
+let isCountActivated = false;
 start_counter.addEventListener("click", function() {
     // Aquí, no solo activo mi intervalo, asino que seteo esa función a mi variable addToCounterEverySec.
-    addToCounterEverySec = setInterval(addToCounter, 100)
+    if (!isCountActivated) {
+        addToCounterEverySec = setInterval(addToCounter, 1000)
+        isCountActivated = true;
+    }
 })
 
 stop_counter.addEventListener("click", function() {
     //Utilizo clearInterval para que frene a la función iniciada previamente. Guardada previamente en mi variable.
     clearInterval(addToCounterEverySec);
+    isCountActivated = false;
 })
 
 
@@ -33,31 +37,38 @@ stop_counter.addEventListener("click", function() {
 // Probar videojuego
 let start_game = document.getElementById("start_game");
 let div_container = document.getElementsByClassName("container")[0];
+let guessLabel = document.getElementById("counter");
+
 let isGameStarted = false;
 
 start_game.addEventListener("click", function() {
+    // guessLabel.hidden = "hidden";
     if (!isGameStarted){
         document.body.style.backgroundImage = "url(img/castle.jpg)";
-    start_counter.remove();
+        start_counter.remove();
 
-    let oldLabel = document.getElementById("random-number");
-    if (oldLabel) {
-        oldLabel.remove()
-    }
-    createGameElements();
-    addToCounterEverySec = setInterval(addToCounterFrom1To10, 20);
-    start_game.innerHTML = "Guess My Number!";
-    isGameStarted = true;
+        let oldLabel = document.getElementById("random-number");
+        if (oldLabel) {
+            oldLabel.remove()
+        
+        
+        }
+        createGameElements();
+        clearInterval(addToCounterEverySec);
+        addToCounterEverySec = setInterval(addToCounterFrom1To10, 100);
+        start_game.innerHTML = "Guess My Number!";
+        isGameStarted = true;
 
     } else {
         clearInterval(addToCounterEverySec);
-        let guessedNumber = document.getElementById("counter");
         let random_number = document.getElementById("random-number");
-        if (guessedNumber == random_number) {
+        // guessLabel.removeAttribute("hidden")
+        if (guessLabel.innerHTML == random_number.innerHTML) {
             random_number.innerHTML = "You won!!";
         } else {
             random_number.innerHTML = "You lost :("
         }
+        random_number.style.fontSize = "80px"
         isGameStarted = false;
         start_game.innerHTML = "Play Again";
 

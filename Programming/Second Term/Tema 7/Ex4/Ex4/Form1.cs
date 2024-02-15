@@ -33,7 +33,7 @@ namespace Ex4
             }
             else
             {
-                MessageBox.Show("An error ocurred.");
+                MessageBox.Show("An error ocurred. The employee must have a name and an age");
             }
             
         }
@@ -94,7 +94,9 @@ namespace Ex4
 
         private void btnOrderEmployees_Click(object sender, EventArgs e)
         {
-            employeeList.OrderEmployees();
+            employeeList.OrderEmployeesByName();
+            MessageBox.Show("Employees ordered by name.");
+
         }
 
         private void btnMostSellerEmployee_Click(object sender, EventArgs e)
@@ -106,7 +108,7 @@ namespace Ex4
             }
             else
             {
-                MessageBox.Show("An error ocurred.");
+                MessageBox.Show("An error ocurred. Check if sales were added.");
             }
             
         }
@@ -119,8 +121,14 @@ namespace Ex4
                 MessageBox.Show("Sells Deleted");
             } else
             {
-                MessageBox.Show("An error ocurred.");
+                MessageBox.Show("An error ocurred. Check if the employee exist or if he has sells.");
             }
+        }
+
+        private void btnOrdenarVentas_Click(object sender, EventArgs e)
+        {
+            employeeList.OrderBySells();
+            MessageBox.Show("Employees ordered by sales.");
         }
     }
 }

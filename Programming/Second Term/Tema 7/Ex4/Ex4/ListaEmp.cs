@@ -114,7 +114,7 @@ namespace Ex4
             return wasAdded;
         }
 
-        public void OrderEmployees()
+        public void OrderEmployeesByName()
         {
             for (int i = 0; i < employees.Count - 1; i++)
             {
@@ -145,16 +145,36 @@ namespace Ex4
             }
             return indexMaxSeller;
         }
-        public bool DeleteSells(string name)
+
+        public void OrderBySells()
         {
-            bool sellsErased = false;
-            int index = GetIndexByName(name);
-            if (index != -1)
+            
+            for (int i = 0; i < employees.Count - 1; i++)
             {
-                employees[index].DeleteSells();
-                sellsErased = true;
+                for (int j = i + 1; j < employees.Count; j++)
+                {
+                    if (employees[i].CalcSellAdditions() < employees[j].CalcSellAdditions())
+                    {
+                        Empleado changeEmployee = employees[i];
+                        employees[i] = employees[j];
+                        employees[j] = changeEmployee;
+                    }
+                }
             }
-            return sellsErased;
         }
-    }
-}
+
+            public bool DeleteSells(string name)
+            {
+                bool sellsErased = false;
+                int index = GetIndexByName(name);
+                if (index != -1)
+                {
+                    employees[index].DeleteSells();
+                    sellsErased = true;
+                }
+                return sellsErased;
+            }
+        }
+    } 
+
+

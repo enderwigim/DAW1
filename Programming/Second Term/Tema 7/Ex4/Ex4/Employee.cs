@@ -96,9 +96,16 @@ namespace Ex4
             return addition;
         }
 
-        public void DeleteSells()
+        public bool DeleteSells()
         {
-            mVentas.Clear();
+            bool sellsDeleted = false;
+            if (mVentas.Count != 0)
+            {
+                mVentas.Clear();
+                sellsDeleted = true;
+            }
+            return sellsDeleted;
+            
         }
     }
     

@@ -32,13 +32,13 @@
             this.btnShowEmployeeList = new System.Windows.Forms.Button();
             this.btnAddSell = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.btnDelete_Employee = new System.Windows.Forms.Button();
-            this.btnShowEmployeeData = new System.Windows.Forms.Button();
             this.btnOrderEmployees = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.btnDeleteSells = new System.Windows.Forms.Button();
+            this.btnShowEmployeeData = new System.Windows.Forms.Button();
+            this.btnDelete_Employee = new System.Windows.Forms.Button();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.btnMostSellerEmployee = new System.Windows.Forms.Button();
+            this.btnDeleteSells = new System.Windows.Forms.Button();
+            this.btnOrdenarVentas = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -87,28 +87,15 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Empleados";
             // 
-            // groupBox2
+            // btnOrderEmployees
             // 
-            this.groupBox2.Controls.Add(this.btnMostSellerEmployee);
-            this.groupBox2.Controls.Add(this.btnDeleteSells);
-            this.groupBox2.Controls.Add(this.button2);
-            this.groupBox2.Controls.Add(this.btnAddSell);
-            this.groupBox2.Location = new System.Drawing.Point(12, 240);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(776, 180);
-            this.groupBox2.TabIndex = 5;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Ventas";
-            // 
-            // btnDelete_Employee
-            // 
-            this.btnDelete_Employee.Location = new System.Drawing.Point(267, 105);
-            this.btnDelete_Employee.Name = "btnDelete_Employee";
-            this.btnDelete_Employee.Size = new System.Drawing.Size(184, 53);
-            this.btnDelete_Employee.TabIndex = 4;
-            this.btnDelete_Employee.Text = "Eliminar Empleado";
-            this.btnDelete_Employee.UseVisualStyleBackColor = true;
-            this.btnDelete_Employee.Click += new System.EventHandler(this.btnDelete_Employee_Click);
+            this.btnOrderEmployees.Location = new System.Drawing.Point(486, 71);
+            this.btnOrderEmployees.Name = "btnOrderEmployees";
+            this.btnOrderEmployees.Size = new System.Drawing.Size(184, 53);
+            this.btnOrderEmployees.TabIndex = 6;
+            this.btnOrderEmployees.Text = "Ordenar Empleados";
+            this.btnOrderEmployees.UseVisualStyleBackColor = true;
+            this.btnOrderEmployees.Click += new System.EventHandler(this.btnOrderEmployees_Click);
             // 
             // btnShowEmployeeData
             // 
@@ -120,24 +107,38 @@
             this.btnShowEmployeeData.UseVisualStyleBackColor = true;
             this.btnShowEmployeeData.Click += new System.EventHandler(this.btnShowEmployeeData_Click);
             // 
-            // btnOrderEmployees
+            // btnDelete_Employee
             // 
-            this.btnOrderEmployees.Location = new System.Drawing.Point(486, 71);
-            this.btnOrderEmployees.Name = "btnOrderEmployees";
-            this.btnOrderEmployees.Size = new System.Drawing.Size(184, 53);
-            this.btnOrderEmployees.TabIndex = 6;
-            this.btnOrderEmployees.Text = "Ordenar Empleados";
-            this.btnOrderEmployees.UseVisualStyleBackColor = true;
-            this.btnOrderEmployees.Click += new System.EventHandler(this.btnOrderEmployees_Click);
+            this.btnDelete_Employee.Location = new System.Drawing.Point(267, 105);
+            this.btnDelete_Employee.Name = "btnDelete_Employee";
+            this.btnDelete_Employee.Size = new System.Drawing.Size(184, 53);
+            this.btnDelete_Employee.TabIndex = 4;
+            this.btnDelete_Employee.Text = "Eliminar Empleado";
+            this.btnDelete_Employee.UseVisualStyleBackColor = true;
+            this.btnDelete_Employee.Click += new System.EventHandler(this.btnDelete_Employee_Click);
             // 
-            // button2
+            // groupBox2
             // 
-            this.button2.Location = new System.Drawing.Point(486, 103);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(184, 53);
-            this.button2.TabIndex = 5;
-            this.button2.Text = "Ordenar Empleados por Ventas";
-            this.button2.UseVisualStyleBackColor = true;
+            this.groupBox2.Controls.Add(this.btnOrdenarVentas);
+            this.groupBox2.Controls.Add(this.btnMostSellerEmployee);
+            this.groupBox2.Controls.Add(this.btnDeleteSells);
+            this.groupBox2.Controls.Add(this.btnAddSell);
+            this.groupBox2.Location = new System.Drawing.Point(12, 240);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(776, 180);
+            this.groupBox2.TabIndex = 5;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Ventas";
+            // 
+            // btnMostSellerEmployee
+            // 
+            this.btnMostSellerEmployee.Location = new System.Drawing.Point(486, 28);
+            this.btnMostSellerEmployee.Name = "btnMostSellerEmployee";
+            this.btnMostSellerEmployee.Size = new System.Drawing.Size(184, 53);
+            this.btnMostSellerEmployee.TabIndex = 7;
+            this.btnMostSellerEmployee.Text = "Mostrar Empleado Con Mayores Ventas";
+            this.btnMostSellerEmployee.UseVisualStyleBackColor = true;
+            this.btnMostSellerEmployee.Click += new System.EventHandler(this.btnMostSellerEmployee_Click);
             // 
             // btnDeleteSells
             // 
@@ -149,15 +150,15 @@
             this.btnDeleteSells.UseVisualStyleBackColor = true;
             this.btnDeleteSells.Click += new System.EventHandler(this.btnDeleteSells_Click);
             // 
-            // btnMostSellerEmployee
+            // btnOrdenarVentas
             // 
-            this.btnMostSellerEmployee.Location = new System.Drawing.Point(486, 28);
-            this.btnMostSellerEmployee.Name = "btnMostSellerEmployee";
-            this.btnMostSellerEmployee.Size = new System.Drawing.Size(184, 53);
-            this.btnMostSellerEmployee.TabIndex = 7;
-            this.btnMostSellerEmployee.Text = "Mostrar Empleado Con Mayores Ventas";
-            this.btnMostSellerEmployee.UseVisualStyleBackColor = true;
-            this.btnMostSellerEmployee.Click += new System.EventHandler(this.btnMostSellerEmployee_Click);
+            this.btnOrdenarVentas.Location = new System.Drawing.Point(486, 103);
+            this.btnOrdenarVentas.Name = "btnOrdenarVentas";
+            this.btnOrdenarVentas.Size = new System.Drawing.Size(184, 53);
+            this.btnOrdenarVentas.TabIndex = 8;
+            this.btnOrdenarVentas.Text = "Ordenar Empleados por Ventas";
+            this.btnOrdenarVentas.UseVisualStyleBackColor = true;
+            this.btnOrdenarVentas.Click += new System.EventHandler(this.btnOrdenarVentas_Click);
             // 
             // Form1
             // 
@@ -185,8 +186,8 @@
         private System.Windows.Forms.Button btnShowEmployeeData;
         private System.Windows.Forms.Button btnOrderEmployees;
         private System.Windows.Forms.Button btnDeleteSells;
-        private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button btnMostSellerEmployee;
+        private System.Windows.Forms.Button btnOrdenarVentas;
     }
 }
 

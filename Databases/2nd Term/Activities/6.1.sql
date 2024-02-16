@@ -249,7 +249,7 @@ SELECT *
 --17. Actualiza la ciudad a Madrid para aquellos clientes que tengan un límite de crédito mensual inferior a ALGUNO de los precios de los productos de la categoría Ornamentales.
 UPDATE CLIENTES
    SET ciudad = 'Madrid'
- WHERE limite_credito < ANY (SELECT precio_venta
+ WHERE (limite_credito/12) < ANY (SELECT precio_venta
                                FROM PRODUCTOS
                               WHERE UPPER(codCategoria) = 'OR')
 
@@ -257,7 +257,7 @@ UPDATE CLIENTES
 
 SELECT *
   FROM CLIENTES
- WHERE limite_credito < ANY (SELECT precio_venta
+ WHERE (limite_credito/12) < ANY (SELECT precio_venta
                                FROM PRODUCTOS
                               WHERE UPPER(codCategoria) = 'OR')
 
@@ -275,28 +275,86 @@ UPDATE CLIENTES
                       WHERE pd.codPedido = dp.codPedido 
                         AND pr.codProducto = dp.codProducto
                         AND pr.refInterna = 'OR-179'
-                      ORDER BY cantidad ASC)
+                      ORDER BY dp.cantidad ASC)
 
 
 --19. Modifica la tabla detalle_pedido para insertar un campo numérico llamado IVA. Establece el
 --valor de ese campo a 18 para aquellos registros cuyo pedido tenga fecha a partir de Enero de
 --2009. A continuación, actualiza el resto de pedidos estableciendo el IVA al 21.
+USE JARDINERIA
 ALTER TABLE DETALLE_PEDIDOS
   ADD IVA FLOAT;
 
-SELECT DETALLE_PEDIDOS
-SELECT codPedido
-  FROM PEDIDOS
- WHERE YEAR(fecha_pedido) >= 2009;
+ALTER TABLE DETALLE_PEDIDOS
+ALTER COLUMN IVA DECIMAL(3,2)
+
+UPDATE DETALLE_PEDIDOS
+   SET IVA = 1.18
+ WHERE codPedido IN (SELECT codPedido
+                       FROM PEDIDOS
+                      WHERE YEAR(fecha_pedido) >= 2009);
+
+UPDATE DETALLE_PEDIDOS
+   SET IVA = 1.21
+ WHERE codPedido NOT IN (SELECT codPedido
+                       FROM PEDIDOS
+                      WHERE YEAR(fecha_pedido) >= 2009);                
+
+SELECT *
+  FROM DETALLE_PEDIDOS
+ WHERE codPedido IN (SELECT codPedido
+                       FROM PEDIDOS
+                      WHERE YEAR(fecha_pedido) >= 2009)
+
 --20. Modifica la tabla detalle_pedido para incorporar un campo numérico llamado total_linea y
 --actualiza todos sus registros para calcular su valor con la fórmula:
 --total_linea = precio_unidad*cantidad * (1 + (iva/100));
+ALTER TABLE DETALLE_PEDIDOS
+  ADD total_linea DECIMAL(10,2);
+
+--ALTER TABLE DETALLE_PEDIDOS
+--  ADD total_linea AS (precio_unidad*cantidad)*IVA;
+
+
+UPDATE DETALLE_PEDIDOS
+   SET total_linea = (precio_unidad*cantidad)*IVA;
+
 
 
 --21. Crea una tabla llamada HISTORICO_CLIENTES que tenga la misma estructura que CLIENTES y además un campo llamado fechaAlta de tipo DATE.
 --Deberás insertar en una única sentencia los clientes cuyo nombre contenga la letra ‘s’ e informar el campo fechaAlta como la fecha/hora del momento en el que se inserta.
 
+SELECT * 
+  INTO HISTORICO_CLIENTES
+  FROM CLIENTES
+ WHERE codCliente = -1;
+
+ALTER TABLE HISTORICO_CLIENTES
+   ADD fechaAlta SMALLDATETIME
+
+
+INSERT INTO HISTORICO_CLIENTES
+SELECT *, 
+       GETDATE()
+  FROM CLIENTES
+  WHERE LOWER(nombre_cliente) LIKE('%s%');
+
+
+--SELECT TOP(0) *
+--  FROM CLIENTES
+
+
 
 --22. Actualiza a NULL los campos region, pais y codigo_postal en la tabla CLIENTES para todos los registros. Utiliza una sentencia de actualización en la que se actualicen estos 3 campos a partir de los datos existentes en la tabla HISTORICO_CLIENTES. Comprueba que los datos se han trasladado correctamente.
+UPDATE CLIENTES
+  SET pais = NULL,
+      codPostal = NULL
+
+UPDATE c
+   SET c.pais = hc.pais,
+       c.codPostal = hc.codPostal
+  FROM CLIENTES c
+ INNER JOIN HISTORICO_CLIENTES hc
+    ON c.codCliente = hc.codCliente;
 
 

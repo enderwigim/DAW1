@@ -34,26 +34,23 @@ stop_counter.addEventListener("click", function() {
 
 
 
-// Probar videojuego
+// Inciar juego. Obtengo otros elementos, el botón de juego, el container y el contador.
 let start_game = document.getElementById("start_game");
 let div_container = document.getElementsByClassName("container")[0];
-let guessLabel = document.getElementById("counter");
+let guessCounter = document.getElementById("counter");
 
+// Declaro una variable para ver si el juego se encuentra iniciado.
 let isGameStarted = false;
 
+// Ejecuto el juego a través del siguiente botón.
 start_game.addEventListener("click", function() {
-    // guessLabel.hidden = "hidden";
-    if (!isGameStarted){
-        document.body.style.backgroundImage = "url(img/castle.jpg)";
-        start_counter.remove();
+    // guessCounter.hidden = "hidden";
 
-        let oldLabel = document.getElementById("random-number");
-        if (oldLabel) {
-            oldLabel.remove()
-        
-        
-        }
+    // Si el juego no se encuentra iniciado. Seteamos todo para que funcione.
+    if (!isGameStarted){
         createGameElements();
+        
+        
         clearInterval(addToCounterEverySec);
         addToCounterEverySec = setInterval(addToCounterFrom1To10, 100);
         start_game.innerHTML = "Guess My Number!";
@@ -62,8 +59,8 @@ start_game.addEventListener("click", function() {
     } else {
         clearInterval(addToCounterEverySec);
         let random_number = document.getElementById("random-number");
-        // guessLabel.removeAttribute("hidden")
-        if (guessLabel.innerHTML == random_number.innerHTML) {
+        // guessCounter.removeAttribute("hidden")
+        if (guessCounter.innerHTML == random_number.innerHTML) {
             random_number.innerHTML = "You won!!";
         } else {
             random_number.innerHTML = "You lost :("
@@ -96,21 +93,27 @@ function generateRandomNumber() {
 }
 
 function createGameElements() {
-    // Delete start and stop buttons.
+    // Seteamos el background a esta imagen, y eliminamos los botones de la pagina previa.
+    document.body.style.backgroundImage = "url(img/castle.jpg)";
     start_counter.remove();
     stop_counter.remove();
 
-    // Change Div Style
+    // Cambiamos el style del div.
     div_container.style = "border: 5px solid; margin: auto; width: 50%; padding: 10px; display: flex; flex-direction: column; align-items: center;"
 
+    // Si hay un label viejo, igual al que crearemos, lo eliminamos.
+    let oldLabel = document.getElementById("random-number");
+    if (oldLabel) {
+        oldLabel.remove()
+    }
 
-    // Create new label.
+    // Creamos un nuevo label, el cual será nuestro numero a obtener. 
     let label = document.createElement("label")
     label.style = "color: white; font-size: 200px;"
     label.innerHTML = generateRandomNumber();
     label.id = "random-number";
     
-
+    // Lo agregamos al div.
     div_container.appendChild(label);
 
 }

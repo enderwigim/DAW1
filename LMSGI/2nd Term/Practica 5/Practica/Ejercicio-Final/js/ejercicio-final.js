@@ -14,8 +14,13 @@ function CreateColumns(columnNum) {
 }
 
 function DeleteRow(rowNumber) {
+    let wasDeleted = false;
     let everyTR = document.getElementsByTagName("tr");
-    everyTR[(rowNumber - 1)].remove();
+    if ( rowNumber > 0 && rowNumber <= everyTR.length) {
+        everyTR[(rowNumber - 1)].remove();
+        wasDeleted = true;
+    }
+    return wasDeleted;
 }
 
 function SelectCell(rowNumber, columnNum) {
@@ -44,18 +49,17 @@ insertColumn.addEventListener("click", function() {
 })
 
 deleteRow.addEventListener("click", function() {
+
     let rowNumber = prompt("¿Que fila quieres borrar?");
-    if (rowNumber <= 0) {
-        alert("No hay filas negativas.");
-    } else {
-        DeleteRow(rowNumber);
+    if (!DeleteRow(rowNumber)){
+        alert("No pudo borrarse. La fila no puede ser negativa, y tiene que existir.");
     }
-})
+  })
 
 changeText.addEventListener("click", function() {
     let input = document.getElementById("myInput");
     if (input.value != "") {
-        let rowNumber = parseInt(prompt("¿Que fila quieres borrar?"));
+        let rowNumber = parseInt(prompt("¿Que fila quieres cambiar."));
         let columnNum = parseInt(prompt("¿Que columna?"));
         if (rowNumber <= 0 || columnNum <= 0) {
             alert("No existe eso.");
@@ -68,14 +72,11 @@ changeText.addEventListener("click", function() {
             if (cellSelected != false) {
                 cellSelected.innerHTML = input.value; 
             } else {
-                alert("Esa celda no existe.")
+                alert("Esa celda no existe.");
             }
-            
-
         }
-        
     }
     else {
-        alert("There's no text in the input.")
+        alert("There's no text in the input.");
     }
 })

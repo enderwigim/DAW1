@@ -81,8 +81,8 @@ UPDATE DETALLE_PEDIDOS
 
 UPDATE DETALLE_PEDIDOS
    SET cantidad = 2
-  WHERE numeroLinea = 2
-    AND codPedido = 129;
+ WHERE numeroLinea = 2
+   AND codPedido = 129;
 
 UPDATE DETALLE_PEDIDOS
    SET cantidad = 1
@@ -91,8 +91,8 @@ UPDATE DETALLE_PEDIDOS
 
 -- Comprobación.
   SELECT *
-   FROM DETALLE_PEDIDOS
-  WHERE codPedido = 129; 
+    FROM DETALLE_PEDIDOS
+   WHERE codPedido = 129; 
 
 --7. Modifica la fecha del pedido que hemos creado a la fecha y hora actuales.
 UPDATE PEDIDOS
@@ -112,14 +112,14 @@ UPDATE DETALLE_PEDIDOS
 
 
 -- Comprobación.
-  SELECT *
-   FROM DETALLE_PEDIDOS
-  WHERE codPedido = 129; 
+SELECT *
+  FROM DETALLE_PEDIDOS
+ WHERE codPedido = 129; 
 
 SELECT precio_unidad,
        precio_unidad*1.05
   FROM DETALLE_PEDIDOS
-  WHERE codPedido = 129;
+ WHERE codPedido = 129;
 --9. Vuelve a dejar el precio de dichos productos como estaba anteriormente.
 UPDATE DETALLE_PEDIDOS
    SET precio_unidad = precio_unidad/1.05
@@ -127,18 +127,18 @@ UPDATE DETALLE_PEDIDOS
 
 
  -- Comprobación.
-  SELECT *
-   FROM DETALLE_PEDIDOS
-  WHERE codPedido = 129; 
+SELECT *
+  FROM DETALLE_PEDIDOS
+ WHERE codPedido = 129; 
 
 SELECT precio_unidad,
        precio_unidad/1.05
   FROM DETALLE_PEDIDOS
-  WHERE codPedido = 129;
+ WHERE codPedido = 129;
 
 --10. ¿Cuál sería la secuencia de borrado de registros de tablas hasta que finalmente se pueda borrar la oficina de Alicante que creamos en el ejercicio 1? Una vez tengas el script, comprueba que se puede eliminar.
 DELETE FROM DETALLE_PEDIDOS
-  WHERE codPedido = 129;
+ WHERE codPedido = 129;
 
 DELETE FROM PEDIDOS
  WHERE codPedido = 129;
@@ -179,14 +179,14 @@ SELECT precio_venta, precio_venta/1.20
 
 --13. Elimina los clientes que no hayan realizado ningún pago.
 DELETE FROM CLIENTES
-  WHERE codCliente NOT IN (SELECT codCliente
-                        FROM PAGOS);
+ WHERE codCliente NOT IN (SELECT codCliente
+                            FROM PAGOS);
 
 
 SELECT *
   FROM CLIENTES
  WHERE codCliente NOT IN (SELECT codCliente
-                        FROM PAGOS);
+                            FROM PAGOS);
 
 
 
@@ -214,23 +214,25 @@ SELECT codCliente
 --15. Borra los pagos del cliente con menor límite de crédito.
 DELETE FROM PAGOS
  WHERE codCliente = (SELECT TOP(1) codCliente
-                          FROM CLIENTES
-                          ORDER BY limite_credito ASC)
+                       FROM CLIENTES
+                      ORDER BY limite_credito ASC)
 
 SELECT *
   FROM PAGOS
  WHERE codCliente = (SELECT TOP(1) codCliente
-                          FROM CLIENTES
-                          ORDER BY limite_credito ASC)
+                       FROM CLIENTES
+                      ORDER BY limite_credito ASC)
 
 
 --16. Actualiza la ciudad a Alicante para aquellos clientes que tengan un límite de crédito inferior a TODOS los precios de los productos de la categoría Ornamentales (puede que no haya ninguno).
 UPDATE CLIENTES
-SET ciudad = 'Alicante'
-WHERE limite_credito < (SELECT SUM(precio_venta)
-                          FROM PRODUCTOS
-                         WHERE UPPER(codCategoria) = 'OR')
+   SET ciudad = 'Alicante'
+ WHERE limite_credito < (SELECT SUM(precio_venta)
+                           FROM PRODUCTOS
+                          WHERE UPPER(codCategoria) = 'OR')
 
+
+-- Comprobación
 SELECT *
   FROM CLIENTES
  WHERE limite_credito < (SELECT SUM(precio_venta)
@@ -250,16 +252,16 @@ SELECT *
 UPDATE CLIENTES
    SET ciudad = 'Madrid'
  WHERE (limite_credito/12) < ANY (SELECT precio_venta
-                               FROM PRODUCTOS
-                              WHERE UPPER(codCategoria) = 'OR')
+                                    FROM PRODUCTOS
+                                   WHERE UPPER(codCategoria) = 'OR')
 
 
 
 SELECT *
   FROM CLIENTES
  WHERE (limite_credito/12) < ANY (SELECT precio_venta
-                               FROM PRODUCTOS
-                              WHERE UPPER(codCategoria) = 'OR')
+                                    FROM PRODUCTOS
+                                   WHERE UPPER(codCategoria) = 'OR')
 
 
 
@@ -297,15 +299,13 @@ UPDATE DETALLE_PEDIDOS
 UPDATE DETALLE_PEDIDOS
    SET IVA = 1.21
  WHERE codPedido NOT IN (SELECT codPedido
-                       FROM PEDIDOS
-                      WHERE YEAR(fecha_pedido) >= 2009);                
+                           FROM PEDIDOS
+                          WHERE YEAR(fecha_pedido) >= 2009);                
 
+
+-- Comprobación
 SELECT *
   FROM DETALLE_PEDIDOS
- WHERE codPedido IN (SELECT codPedido
-                       FROM PEDIDOS
-                      WHERE YEAR(fecha_pedido) >= 2009)
-
 --20. Modifica la tabla detalle_pedido para incorporar un campo numérico llamado total_linea y
 --actualiza todos sus registros para calcular su valor con la fórmula:
 --total_linea = precio_unidad*cantidad * (1 + (iva/100));
@@ -331,24 +331,23 @@ SELECT *
  WHERE codCliente = -1;
 
 ALTER TABLE HISTORICO_CLIENTES
-   ADD fechaAlta SMALLDATETIME
+  ADD fechaAlta SMALLDATETIME
 
 
 INSERT INTO HISTORICO_CLIENTES
 SELECT *, 
        GETDATE()
   FROM CLIENTES
-  WHERE LOWER(nombre_cliente) LIKE('%s%');
+ WHERE LOWER(nombre_cliente) LIKE('%s%');
 
 
 --SELECT TOP(0) *
 --  FROM CLIENTES
 
 
-
 --22. Actualiza a NULL los campos region, pais y codigo_postal en la tabla CLIENTES para todos los registros. Utiliza una sentencia de actualización en la que se actualicen estos 3 campos a partir de los datos existentes en la tabla HISTORICO_CLIENTES. Comprueba que los datos se han trasladado correctamente.
 UPDATE CLIENTES
-  SET pais = NULL,
+   SET pais = NULL,
       codPostal = NULL
 
 UPDATE c

@@ -281,7 +281,7 @@ UPDATE CLIENTES
 --19. Modifica la tabla detalle_pedido para insertar un campo numérico llamado IVA. Establece el
 --valor de ese campo a 18 para aquellos registros cuyo pedido tenga fecha a partir de Enero de
 --2009. A continuación, actualiza el resto de pedidos estableciendo el IVA al 21.
-USE JARDINERIA
+
 ALTER TABLE DETALLE_PEDIDOS
   ADD IVA FLOAT;
 
@@ -312,12 +312,13 @@ SELECT *
 ALTER TABLE DETALLE_PEDIDOS
   ADD total_linea DECIMAL(10,2);
 
---ALTER TABLE DETALLE_PEDIDOS
---  ADD total_linea AS (precio_unidad*cantidad)*IVA;
-
 
 UPDATE DETALLE_PEDIDOS
    SET total_linea = (precio_unidad*cantidad)*IVA;
+
+--ALTER TABLE DETALLE_PEDIDOS
+--  ADD total_linea AS (precio_unidad*cantidad)*IVA;
+
 
 
 

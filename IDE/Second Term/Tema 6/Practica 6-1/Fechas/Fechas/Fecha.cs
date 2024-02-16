@@ -8,9 +8,26 @@ namespace Fechas
 {
     internal class Fecha
     {
+        // Miembros de la clase.
         private int dia;
         private int mes;
         private int anyo;
+        // Getters & Setters de la clase.
+        public int Dia
+        {
+            get { return dia; }
+            set { dia = value; }
+        }
+        public int Mes
+        {
+            get { return mes; }
+            set { mes = value;}
+        }
+        public int Anyo
+        {
+            get { return anyo; }
+            set { anyo = value; }
+        }
 
         //TODO validar los valores introducidos
         /// <summary>
@@ -19,26 +36,11 @@ namespace Fechas
         /// </summary>
         public Fecha()
         {
-            fDia = 1;
-            fMes = 1;
-            fAnyo = 1;
+            Dia = 1;
+            Mes = 1;
+            Anyo = 1;
         }
 
-        public int fDia
-        {
-            get { return dia; }
-            set { dia = value; }
-        }
-        public int fMes
-        {
-            get { return mes; }
-            set { mes = value;}
-        }
-        public int fAnyo
-        {
-            get { return anyo; }
-            set { anyo = value; }
-        }
 
         /// <summary>
         /// Constructor de Fecha con 3 parámetros
@@ -47,42 +49,44 @@ namespace Fechas
         /// <param name="mes">Mes</param>
         /// <param name="anyo">Anyo (entre 1 y 2500)</param>
         /// <param name="dia">Dia</param>
-        /// <param name="bi">Indica si es bisiesto</param>
-        public Fecha(int mes, int anyo, int dia, bool bi)
+        public Fecha(int mes, int anyo, int dia)
         {
+            // Asigna los valores maximos que puede tomar Anyo en este constructor.
             if (anyo >= 1 && anyo <= 2500)
             {
-                fAnyo = anyo;
+                Anyo = anyo;
             }
             else
             {
-                fAnyo = 1;
+                Anyo = 1;
             }
-
+            // Asigna los valores maximos que puede tomar Mes en este constructor.
             if (mes >= 1 && mes <= 12)
-                fMes = mes;
+                Mes = mes;
             else
-                fMes = 1;
+                Mes = 1;
 
+            // Asigna los valores maximos que puede tomar Dia en este constructor.
             int diasMes = CalcDiasMes();
             if (dia >= 1 && dia <= diasMes)
-                fDia = dia;
+                Dia = dia;
             else
-                fDia = 1;
+                Dia = 1;
         }
 
+        // Calcula los dias maximos en base al mes.
         private int CalcDiasMes()
         {
             int diasMes = 0;
 
-            if (fMes == 2)
+            if (Mes == 2)
             {
-                if (this.EsBisiesto())
+                if (CalcEsBisiesto())
                     diasMes = 29;
                 else
                     diasMes = 28;
             }
-            else if (fMes == 4 || fMes == 6 || fMes == 9 || fMes == 11)
+            else if (Mes == 4 || Mes == 6 || Mes == 9 || Mes == 11)
             {
                 diasMes = 30;
             }
@@ -93,10 +97,11 @@ namespace Fechas
             return diasMes;
         }
 
-        public bool EsBisiesto()
+        // Calcula si el año es bisiesto.
+        public bool CalcEsBisiesto()
         {
             bool bisiesto = false;
-            if ((fAnyo % 400 == 0) || ((fAnyo % 4 == 0) && (fAnyo % 100 != 0)))
+            if ((Anyo % 400 == 0) || ((Anyo % 4 == 0) && (Anyo % 100 != 0)))
                 bisiesto = true;
             else bisiesto = false;
             return bisiesto;
@@ -111,7 +116,7 @@ namespace Fechas
         override
         public string ToString()
         {
-            return fDia + "/" + fMes + "/" + fAnyo;
+            return Dia + "/" + Mes + "/" + Anyo;
         }
     }
 }

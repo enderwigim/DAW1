@@ -58,7 +58,10 @@ SELECT pro.nombre,
 							 FROM PRODUCTO);
 
 -- 6. Devuelve una lista de todos los productos del fabricante Lenovo.
-SELECT *
+SELECT pro.codigo, 
+       pro.nombre, 
+       pro.precio, 
+       fb.codigo AS codigoFabricante
   FROM PRODUCTO pro,
 	   FABRICANTE fb
  WHERE pro.codigo_fabricante = fb.codigo
@@ -66,12 +69,16 @@ SELECT *
 
 
 -- 7. Devuelve una lista de todos los productos del fabricante Crucial que tengan un precio mayor que 200€.
-SELECT *
+SELECT pro.codigo,
+       pro.nombre,
+       pro.precio,
+       fb.codigo AS codigoFabricante
   FROM PRODUCTO pro,
        FABRICANTE fb
   WHERE pro.codigo_fabricante = fb.codigo
     AND LOWER(fb.nombre) = 'crucial'
 	AND pro.precio > 200;
+
 
 -- 8. Devuelve un listado con todos los productos de los fabricantes Asus, Hewlett-Packardy Seagate. Sin utilizar el operador IN.
 /*SELECT *
@@ -84,13 +91,10 @@ SELECT *
 */
 
 SELECT *
-  FROM PRODUCTO pro,
-	   FABRICANTE fb
-  WHERE fb.codigo = pro.codigo_fabricante
-    AND fb.codigo = 1
-	  AND fb.codigo = 3
-	  AND fb.codigo = 5
-
+FROM PRODUCTO
+WHERE codigo_fabricante = 1
+   OR codigo_fabricante = 3
+   OR codigo_fabricante = 5;
 
 
 -- 9. Devuelve un listado con todos los productos de los fabricantes Asus, Hewlett-Packardy Seagate. Utilizando el operador IN.
@@ -119,10 +123,17 @@ SELECT pro.nombre,
 -- 12. Devuelve un listado con el nombre de producto, precio y nombre de fabricante, de todos los productos
 --		que tengan un precio mayor o igual a 180€. Ordene el resultado en primer lugar por el precio (en orden
 --		descendente) y en segundo lugar por el nombre (en orden ascendente)
-
-
+SELECT *
+  FROM PRODUCTO pro,
+       FABRICANTE fb
+ WHERE fb.codigo = pro.codigo_fabricante
+   AND pro.precio >= 180
+ ORDER BY pro.precio DESC, pro.nombre DESC
 -- 13. Devuelve un listado con el identificador y el nombre de fabricante, solamente de aquellos fabricantes que tienen productos asociados en la BD
-
+SELECT *
+  FROM FABRICANTE
+ WHERE codigo IN (SELECT codigo_fabricante
+                    FROM PRODUCTO)
 
 								-----------------------------------
 								-- Uso de LEFT JOIN / RIGHT JOIN --
@@ -130,10 +141,31 @@ SELECT pro.nombre,
 
 -- 14. Devuelve un listado de todos los fabricantes que existen en la base de datos, junto con los productos que
 --		tiene cada uno de ellos. El listado deberá mostrar también aquellos fabricantes que no tienen productos asociados.
+SELECT fb.codigo AS CodFabricante,
+       fb.nombre,
+       COUNT(pro.codigo) AS cantidadElementos
+  FROM FABRICANTE fb
+  LEFT JOIN PRODUCTO pro
+    ON pro.codigo_fabricante = fb.codigo
+  GROUP BY fb.codigo, fb.nombre
+
+
+SELECT *
+  FROM FABRICANTE fb
+  LEFT JOIN PRODUCTO pro
+    ON pro.codigo_fabricante = fb.codigo
 
 
 -- 15. Devuelve un listado donde sólo aparezcan aquellos fabricantes que no tienen ningún producto asociado.
+SELECT fb.codigo AS CodFabricante,
+       fb.nombre,
+       COUNT(pro.codigo) AS cantidadElementos
+  FROM FABRICANTE fb
+  LEFT JOIN PRODUCTO pro
+    ON pro.codigo_fabricante = fb.codigo
+  GROUP BY fb.codigo, fb.nombre
+  HAVING COUNT(pro.codigo) = 0;
 
 
 -- 16. ¿Pueden existir productos que no estén relacionados con un fabricante? Justifica tu respuesta.
-
+-- No, la tabla codigo_fabricante es NOT NULL.

@@ -17,7 +17,7 @@ namespace Ex4
             employees = new List<Empleado>();
         }
 
-        private int GetIndexByName(string name)
+        public int GetIndexByName(string name)
         {
             int index = -1;
             for (int i = 0; i < employees.Count && index == -1; i++)
@@ -163,14 +163,16 @@ namespace Ex4
             }
         }
 
-            public bool DeleteSells(string name)
+            public bool DeleteSells(int index)
             {
                 bool sellsErased = false;
-                int index = GetIndexByName(name);
                 if (index != -1)
                 {
-                    employees[index].DeleteSells();
-                    sellsErased = true;
+                    if(employees[index].DeleteSells())
+                    {
+                        sellsErased = true;
+                    }
+                    
                 }
                 return sellsErased;
             }

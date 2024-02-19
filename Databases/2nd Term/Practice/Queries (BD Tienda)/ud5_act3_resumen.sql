@@ -11,52 +11,111 @@
 
 -- 1. Calcula el número total de productos que hay en la tabla productos.
 
+SELECT COUNT(1) AS cantidadTotal
+  FROM PRODUCTO
 
 -- 2. Calcula el número total de fabricantes que hay en la tabla fabricante.
-
+SELECT COUNT(1) AS cantidadFabricantes
+  FROM FABRICANTE
 
 -- 3. Calcula el número de valores distintos de identificador de fabricante aparecen en la tabla productos.
-
+SELECT codigo_fabricante,
+	   COUNT(1) AS cantidadPorFabricante
+  FROM PRODUCTO
+  GROUP BY codigo_fabricante
 
 -- 4. Calcula la media del precio de todos los productos.
-
+SELECT AVG(precio) AS mediaPrecio
+  FROM PRODUCTO
 
 -- 5. Calcula el precio más barato de todos los productos.
-
+SELECT MIN(precio) AS masBarato
+  FROM PRODUCTO
 
 -- 6. Calcula el precio más caro de todos los productos.
-
+SELECT MAX(precio) AS masBarato
+  FROM PRODUCTO
 
 -- 7. Lista el nombre y el precio del producto más barato.
-
-
+SELECT nombre,
+	   precio
+  FROM PRODUCTO
+  WHERE precio = (SELECT MIN(precio)
+  					FROM PRODUCTO)
 -- 8. Lista el nombre y el precio del producto más caro.
-
+SELECT nombre,
+	   precio
+  FROM PRODUCTO
+  WHERE precio = (SELECT MAX(precio)
+  					FROM PRODUCTO)
 
 -- 9. Calcula la suma de los precios de todos los productos.
-
+SELECT SUM(precio) AS SumaPrecios
+  FROM PRODUCTO;
 
 -- 10. Calcula el número de productos que tiene el fabricante Asus.
-
+SELECT COUNT(1) AS CantidadProductosAsus
+  FROM PRODUCTO pro,
+       FABRICANTE fb
+  WHERE fb.codigo = pro.codigo_fabricante
+    AND fb.nombre = 'Asus'
+  GROUP BY fb.codigo
 
 -- 11. Calcula la media del precio de todos los productos del fabricante Asus.
-
+SELECT AVG(pro.precio) AS mediaPrecio
+  FROM PRODUCTO pro,
+       FABRICANTE fb
+  WHERE fb.codigo = pro.codigo_fabricante
+    AND fb.nombre = 'Asus'
+  GROUP BY fb.codigo
 
 -- 12. Calcula el precio más barato de todos los productos del fabricante Asus.
+SELECT MIN(pro.precio) AS precioMin
+  FROM PRODUCTO pro,
+       FABRICANTE fb
+  WHERE fb.codigo = pro.codigo_fabricante
+    AND fb.nombre = 'Asus'
+  GROUP BY fb.codigo
 
 
 -- 13. Calcula el precio más caro de todos los productos del fabricante Asus.
+SELECT MAX(pro.precio) AS precioMax
+  FROM PRODUCTO pro,
+       FABRICANTE fb
+  WHERE fb.codigo = pro.codigo_fabricante
+    AND fb.nombre = 'Asus'
+  GROUP BY fb.codigo
 
 
 -- 14. Calcula la suma de todos los productos del fabricante Asus.
-
+SELECT SUM(pro.precio) AS precioSuma
+  FROM PRODUCTO pro,
+       FABRICANTE fb
+  WHERE fb.codigo = pro.codigo_fabricante
+    AND fb.nombre = 'Asus'
+  GROUP BY fb.codigo
 
 -- 15. Muestra el precio máximo, precio mínimo, precio medio y el número total de productos que tiene el fabricante Crucial.
-
+SELECT MAX(pro.precio) AS MAX,
+	   MIN(pro.precio) AS MIN,
+	   AVG(pro.precio) AS AVG,
+	   COUNT(1) AS cantidad
+  FROM PRODUCTO pro,
+       FABRICANTE fb
+ WHERE fb.codigo = pro.codigo_fabricante
+   AND fb.nombre = 'Crucial'
 
 -- 16. Muestra el número total de productos que tiene cada uno de los fabricantes. El listado también debe
 --		incluir los fabricantes que no tienen ningún producto. El resultado mostrará dos columnas, una con el
 --		nombre del fabricante y otra con el número de productos que tiene. Ordene el resultado descendentemente por el número de productos.
+SELECT fb.nombre,
+       COUNT(1) AS cantidadProductos
+  FROM FABRICANTE fb
+  LEFT JOIN PRODUCTO pro
+    ON fb.codigo = pro.codigo_fabricante
+  GROUP BY fb.codigo, fb.nombre
+
+
 
 
 -- 17. Muestra el precio máximo, precio mínimo y precio medio de los productos de cada uno de los fabricantes.

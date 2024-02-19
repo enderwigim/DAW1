@@ -116,13 +116,20 @@ namespace Ex4
         private void btnDeleteSells_Click(object sender, EventArgs e)
         {
             string name = Interaction.InputBox("What's the name of the employee whose sales you want to delete");
-            if (employeeList.DeleteSells(name))
+            int index = employeeList.GetIndexByName(name);
+            if (index != -1)
             {
-                MessageBox.Show("Sells Deleted");
-            } else
-            {
-                MessageBox.Show("An error ocurred. Check if the employee exist or if he has sells.");
+
+                if (employeeList.DeleteSells(index))
+                {
+                    MessageBox.Show("Sells Deleted");
+                } else
+                {
+                    MessageBox.Show("An error ocurred. That employee doesn't have any sell.");
+                }
             }
+            MessageBox.Show("That employee doesn't exist.");
+
         }
 
         private void btnOrdenarVentas_Click(object sender, EventArgs e)

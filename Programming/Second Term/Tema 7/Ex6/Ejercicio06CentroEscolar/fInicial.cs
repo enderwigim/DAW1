@@ -17,12 +17,12 @@ namespace Ejercicio06CentroEscolar
         }
 
         // Creamos la lista de cursos.
-        ListaCursos listaCursos = new ListaCursos();
+        CourseList courses = new CourseList();
         // Crear aquí también la lista de profesores y de alumnos.
 
         private void bCursos_Click(object sender, EventArgs e)
         {
-            fCursos fCur = new fCursos(listaCursos);
+            fCursos fCur = new fCursos(courses);
 
             // Aquí le pasamos la lista de cursos para poder utilizarla luego en el formulario de cursos.
             

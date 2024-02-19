@@ -120,36 +120,94 @@ SELECT fb.nombre,
 
 -- 17. Muestra el precio máximo, precio mínimo y precio medio de los productos de cada uno de los fabricantes.
 --		El resultado mostrará el nombre del fabricante junto con los datos que se solicitan.
+SELECT fb.nombre,
+       MAX(precio) AS Maximo,
+	   MIN(precio) AS Minimo,
+	   AVG(precio) AS Media
+  FROM FABRICANTE fb
+  LEFT JOIN PRODUCTO pro
+    ON fb.codigo = pro.codigo_fabricante
+  GROUP BY fb.codigo, fb.nombre
+
 
 
 -- 18. Muestra el precio máximo, precio mínimo, precio medio y el número total de productos de los fabricantes
 --		que tienen un precio medio superior a 200€. No es necesario mostrar el nombre del fabricante, con el
 --		identificador del fabricante es suficiente.
-
+SELECT fb.codigo,
+       MAX(precio) AS Maximo,
+	   MIN(precio) AS Minimo,
+	   AVG(precio) AS Media,
+	   COUNT(1) AS cantidadProductos
+  FROM FABRICANTE fb
+  LEFT JOIN PRODUCTO pro
+    ON fb.codigo = pro.codigo_fabricante
+  GROUP BY fb.codigo, fb.nombre
+  HAVING AVG(precio) > 200
 
 -- 19. Muestra el nombre de cada fabricante, junto con el precio máximo, precio mínimo, precio medio y el
 --		número total de productos de los fabricantes que tienen un precio medio superior a 200€. Es necesario
 --		mostrar el nombre del fabricante
+SELECT fb.nombre,
+       MAX(precio) AS Maximo,
+	   MIN(precio) AS Minimo,
+	   AVG(precio) AS Media,
+	   COUNT(1) AS cantidadProductos
+  FROM FABRICANTE fb
+  LEFT JOIN PRODUCTO pro
+    ON fb.codigo = pro.codigo_fabricante
+  GROUP BY fb.codigo, fb.nombre
+  HAVING AVG(precio) > 200
 
 
 
 -- 20. Calcula el número de productos que tienen un precio mayor o igual a 180€.
-
+SELECT COUNT(1) AS productosCaros
+  FROM PRODUCTO
+ WHERE precio >= 180
 
 -- 21. Calcula el número de productos que tiene cada fabricante con un precio mayor o igual a 180€.
+SELECT fb.nombre, 
+	   COUNT(1) AS productosCaros
+  FROM PRODUCTO pro,
+       FABRICANTE fb
+  WHERE pro.codigo_fabricante = fb.codigo
+    AND precio >= 180
+  GROUP BY fb.nombre
 
 
 -- 22. Lista el precio medio los productos de cada fabricante, mostrando solamente el identificador del fabricante.
-
+SELECT codigo_fabricante,
+	   AVG(precio)
+  FROM PRODUCTO
+ GROUP BY codigo_fabricante
 
 -- 23. Lista el precio medio los productos de cada fabricante, mostrando solamente el nombre del fabricante.
-
+SELECT fb.nombre,
+	   AVG(pro.precio) AS precioMedio
+  FROM PRODUCTO pro,
+       FABRICANTE fb
+ WHERE pro.codigo_fabricante = fb.codigo
+ GROUP BY fb.nombre
 
 -- 24. Lista los nombres de los fabricantes cuyos productos tienen un precio medio mayor o igual a 150€.
+SELECT fb.nombre,
+	   AVG(pro.precio) AS precioMedio
+  FROM PRODUCTO pro,
+       FABRICANTE fb
+ WHERE pro.codigo_fabricante = fb.codigo
+ GROUP BY fb.nombre
+ HAVING AVG(pro.precio) >= 150
 
 
 -- 25. Devuelve un listado con los nombres de los fabricantes que tienen 2 o más productos.
-
+SELECT fb.nombre,
+       COUNT(1) as cantidadProductos
+  FROM PRODUCTO pro,
+	   FABRICANTE fb
+ WHERE pro.codigo_fabricante = fb.codigo
+ GROUP BY fb.nombre
+HAVING COUNT(1) >= 2; 
 
 -- 26. Devuelve un listado con los nombres de los fabricantes y el número de productos que tiene cada uno con
 --		un precio superior o igual a 220 €. No es necesario mostrar el nombre de los fabricantes que no tienen
@@ -164,6 +222,14 @@ SELECT fb.nombre,
 --  Crucial  |   1
 -- -------------------
 --
+SELECT fb.nombre,
+       COUNT(1) as cantidadProductos
+  FROM PRODUCTO pro,
+	   FABRICANTE fb
+ WHERE pro.codigo_fabricante = fb.codigo
+   AND pro.precio >= 220
+ GROUP BY fb.nombre
+ ORDER BY COUNT(1) DESC
 
 -- 27. Devuelve un listado con los nombres de los fabricantes y el número de productos que tiene cada uno con
 --		un precio superior o igual a 220 €. El listado debe mostrar el nombre de todos los fabricantes, es decir, si
@@ -183,6 +249,14 @@ SELECT fb.nombre,
 --  Hewlett-Packard		|  0
 --  Xiaomi				|  0
 --  Seagate				|  0
+SELECT fb.nombre,
+       COUNT(pro.precio) as cantidadProductos
+  FROM FABRICANTE fb
+  LEFT JOIN PRODUCTO pro
+    ON pro.codigo_fabricante = fb.codigo
+   AND pro.precio >= 220
+ GROUP BY fb.nombre
+ ORDER BY cantidadProductos DESC
 
 
 -- 28. Devuelve un listado con los nombres de los fabricantes donde la suma del precio de todos sus productos sea superior a 1000 €

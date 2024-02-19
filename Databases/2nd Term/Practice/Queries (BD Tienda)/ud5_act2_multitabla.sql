@@ -39,27 +39,82 @@ SELECT pr.codigo,
  WHERE pr.codigo_fabricante = fb.codigo;
 
 -- 4. Devuelve el nombre del producto, su precio y el nombre de su fabricante, del producto más barato.
-
+SELECT TOP(1) pro.nombre,
+	   pro.precio,
+	   fb.nombre AS nombreFabricante
+  FROM PRODUCTO pro,
+  	   FABRICANTE fb
+  WHERE pro.codigo_fabricante = fb.codigo
+  ORDER BY pro.precio ASC; 
 
 -- 5. Devuelve el nombre del producto, su precio y el nombre de su fabricante, del producto más caro.
-
+SELECT pro.nombre,
+	   pro.precio,
+	   fb.nombre AS nombreFabricante
+  FROM PRODUCTO pro,
+	   FABRICANTE fb
+  WHERE pro.codigo_fabricante = fb.codigo
+    AND pro.precio >= ALL (SELECT precio
+							 FROM PRODUCTO);
 
 -- 6. Devuelve una lista de todos los productos del fabricante Lenovo.
+SELECT *
+  FROM PRODUCTO pro,
+	   FABRICANTE fb
+ WHERE pro.codigo_fabricante = fb.codigo
+   AND LOWER(fb.nombre) = 'lenovo';
 
 
 -- 7. Devuelve una lista de todos los productos del fabricante Crucial que tengan un precio mayor que 200€.
-
+SELECT *
+  FROM PRODUCTO pro,
+       FABRICANTE fb
+  WHERE pro.codigo_fabricante = fb.codigo
+    AND LOWER(fb.nombre) = 'crucial'
+	AND pro.precio > 200;
 
 -- 8. Devuelve un listado con todos los productos de los fabricantes Asus, Hewlett-Packardy Seagate. Sin utilizar el operador IN.
+/*SELECT *
+  FROM PRODUCTO pro
+  JOIN FABRICANTE fb
+    ON fb.codigo = pro.codigo_fabricante
+  WHERE LOWER(fb.nombre) = 'asus'
+	 OR LOWER(fb.nombre) = 'hewlett-packardy'
+	 OR LOWER(fb.nombre) = 'seagate'
+*/
+
+SELECT *
+  FROM PRODUCTO pro,
+	   FABRICANTE fb
+  WHERE fb.codigo = pro.codigo_fabricante
+    AND fb.codigo = 1
+	  AND fb.codigo = 3
+	  AND fb.codigo = 5
+
 
 
 -- 9. Devuelve un listado con todos los productos de los fabricantes Asus, Hewlett-Packardy Seagate. Utilizando el operador IN.
-
+SELECT *
+  FROM PRODUCTO pro,
+       FABRICANTE fb
+  WHERE pro.codigo_fabricante = fb.codigo
+    AND fb.codigo IN (1, 3, 5)
 
 -- 10. Devuelve un listado con el nombre y el precio de todos los productos de los fabricantes cuyo nombre termine por la vocal e.
+SELECT *
+  FROM PRODUCTO pro,
+       FABRICANTE fb
+ WHERE fb.codigo = pro.codigo_fabricante
+   AND fb.nombre LIKE '%e'
 
 
 -- 11. Devuelve un listado con el nombre y el precio de todos los productos cuyo nombre de fabricante contenga el carácter w en su nombre.
+SELECT pro.nombre,
+       pro.precio
+  FROM PRODUCTO pro,
+       FABRICANTE fb
+ WHERE fb.codigo = pro.codigo_fabricante
+   AND fb.nombre LIKE '%w%'
 
 -- 12. Devuelve un listado con el nombre de producto, precio y nombre de fabricante, de todos los productos
 --		que tengan un precio mayor o igual a 180€. Ordene el resultado en primer lugar por el precio (en orden

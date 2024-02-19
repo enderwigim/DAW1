@@ -260,11 +260,25 @@ SELECT fb.nombre,
 
 
 -- 28. Devuelve un listado con los nombres de los fabricantes donde la suma del precio de todos sus productos sea superior a 1000 €
-
+SELECT fb.nombre,
+       SUM(pro.precio)
+  FROM PRODUCTO pro,
+       FABRICANTE fb
+ WHERE pro.codigo_fabricante = fb.codigo
+  GROUP BY fb.nombre
+  HAVING SUM(pro.precio) > 1000
 
 -- 29. Devuelve un listado con el nombre del producto más caro que tiene cada fabricante. El resultado debe
 --		tener tres columnas: nombre del producto, precio y nombre del fabricante. El resultado tiene que estar
 --		ordenado alfabéticamente de menor a mayor por el nombre del fabricante
-
-
+SELECT pro.nombre,
+	   pro.precio,
+	   fb.nombre AS nombreFabricante
+  FROM PRODUCTO pro,
+       FABRICANTE fb
+ WHERE pro.codigo_fabricante = fb.codigo
+   AND pro.precio IN (SELECT MAX(precio)
+                        FROM PRODUCTO
+			           GROUP BY codigo_fabricante)
+ ORDER BY fb.nombre ASC
 

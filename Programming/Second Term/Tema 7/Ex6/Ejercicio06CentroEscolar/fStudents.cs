@@ -64,5 +64,53 @@ namespace Ejercicio06CentroEscolar
                 MessageBox.Show("That name isn't correct.");
             }
         }
+
+        private void btnDeleteStudent_Click(object sender, EventArgs e)
+        {
+            if (studentList.isEmpty())
+            {
+                string dni = Interaction.InputBox("Write the student's DNI/NIE.");
+                int index = studentList.GetIndexByDNI(dni);
+                if (index != -1)
+                {
+                    studentList.RemoveStudentFromList(index);
+                    MessageBox.Show("Student removed.");
+                }
+                MessageBox.Show("That student doesn't exist.");
+            } else
+            {
+                MessageBox.Show("There's no students in the list yet.");
+            }
+        }
+
+        private void btnShowStudentData_Click(object sender, EventArgs e)
+        {
+            if (studentList.isEmpty())
+            {
+                string studentInfo = "That student doesn't exist";
+                string dni = Interaction.InputBox("Write the student's DNI/NIE.");
+                int index = studentList.GetIndexByDNI(dni);
+                if (index != -1)
+                {
+                    studentInfo = studentList.ShowStudentAtIndex(index);
+                }
+                MessageBox.Show(studentInfo);
+            } else
+            {
+                MessageBox.Show("There's no students in the list yet.");
+            }
+        }
+
+        private void btnShowStudentList_Click(object sender, EventArgs e)
+        {
+            if (studentList.isEmpty())
+            {
+                string studentsText = studentList.ShowEveryStudent();
+                MessageBox.Show(studentsText);
+            } else
+            {
+                MessageBox.Show("There's no students in the list yet.");
+            }
+        }
     }
 }

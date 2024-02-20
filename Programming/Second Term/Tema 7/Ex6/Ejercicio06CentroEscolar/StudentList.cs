@@ -24,9 +24,32 @@ namespace Ejercicio06CentroEscolar
             }
             return isEmpty;
         }
+
+        public int GetIndexByDNI(string dni)
+        {
+            int index = -1;
+            for (int i = 0; i <  students.Count; i++)
+            {
+                if (dni.ToUpper() == students[i].Dni)
+                {
+                    index = i;
+                }
+            }
+            return index;
+        }
         public void AddStudentToList(Student new_student)
         {
             students.Add(new_student);
+        }
+        public void RemoveStudentFromList(int index)
+        {
+            students.RemoveAt(index);
+        }
+
+        public string ShowStudentAtIndex(int index)
+        {
+            string studentInfo = students[index].ShowStudent();
+            return studentInfo;
         }
         public string ShowEveryStudent()
         {

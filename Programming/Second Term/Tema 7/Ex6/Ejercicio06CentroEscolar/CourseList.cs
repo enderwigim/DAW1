@@ -15,12 +15,22 @@ namespace Ejercicio06CentroEscolar
             courses = new List<Course>();
         }
 
+        public bool isEmpty()
+        {
+            bool isEmpty = false;
+            if (courses.Count != 0)
+            {
+                isEmpty = true;
+            }
+            return isEmpty;
+        }
+
         public int GetIndexByCode(string code)
         {
             int index = -1;
             for (int i = 0; i <  courses.Count; i++)
             {
-                if (courses[i].Code == code)
+                if (courses[i].Code.ToLower() == code.ToLower())
                 {
                     index = i;
                 }
@@ -44,9 +54,16 @@ namespace Ejercicio06CentroEscolar
             return wasAdded;
         }
 
-        public void RemoveCourse(int index)
+        public bool RemoveCourse(string code)
         {
-            courses.RemoveAt(index);
+            bool wasRemoved = false;
+            int index = GetIndexByCode(code);
+            if (index != -1)
+            {
+                courses.RemoveAt(index);
+                wasRemoved = true;
+            }
+            return wasRemoved;
         }
 
         public string ShowEveryCourse()

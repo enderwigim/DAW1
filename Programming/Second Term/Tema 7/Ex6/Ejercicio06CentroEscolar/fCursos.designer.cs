@@ -62,6 +62,7 @@
             this.ShowEveryStudentInCourse.TabIndex = 3;
             this.ShowEveryStudentInCourse.Text = "Mostrar Alumnos Pertenecientes a un curso";
             this.ShowEveryStudentInCourse.UseVisualStyleBackColor = true;
+            this.ShowEveryStudentInCourse.Click += new System.EventHandler(this.ShowEveryStudentInCourse_Click);
             // 
             // btnAddCourse
             // 

@@ -9,12 +9,12 @@ namespace Ejercicio06CentroEscolar
     internal class Course
     {
         private string nombre;
-        private string pito;
+        private string code;
 
         public Course()
         {
             nombre = "";
-            pito = "";
+            code = "";
         }
 
         public string Name
@@ -25,14 +25,14 @@ namespace Ejercicio06CentroEscolar
         }
         public string Code
         {
-            get { return pito; }
-            set { pito = value; }
+            get { return code; }
+            set { code = value; }
         }
 
         override
         public string ToString()
         {
-            string text = $"Course Name: {Name} \n Course Code: {Code}";
+            string text = $"Course Name: {Name} \n Course Code: {Code} \n";
             return text;
         }
     }

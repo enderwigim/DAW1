@@ -50,7 +50,6 @@ start_game.addEventListener("click", function() {
     if (!isGameStarted){
         createGameElements();
         
-        
         clearInterval(addToCounterEverySec);
         addToCounterEverySec = setInterval(addToCounterFrom1To10, 100);
         start_game.innerHTML = "Guess My Number!";
@@ -66,8 +65,8 @@ start_game.addEventListener("click", function() {
             random_number.innerHTML = "You lost :("
         }
         random_number.style.fontSize = "80px"
-        isGameStarted = false;
         start_game.innerHTML = "Play Again";
+        isGameStarted = false;
 
     }   
 

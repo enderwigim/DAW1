@@ -22,9 +22,9 @@ function DeleteRow(rowNumber) {
     }
     return wasDeleted;
 }
-
+// Esta función selecciona una celda utilizando el numero de fila y columna.
+// Devuelve la celda, si existe, sino devuelve un booleano false.
 function SelectCell(rowNumber, columnNum) {
-    
     let everyTR = document.getElementsByTagName("tr");
     if (rowNumber <= everyTR.length) {
         let everyThInTR = everyTR[rowNumber - 1].children;
@@ -32,9 +32,8 @@ function SelectCell(rowNumber, columnNum) {
             let tHSelected = everyThInTR[columnNum - 1];
             return tHSelected;
         }
-    } else {
-        return false;
     }
+    return false; 
     
     
 }

@@ -67,7 +67,7 @@ namespace Ejercicio06CentroEscolar
 
         private void btnDeleteStudent_Click(object sender, EventArgs e)
         {
-            if (studentList.isEmpty())
+            if (studentList.IsEmpty())
             {
                 string dni = Interaction.InputBox("Write the student's DNI/NIE.");
                 int index = studentList.GetIndexByDNI(dni);
@@ -85,7 +85,7 @@ namespace Ejercicio06CentroEscolar
 
         private void btnShowStudentData_Click(object sender, EventArgs e)
         {
-            if (studentList.isEmpty())
+            if (studentList.IsEmpty())
             {
                 string studentInfo = "That student doesn't exist";
                 string dni = Interaction.InputBox("Write the student's DNI/NIE.");
@@ -103,7 +103,7 @@ namespace Ejercicio06CentroEscolar
 
         private void btnShowStudentList_Click(object sender, EventArgs e)
         {
-            if (studentList.isEmpty())
+            if (studentList.IsEmpty())
             {
                 string studentsText = studentList.ShowEveryStudent();
                 MessageBox.Show(studentsText);
@@ -111,6 +111,11 @@ namespace Ejercicio06CentroEscolar
             {
                 MessageBox.Show("There's no students in the list yet.");
             }
+        }
+
+        private void btnShowStudentsFromCourse_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

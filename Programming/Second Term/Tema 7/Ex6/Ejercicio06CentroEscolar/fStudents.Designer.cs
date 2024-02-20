@@ -110,6 +110,7 @@
             this.btnShowStudentsFromCourse.TabIndex = 5;
             this.btnShowStudentsFromCourse.Text = "Mostrar Alumnos pertenecientes a un curso";
             this.btnShowStudentsFromCourse.UseVisualStyleBackColor = true;
+            this.btnShowStudentsFromCourse.Click += new System.EventHandler(this.btnShowStudentsFromCourse_Click);
             // 
             // fStudents
             // 

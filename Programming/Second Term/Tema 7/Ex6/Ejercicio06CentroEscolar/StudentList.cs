@@ -15,7 +15,7 @@ namespace Ejercicio06CentroEscolar
             students = new List<Student>();
         }
 
-        public bool isEmpty()
+        public bool IsEmpty()
         {
             bool isEmpty = false;
             if (students.Count != 0)

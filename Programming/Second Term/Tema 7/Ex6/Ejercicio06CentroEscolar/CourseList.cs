@@ -15,7 +15,7 @@ namespace Ejercicio06CentroEscolar
             courses = new List<Course>();
         }
 
-        public bool isEmpty()
+        public bool IsEmpty()
         {
             bool isEmpty = false;
             if (courses.Count != 0)

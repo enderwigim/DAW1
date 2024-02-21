@@ -26,6 +26,8 @@ namespace Ejercicio06CentroEscolar
             this.courseList = courseList;
             this.studentList = studentList;
         }
+        // Students Buttons
+        // Add button
         private void btnAddStudent_Click(object sender, EventArgs e)
         {
             Student new_student = new Student();
@@ -64,7 +66,7 @@ namespace Ejercicio06CentroEscolar
                 MessageBox.Show("That name isn't correct.");
             }
         }
-
+        // Delete button
         private void btnDeleteStudent_Click(object sender, EventArgs e)
         {
             if (!studentList.IsEmpty())
@@ -82,7 +84,7 @@ namespace Ejercicio06CentroEscolar
                 MessageBox.Show("There's no students in the list yet.");
             }
         }
-
+        // Show methods
         private void btnShowStudentData_Click(object sender, EventArgs e)
         {
             if (!studentList.IsEmpty())
@@ -141,7 +143,7 @@ namespace Ejercicio06CentroEscolar
                 MessageBox.Show("No courses were added yet.");
             }
         }
-
+        // Order methods
         private void btnOrderByName_Click(object sender, EventArgs e)
         {
             if (!studentList.IsEmpty())
@@ -153,13 +155,15 @@ namespace Ejercicio06CentroEscolar
             }
         }
 
+        // Grades Buttons
+        // Add Grades
         private void btnAddGrades_Click(object sender, EventArgs e)
         {
             if (!studentList.IsEmpty())
             {
                 string dni = Interaction.InputBox("Write the DNI/NIE from the student that you want to add a grade");
                 double grade = double.Parse(Interaction.InputBox("Add a grade"));
-                if (grade > 0 && grade <= 10)
+                if (grade >= 1 && grade <= 10)
                 {
                     if (studentList.AddGradeToStudent(dni, grade))
                     {
@@ -169,13 +173,37 @@ namespace Ejercicio06CentroEscolar
                     {
                         MessageBox.Show("That student doesn't exist");
                     }
+                } else
+                {
+                    MessageBox.Show("That grade is not between 1 and 10");
                 }
             } else
             {
                 MessageBox.Show("There's no students in the list yet.");
             }
         }
+        // Delete Grades
+        private void btnDeleteGrades_Click(object sender, EventArgs e)
+        {
+            if (!studentList.IsEmpty())
+            {
+                string dni = Interaction.InputBox("Write the DNI/NIE from the student whose grades you want to delete");
 
+                if (studentList.DeleteGradesFromStudent(dni))
+                {
+                    MessageBox.Show("Grades deleted");
+                }
+                else
+                {
+                    MessageBox.Show("That student doesn't exist");
+                }
+                
+            } else
+            {
+                MessageBox.Show("There's no students in the list yet.");
+            }
+        }
+        // Show methods
         private void btnShowStudentsWithAVGUpperThan5_Click(object sender, EventArgs e)
         {
             if (!studentList.IsEmpty())
@@ -201,25 +229,5 @@ namespace Ejercicio06CentroEscolar
             }
         }
 
-        private void btnDeleteGrades_Click(object sender, EventArgs e)
-        {
-            if (!studentList.IsEmpty())
-            {
-                string dni = Interaction.InputBox("Write the DNI/NIE from the student whose grades you want to delete");
-
-                if (studentList.DeleteGradesFromStudent(dni))
-                {
-                    MessageBox.Show("Grade Added!");
-                }
-                else
-                {
-                    MessageBox.Show("That student doesn't exist");
-                }
-                
-            } else
-            {
-                MessageBox.Show("There's no students in the list yet.");
-            }
-        }
     }
 }

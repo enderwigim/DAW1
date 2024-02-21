@@ -69,6 +69,7 @@ namespace Ejercicio06CentroEscolar
             return gradeAdded;
         }
 
+        // Remove Methods.
         public bool DeleteGradesFromStudent(string dni)
         {
             bool gradeAdded = false;
@@ -85,11 +86,14 @@ namespace Ejercicio06CentroEscolar
         {
             students.RemoveAt(index);
         }
+
+        // Show Methods
         public string ShowStudentAtIndex(int index)
         {
             string studentInfo = students[index].ShowStudent();
             return studentInfo;
         }
+
         public string ShowEveryStudent()
         {
             string text = "";
@@ -139,7 +143,7 @@ namespace Ejercicio06CentroEscolar
             return studentText;
         }
 
-
+        // Order List Methods
         public void OrderByName()
         {
             for (int i = 0; i < students.Count - 1; i++)

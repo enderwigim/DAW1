@@ -14,7 +14,7 @@ namespace Ejercicio06CentroEscolar
         {
             courses = new List<Course>();
         }
-
+        // IsEmpty() checks if the list is empty.
         public bool IsEmpty()
         {
             bool isEmpty = true;
@@ -37,7 +37,7 @@ namespace Ejercicio06CentroEscolar
             }
             return index;
         }
-
+        // Add methods
         public bool AddCourse(string name, string code)
         {
             bool wasAdded = false;
@@ -53,7 +53,7 @@ namespace Ejercicio06CentroEscolar
             }
             return wasAdded;
         }
-
+        // Remove methods
         public bool RemoveCourse(string code)
         {
             bool wasRemoved = false;
@@ -65,7 +65,7 @@ namespace Ejercicio06CentroEscolar
             }
             return wasRemoved;
         }
-
+        // Show methods
         public string ShowEveryCourse()
         {
             string text = "";

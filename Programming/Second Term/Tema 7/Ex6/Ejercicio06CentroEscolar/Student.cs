@@ -52,6 +52,7 @@ namespace Ejercicio06CentroEscolar
             CourseCode = "";
             grades = new List<double>();
         }
+        // Add and Delete grades.
         public void AddGrade(double grade)
         {
             grades.Add(grade);

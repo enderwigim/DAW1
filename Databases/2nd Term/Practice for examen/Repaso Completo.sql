@@ -4,14 +4,17 @@ Crea las siguientes tablas:
 STREAMERS (codStreamer, nombre, apellidos, pais, edad)
 PK: codStreamer (NO se incrementa automáticamente)
 */
+CREATE DATABASE REPASO;
+USE REPASO;
 CREATE TABLE STREAMERS (
   codStreamer	INT,
   nombre		VARCHAR(100) NOT NULL,
-  apellidos 	VARCHAR(100)
+  apellidos 	VARCHAR(100),
   pais			VARCHAR(100),
-  edad			TINYINT CHECK (edad <= 110) NOT NULL
+  edad			TINYINT NOT NULL
   
   CONSTRAINT PK_STREAMERS PRIMARY KEY (codStreamer)
+  CONSTRAINT CH_STREAMERS_edad CHECK (edad BETWEEN 1 and 100)
 );
 
 
@@ -37,14 +40,13 @@ CREATE TABLE STREAMERS_TEMATICAS (
   idioma 			VARCHAR(100) NOT NULL,
   medio 			VARCHAR(100) NOT NULL,
   -- INT O DECIMAL??????
-  milesSeguidores  	DECIMAL(6,0) NOT NULL
+  milesSeguidores  	INT NOT NULL
   
   CONSTRAINT PK_STREAMERS_TEMATICAS PRIMARY KEY (codStreamer, codTematica),
   CONSTRAINT FK_STREAMERS_TEMATICAS_STREAMERS FOREIGN KEY (codStreamer)
   	REFERENCES STREAMERS(codStreamer),
   CONSTRAINT FK_STREAMERS_TEMATICAS_TEMATICAS FOREIGN KEY (codTematica)
   	REFERENCES TEMATICAS(codTematica)
-  
 );
 /*
 GESTIÓN DE TABLAS
@@ -61,22 +63,16 @@ Inserta los siguientes STREAMERS:
 -- Que pasa con los apellidos????
 INSERT INTO STREAMERS(codstreamer, nombre, apellidos, 
                       pais, edad)
-VALUES (1, 'Ibai', 'Llanos', 
-        'España', 33),
-        (2, 'AuronPlay', null,
-         'España', 36),
-         (3, 'Linus Tech Tips', null,
-          'Canada', 23),
-          (4, 'DYI Perks', null,
-          null, 45),
-          (5, 'Alexandre', 'Chappel',
-          'Noruega', 35),
-           (6, 'Tekendo', null,
-           'España', 40),
-            (7, 'Caddac Tech', null,
-            null, 45)
-             (8, 'Nate', 'Genitle',
-             'España', 40)
+VALUES (1, 'Ibai', 'Llanos', 'España', 33),
+        (2, 'AuronPlay', null, 'España', 36),
+         (3, 'Linus Tech Tips', null, 'Canada', 23),
+          (4, 'DYI Perks', null, null, 45),
+          (5, 'Alexandre', 'Chappel', 'Noruega', 35),
+           (6, 'Tekendo', null, 'España', 40),
+            (7, 'Caddac Tech', null, null, 45),
+             (8, 'Nate', 'Genitle', 'España', 40)
+
+             
 --	Nate Gentile de España
 /* INSERT INTO 1 A 1.
 INSERT INTO STREAMERS(codstreamer, nombre, apellidos,
@@ -142,8 +138,7 @@ DYI Perks	Bricolaje	Inglés	YouTube	4140
 Alexandre Chappel	Bricolaje	Inglés	YouTube	370
 Caddac Tech	Informática	Inglés	YouTube	3
 */
-SELECT * FROM TEMATICAS
-SELECT * FROM STREAMERS
+
 INSERT INTO STREAMERS_TEMATICAS(codstreamer, codtematica, idioma, medio, milesseguidores)
 VALUES (2, 3, 'Español', 'Youtube', 29200),
          (1, 4, 'Español','Twitch', 12800),
@@ -169,7 +164,7 @@ SELECT COUNT(1) AS Streamers_Españoles
 -- 03, 04, 05. Nombres de streamers cuya segunda letra no sea una "B" (quizá en minúsculas), de 3 formas distintas.
 SELECT *
   FROM STREAMERS
- WHERE Lower(RIGHT(LEFT(nombre, 2),1)) <> 'b'
+ WHERE RIGHT(LEFT(nombre, 2),1) NOT IN ('b', 'B')
  
 SELECT *
   FROM STREAMERS
@@ -245,7 +240,10 @@ SELECT s.nombre,
    FROM STREAMERS_TEMATICAS
   GROUP BY medio
 -- 15, 16, 17, 18. Medio en el que se emite el canal de más seguidores, de 4 formas distintas.
-
+SELECT medio
+  FROM STREAMERS_TEMATICAS
+ WHERE milesSeguidores >= ALL (SELECT milesSeguidores
+                                    FROM STREAMERS_TEMATICAS)
 -- 19. Categorías de las que tenemos 2 o más canales.
 
 -- 20. Categorías de las que no tenemos anotado ningún canal, ordenadas alfabéticamente, empleando COUNT.

@@ -86,7 +86,7 @@ namespace Ejercicio06CentroEscolar
 
         private void ShowEveryStudentInCourse_Click(object sender, EventArgs e)
         {
-            if (courseList.isEmpty())
+            if (courseList.IsEmpty())
             {
                 string studentsInCourse = "The course doesn't exist";
                 string courseCode = Interaction.InputBox("What course's students do you want to see?");

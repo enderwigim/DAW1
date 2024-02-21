@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.bCursos = new System.Windows.Forms.Button();
+            this.btnGestionAlumnos = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // bCursos
@@ -41,11 +42,22 @@
             this.bCursos.UseVisualStyleBackColor = true;
             this.bCursos.Click += new System.EventHandler(this.bCursos_Click);
             // 
+            // btnGestionAlumnos
+            // 
+            this.btnGestionAlumnos.Location = new System.Drawing.Point(72, 98);
+            this.btnGestionAlumnos.Name = "btnGestionAlumnos";
+            this.btnGestionAlumnos.Size = new System.Drawing.Size(136, 29);
+            this.btnGestionAlumnos.TabIndex = 1;
+            this.btnGestionAlumnos.Text = "Gestión de Alumnos";
+            this.btnGestionAlumnos.UseVisualStyleBackColor = true;
+            this.btnGestionAlumnos.Click += new System.EventHandler(this.btnGestionAlumnos_Click);
+            // 
             // fInicial
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(292, 266);
+            this.Controls.Add(this.btnGestionAlumnos);
             this.Controls.Add(this.bCursos);
             this.Name = "fInicial";
             this.Text = "Gestión de Instituto";
@@ -56,7 +68,7 @@
         #endregion
 
         private System.Windows.Forms.Button bCursos;
-
+        private System.Windows.Forms.Button btnGestionAlumnos;
     }
 }
 

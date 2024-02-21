@@ -17,10 +17,10 @@ namespace Ejercicio06CentroEscolar
 
         public bool IsEmpty()
         {
-            bool isEmpty = false;
+            bool isEmpty = true;
             if (courses.Count != 0)
             {
-                isEmpty = true;
+                isEmpty = false;
             }
             return isEmpty;
         }
@@ -30,7 +30,7 @@ namespace Ejercicio06CentroEscolar
             int index = -1;
             for (int i = 0; i <  courses.Count; i++)
             {
-                if (courses[i].Code.ToLower() == code.ToLower())
+                if (courses[i].Code == code.ToUpper())
                 {
                     index = i;
                 }
@@ -46,7 +46,7 @@ namespace Ejercicio06CentroEscolar
             if (index == -1)
             {
                 newCourse.Name = name;
-                newCourse.Code = code;
+                newCourse.Code = code.ToUpper();
                 courses.Add(newCourse);
                 wasAdded = true;
 

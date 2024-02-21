@@ -26,7 +26,7 @@ namespace Ejercicio06CentroEscolar
         public string Code
         {
             get { return code; }
-            set { code = value; }
+            set { code = value.ToUpper(); }
         }
 
         override

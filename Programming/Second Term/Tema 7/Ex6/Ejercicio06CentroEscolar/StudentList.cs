@@ -15,14 +15,28 @@ namespace Ejercicio06CentroEscolar
             students = new List<Student>();
         }
 
+        // IsEmpty() checks if the list is empty.
         public bool IsEmpty()
         {
-            bool isEmpty = false;
+            bool isEmpty = true;
             if (students.Count != 0)
             {
-                isEmpty = true;
+                isEmpty = false;
             }
             return isEmpty;
+        }
+        // IsIDInList() will check if there's a student with that ID.
+        public bool IsIDInList(string dni)
+        {
+            bool isInList = false;
+            for (int i = 0; i < students.Count; i++)
+            {
+                if (students[i].Dni == dni)
+                {
+                    isInList = true;
+                }
+            }
+            return isInList;
         }
 
         public int GetIndexByDNI(string dni)
@@ -37,15 +51,40 @@ namespace Ejercicio06CentroEscolar
             }
             return index;
         }
+        // Add to list methods.
         public void AddStudentToList(Student new_student)
         {
             students.Add(new_student);
         }
+
+        public bool AddGradeToStudent(string dni, double grade)
+        {
+            bool gradeAdded = false;
+            int index = GetIndexByDNI(dni);
+            if (index != -1)
+            {
+                students[index].AddGrade(grade);
+                gradeAdded = true;
+            }
+            return gradeAdded;
+        }
+
+        public bool DeleteGradesFromStudent(string dni)
+        {
+            bool gradeAdded = false;
+            int index = GetIndexByDNI(dni);
+            if (index != -1)
+            {
+                students[index].DeleteGrades();
+                gradeAdded = true;
+            }
+            return gradeAdded;
+        }
+
         public void RemoveStudentFromList(int index)
         {
             students.RemoveAt(index);
         }
-
         public string ShowStudentAtIndex(int index)
         {
             string studentInfo = students[index].ShowStudent();
@@ -66,13 +105,58 @@ namespace Ejercicio06CentroEscolar
             string studentsInCourse = "";
             for (int i = 0; i < students.Count; i++)
             {
-                if (students[i].CourseCode == courseCode)
+                if (students[i].CourseCode == courseCode.ToUpper())
                 {
-                    studentsInCourse = students[i].Name + "\n";
+                    studentsInCourse += students[i].Name + "\n";
                 }
             }
             return studentsInCourse;
         }
+
+        public string ShowStudentsAVGMore5()
+        {
+            string studentText = "The students with AVG more than 5 are: \n";
+            for (int i = 0; i < students.Count; i++)
+            {
+                if (students[i].IsAVGUpperThan5())
+                {
+                    studentText += students[i].Name + " \n";
+                }
+            }
+            return studentText;
+        }
+
+        public string ShowStudentsAVGLess5()
+        {
+            string studentText = "The students with AVG less than 5 are: \n";
+            for (int i = 0; i < students.Count; i++)
+            {
+                if (!students[i].IsAVGUpperThan5())
+                {
+                    studentText += students[i].Name + " \n";
+                }
+            }
+            return studentText;
+        }
+
+
+        public void OrderByName()
+        {
+            for (int i = 0; i < students.Count - 1; i++)
+            {
+                for (int j = i+1; j < students.Count; j++)
+                {
+                    if (string.Compare(students[i].Name, students[j].Name) > 0)
+                    {
+                        Student changableStudent = students[i];
+                        students[i] = students[j];
+                        students[j] = changableStudent;
+                    }
+                }
+            }
+        }
+
+
     }
 
 }

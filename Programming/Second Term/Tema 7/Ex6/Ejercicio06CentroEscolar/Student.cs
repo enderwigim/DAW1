@@ -52,20 +52,55 @@ namespace Ejercicio06CentroEscolar
             CourseCode = "";
             grades = new List<double>();
         }
+        public void AddGrade(double grade)
+        {
+            grades.Add(grade);
+        }
 
+        public void DeleteGrades()
+        {
+            grades.Clear();
+        }
+        // Calculation methods.
+        public double CalcAVG()
+        {
+            double avg = 0;
+            for(int i = 0; i < grades.Count; i++)
+            {
+                avg += grades[i];
+            }
+            avg /= grades.Count;
+            return avg;
+        }
+        public bool IsAVGUpperThan5()
+        {
+            bool isUpper = false;
+            double avg = CalcAVG();
+            if (avg >= 5)
+            {
+                isUpper = true;
+            }
+            return isUpper;
+        }
+        // Show methods.
         public string ShowGrades()
         {
-            string gradeText = Name + "grades are: \n";
-            for (int i = 0; i <  grades.Count; i++) 
+            string gradeText = "This student doesn't have any grades";
+            if (grades.Count != 0)
             {
-                gradeText += grades[i] + ", ";
+                gradeText = Name + " grades are: \n";
+                for (int i = 0; i <  grades.Count; i++) 
+                {
+                    gradeText += grades[i] + ", ";
+                }
+
             }
             return gradeText;
         }
 
         public string ShowStudent()
         {
-            string studentText = $"{Name}, {Dni}, {PhoneNumber}, {CourseCode} \n {ShowGrades()}";
+            string studentText = $"{Name}, {Dni}, {PhoneNumber}, {CourseCode} \n {ShowGrades()} \n";
             return studentText;
         }
 

@@ -1,4 +1,3 @@
-
 let map  = {
     height: 10,
     weight: 10,
@@ -41,12 +40,8 @@ let map  = {
         }
         return everyPosition;
     }
-
-
-
-
-
 }
+
 function Boat(dx, dy) {
     this.x = dx;
     this.y = dy,
@@ -60,6 +55,7 @@ function Boat(dx, dy) {
     }
 
 }
+
 let gameOn = true;
 let gameSetted = false;
 let ammountOfBoats = 5;

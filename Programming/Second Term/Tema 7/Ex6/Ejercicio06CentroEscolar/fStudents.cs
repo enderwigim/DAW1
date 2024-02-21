@@ -33,7 +33,7 @@ namespace Ejercicio06CentroEscolar
             if (!name.Any(char.IsDigit) && !string.IsNullOrWhiteSpace(name))
             {
                 string dni = Interaction.InputBox("Add an ID to the student please");
-                if (dni.Length == 10 || dni.Length == 9)
+                if (dni.Length == 10 || dni.Length == 9 && !studentList.IsIDInList(dni))
                 {
                     string phoneNumber = Interaction.InputBox("Add a phone number to the student");
                     if (phoneNumber.Length >= 9 && phoneNumber.Length <= 13)
@@ -57,7 +57,7 @@ namespace Ejercicio06CentroEscolar
                     }
                 } else
                 {
-                    MessageBox.Show("That's not a DNI/NIE");
+                    MessageBox.Show("That student's DNI/NIE already exist or format is not correct.");
                 }
             } else
             {
@@ -67,7 +67,7 @@ namespace Ejercicio06CentroEscolar
 
         private void btnDeleteStudent_Click(object sender, EventArgs e)
         {
-            if (studentList.IsEmpty())
+            if (!studentList.IsEmpty())
             {
                 string dni = Interaction.InputBox("Write the student's DNI/NIE.");
                 int index = studentList.GetIndexByDNI(dni);
@@ -85,7 +85,7 @@ namespace Ejercicio06CentroEscolar
 
         private void btnShowStudentData_Click(object sender, EventArgs e)
         {
-            if (studentList.IsEmpty())
+            if (!studentList.IsEmpty())
             {
                 string studentInfo = "That student doesn't exist";
                 string dni = Interaction.InputBox("Write the student's DNI/NIE.");
@@ -103,7 +103,7 @@ namespace Ejercicio06CentroEscolar
 
         private void btnShowStudentList_Click(object sender, EventArgs e)
         {
-            if (studentList.IsEmpty())
+            if (!studentList.IsEmpty())
             {
                 string studentsText = studentList.ShowEveryStudent();
                 MessageBox.Show(studentsText);
@@ -115,7 +115,111 @@ namespace Ejercicio06CentroEscolar
 
         private void btnShowStudentsFromCourse_Click(object sender, EventArgs e)
         {
+            if (!courseList.IsEmpty())
+            {
+                string studentsInCourse = "The course doesn't exist";
+                string courseCode = Interaction.InputBox("What course's students do you want to see?");
+                int index = courseList.GetIndexByCode(courseCode);
 
+                if (index != -1)
+                {
+                    if (studentList.ShowEveryStudentInCourse(courseCode) != "")
+                    {
+                        studentsInCourse = "The students in " + courseCode.ToUpper() + " are: \n";
+                        studentsInCourse += studentList.ShowEveryStudentInCourse(courseCode);
+
+                    }
+                    else
+                    {
+                        studentsInCourse = "The course is empty";
+                    }
+                }
+                MessageBox.Show(studentsInCourse);
+            }
+            else
+            {
+                MessageBox.Show("No courses were added yet.");
+            }
+        }
+
+        private void btnOrderByName_Click(object sender, EventArgs e)
+        {
+            if (!studentList.IsEmpty())
+            {
+                studentList.OrderByName();
+            } else
+            {
+                MessageBox.Show("The list is Empty. No students were added yet.");
+            }
+        }
+
+        private void btnAddGrades_Click(object sender, EventArgs e)
+        {
+            if (!studentList.IsEmpty())
+            {
+                string dni = Interaction.InputBox("Write the DNI/NIE from the student that you want to add a grade");
+                double grade = double.Parse(Interaction.InputBox("Add a grade"));
+                if (grade > 0 && grade <= 10)
+                {
+                    if (studentList.AddGradeToStudent(dni, grade))
+                    {
+                        MessageBox.Show("Grade Added!");
+                    }
+                    else
+                    {
+                        MessageBox.Show("That student doesn't exist");
+                    }
+                }
+            } else
+            {
+                MessageBox.Show("There's no students in the list yet.");
+            }
+        }
+
+        private void btnShowStudentsWithAVGUpperThan5_Click(object sender, EventArgs e)
+        {
+            if (!studentList.IsEmpty())
+            {
+                string students = studentList.ShowStudentsAVGMore5();
+                MessageBox.Show(students);
+            } else
+            {
+                MessageBox.Show("The list of students is empty yet.");
+            }
+        }
+
+        private void btnShowStudentsWithAVGLessThan5_Click(object sender, EventArgs e)
+        {
+            if (!studentList.IsEmpty())
+            {
+                string students = studentList.ShowStudentsAVGLess5();
+                MessageBox.Show(students);
+            }
+            else
+            {
+                MessageBox.Show("The list of students is empty yet.");
+            }
+        }
+
+        private void btnDeleteGrades_Click(object sender, EventArgs e)
+        {
+            if (!studentList.IsEmpty())
+            {
+                string dni = Interaction.InputBox("Write the DNI/NIE from the student whose grades you want to delete");
+
+                if (studentList.DeleteGradesFromStudent(dni))
+                {
+                    MessageBox.Show("Grade Added!");
+                }
+                else
+                {
+                    MessageBox.Show("That student doesn't exist");
+                }
+                
+            } else
+            {
+                MessageBox.Show("There's no students in the list yet.");
+            }
         }
     }
 }

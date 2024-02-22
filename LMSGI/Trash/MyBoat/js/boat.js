@@ -2,11 +2,6 @@ let map  = {
     height: 10,
     width: 10,
 
-    enemyBoats: ListOfBoats(height, width)
-    
-
-
-
 }
 
 /*
@@ -60,8 +55,9 @@ function ListOfBoats(mapHeight, mapWidth) {
             let direction = this.SetDirection(randomX, randomY, segment, mapWidth, mapHeight);
 
             this.ammountOfSegments.push(segment);
-
-            this.enemyBoats.push(new Boat(segment, randomX, randomY, direction));
+            let newBoat = new Boat(segment, randomX, randomY, direction)
+            newBoat.AddPositionsWithDirec();
+            this.boatList.push(newBoat);
         }
     };
     this.GetRandomNumber = function(max) {
@@ -100,14 +96,15 @@ function ListOfBoats(mapHeight, mapWidth) {
     };
 
     this.ReturnEveryBoatCoords = function() {
-        let Boats = "";
-        for(let i = 0; i < this.boatList; i++) {
-            Boats += "El bote " + i + "Tiene las siguientes coords: "
-            this.boatList[i].GetCoordsBySegment;
+        let boats = "";
+        for(let i = 0; i < this.boatList.length; i++) {
+            boats += "El bote " + i + "Tiene las siguientes coords: "
+            boats += this.boatList[i].GetCoordsBySegment() + "\n";
         }
+        return boats;
     }
-
 }
+
 function Boat(segments, dx, dy, direction) {
     this.segments = segments;
     this.xPosition = [dx];
@@ -156,12 +153,13 @@ let gameOn = true;
 let gameSetted = false;
 let ammountOfBoats = 5;
 
+let enemyBoats = new ListOfBoats(map.height, map.width);
 while (gameOn) {
     if (!gameSetted) {
-        map.enemyBoats.createBoats()
+        enemyBoats.createBoats(3);
         gameSetted = true;
     }
-    alert(map.enemyBoats.ReturnEveryBoatCoords);
+    alert(enemyBoats.ReturnEveryBoatCoords());
     gameOn = false;
     
 }

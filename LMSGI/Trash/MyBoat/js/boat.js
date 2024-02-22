@@ -101,19 +101,34 @@ function Boat(segments, dx, dy, direction) {
     this.xPosition = [dx];
     this.yPosition = [dy];
     this.direction = direction;
-    /*
-    this.GetX = function() {
-        return this.x;
-    };
+    
 
-    this.GetY = function(){
-        return this.y;
+    this.AddPositionsWithDirec = function() {
+        if (direction = "RIGHT") {
+            for(let i = 1; i < this.segments; i++) {
+                this.xPosition[i] = this.xPosition[i - 1] + 1;
+                this.yPosition[i] = this.yPosition[i - 1];
+            }
+        } 
+        else if (direction = "LEFT") {
+            for(let i = 1; i < this.segments; i++) {
+                this.xPosition[i] = this.xPosition[i - 1] - 1;
+                this.yPosition[i] = this.yPosition[i - 1];
+            }
+        }
+        else if (direction = "UP") {
+            for(let i = 1; i < this.segments; i++) {
+                this.xPosition[i] = this.xPosition[i - 1];
+                this.yPosition[i] = this.yPosition[i - 1] + 1;
+            }
+        }
+        else if (direction = "DOWN") {
+            for(let i = 1; i < this.segments; i++) {
+                this.xPosition[i] = this.xPosition[i - 1];
+                this.yPosition[i] = this.yPosition[i - 1] - 1;
+            }
+        }
     }
-    this.AddInitialCoord = function(dx, dy) {
-        this.xPosition.push(dx);
-        this.yPosition.push(dy);
-    }
-    */
 
 }
 

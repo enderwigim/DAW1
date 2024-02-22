@@ -2,13 +2,14 @@ let map  = {
     height: 10,
     width: 10,
 
+    enemyBoats: ListOfBoats(height, width)
     
 
 
 
 }
 
-
+/*
 let enemyBoats = {
     maxSegments: 3,
     enemyBoats: [],
@@ -45,7 +46,7 @@ let enemyBoats = {
     },
 
 }
-
+*/
 function ListOfBoats(mapHeight, mapWidth) {
     this.boatList = [];
     this.ammountOfSegments = [];
@@ -57,6 +58,9 @@ function ListOfBoats(mapHeight, mapWidth) {
             let randomY = this.GetRandomNumber(mapWidth);
             let segment = this.GetRandomNumber(this.maxSegments);
             let direction = this.SetDirection(randomX, randomY, segment, mapWidth, mapHeight);
+
+            this.ammountOfSegments.push(segment);
+
             this.enemyBoats.push(new Boat(segment, randomX, randomY, direction));
         }
     };
@@ -92,6 +96,14 @@ function ListOfBoats(mapHeight, mapWidth) {
                 return "DOWN"
             default:
                 return "RIGHT"
+        }
+    };
+
+    this.ReturnEveryBoatCoords = function() {
+        let Boats = "";
+        for(let i = 0; i < this.boatList; i++) {
+            Boats += "El bote " + i + "Tiene las siguientes coords: "
+            this.boatList[i].GetCoordsBySegment;
         }
     }
 
@@ -130,6 +142,14 @@ function Boat(segments, dx, dy, direction) {
         }
     }
 
+    this.GetCoordsBySegment = function() {
+        let textWithCoords = ""
+        for (let i = 0; i < this.xPosition.length; i++) {
+            textWithCoords += "(" + this.xPosition[i] + "," + this.yPosition[i] + ") / ";
+        }
+        return textWithCoords;
+    }
+
 }
 
 let gameOn = true;
@@ -138,23 +158,10 @@ let ammountOfBoats = 5;
 
 while (gameOn) {
     if (!gameSetted) {
-        map.createBoats()
+        map.enemyBoats.createBoats()
         gameSetted = true;
     }
-    alert(map.Check());
-    let attackX = prompt("En que posición de x esta?");
-    let attackY = prompt("En que posición de y esta?");
-    let boatAttacked = map.attackBoat(attackX, attackY);
-    if (boatAttacked == -1) {
-        alert("Ups, you missed.")
-    } else {
-        map.destroyBoat(boatAttacked);
-    }
-
-    if (map.CountBoats() == 0) {
-        gameOn = false;
-        alert("Ganaste");
-    } else {
-        alert("Todavia te quedan: " + map.CountBoats() + "barcos.")
-    }
+    alert(map.enemyBoats.ReturnEveryBoatCoords);
+    gameOn = false;
+    
 }

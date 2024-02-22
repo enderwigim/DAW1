@@ -19,6 +19,7 @@ namespace Ejercicio06CentroEscolar
         // Creamos la lista de cursos.
         CourseList courses = new CourseList();
         StudentList students = new StudentList();
+        TeachersList teachers = new TeachersList();
         // Crear aquí también la lista de profesores y de alumnos.
 
         private void bCursos_Click(object sender, EventArgs e)
@@ -35,6 +36,13 @@ namespace Ejercicio06CentroEscolar
             fStudents fStu = new fStudents(courses, students);
 
             fStu.ShowDialog();
+        }
+
+        private void btnTeachersAdministration_Click(object sender, EventArgs e)
+        {
+            fTeachers fTea = new fTeachers();
+
+            fTea.ShowDialog();
         }
     }
 }

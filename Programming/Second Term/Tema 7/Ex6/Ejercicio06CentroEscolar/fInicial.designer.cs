@@ -30,6 +30,7 @@
         {
             this.bCursos = new System.Windows.Forms.Button();
             this.btnGestionAlumnos = new System.Windows.Forms.Button();
+            this.btnTeachersAdministration = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // bCursos
@@ -44,7 +45,7 @@
             // 
             // btnGestionAlumnos
             // 
-            this.btnGestionAlumnos.Location = new System.Drawing.Point(72, 98);
+            this.btnGestionAlumnos.Location = new System.Drawing.Point(72, 100);
             this.btnGestionAlumnos.Name = "btnGestionAlumnos";
             this.btnGestionAlumnos.Size = new System.Drawing.Size(136, 29);
             this.btnGestionAlumnos.TabIndex = 1;
@@ -52,11 +53,22 @@
             this.btnGestionAlumnos.UseVisualStyleBackColor = true;
             this.btnGestionAlumnos.Click += new System.EventHandler(this.btnGestionAlumnos_Click);
             // 
+            // btnTeachersAdministration
+            // 
+            this.btnTeachersAdministration.Location = new System.Drawing.Point(72, 148);
+            this.btnTeachersAdministration.Name = "btnTeachersAdministration";
+            this.btnTeachersAdministration.Size = new System.Drawing.Size(136, 29);
+            this.btnTeachersAdministration.TabIndex = 2;
+            this.btnTeachersAdministration.Text = "Gestión de Profesores";
+            this.btnTeachersAdministration.UseVisualStyleBackColor = true;
+            this.btnTeachersAdministration.Click += new System.EventHandler(this.btnTeachersAdministration_Click);
+            // 
             // fInicial
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(292, 266);
+            this.Controls.Add(this.btnTeachersAdministration);
             this.Controls.Add(this.btnGestionAlumnos);
             this.Controls.Add(this.bCursos);
             this.Name = "fInicial";
@@ -69,6 +81,7 @@
 
         private System.Windows.Forms.Button bCursos;
         private System.Windows.Forms.Button btnGestionAlumnos;
+        private System.Windows.Forms.Button btnTeachersAdministration;
     }
 }
 

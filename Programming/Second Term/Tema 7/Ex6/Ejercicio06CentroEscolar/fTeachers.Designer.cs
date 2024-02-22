@@ -86,6 +86,7 @@
             this.btnDeleteTeacher.TabIndex = 1;
             this.btnDeleteTeacher.Text = "Eliminar Profesor";
             this.btnDeleteTeacher.UseVisualStyleBackColor = true;
+            this.btnDeleteTeacher.Click += new System.EventHandler(this.btnDeleteTeacher_Click);
             // 
             // btnShowTeachers
             // 
@@ -95,6 +96,7 @@
             this.btnShowTeachers.TabIndex = 2;
             this.btnShowTeachers.Text = "Mostrar Profesores";
             this.btnShowTeachers.UseVisualStyleBackColor = true;
+            this.btnShowTeachers.Click += new System.EventHandler(this.btnShowTeachers_Click);
             // 
             // btnOrderTeachers
             // 
@@ -104,6 +106,7 @@
             this.btnOrderTeachers.TabIndex = 3;
             this.btnOrderTeachers.Text = "Ordernar Profesores Por Orden Alfabetico";
             this.btnOrderTeachers.UseVisualStyleBackColor = true;
+            this.btnOrderTeachers.Click += new System.EventHandler(this.btnOrderTeachers_Click);
             // 
             // btnTeacherData
             // 
@@ -113,6 +116,7 @@
             this.btnTeacherData.TabIndex = 4;
             this.btnTeacherData.Text = "Mostrar Datos Profesores";
             this.btnTeacherData.UseVisualStyleBackColor = true;
+            this.btnTeacherData.Click += new System.EventHandler(this.btnTeacherData_Click);
             // 
             // btnAddSubjectToTeacher
             // 

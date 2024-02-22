@@ -40,7 +40,7 @@ namespace Ejercicio06CentroEscolar
 
         private void btnTeachersAdministration_Click(object sender, EventArgs e)
         {
-            fTeachers fTea = new fTeachers();
+            fTeachers fTea = new fTeachers(teachers, courses);
 
             fTea.ShowDialog();
         }

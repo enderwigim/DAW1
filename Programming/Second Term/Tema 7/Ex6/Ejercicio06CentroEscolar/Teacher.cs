@@ -52,6 +52,14 @@ namespace Ejercicio06CentroEscolar
             }
         }
 
+        public Teacher(string name, string dni, string phoneNumber, string courseCode)
+        {
+            Name = name;
+            Dni = dni;
+            PhoneNumber = phoneNumber;
+            CourseCode = courseCode;
+        }
+
 
 
         public string ShowTeacher()

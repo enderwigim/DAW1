@@ -79,20 +79,64 @@ namespace Ejercicio06CentroEscolar
             return teacherData;
         }
 
-        public void OrderByName()
+        public bool OrderByName()
         {
-            for (int i = 0; i < teacherList.Count - 1; i++)
+            bool isOrder = false;
+            if (teacherList.Count > 1)
             {
-                for (int j = i + 1; j < teacherList.Count; j++)
+                for (int i = 0; i < teacherList.Count - 1; i++)
                 {
-                    if (string.Compare(teacherList[i].Name, teacherList[j].Name) > 0)
+                    for (int j = i + 1; j < teacherList.Count; j++)
                     {
-                        Teacher changableTeacher = teacherList[i];
-                        teacherList[i] = teacherList[j];
-                        teacherList[j] = changableTeacher;
+                        if (string.Compare(teacherList[i].Name, teacherList[j].Name) > 0)
+                        {
+                            Teacher changableTeacher = teacherList[i];
+                            teacherList[i] = teacherList[j];
+                            teacherList[j] = changableTeacher;
+                        }
                     }
                 }
+                isOrder = true;
             }
+            return isOrder;
+        }
+
+        public bool AddTeachersSubject(string dni, string subjectName)
+        {
+            bool subjectsAdded = false;
+            int index = GetIndexByDni(dni);
+            if (index != -1)
+            {
+                teacherList[index].AddSubject(subjectName);
+                subjectsAdded = true;
+            }
+            return subjectsAdded;
+        }
+
+        public bool DeleteTeachersSubject(string dni)
+        {
+            bool subjectsAdded = false;
+            int index = GetIndexByDni(dni);
+
+            if (index != -1)
+            {
+                if (teacherList[index].RemoveSubjects())
+                {
+                    subjectsAdded = true;
+                }
+            }
+            return subjectsAdded;
+        }
+
+        public string ShowTeachersBySubject(string subject)
+        {
+            string teachersText = "";
+            for (int i = 0; i < teacherList.Count; i++)
+            {
+                if (teacherList[i].HasSubject(subject))
+                    teachersText += teacherList[i].Name + "\n";
+            }
+            return teachersText;
         }
     }
 }

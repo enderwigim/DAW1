@@ -8,7 +8,7 @@ namespace Ejercicio06CentroEscolar
 {
     public class Student
     {
-        // TODO nombre, dni, teléfono, lista de notas (simplemente una lista de valores double) y código del curso al cuál pertenecen.
+      
         private string name;
         private string dni;
         private string phoneNumber;
@@ -19,7 +19,7 @@ namespace Ejercicio06CentroEscolar
         public string Name
         {
             get { return name; }
-            set { name = value; }
+            set { name = CustomFunctions.FirstLetterToCapital(value); }
         }
         public string Dni
         {

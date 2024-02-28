@@ -36,7 +36,7 @@ namespace Ejercicio06CentroEscolar
         private void btnAddCourse_Click(object sender, EventArgs e)
         {
             string name = Interaction.InputBox("Add a nombre to the course");
-            string code = Interaction.InputBox("Add a course to the course");
+            string code = Interaction.InputBox("Add a code to the course");
 
             if (!name.Any(char.IsDigit) && !string.IsNullOrWhiteSpace(name))
             {

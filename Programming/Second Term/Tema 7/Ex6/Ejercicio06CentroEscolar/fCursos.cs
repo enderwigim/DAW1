@@ -35,26 +35,40 @@ namespace Ejercicio06CentroEscolar
 
         private void btnAddCourse_Click(object sender, EventArgs e)
         {
-            string name = Interaction.InputBox("Add a nombre to the course");
-            string code = Interaction.InputBox("Add a course to the course");
 
-            if (!name.Any(char.IsDigit) && !string.IsNullOrWhiteSpace(name))
+            DialogResult addMoreCourses = DialogResult.Yes;
+            while (addMoreCourses == DialogResult.Yes)
             {
-                if (code.Length == 3) {
-                    if (!courseList.AddCourse(name, code))
+                bool wasAdded = false;
+                string name = Interaction.InputBox("Add a nombre to the course");
+                string code = Interaction.InputBox("Add a code to the course");
+
+                if (!name.Any(char.IsDigit) && !string.IsNullOrWhiteSpace(name))
+                {
+                    if (code.Length >= 3 && code.Length <= 4) {
+                        if (!courseList.AddCourse(name, code))
+                        {
+                            MessageBox.Show("That course is already in the list");
+                        }else
+                        {
+                            MessageBox.Show("Course Added");
+                            wasAdded = true;
+                        }
+                    } else
                     {
-                        MessageBox.Show("That course is already in the list");
-                    }else
-                    {
-                        MessageBox.Show("Course Added");
+                        MessageBox.Show("The course's lenght must be between 3 and 4 chars");
                     }
                 } else
                 {
-                    MessageBox.Show("The course's lenght must be of 3 chars");
+                    MessageBox.Show("The Course can't be empty or have any digits in it.");
                 }
-            } else
-            {
-                MessageBox.Show("The Course can't be empty or have any digits in it.");
+                if (wasAdded)
+                {
+                    addMoreCourses = MessageBox.Show("Do you want to add more", "", MessageBoxButtons.YesNo);
+                } else
+                {
+                    MessageBox.Show("Try again!");
+                }
             }
         }
 

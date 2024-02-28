@@ -30,40 +30,55 @@ namespace Ejercicio06CentroEscolar
         // Add button
         private void btnAddStudent_Click(object sender, EventArgs e)
         {
-            Student new_student = new Student();
-            string name = Interaction.InputBox("Add a name to the student please");
-            if (!name.Any(char.IsDigit) && !string.IsNullOrWhiteSpace(name))
+            DialogResult addMoreStudents = DialogResult.Yes;
+            while (addMoreStudents == DialogResult.Yes)
             {
-                string dni = Interaction.InputBox("Add an ID to the student please");
-                if (dni.Length == 10 || dni.Length == 9 && !studentList.IsIDInList(dni))
+                bool wasAdded = false;
+                Student new_student = new Student();
+                string name = Interaction.InputBox("Add a name to the student please");
+                if (!name.Any(char.IsDigit) && !string.IsNullOrWhiteSpace(name))
                 {
-                    string phoneNumber = Interaction.InputBox("Add a phone number to the student");
-                    if (phoneNumber.Length >= 9 && phoneNumber.Length <= 13)
+                    string dni = Interaction.InputBox("Add an ID to the student please");
+                    if (dni.Length == 10 || dni.Length == 9 && !studentList.IsIDInList(dni))
                     {
-                        string courseCode = Interaction.InputBox("Add the student into a course").ToUpper();
-                        if (courseList.GetIndexByCode(courseCode) != -1)
+                        string phoneNumber = Interaction.InputBox("Add a phone number to the student");
+                        if (phoneNumber.Length >= 9 && phoneNumber.Length <= 13)
                         {
-                            new_student.Name = name;
-                            new_student.Dni = dni;
-                            new_student.PhoneNumber = phoneNumber;
-                            new_student.CourseCode = courseCode.ToUpper();
-                            studentList.AddStudentToList(new_student);
-                            MessageBox.Show("Student was added");
+                            string courseCode = Interaction.InputBox("Add the student into a course").ToUpper();
+                            if (courseList.GetIndexByCode(courseCode) != -1)
+                            {
+                                new_student.Name = name;
+                                new_student.Dni = dni;
+                                new_student.PhoneNumber = phoneNumber;
+                                new_student.CourseCode = courseCode.ToUpper();
+                                studentList.AddStudentToList(new_student);
+                                wasAdded = true;
+                                MessageBox.Show("Student was added");
+                                
+                            } else
+                            {
+                                MessageBox.Show("That course doesn't exist.");
+                            }
                         } else
                         {
-                            MessageBox.Show("That course doesn't exist.");
+                            MessageBox.Show("A phone number must have between 9 and 13 chars.");
                         }
                     } else
                     {
-                        MessageBox.Show("A phone number must have between 9 and 13 chars.");
+                        MessageBox.Show("That student's DNI/NIE already exist or format is not correct.");
                     }
                 } else
                 {
-                    MessageBox.Show("That student's DNI/NIE already exist or format is not correct.");
+                    MessageBox.Show("That name isn't correct.");
                 }
-            } else
-            {
-                MessageBox.Show("That name isn't correct.");
+                if (wasAdded)
+                {
+                    addMoreStudents = MessageBox.Show("Do you want to add anothe student?", " ", MessageBoxButtons.YesNo);
+                } else
+                {
+                    MessageBox.Show("Try again!");
+                }
+
             }
         }
         // Delete button
@@ -148,7 +163,13 @@ namespace Ejercicio06CentroEscolar
         {
             if (!studentList.IsEmpty())
             {
-                studentList.OrderByName();
+                if (studentList.OrderByName())
+                {
+                    MessageBox.Show("Students Ordered");
+                } else
+                {
+                    MessageBox.Show("There's not more than one students in the list.");
+                }
             } else
             {
                 MessageBox.Show("The list is Empty. No students were added yet.");
@@ -161,21 +182,46 @@ namespace Ejercicio06CentroEscolar
         {
             if (!studentList.IsEmpty())
             {
-                string dni = Interaction.InputBox("Write the DNI/NIE from the student that you want to add a grade");
-                double grade = double.Parse(Interaction.InputBox("Add a grade"));
-                if (grade >= 1 && grade <= 10)
+                DialogResult addMoreGrades = DialogResult.Yes;
+               
+                while (addMoreGrades == DialogResult.Yes)
                 {
-                    if (studentList.AddGradeToStudent(dni, grade))
+                    bool wasAdded = false;
+                    string dni = Interaction.InputBox("Write the DNI/NIE from the student that you want to add a grade");
+                    DialogResult addToSameStudent = DialogResult.Yes;
+                    while (addToSameStudent == DialogResult.Yes)
                     {
-                        MessageBox.Show("Grade Added!");
+                        double grade = double.Parse(Interaction.InputBox("Add a grade"));
+                        if (grade >= 1 && grade <= 10)
+                        {
+                            if (studentList.AddGradeToStudent(dni, grade))
+                            {
+                                wasAdded = true;
+                                MessageBox.Show("Grade Added!");
+                            }
+                            else
+                            {
+                                MessageBox.Show("That student doesn't exist");
+                            }
+                        }
+                        else
+                        {
+                            MessageBox.Show("That grade is not between 1 and 10");
+                        }
+                        if (wasAdded)
+                        {
+                            addToSameStudent = MessageBox.Show("Do you want to add more grades to the same student?", "", MessageBoxButtons.YesNo);
+                            
+                        } else
+                        {
+                            addToSameStudent = DialogResult.No;
+                        }
+                        if (addToSameStudent == DialogResult.No)
+                        {
+                            addMoreGrades = MessageBox.Show("Do you want to add more grades?", "", MessageBoxButtons.YesNo);
+                        }
                     }
-                    else
-                    {
-                        MessageBox.Show("That student doesn't exist");
-                    }
-                } else
-                {
-                    MessageBox.Show("That grade is not between 1 and 10");
+                   
                 }
             } else
             {

@@ -40,9 +40,15 @@ namespace Ejercicio06CentroEscolar
             return index;
         }
 
-        public void AddTeacherToList(string name, string dni, string phoneNumber, string courseCode)
+        public void AddTutor(string name, string dni, string phoneNumber, string courseCode)
         {
             Teacher newTeacher = new Teacher(name, dni, phoneNumber, courseCode);
+            teacherList.Add(newTeacher);
+        }
+
+        public void AddTeacher(string name, string dni, string phoneNumber)
+        {
+            Teacher newTeacher = new Teacher(name, dni, phoneNumber);
             teacherList.Add(newTeacher);
         }
 

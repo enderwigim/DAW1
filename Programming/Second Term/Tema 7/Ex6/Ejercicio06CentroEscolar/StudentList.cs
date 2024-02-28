@@ -144,20 +144,26 @@ namespace Ejercicio06CentroEscolar
         }
 
         // Order List Methods
-        public void OrderByName()
+        public bool OrderByName()
         {
-            for (int i = 0; i < students.Count - 1; i++)
+            bool isOrder = false;
+            if (students.Count > 1)
             {
-                for (int j = i+1; j < students.Count; j++)
+                for (int i = 0; i < students.Count - 1; i++)
                 {
-                    if (string.Compare(students[i].Name, students[j].Name) > 0)
+                    for (int j = i+1; j < students.Count; j++)
                     {
-                        Student changableStudent = students[i];
-                        students[i] = students[j];
-                        students[j] = changableStudent;
+                        if (string.Compare(students[i].Name, students[j].Name) > 0)
+                        {
+                            Student changableStudent = students[i];
+                            students[i] = students[j];
+                            students[j] = changableStudent;
+                        }
                     }
                 }
+                isOrder = true;
             }
+            return isOrder;
         }
 
 

@@ -30,36 +30,63 @@ namespace Ejercicio06CentroEscolar
         private void btnAddTeacher_Click(object sender, EventArgs e)
         {
             string name, dni, phoneNumber, courseCode;
-            name = Interaction.InputBox("What's the teacher name?");
-            if (!name.Any(char.IsDigit) && !string.IsNullOrWhiteSpace(name))
+            DialogResult isTutor, moreTearchers;
+            moreTearchers = DialogResult.Yes;
+            
+
+            while (moreTearchers == DialogResult.Yes)
             {
-                name = CustomFunctions.FirstLetterToCapital(name);
-                dni = Interaction.InputBox("What's the teacher DNI/NIE?");
-                if (dni.Length >= 9 && dni.Length <= 10 && teachers.GetIndexByDni(dni) == -1)
+                bool wasAdded = false;
+                name = Interaction.InputBox("What's the teacher name?");
+                if (!name.Any(char.IsDigit) && !string.IsNullOrWhiteSpace(name))
                 {
-                    phoneNumber = Interaction.InputBox("What's the teacher phone number");
-                    if (phoneNumber.Length >= 9 && phoneNumber.Length <= 13)
+                    name = CustomFunctions.FirstLetterToCapital(name);
+                    dni = Interaction.InputBox("What's the teacher DNI/NIE?");
+                    if (dni.Length >= 9 && dni.Length <= 10 && teachers.GetIndexByDni(dni) == -1)
                     {
-                        courseCode = Interaction.InputBox("What's the teacher course code");
-                        if (courses.GetIndexByCode(courseCode.ToUpper()) != -1)
+                        phoneNumber = Interaction.InputBox("What's the teacher phone number");
+                        if (phoneNumber.Length >= 9 && phoneNumber.Length <= 13)
                         {
-                            teachers.AddTeacherToList(name, dni, phoneNumber, courseCode);
+                            isTutor = MessageBox.Show("Is the teacher a tutor?", " ", MessageBoxButtons.YesNo);
+                            if (isTutor == DialogResult.Yes)
+                            {
+                                courseCode = Interaction.InputBox("What's the teacher course code");
+                                if (courses.GetIndexByCode(courseCode.ToUpper()) != -1)
+                                {
+                                    teachers.AddTutor(name, dni, phoneNumber, courseCode);
+                                    wasAdded = true;
+                                } else
+                                {
+                                    MessageBox.Show("That course doesn't exist");
+                                }
+
+                            } else
+                            {
+                                teachers.AddTeacher(name, dni, phoneNumber);
+                                wasAdded = true;
+                            }
                         } else
                         {
-                            MessageBox.Show("That course doesn't exist");
+                            MessageBox.Show("That's not the correct format for a phone number");
                         }
                     } else
                     {
-                        MessageBox.Show("That's not the correct format for a phone number");
+                        MessageBox.Show("Check if the format is Okay, or if that DNI already exist in the list");
                     }
                 } else
                 {
-                    MessageBox.Show("Check if the format is Okay, or if that DNI already exist in the list");
+                    MessageBox.Show("Introduce the name properly");
                 }
-            } else
-            {
-                MessageBox.Show("Introduce the name properly");
+                if (wasAdded)
+                {
+                    moreTearchers = MessageBox.Show("Do you want to add another one?", " ", MessageBoxButtons.YesNo);
+                } else
+                {
+                    MessageBox.Show("Try Again");
+                }
+
             }
+            
 
         }
 

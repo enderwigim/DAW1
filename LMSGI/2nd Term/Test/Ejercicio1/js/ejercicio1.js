@@ -16,6 +16,7 @@ addH1Button.addEventListener("click", function() {
 
 changeHrefButton.addEventListener("click", function() {
     let everyA = document.getElementsByTagName("a");
+    
     let firstHref = everyA[0].href;
     everyA[0].href = everyA[1].href;
     everyA[1].href = firstHref;

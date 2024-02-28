@@ -13,12 +13,14 @@ namespace Ejercicio06CentroEscolar
             string newWord = "";
             for (int i = 0; i < word.Length; i++)
             {
-                if (i == 0)
-                    newWord += word[i].ToString().ToUpper();
-                else
+                if (i > 0)
                     newWord += word[i].ToString().ToLower();
+                else
+                    newWord += word[i].ToString().ToUpper();
             }
             return newWord;
         }
+
+
     }
 }

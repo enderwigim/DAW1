@@ -44,12 +44,7 @@ namespace Ejercicio06CentroEscolar
         public string CourseCode
         {
             get { return courseCode; }
-            set { 
-                if (value.Length == 3)
-                {
-                    courseCode = value.ToUpper();
-                }
-            }
+            set { courseCode = value.ToUpper();}
         }
 
         public Teacher(string name, string dni, string phoneNumber, string courseCode)
@@ -60,6 +55,16 @@ namespace Ejercicio06CentroEscolar
             CourseCode = courseCode;
             subjects = new List<string>();
         }
+
+        public Teacher(string name, string dni, string phoneNumber)
+        {
+            Name = name;
+            Dni = dni;
+            PhoneNumber = phoneNumber;
+            CourseCode = "NULL";
+            subjects = new List<string>();
+        }
+
         public bool EmptySubjects()
         {
             bool IsEmpty = true;
@@ -109,7 +114,14 @@ namespace Ejercicio06CentroEscolar
         }
         public string ShowTeacher()
         {
-            return $"{Name}, {Dni}, {phoneNumber}, {courseCode} \n {ShowSubjects()}";
+            if (CourseCode == "NULL")
+            {
+                return $"{Name}, {Dni}\n{phoneNumber}\n {ShowSubjects()}\n";
+            } else
+            {
+                return $"{Name}, {Dni}\n{phoneNumber}\n{courseCode}'s tutor\n{ShowSubjects()}\n";
+            }
+           
         }
     }
 }

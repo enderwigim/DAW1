@@ -8,7 +8,7 @@ namespace Ejercicio06CentroEscolar
 {
     public class Student
     {
-      
+
         private string name;
         private string dni;
         private string phoneNumber;
@@ -24,25 +24,27 @@ namespace Ejercicio06CentroEscolar
         public string Dni
         {
             get { return dni; }
-            set { 
-                    if (value.Length == 9 || value.Length == 10) 
-                    { dni = value.ToUpper();} 
-                }
+            set
+            {
+                if (value.Length == 9 || value.Length == 10)
+                { dni = value.ToUpper(); }
+            }
         }
         public string PhoneNumber
         {
             get { return phoneNumber; }
-            set { if (value.Length >= 9 && value.Length <= 13)
+            set
+            {
+                if (value.Length >= 9 && value.Length <= 13)
                     phoneNumber = value;
-                }
+            }
         }
         public string CourseCode
         {
             get { return courseCode; }
-            set { if (value.Length == 3)
-                    { courseCode = value.ToUpper();} 
-                }
+            set { courseCode = value.ToUpper(); }
         }
+
 
         public Student()
         {
@@ -66,7 +68,7 @@ namespace Ejercicio06CentroEscolar
         public double CalcAVG()
         {
             double avg = 0;
-            for(int i = 0; i < grades.Count; i++)
+            for (int i = 0; i < grades.Count; i++)
             {
                 avg += grades[i];
             }
@@ -90,7 +92,7 @@ namespace Ejercicio06CentroEscolar
             if (grades.Count != 0)
             {
                 gradeText = Name + " grades are: \n";
-                for (int i = 0; i <  grades.Count; i++) 
+                for (int i = 0; i < grades.Count; i++)
                 {
                     gradeText += grades[i] + ", ";
                 }
@@ -107,3 +109,5 @@ namespace Ejercicio06CentroEscolar
 
     }
 }
+
+   

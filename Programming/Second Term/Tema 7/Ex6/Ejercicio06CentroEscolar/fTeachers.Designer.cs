@@ -68,7 +68,7 @@
             // 
             // btnOrderTeachers
             // 
-            this.btnOrderTeachers.Location = new System.Drawing.Point(104, 136);
+            this.btnOrderTeachers.Location = new System.Drawing.Point(141, 136);
             this.btnOrderTeachers.Name = "btnOrderTeachers";
             this.btnOrderTeachers.Size = new System.Drawing.Size(164, 42);
             this.btnOrderTeachers.TabIndex = 3;
@@ -88,7 +88,7 @@
             // 
             // btnDeleteTeacher
             // 
-            this.btnDeleteTeacher.Location = new System.Drawing.Point(246, 33);
+            this.btnDeleteTeacher.Location = new System.Drawing.Point(298, 33);
             this.btnDeleteTeacher.Name = "btnDeleteTeacher";
             this.btnDeleteTeacher.Size = new System.Drawing.Size(164, 42);
             this.btnDeleteTeacher.TabIndex = 1;
@@ -120,7 +120,7 @@
             // 
             // btnShowTeachersBySubject
             // 
-            this.btnShowTeachersBySubject.Location = new System.Drawing.Point(294, 121);
+            this.btnShowTeachersBySubject.Location = new System.Drawing.Point(555, 83);
             this.btnShowTeachersBySubject.Name = "btnShowTeachersBySubject";
             this.btnShowTeachersBySubject.Size = new System.Drawing.Size(145, 45);
             this.btnShowTeachersBySubject.TabIndex = 2;
@@ -130,7 +130,7 @@
             // 
             // btnDeleteSubjectsFromTeacher
             // 
-            this.btnDeleteSubjectsFromTeacher.Location = new System.Drawing.Point(453, 38);
+            this.btnDeleteSubjectsFromTeacher.Location = new System.Drawing.Point(317, 83);
             this.btnDeleteSubjectsFromTeacher.Name = "btnDeleteSubjectsFromTeacher";
             this.btnDeleteSubjectsFromTeacher.Size = new System.Drawing.Size(145, 45);
             this.btnDeleteSubjectsFromTeacher.TabIndex = 1;
@@ -140,7 +140,7 @@
             // 
             // btnAddSubjectToTeacher
             // 
-            this.btnAddSubjectToTeacher.Location = new System.Drawing.Point(104, 38);
+            this.btnAddSubjectToTeacher.Location = new System.Drawing.Point(69, 83);
             this.btnAddSubjectToTeacher.Name = "btnAddSubjectToTeacher";
             this.btnAddSubjectToTeacher.Size = new System.Drawing.Size(145, 45);
             this.btnAddSubjectToTeacher.TabIndex = 0;

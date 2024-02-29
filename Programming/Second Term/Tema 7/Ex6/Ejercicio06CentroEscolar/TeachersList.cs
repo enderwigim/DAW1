@@ -144,5 +144,10 @@ namespace Ejercicio06CentroEscolar
             }
             return teachersText;
         }
+        public bool RemoveASubject(string subject, int index)
+        {
+            bool wasDeleted = teacherList[index].RemoveJustOneSubject(subject);
+            return wasDeleted;
+        }
     }
 }

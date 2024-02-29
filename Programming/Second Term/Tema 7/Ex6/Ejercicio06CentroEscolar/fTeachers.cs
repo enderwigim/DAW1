@@ -149,27 +149,49 @@ namespace Ejercicio06CentroEscolar
             if (!teachers.IsEmpty())
             {
                 string dni = Interaction.InputBox("What's the teacher's DNI??");
-                string subjectName = Interaction.InputBox("What subject do you want to add?");
-                if (!subjectName.Any(char.IsDigit) || !string.IsNullOrWhiteSpace(subjectName))
+                DialogResult addMoreSubjects = DialogResult.Yes;
+                DialogResult addToSameDni = DialogResult.Yes;
+                while (addMoreSubjects == DialogResult.Yes)
                 {
-                    subjectName = CustomFunctions.FirstLetterToCapital(subjectName); ;
-                    if(teachers.AddTeachersSubject(dni, subjectName))
+                    if (addToSameDni == DialogResult.No)
                     {
-                        MessageBox.Show("Subject added");
-                    } else
-                    {
-                        MessageBox.Show("That teacher doesn't exist.");
+                        dni = Interaction.InputBox("What's the teacher's DNI??");
                     }
-                } else
-                {
-                    MessageBox.Show("That's no the name of a subject.");
-                }
-                
+                    bool wasAdded = false;
+                    string subjectName = Interaction.InputBox("What subject do you want to add?");
+                    if (!subjectName.Any(char.IsDigit) || !string.IsNullOrWhiteSpace(subjectName))
+                    {
+                        subjectName = CustomFunctions.FirstLetterToCapital(subjectName); ;
+                        if (teachers.AddTeachersSubject(dni, subjectName))
+                        {
+                            wasAdded = true;
+                            MessageBox.Show("Subject added");
+                        }
+                        else
+                        {
+                            MessageBox.Show("That teacher doesn't exist.");
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("That's no the name of a subject.");
+                    }
+                    if (wasAdded)
+                    {
+                        addToSameDni = MessageBox.Show("Do you want to add more subjects to the same teacher?", "", MessageBoxButtons.YesNo);
+                    } 
+                    if (addToSameDni != DialogResult.Yes)
+                    {
+                        addMoreSubjects = MessageBox.Show("Do you want to add more subjects to another teacher?", "", MessageBoxButtons.YesNo);
+                    }
 
-            } else
+                }
+            }else
             {
                 MessageBox.Show("There's no teachers in the list yet.");
             }
+
+
         }
 
         private void btnDeleteSubjectsFromTeacher_Click(object sender, EventArgs e)
@@ -215,6 +237,48 @@ namespace Ejercicio06CentroEscolar
                 MessageBox.Show("There's no teachers in the list yet.");
             }
 
+        }
+
+        private void btnDeleteJustOneSubject_Click(object sender, EventArgs e)
+        {
+            DialogResult wantToDelete = DialogResult.Yes;
+            DialogResult deleteSameTeacher = DialogResult.Yes;
+            string dni = Interaction.InputBox("What's the teacher's DNI??");
+            while (wantToDelete == DialogResult.Yes)
+            {
+                
+               if (deleteSameTeacher == DialogResult.No)
+                {
+                    dni = Interaction.InputBox("What's the teacher's DNI??");
+                }
+                int teacherIndex = teachers.GetIndexByDni(dni);
+                if (teacherIndex != -1)
+                {
+                    bool wasDeleted = false;
+                    string subject = Interaction.InputBox("What's the subject that you want to delete?");
+                    if (teachers.RemoveASubject(subject, teacherIndex))
+                    {
+                        MessageBox.Show("Subject Deleted!");
+                        wasDeleted = true;
+                    } else
+                    {
+                        MessageBox.Show("That teacher doesn't teach that subject");
+                    }
+                    if (wasDeleted)
+                    {
+                        deleteSameTeacher = MessageBox.Show("Do you want to delete more subjects from the same teacher?", "", MessageBoxButtons.YesNo);
+                    } else
+                    {
+                        MessageBox.Show("Try Again!");
+                    }
+                
+                } else
+                {
+                    MessageBox.Show("That teacher is not in the list");
+                }
+                if (deleteSameTeacher == DialogResult.No)
+                wantToDelete = MessageBox.Show("Do you want to try to delete another subject?", "", MessageBoxButtons.YesNo);
+             }
         }
     }
 }

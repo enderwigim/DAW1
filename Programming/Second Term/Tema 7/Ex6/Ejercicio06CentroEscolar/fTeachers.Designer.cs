@@ -38,6 +38,7 @@
             this.btnShowTeachersBySubject = new System.Windows.Forms.Button();
             this.btnDeleteSubjectsFromTeacher = new System.Windows.Forms.Button();
             this.btnAddSubjectToTeacher = new System.Windows.Forms.Button();
+            this.btnDeleteJustOneSubject = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -108,6 +109,7 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.btnDeleteJustOneSubject);
             this.groupBox2.Controls.Add(this.btnShowTeachersBySubject);
             this.groupBox2.Controls.Add(this.btnDeleteSubjectsFromTeacher);
             this.groupBox2.Controls.Add(this.btnAddSubjectToTeacher);
@@ -130,7 +132,7 @@
             // 
             // btnDeleteSubjectsFromTeacher
             // 
-            this.btnDeleteSubjectsFromTeacher.Location = new System.Drawing.Point(317, 83);
+            this.btnDeleteSubjectsFromTeacher.Location = new System.Drawing.Point(317, 19);
             this.btnDeleteSubjectsFromTeacher.Name = "btnDeleteSubjectsFromTeacher";
             this.btnDeleteSubjectsFromTeacher.Size = new System.Drawing.Size(145, 45);
             this.btnDeleteSubjectsFromTeacher.TabIndex = 1;
@@ -147,6 +149,16 @@
             this.btnAddSubjectToTeacher.Text = "Añadir Asignatura a Profesor";
             this.btnAddSubjectToTeacher.UseVisualStyleBackColor = true;
             this.btnAddSubjectToTeacher.Click += new System.EventHandler(this.btnAddSubjectToTeacher_Click);
+            // 
+            // btnDeleteJustOneSubject
+            // 
+            this.btnDeleteJustOneSubject.Location = new System.Drawing.Point(317, 110);
+            this.btnDeleteJustOneSubject.Name = "btnDeleteJustOneSubject";
+            this.btnDeleteJustOneSubject.Size = new System.Drawing.Size(145, 45);
+            this.btnDeleteJustOneSubject.TabIndex = 3;
+            this.btnDeleteJustOneSubject.Text = "Eliminar una asignatura de un profesor";
+            this.btnDeleteJustOneSubject.UseVisualStyleBackColor = true;
+            this.btnDeleteJustOneSubject.Click += new System.EventHandler(this.btnDeleteJustOneSubject_Click);
             // 
             // fTeachers
             // 
@@ -175,5 +187,6 @@
         private System.Windows.Forms.Button btnShowTeachersBySubject;
         private System.Windows.Forms.Button btnDeleteSubjectsFromTeacher;
         private System.Windows.Forms.Button btnAddSubjectToTeacher;
+        private System.Windows.Forms.Button btnDeleteJustOneSubject;
     }
 }

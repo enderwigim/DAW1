@@ -65,6 +65,19 @@ namespace Ejercicio06CentroEscolar
             subjects = new List<string>();
         }
 
+        public bool RemoveJustOneSubject(string subjectName)
+        {
+            bool wasDeleted = false;
+            subjectName = CustomFunctions.FirstLetterToCapital(subjectName);
+            int subjectIndex = subjects.IndexOf(subjectName);
+            if (subjectIndex != -1)
+            {
+                subjects.RemoveAt(subjectIndex);
+                wasDeleted = true;
+            }
+            return wasDeleted;
+        }
+
         public bool EmptySubjects()
         {
             bool IsEmpty = true;

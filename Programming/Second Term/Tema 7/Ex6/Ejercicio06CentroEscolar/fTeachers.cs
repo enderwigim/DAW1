@@ -47,17 +47,25 @@ namespace Ejercicio06CentroEscolar
                         phoneNumber = Interaction.InputBox("What's the teacher phone number");
                         if (phoneNumber.Length >= 9 && phoneNumber.Length <= 13)
                         {
-                            isTutor = MessageBox.Show("Is the teacher a tutor?", " ", MessageBoxButtons.YesNo);
-                            if (isTutor == DialogResult.Yes)
+                            if (!courses.IsEmpty())
                             {
-                                courseCode = Interaction.InputBox("What's the teacher course code");
-                                if (courses.GetIndexByCode(courseCode.ToUpper()) != -1)
+                                isTutor = MessageBox.Show("Is the teacher a tutor?", " ", MessageBoxButtons.YesNo);
+                                if (isTutor == DialogResult.Yes)
                                 {
-                                    teachers.AddTutor(name, dni, phoneNumber, courseCode);
-                                    wasAdded = true;
+                                    courseCode = Interaction.InputBox("What's the teacher course code");
+                                    if (courses.GetIndexByCode(courseCode.ToUpper()) != -1)
+                                    {
+                                        teachers.AddTutor(name, dni, phoneNumber, courseCode);
+                                        wasAdded = true;
+                                    } else
+                                    {
+                                        MessageBox.Show("That course doesn't exist");
+                                    }
+
                                 } else
                                 {
-                                    MessageBox.Show("That course doesn't exist");
+                                    teachers.AddTeacher(name, dni, phoneNumber);
+                                    wasAdded = true;
                                 }
 
                             } else
@@ -166,24 +174,24 @@ namespace Ejercicio06CentroEscolar
                         {
                             wasAdded = true;
                             MessageBox.Show("Subject added");
+                            addToSameDni = MessageBox.Show("Do you want to add more subjects to the same teacher?", "", MessageBoxButtons.YesNo);
+                            if (addToSameDni != DialogResult.Yes)
+                            {
+                                addMoreSubjects = MessageBox.Show("Do you want to add more subjects to another teacher?", "", MessageBoxButtons.YesNo);
+                            }
                         }
                         else
                         {
-                            MessageBox.Show("That teacher doesn't exist.");
+                            MessageBox.Show("That teacher doesn't exist. Try Again");
+                            addToSameDni = DialogResult.No;
                         }
                     }
                     else
                     {
                         MessageBox.Show("That's no the name of a subject.");
                     }
-                    if (wasAdded)
-                    {
-                        addToSameDni = MessageBox.Show("Do you want to add more subjects to the same teacher?", "", MessageBoxButtons.YesNo);
-                    } 
-                    if (addToSameDni != DialogResult.Yes)
-                    {
-                        addMoreSubjects = MessageBox.Show("Do you want to add more subjects to another teacher?", "", MessageBoxButtons.YesNo);
-                    }
+                   
+                    
 
                 }
             }else
@@ -264,9 +272,12 @@ namespace Ejercicio06CentroEscolar
                     {
                         MessageBox.Show("That teacher doesn't teach that subject");
                     }
+                    deleteSameTeacher = DialogResult.Yes;
                     if (wasDeleted)
                     {
                         deleteSameTeacher = MessageBox.Show("Do you want to delete more subjects from the same teacher?", "", MessageBoxButtons.YesNo);
+                        if (deleteSameTeacher == DialogResult.No)
+                        wantToDelete = MessageBox.Show("Do you want to try to delete another subject?", "", MessageBoxButtons.YesNo);
                     } else
                     {
                         MessageBox.Show("Try Again!");
@@ -275,9 +286,8 @@ namespace Ejercicio06CentroEscolar
                 } else
                 {
                     MessageBox.Show("That teacher is not in the list");
+                    deleteSameTeacher = DialogResult.No;
                 }
-                if (deleteSameTeacher == DialogResult.No)
-                wantToDelete = MessageBox.Show("Do you want to try to delete another subject?", "", MessageBoxButtons.YesNo);
              }
         }
     }

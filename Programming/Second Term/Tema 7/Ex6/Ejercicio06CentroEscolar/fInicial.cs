@@ -33,9 +33,15 @@ namespace Ejercicio06CentroEscolar
 
         private void btnGestionAlumnos_Click(object sender, EventArgs e)
         {
-            fStudents fStu = new fStudents(courses, students);
+            if (!courses.IsEmpty())
+            {
+                fStudents fStu = new fStudents(courses, students);
 
-            fStu.ShowDialog();
+                fStu.ShowDialog();
+            } else
+            {
+                MessageBox.Show("There's no courses yet. Please, add one before adding students.");
+            }
         }
 
         private void btnTeachersAdministration_Click(object sender, EventArgs e)

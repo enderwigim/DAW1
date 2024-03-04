@@ -57,16 +57,13 @@ namespace Ejercicio06CentroEscolar
             students.Add(new_student);
         }
 
-        public bool AddGradeToStudent(string dni, double grade)
+        public void AddGradeToStudent(int index, double grade)
         {
-            bool gradeAdded = false;
-            int index = GetIndexByDNI(dni);
             if (index != -1)
             {
                 students[index].AddGrade(grade);
-                gradeAdded = true;
             }
-            return gradeAdded;
+            
         }
 
         // Remove Methods.

@@ -31,7 +31,7 @@ namespace Ejercicio06CentroEscolar
             bool isInList = false;
             for (int i = 0; i < students.Count; i++)
             {
-                if (students[i].Dni == dni)
+                if (students[i].Dni == dni.ToUpper())
                 {
                     isInList = true;
                 }

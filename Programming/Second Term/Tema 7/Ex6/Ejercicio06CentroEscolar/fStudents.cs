@@ -42,7 +42,7 @@ namespace Ejercicio06CentroEscolar
                     if (!name.Any(char.IsDigit) && !string.IsNullOrWhiteSpace(name))
                     {
                         string dni = Interaction.InputBox("Add an ID to the student please");
-                        if (dni.Length == 10 || dni.Length == 9 && !studentList.IsIDInList(dni))
+                        if ((dni.Length == 10 || dni.Length == 9) && !studentList.IsIDInList(dni))
                         {
                             string phoneNumber = Interaction.InputBox("Add a phone number to the student");
                             if (phoneNumber.Length >= 9 && phoneNumber.Length <= 13)
@@ -93,14 +93,17 @@ namespace Ejercicio06CentroEscolar
         {
             if (!studentList.IsEmpty())
             {
-                string dni = Interaction.InputBox("Write the student's DNI/NIE.");
+                string dni = Interaction.InputBox("Write the student's DNI/NIE.").ToUpper();
                 int index = studentList.GetIndexByDNI(dni);
                 if (index != -1)
                 {
                     studentList.RemoveStudentFromList(index);
                     MessageBox.Show("Student removed.");
                 }
-                MessageBox.Show("That student doesn't exist.");
+                else
+                {
+                    MessageBox.Show("That student doesn't exist.");
+                }
             } else
             {
                 MessageBox.Show("There's no students in the list yet.");

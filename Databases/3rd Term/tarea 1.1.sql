@@ -38,9 +38,10 @@ PRINT @gamaConMasProductos
 -- Salida: 'El empleado Carlos Soria Jimenez tiene como jefe al empleado Alberto Soria Carrasco'
 -------------------------------------------------------------------------------------------
 EXEC sp_columns EMPLEADOS
+
 /*
 DECLARE @nombreEmpleado VARCHAR(150);
-DECLARE @codEmpleado INT = 7
+DECLARE @codEmpleado INT = 1
 DECLARE @codigoJefe INT;
 DECLARE @nombreJefe VARCHAR(150);
 
@@ -102,6 +103,7 @@ PRINT CONCAT('El cliente ', @nombreCliente, 'ha realizado ', @cantidadPedidos, '
 --
 -- Salida: 'El pedido XXXX realizado por el cliente YYYYYYY se realizó el ZZ/ZZ/ZZZZ y su estado es EEEEEEEE
 -------------------------------------------------------------------------------------------
+/*
 EXEC sp_columns PEDIDOS
 DECLARE @fecha CHAR(10);
 DECLARE @codPedido INT;
@@ -133,7 +135,7 @@ PRINT CONCAT('El pedido ', @codPedido,
               '. Se realizó el ', @fecha, 
               ' y su estado es', @nombreEstado)
 
-
+*/
 
 -------------------------------------------------------------------------------------------
 -- 5. Crea un script que dadas dos variables: porcentaje y gama
@@ -148,6 +150,9 @@ UPDATE PRODUCTOS
    SET precio_venta *= @porcentaje 
  WHERE codCategoria = @gama
 
+
+
+
 SELECT precio_venta FROM PRODUCTOS
   WHERE codCategoria = 'OR'
   ORDER BY precio_venta ASC
@@ -157,10 +162,26 @@ SELECT precio_venta FROM PRODUCTOS
 --   al menos 3 productos (siendo el número de productos una variable).
 --	
 -- Salida: 'Existen XXXX clientes en la BD que han realizado pedidos de al menos YYYY productos'
+
+-- REPASAR ESTEEEEEEEEEEEEEEEEEEEE
 -------------------------------------------------------------------------------------------
 
 
 
+
+DECLARE @AmmountProducts INT = 4;
+DECLARE @AmmountClients INT;
+
+
+SELECT @AmmountClients = COUNT(DISTINCT codCliente)
+  FROM PEDIDOS
+ WHERE codPedido IN (SELECT codPedido
+                       FROM DETALLE_PEDIDOS
+                      GROUP BY codPedido
+                     HAVING COUNT(*) >= @AmmountProducts)
+                     
+PRINT CONCAT('Existen ', @AmmountClients, ' clientes en la BD que han', 
+'realizado pedidos de al menos ', @AmmountProducts, ' productos.');
 
 
 -------------------------------------------------------------------------------------------
@@ -169,6 +190,20 @@ SELECT precio_venta FROM PRODUCTOS
 --	
 -- Salida: 'El cliente XXXX tiene como representante a YYYY y trabaja en la ciudad de ZZZZ'
 -------------------------------------------------------------------------------------------
+EXEC sp_columns CLIENTES
+DECLARE @codCliente INT = 1
+DECLARE @nombreCliente VARCHAR(50)
+DECLARE @nombreRepresentante VARCHAR(152)
+DECLARE @ciudadOficina VARCHAR(40);
 
+SELECT @nombreCliente = cli.nombre_cliente,
+       @nombreRepresentante = CONCAT(emp.nombre, ' ', emp.apellido1, ' ', emp.apellido2),
+       @ciudadOficina = ofi.ciudad
+  FROM CLIENTES cli,
+       EMPLEADOS emp,
+       OFICINAS ofi
+ WHERE cli.codEmpl_ventas = emp.codEmpleado
+   AND emp.codOficina = ofi.codOficina
+   AND cli.codCliente = @codCliente
 
-
+PRINT CONCAT('El cliente ', @nombreCliente, ' tiene como representante a ', @nombreRepresentante, ' y trabaja en la ciudad de ', @ciudadOficina)

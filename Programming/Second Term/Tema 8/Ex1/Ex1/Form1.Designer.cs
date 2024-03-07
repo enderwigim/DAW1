@@ -28,13 +28,47 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            this.btnCreateCircle = new System.Windows.Forms.Button();
+            this.btnCreateSquare = new System.Windows.Forms.Button();
+            this.SuspendLayout();
+            // 
+            // btnCreateCircle
+            // 
+            this.btnCreateCircle.Location = new System.Drawing.Point(38, 37);
+            this.btnCreateCircle.Name = "btnCreateCircle";
+            this.btnCreateCircle.Size = new System.Drawing.Size(192, 78);
+            this.btnCreateCircle.TabIndex = 0;
+            this.btnCreateCircle.Text = "Crear Circulo";
+            this.btnCreateCircle.UseVisualStyleBackColor = true;
+            this.btnCreateCircle.Click += new System.EventHandler(this.btnCreateCircle_Click);
+            // 
+            // btnCreateSquare
+            // 
+            this.btnCreateSquare.Location = new System.Drawing.Point(325, 37);
+            this.btnCreateSquare.Name = "btnCreateSquare";
+            this.btnCreateSquare.Size = new System.Drawing.Size(192, 78);
+            this.btnCreateSquare.TabIndex = 1;
+            this.btnCreateSquare.Text = "Crear Cuadrado";
+            this.btnCreateSquare.UseVisualStyleBackColor = true;
+            this.btnCreateSquare.Click += new System.EventHandler(this.btnCreateSquare_Click);
+            // 
+            // Form1
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Text = "Form1";
+            this.ClientSize = new System.Drawing.Size(567, 164);
+            this.Controls.Add(this.btnCreateSquare);
+            this.Controls.Add(this.btnCreateCircle);
+            this.Name = "Form1";
+            this.Text = "Ex1";
+            this.ResumeLayout(false);
+
         }
 
         #endregion
+
+        private System.Windows.Forms.Button btnCreateCircle;
+        private System.Windows.Forms.Button btnCreateSquare;
     }
 }
 

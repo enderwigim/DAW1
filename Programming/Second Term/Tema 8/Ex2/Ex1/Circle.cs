@@ -33,7 +33,7 @@ namespace Ex2
         }
         public override string SayMyName()
         {
-            return "Soy un cuadrado";
+            return "Soy un circulo";
         }
 
         public override string ToString()

@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Ex1.Properties
+namespace Ex2.Properties
 {
 
 

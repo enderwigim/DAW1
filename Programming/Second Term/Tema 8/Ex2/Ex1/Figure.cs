@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Ex1
+namespace Ex2
 {
     public abstract class Figure
     {

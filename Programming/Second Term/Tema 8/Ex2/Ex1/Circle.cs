@@ -9,28 +9,34 @@ namespace Ex2
 {
     public class Circle : Figure
     {
-        private double radio;
+        private double radius;
 
-        public double Radio
+        public double Radius
         {
-            get { return radio; }
-            set { radio = value; }
+            get { return radius; }
+            set { radius = value; }
         }
         public Circle(int xPosition, int yPosition, string color, double radio): base(xPosition, yPosition, color)
         {
-            Radio = radio;
+            Radius = radio;
         }
 
         public override double CalcArea()
         {
-            return Math.PI * (radio * radio);
+            return Math.PI * (radius * radius);
         }
+
+        public override string SayMyName()
+        {
+            return "Soy un circulo";
+        }
+
         public override string ToString()
         {
             return $"Position X: {xPosition} " +
                 $"\nPosition Y: {yPosition} " +
                 $"\nColor: {Color}" +
-                $"\nRadio: {Radio}";
+                $"\nRadio: {Radius}";
         }
     }
 }

@@ -49,7 +49,7 @@ namespace Ex2
             string color;
             AddPositionsAndColor(out x, out y, out color);
 
-            radius = int.Parse(Interaction.InputBox("Que altura tiene?"));
+            radius = int.Parse(Interaction.InputBox("Que radio tiene?"));
             Circle circle = new Circle(x, y, color, radius);
 
             figures.Add(circle);
@@ -74,12 +74,31 @@ namespace Ex2
             {
                 if (figures[i].GetType() == typeof(Circle))
                 {
+                    text += figures[i].SayMyName() + "\n";
+                    text += $"La figura {i + 1}:" +
+                        $"\n{figures[i].ToString()}\n" +
+                        $"Area: {figures[i].CalcArea()}\n\n";
+                }
+                
+            }
+            MessageBox.Show(text);
+        }
+
+        private void btnShowSquares_Click(object sender, EventArgs e)
+        {
+            string text = "Datos de los cuadrados: \n\n";
+            for (int i = 0; i < figures.Count; i++)
+            {
+                if (figures[i].GetType() == typeof(Square))
+                {
+                    text += figures[i].SayMyName() + "\n";
                     text += $"La figura {i + 1}:" +
                         $"\n{figures[i].ToString()}\n" +
                         $"Area: {figures[i].CalcArea()}\n";
                 }
-                
+
             }
+            MessageBox.Show(text);
         }
     }
 }

@@ -41,9 +41,10 @@
             // 
             // btnCreateCircle
             // 
-            this.btnCreateCircle.Location = new System.Drawing.Point(10, 34);
+            this.btnCreateCircle.Location = new System.Drawing.Point(13, 42);
+            this.btnCreateCircle.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnCreateCircle.Name = "btnCreateCircle";
-            this.btnCreateCircle.Size = new System.Drawing.Size(150, 54);
+            this.btnCreateCircle.Size = new System.Drawing.Size(200, 66);
             this.btnCreateCircle.TabIndex = 0;
             this.btnCreateCircle.Text = "Crear Circulo";
             this.btnCreateCircle.UseVisualStyleBackColor = true;
@@ -51,9 +52,10 @@
             // 
             // btnCreateSquare
             // 
-            this.btnCreateSquare.Location = new System.Drawing.Point(10, 122);
+            this.btnCreateSquare.Location = new System.Drawing.Point(13, 150);
+            this.btnCreateSquare.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnCreateSquare.Name = "btnCreateSquare";
-            this.btnCreateSquare.Size = new System.Drawing.Size(150, 58);
+            this.btnCreateSquare.Size = new System.Drawing.Size(200, 71);
             this.btnCreateSquare.TabIndex = 1;
             this.btnCreateSquare.Text = "Crear Cuadrado";
             this.btnCreateSquare.UseVisualStyleBackColor = true;
@@ -63,9 +65,11 @@
             // 
             this.groupBox1.Controls.Add(this.btnCreateCircle);
             this.groupBox1.Controls.Add(this.btnCreateSquare);
-            this.groupBox1.Location = new System.Drawing.Point(46, 85);
+            this.groupBox1.Location = new System.Drawing.Point(61, 105);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(166, 207);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox1.Size = new System.Drawing.Size(221, 255);
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Crear Figuras";
@@ -75,27 +79,32 @@
             this.groupBox2.Controls.Add(this.btnShowSquares);
             this.groupBox2.Controls.Add(this.btnShowEveryFigure);
             this.groupBox2.Controls.Add(this.btnShowCircles);
-            this.groupBox2.Location = new System.Drawing.Point(302, 60);
+            this.groupBox2.Location = new System.Drawing.Point(403, 74);
+            this.groupBox2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(166, 261);
+            this.groupBox2.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox2.Size = new System.Drawing.Size(221, 321);
             this.groupBox2.TabIndex = 3;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Crear Figuras";
             // 
             // btnShowSquares
             // 
-            this.btnShowSquares.Location = new System.Drawing.Point(10, 197);
+            this.btnShowSquares.Location = new System.Drawing.Point(13, 242);
+            this.btnShowSquares.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnShowSquares.Name = "btnShowSquares";
-            this.btnShowSquares.Size = new System.Drawing.Size(150, 58);
+            this.btnShowSquares.Size = new System.Drawing.Size(200, 71);
             this.btnShowSquares.TabIndex = 2;
             this.btnShowSquares.Text = "Mostrar Cuadrados";
             this.btnShowSquares.UseVisualStyleBackColor = true;
+            this.btnShowSquares.Click += new System.EventHandler(this.btnShowSquares_Click);
             // 
             // btnShowEveryFigure
             // 
-            this.btnShowEveryFigure.Location = new System.Drawing.Point(10, 25);
+            this.btnShowEveryFigure.Location = new System.Drawing.Point(13, 31);
+            this.btnShowEveryFigure.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnShowEveryFigure.Name = "btnShowEveryFigure";
-            this.btnShowEveryFigure.Size = new System.Drawing.Size(150, 54);
+            this.btnShowEveryFigure.Size = new System.Drawing.Size(200, 66);
             this.btnShowEveryFigure.TabIndex = 0;
             this.btnShowEveryFigure.Text = "Mostrar todas las figuras";
             this.btnShowEveryFigure.UseVisualStyleBackColor = true;
@@ -103,9 +112,10 @@
             // 
             // btnShowCircles
             // 
-            this.btnShowCircles.Location = new System.Drawing.Point(10, 110);
+            this.btnShowCircles.Location = new System.Drawing.Point(13, 135);
+            this.btnShowCircles.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnShowCircles.Name = "btnShowCircles";
-            this.btnShowCircles.Size = new System.Drawing.Size(150, 58);
+            this.btnShowCircles.Size = new System.Drawing.Size(200, 71);
             this.btnShowCircles.TabIndex = 1;
             this.btnShowCircles.Text = "Mostrar Circulos";
             this.btnShowCircles.UseVisualStyleBackColor = true;
@@ -113,11 +123,12 @@
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(567, 401);
+            this.ClientSize = new System.Drawing.Size(756, 494);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "Form1";
             this.Text = "Ex2";
             this.groupBox1.ResumeLayout(false);

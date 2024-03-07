@@ -28,6 +28,10 @@ namespace Ex2
 
         public abstract double CalcArea();
 
+        public virtual string SayMyName()
+        {
+            return "Soy una figura";
+        }
 
 
         public override string ToString()

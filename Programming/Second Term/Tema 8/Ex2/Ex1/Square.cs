@@ -25,6 +25,10 @@ namespace Ex2
         {
             return Math.Pow(Height, Height);
         }
+        public override string SayMyName()
+        {
+            return "Soy un cuadrado";
+        }
 
         public override string ToString()
         {

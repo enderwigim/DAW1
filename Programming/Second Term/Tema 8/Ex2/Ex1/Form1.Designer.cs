@@ -109,6 +109,7 @@
             this.btnShowCircles.TabIndex = 1;
             this.btnShowCircles.Text = "Mostrar Circulos";
             this.btnShowCircles.UseVisualStyleBackColor = true;
+            this.btnShowCircles.Click += new System.EventHandler(this.btnShowCircles_Click);
             // 
             // Form1
             // 

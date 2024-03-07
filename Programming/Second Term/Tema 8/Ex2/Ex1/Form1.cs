@@ -66,5 +66,20 @@ namespace Ex2
                     $"Area: {figures[i].CalcArea()}");
             }
         }
+
+        private void btnShowCircles_Click(object sender, EventArgs e)
+        {
+            string text = "";
+            for (int i = 0; i < figures.Count; i++)
+            {
+                if (figures[i].GetType() == typeof(Circle))
+                {
+                    text += $"La figura {i + 1}:" +
+                        $"\n{figures[i].ToString()}\n" +
+                        $"Area: {figures[i].CalcArea()}\n";
+                }
+                
+            }
+        }
     }
 }

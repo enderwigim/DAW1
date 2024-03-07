@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualBasic;
+﻿using Ex1;
+using Microsoft.VisualBasic;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -28,6 +29,7 @@ namespace Ex2
         }
         private void btnCreateSquare_Click(object sender, EventArgs e)
         {
+            /*
             int x, y, height;
             string color;
             AddPositionsAndColor(out x, out y, out color);
@@ -40,11 +42,16 @@ namespace Ex2
 
             figures.Add(square);
             MessageBox.Show("Square added");
+            */
+            AddSquare fSquare = new AddSquare(figures);
+            fSquare.ShowDialog();
+            
 
         }
 
         private void btnCreateCircle_Click(object sender, EventArgs e)
         {
+            /*
             int x, y, radius;
             string color;
             AddPositionsAndColor(out x, out y, out color);
@@ -54,6 +61,9 @@ namespace Ex2
 
             figures.Add(circle);
             MessageBox.Show("Circle added");
+            */
+            AddCircle fCircle = new AddCircle(figures);
+            fCircle.ShowDialog();
         }
 
         private void btnShowEveryFigure_Click(object sender, EventArgs e)
@@ -69,7 +79,7 @@ namespace Ex2
 
         private void btnShowCircles_Click(object sender, EventArgs e)
         {
-            string text = "";
+            string text = "Datos de los circulos \n\n";
             for (int i = 0; i < figures.Count; i++)
             {
                 if (figures[i].GetType() == typeof(Circle))

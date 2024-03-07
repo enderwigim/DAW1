@@ -25,6 +25,10 @@ namespace Ex2
         {
             return Math.Pow(Height, Height);
         }
+        public int CalcPerimeter()
+        {
+            return Height * 4;
+        }
         public override string SayMyName()
         {
             return "Soy un cuadrado";

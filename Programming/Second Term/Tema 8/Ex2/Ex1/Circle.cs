@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Ex2;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -9,26 +10,30 @@ namespace Ex2
 {
     public class Circle : Figure
     {
-        private double radius;
+        private int radius;
 
-        public double Radius
+        public int Radius
         {
             get { return radius; }
             set { radius = value; }
         }
-        public Circle(int xPosition, int yPosition, string color, double radio): base(xPosition, yPosition, color)
+
+        public Circle(int x, int y, string color, int height) : base(x, y, color)
         {
-            Radius = radio;
+            Radius = height;
         }
 
         public override double CalcArea()
         {
-            return Math.PI * (radius * radius);
+            return Math.PI * (Radius * Radius);
         }
-
+        public int CalcPerimeter()
+        {
+            return Radius * 4;
+        }
         public override string SayMyName()
         {
-            return "Soy un circulo";
+            return "Soy un cuadrado";
         }
 
         public override string ToString()
@@ -36,7 +41,7 @@ namespace Ex2
             return $"Position X: {xPosition} " +
                 $"\nPosition Y: {yPosition} " +
                 $"\nColor: {Color}" +
-                $"\nRadio: {Radius}";
+                $"\nRadius: {Radius}";
         }
     }
 }

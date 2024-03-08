@@ -1,5 +1,3 @@
-
-
 class ListOfBoats {
     boatList = [];
     ammountOfSegments = [];

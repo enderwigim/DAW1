@@ -13,8 +13,8 @@ namespace Ex1
 {
     public partial class AddCircle : Form
     {
-        List<Figure> figures;
-        public AddCircle(List<Figure> myFigures)
+        List<Shape> figures;
+        public AddCircle(List<Shape> myFigures)
         {
             InitializeComponent();
             figures = myFigures;

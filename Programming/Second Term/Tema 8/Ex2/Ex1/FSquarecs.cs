@@ -13,8 +13,8 @@ namespace Ex1
 {
     public partial class AddSquare : Form
     {
-        private List<Figure> figures;
-        public AddSquare(List<Figure> myFigures)
+        private List<Shape> figures;
+        public AddSquare(List<Shape> myFigures)
         {
             InitializeComponent();
             figures = myFigures;

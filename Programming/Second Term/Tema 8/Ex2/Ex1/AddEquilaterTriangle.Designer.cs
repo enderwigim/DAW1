@@ -1,8 +1,6 @@
-﻿using System;
-
-namespace Ex2
+﻿namespace Ex2
 {
-    partial class AddSquare
+    partial class AddEquilaterTriangle
     {
         /// <summary>
         /// Required designer variable.
@@ -31,6 +29,7 @@ namespace Ex2
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.btnAddTriangle = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -39,13 +38,16 @@ namespace Ex2
             this.txtColor = new System.Windows.Forms.TextBox();
             this.txtPositionY = new System.Windows.Forms.TextBox();
             this.txtPositionX = new System.Windows.Forms.TextBox();
-            this.btnAddSquare = new System.Windows.Forms.Button();
+            this.label5 = new System.Windows.Forms.Label();
+            this.txtSide = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.btnAddSquare);
+            this.groupBox1.Controls.Add(this.label5);
+            this.groupBox1.Controls.Add(this.txtSide);
+            this.groupBox1.Controls.Add(this.btnAddTriangle);
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.label2);
@@ -54,109 +56,134 @@ namespace Ex2
             this.groupBox1.Controls.Add(this.txtColor);
             this.groupBox1.Controls.Add(this.txtPositionY);
             this.groupBox1.Controls.Add(this.txtPositionX);
-            this.groupBox1.Location = new System.Drawing.Point(12, 22);
+            this.groupBox1.Location = new System.Drawing.Point(11, 11);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(297, 405);
-            this.groupBox1.TabIndex = 1;
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(2);
+            this.groupBox1.Size = new System.Drawing.Size(223, 329);
+            this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Introduzca datos de cuadrado";
+            // 
+            // btnAddTriangle
+            // 
+            this.btnAddTriangle.Location = new System.Drawing.Point(44, 269);
+            this.btnAddTriangle.Margin = new System.Windows.Forms.Padding(2);
+            this.btnAddTriangle.Name = "btnAddTriangle";
+            this.btnAddTriangle.Size = new System.Drawing.Size(133, 41);
+            this.btnAddTriangle.TabIndex = 9;
+            this.btnAddTriangle.Text = "Añadir Triangulo";
+            this.btnAddTriangle.UseVisualStyleBackColor = true;
+            this.btnAddTriangle.Click += new System.EventHandler(this.btnAddTriangle_Click);
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(55, 255);
+            this.label4.Location = new System.Drawing.Point(41, 187);
+            this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(44, 16);
+            this.label4.Size = new System.Drawing.Size(37, 13);
             this.label4.TabIndex = 7;
             this.label4.Text = "Altura:";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(60, 182);
+            this.label3.Location = new System.Drawing.Point(45, 148);
+            this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(42, 16);
+            this.label3.Size = new System.Drawing.Size(34, 13);
             this.label3.TabIndex = 6;
             this.label3.Text = "Color:";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(29, 118);
+            this.label2.Location = new System.Drawing.Point(22, 96);
+            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(74, 16);
+            this.label2.Size = new System.Drawing.Size(60, 13);
             this.label2.TabIndex = 5;
             this.label2.Text = "Posición Y:";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(29, 61);
+            this.label1.Location = new System.Drawing.Point(22, 50);
+            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(73, 16);
+            this.label1.Size = new System.Drawing.Size(60, 13);
             this.label1.TabIndex = 4;
             this.label1.Text = "Posición X:";
             // 
             // txtHeight
             // 
-            this.txtHeight.Location = new System.Drawing.Point(130, 252);
+            this.txtHeight.Location = new System.Drawing.Point(98, 185);
+            this.txtHeight.Margin = new System.Windows.Forms.Padding(2);
             this.txtHeight.Name = "txtHeight";
-            this.txtHeight.Size = new System.Drawing.Size(93, 22);
+            this.txtHeight.Size = new System.Drawing.Size(71, 20);
             this.txtHeight.TabIndex = 3;
             // 
             // txtColor
             // 
-            this.txtColor.Location = new System.Drawing.Point(130, 176);
+            this.txtColor.Location = new System.Drawing.Point(98, 143);
+            this.txtColor.Margin = new System.Windows.Forms.Padding(2);
             this.txtColor.Name = "txtColor";
-            this.txtColor.Size = new System.Drawing.Size(93, 22);
+            this.txtColor.Size = new System.Drawing.Size(71, 20);
             this.txtColor.TabIndex = 2;
             // 
             // txtPositionY
             // 
-            this.txtPositionY.Location = new System.Drawing.Point(130, 115);
+            this.txtPositionY.Location = new System.Drawing.Point(98, 93);
+            this.txtPositionY.Margin = new System.Windows.Forms.Padding(2);
             this.txtPositionY.Name = "txtPositionY";
-            this.txtPositionY.Size = new System.Drawing.Size(93, 22);
+            this.txtPositionY.Size = new System.Drawing.Size(71, 20);
             this.txtPositionY.TabIndex = 1;
             // 
             // txtPositionX
             // 
-            this.txtPositionX.Location = new System.Drawing.Point(130, 55);
+            this.txtPositionX.Location = new System.Drawing.Point(98, 45);
+            this.txtPositionX.Margin = new System.Windows.Forms.Padding(2);
             this.txtPositionX.Name = "txtPositionX";
-            this.txtPositionX.Size = new System.Drawing.Size(93, 22);
+            this.txtPositionX.Size = new System.Drawing.Size(71, 20);
             this.txtPositionX.TabIndex = 0;
             // 
-            // btnAddSquare
+            // label5
             // 
-            this.btnAddSquare.Location = new System.Drawing.Point(58, 331);
-            this.btnAddSquare.Name = "btnAddSquare";
-            this.btnAddSquare.Size = new System.Drawing.Size(177, 50);
-            this.btnAddSquare.TabIndex = 9;
-            this.btnAddSquare.Text = "Añadir Cuadrado";
-            this.btnAddSquare.UseVisualStyleBackColor = true;
-            this.btnAddSquare.Click += new System.EventHandler(this.btnAddSquare_Click);
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(41, 234);
+            this.label5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(34, 13);
+            this.label5.TabIndex = 11;
+            this.label5.Text = "Lado:";
             // 
-            // AddSquare
+            // txtSide
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.txtSide.Location = new System.Drawing.Point(98, 227);
+            this.txtSide.Margin = new System.Windows.Forms.Padding(2);
+            this.txtSide.Name = "txtSide";
+            this.txtSide.Size = new System.Drawing.Size(71, 20);
+            this.txtSide.TabIndex = 10;
+            // 
+            // AddEquilaterTriangle
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(327, 447);
+            this.ClientSize = new System.Drawing.Size(254, 350);
             this.Controls.Add(this.groupBox1);
-            this.Name = "AddSquare";
-            this.Text = "FSquarecs";
+            this.Name = "AddEquilaterTriangle";
+            this.Text = "AddEquilaterTriangle";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
 
         }
 
-        private void AddSquareBtn_Click(object sender, EventArgs e)
-        {
-            throw new NotImplementedException();
-        }
-
         #endregion
 
         private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Button btnAddTriangle;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
@@ -165,6 +192,7 @@ namespace Ex2
         private System.Windows.Forms.TextBox txtColor;
         private System.Windows.Forms.TextBox txtPositionY;
         private System.Windows.Forms.TextBox txtPositionX;
-        private System.Windows.Forms.Button btnAddSquare;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.TextBox txtSide;
     }
 }

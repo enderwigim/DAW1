@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Ex1
+namespace Ex2
 {
     public partial class AddCircle : Form
     {

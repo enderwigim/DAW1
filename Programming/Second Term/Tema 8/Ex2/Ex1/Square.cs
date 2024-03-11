@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Ex2
 {
-    public class Square: Figure
+    public class Square: Shape
     {
         private int height;
 
@@ -25,7 +25,7 @@ namespace Ex2
         {
             return Math.Pow(Height, Height);
         }
-        public int CalcPerimeter()
+        public override double CalcPerimeter()
         {
             return Height * 4;
         }
@@ -36,10 +36,12 @@ namespace Ex2
 
         public override string ToString()
         {
-            return $"Position X: {xPosition} " +
+            return $"{SayMyName()} " +
+                $"Position X: {xPosition} " +
                 $"\nPosition Y: {yPosition} " +
                 $"\nColor: {Color}" +
-                $"\nHeight: {Height}";
+                $"\nHeight: {Height}" +
+                $"\nPerimeter: {CalcPerimeter()}";
         }
     }
 }

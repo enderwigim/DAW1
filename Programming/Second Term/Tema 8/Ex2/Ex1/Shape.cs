@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 
 namespace Ex2
 {
-    public abstract class Figure
+    public abstract class Shape
     {
         protected int xPosition;
         protected int yPosition;
         private string color;
 
-        public Figure(int xPosition, int yPosition, string color)
+        public Shape(int xPosition, int yPosition, string color)
         {
             this.xPosition = xPosition;
             this.yPosition = yPosition;
@@ -27,6 +27,7 @@ namespace Ex2
         }
 
         public abstract double CalcArea();
+        public abstract double CalcPerimeter();
 
         public virtual string SayMyName()
         {

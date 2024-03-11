@@ -1,4 +1,4 @@
-﻿namespace Ex1
+﻿namespace Ex2
 {
     partial class AddCircle
     {

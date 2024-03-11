@@ -1,4 +1,4 @@
-﻿using Ex1;
+﻿using Ex2;
 using Microsoft.VisualBasic;
 using System;
 using System.Collections.Generic;
@@ -19,7 +19,7 @@ namespace Ex2
             InitializeComponent();
         }
         
-        List<Figure> figures = new List<Figure>();
+        List<Shape> figures = new List<Shape>();
 
         public void AddPositionsAndColor(out int x, out int y, out string color)
         {
@@ -109,6 +109,12 @@ namespace Ex2
 
             }
             MessageBox.Show(text);
+        }
+
+        private void btnCreateTriangle_Click(object sender, EventArgs e)
+        {
+            TypeOfTriangle fTypeOfTriangle = new TypeOfTriangle(figures);
+            fTypeOfTriangle.ShowDialog();
         }
     }
 }

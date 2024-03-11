@@ -8,9 +8,11 @@ using System.Threading.Tasks;
 
 namespace Ex2
 {
-    public class Circle : Figure
+    public class Circle : Shape
     {
         private int radius;
+        
+        
 
         public int Radius
         {
@@ -27,9 +29,9 @@ namespace Ex2
         {
             return Math.PI * (Radius * Radius);
         }
-        public int CalcPerimeter()
+        public override double CalcPerimeter()
         {
-            return Radius * 4;
+            return Math.PI * (Radius * Radius);
         }
         public override string SayMyName()
         {
@@ -38,10 +40,12 @@ namespace Ex2
 
         public override string ToString()
         {
-            return $"Position X: {xPosition} " +
+            return $"{SayMyName()} " +
+                $"Position X: {xPosition} " +
                 $"\nPosition Y: {yPosition} " +
                 $"\nColor: {Color}" +
-                $"\nRadius: {Radius}";
+                $"\nRadius: {Radius}" +
+                $"\nPerimeter: {CalcPerimeter()}";
         }
     }
 }

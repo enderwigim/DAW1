@@ -28,49 +28,35 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.btnCreateCircle = new System.Windows.Forms.Button();
-            this.btnCreateSquare = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.btnCreateShape = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.btnShowSquares = new System.Windows.Forms.Button();
             this.btnShowEveryFigure = new System.Windows.Forms.Button();
             this.btnShowCircles = new System.Windows.Forms.Button();
-            this.btnCreateTriangle = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
-            // btnCreateCircle
-            // 
-            this.btnCreateCircle.Location = new System.Drawing.Point(10, 34);
-            this.btnCreateCircle.Name = "btnCreateCircle";
-            this.btnCreateCircle.Size = new System.Drawing.Size(150, 54);
-            this.btnCreateCircle.TabIndex = 0;
-            this.btnCreateCircle.Text = "Crear Circulo";
-            this.btnCreateCircle.UseVisualStyleBackColor = true;
-            this.btnCreateCircle.Click += new System.EventHandler(this.btnCreateCircle_Click);
-            // 
-            // btnCreateSquare
-            // 
-            this.btnCreateSquare.Location = new System.Drawing.Point(10, 122);
-            this.btnCreateSquare.Name = "btnCreateSquare";
-            this.btnCreateSquare.Size = new System.Drawing.Size(150, 58);
-            this.btnCreateSquare.TabIndex = 1;
-            this.btnCreateSquare.Text = "Crear Cuadrado";
-            this.btnCreateSquare.UseVisualStyleBackColor = true;
-            this.btnCreateSquare.Click += new System.EventHandler(this.btnCreateSquare_Click);
-            // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.btnCreateTriangle);
-            this.groupBox1.Controls.Add(this.btnCreateCircle);
-            this.groupBox1.Controls.Add(this.btnCreateSquare);
+            this.groupBox1.Controls.Add(this.btnCreateShape);
             this.groupBox1.Location = new System.Drawing.Point(51, 60);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(178, 272);
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Crear Figuras";
+            // 
+            // btnCreateShape
+            // 
+            this.btnCreateShape.Location = new System.Drawing.Point(10, 25);
+            this.btnCreateShape.Name = "btnCreateShape";
+            this.btnCreateShape.Size = new System.Drawing.Size(150, 230);
+            this.btnCreateShape.TabIndex = 2;
+            this.btnCreateShape.Text = "Crear Figuras";
+            this.btnCreateShape.UseVisualStyleBackColor = true;
+            this.btnCreateShape.Click += new System.EventHandler(this.btnCreateTriangle_Click);
             // 
             // groupBox2
             // 
@@ -114,16 +100,6 @@
             this.btnShowCircles.UseVisualStyleBackColor = true;
             this.btnShowCircles.Click += new System.EventHandler(this.btnShowCircles_Click);
             // 
-            // btnCreateTriangle
-            // 
-            this.btnCreateTriangle.Location = new System.Drawing.Point(10, 197);
-            this.btnCreateTriangle.Name = "btnCreateTriangle";
-            this.btnCreateTriangle.Size = new System.Drawing.Size(150, 58);
-            this.btnCreateTriangle.TabIndex = 2;
-            this.btnCreateTriangle.Text = "Crear Triangulos";
-            this.btnCreateTriangle.UseVisualStyleBackColor = true;
-            this.btnCreateTriangle.Click += new System.EventHandler(this.btnCreateTriangle_Click);
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -140,15 +116,12 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.Button btnCreateCircle;
-        private System.Windows.Forms.Button btnCreateSquare;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Button btnShowSquares;
         private System.Windows.Forms.Button btnShowEveryFigure;
         private System.Windows.Forms.Button btnShowCircles;
-        private System.Windows.Forms.Button btnCreateTriangle;
+        private System.Windows.Forms.Button btnCreateShape;
     }
 }
 

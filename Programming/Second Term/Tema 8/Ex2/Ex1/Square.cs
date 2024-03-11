@@ -23,7 +23,7 @@ namespace Ex2
 
         public override double CalcArea()
         {
-            return Math.Pow(Height, Height);
+            return Height * height;
         }
         public override double CalcPerimeter()
         {

@@ -31,7 +31,7 @@ namespace Ex2
         }
         public override double CalcPerimeter()
         {
-            return Math.PI * (Radius * Radius);
+            return (Math.PI * 2) * Radius;
         }
         public override string SayMyName()
         {

@@ -10,10 +10,10 @@ using System.Windows.Forms;
 
 namespace Ex2
 {
-    public partial class TypeOfTriangle : Form
+    public partial class TypeOfShape : Form
     {
         private List<Shape> figures;
-        public TypeOfTriangle(List<Shape> myFigures)
+        public TypeOfShape(List<Shape> myFigures)
         {
             InitializeComponent();
             figures = myFigures;

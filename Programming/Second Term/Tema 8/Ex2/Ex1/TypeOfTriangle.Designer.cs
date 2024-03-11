@@ -1,6 +1,6 @@
 ﻿namespace Ex2
 {
-    partial class TypeOfTriangle
+    partial class TypeOfShape
     {
         /// <summary>
         /// Required designer variable.
@@ -94,7 +94,7 @@
             this.Controls.Add(this.button3);
             this.Controls.Add(this.btnRectangle);
             this.Controls.Add(this.btnTriangleEquilater);
-            this.Name = "TypeOfTriangle";
+            this.Name = "TypeOfShape";
             this.Text = "Tipo de triangulo";
             this.ResumeLayout(false);
 

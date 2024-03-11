@@ -27,44 +27,9 @@ namespace Ex2
             y = int.Parse(Interaction.InputBox("En que posición de y esta?"));
             color = Interaction.InputBox("Cual es el color");
         }
-        private void btnCreateSquare_Click(object sender, EventArgs e)
-        {
-            /*
-            int x, y, height;
-            string color;
-            AddPositionsAndColor(out x, out y, out color);
+        
 
-            height = int.Parse(Interaction.InputBox("Que altura tiene?"));
-
-
-            Square square = new Square(x, y, color, height);
-            
-
-            figures.Add(square);
-            MessageBox.Show("Square added");
-            */
-            AddSquare fSquare = new AddSquare(figures);
-            fSquare.ShowDialog();
-            
-
-        }
-
-        private void btnCreateCircle_Click(object sender, EventArgs e)
-        {
-            /*
-            int x, y, radius;
-            string color;
-            AddPositionsAndColor(out x, out y, out color);
-
-            radius = int.Parse(Interaction.InputBox("Que radio tiene?"));
-            Circle circle = new Circle(x, y, color, radius);
-
-            figures.Add(circle);
-            MessageBox.Show("Circle added");
-            */
-            AddCircle fCircle = new AddCircle(figures);
-            fCircle.ShowDialog();
-        }
+        
 
         private void btnShowEveryFigure_Click(object sender, EventArgs e)
         {
@@ -113,8 +78,8 @@ namespace Ex2
 
         private void btnCreateTriangle_Click(object sender, EventArgs e)
         {
-            TypeOfTriangle fTypeOfTriangle = new TypeOfTriangle(figures);
-            fTypeOfTriangle.ShowDialog();
+            TypeOfShape fTypeOfShape = new TypeOfShape(figures);
+            fTypeOfShape.ShowDialog();
         }
     }
 }

@@ -48,8 +48,21 @@ ELSE
 --	
 --	NOTA: Si no sale lo mismo, te recomiendo revisar bien el orden de prioridad de los operadores... ()
 -------------------------------------------------------------------------------------------
+DECLARE @a INT = 3
+DECLARE @b INT = -4
+DECLARE @c INT = 1
+DECLARE @total1 DECIMAL(5,2)
+DECLARE @total2 DECIMAL(5,2)
+
+SET @total1 = (@b * -1 + SQRT(@b * @b - 4 * @a * @c)) / (2 * @a)
 
 
+
+SET @total2 = (@b * -1 - SQRT(@b * @b - 4 * @a * @c)) / (2 * @a)
+
+PRINT CONCAT('sol1 = ', @total1, ' sol2 = ', @total2)
+
+-- 8 / 6
 
 -------------------------------------------------------------------------------------------
 -- 3. Crea un script que calcule la serie de Fibonacci para un número dado.

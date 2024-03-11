@@ -24,5 +24,22 @@ namespace Ex2
             AddEquilaterTriangle fAddEquilater = new AddEquilaterTriangle(figures);
             fAddEquilater.ShowDialog();
         }
+
+        private void btnRectangle_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnCreateCircle_Click(object sender, EventArgs e)
+        {
+            AddCircle fCircle = new AddCircle(figures);
+            fCircle.ShowDialog();
+        }
+
+        private void btnCreateSquare_Click(object sender, EventArgs e)
+        {
+            AddSquare fSquare = new AddSquare(figures);
+            fSquare.ShowDialog();
+        }
     }
 }

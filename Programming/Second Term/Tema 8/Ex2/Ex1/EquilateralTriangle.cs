@@ -41,7 +41,7 @@ namespace Ex2
         public override string ToString()
         {
             return $"{SayMyName()} " +
-                $"Position X: {xPosition} " +
+                $"\nPosition X: {xPosition} " +
                 $"\nPosition Y: {yPosition} " +
                 $"\nColor: {Color}" +
                 $"\nSide: {Side}" +

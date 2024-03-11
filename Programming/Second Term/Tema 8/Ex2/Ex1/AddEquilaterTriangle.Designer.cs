@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.txtSide = new System.Windows.Forms.TextBox();
             this.btnAddTriangle = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -38,8 +40,6 @@
             this.txtColor = new System.Windows.Forms.TextBox();
             this.txtPositionY = new System.Windows.Forms.TextBox();
             this.txtPositionX = new System.Windows.Forms.TextBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.txtSide = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -64,6 +64,24 @@
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Introduzca datos de cuadrado";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(41, 227);
+            this.label5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(34, 13);
+            this.label5.TabIndex = 11;
+            this.label5.Text = "Lado:";
+            // 
+            // txtSide
+            // 
+            this.txtSide.Location = new System.Drawing.Point(98, 220);
+            this.txtSide.Margin = new System.Windows.Forms.Padding(2);
+            this.txtSide.Name = "txtSide";
+            this.txtSide.Size = new System.Drawing.Size(71, 20);
+            this.txtSide.TabIndex = 10;
             // 
             // btnAddTriangle
             // 
@@ -147,24 +165,6 @@
             this.txtPositionX.Name = "txtPositionX";
             this.txtPositionX.Size = new System.Drawing.Size(71, 20);
             this.txtPositionX.TabIndex = 0;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(41, 234);
-            this.label5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(34, 13);
-            this.label5.TabIndex = 11;
-            this.label5.Text = "Lado:";
-            // 
-            // txtSide
-            // 
-            this.txtSide.Location = new System.Drawing.Point(98, 227);
-            this.txtSide.Margin = new System.Windows.Forms.Padding(2);
-            this.txtSide.Name = "txtSide";
-            this.txtSide.Size = new System.Drawing.Size(71, 20);
-            this.txtSide.TabIndex = 10;
             // 
             // AddEquilaterTriangle
             // 

@@ -27,7 +27,8 @@ namespace Ex2
 
         private void btnRectangle_Click(object sender, EventArgs e)
         {
-
+            AddRectangle fAddRectangle = new AddRectangle(figures);
+            fAddRectangle.ShowDialog();
         }
 
         private void btnCreateCircle_Click(object sender, EventArgs e)

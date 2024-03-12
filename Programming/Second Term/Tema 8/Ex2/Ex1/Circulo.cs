@@ -34,13 +34,12 @@ namespace Ex2
             {
                 if (radius > 0)
                 {
-                    if (color != "")
-                    {
-                        Circle circle = new Circle(x, y, color, radius);
+                    
+                        Circle circle = new Circle(x, y, null, radius);
                         figures.Add(circle);
                         ClearTxts();
                         MessageBox.Show("Circle added!");
-                    }
+                    
                 } else
                 {
                     MessageBox.Show("El radio no puede ser negativo.");

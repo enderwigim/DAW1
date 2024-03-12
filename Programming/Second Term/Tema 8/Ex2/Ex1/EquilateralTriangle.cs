@@ -8,8 +8,8 @@ namespace Ex2
 {
     public class EquilateralTriangle : Shape
     {
-        double side;
-        double height;
+        private double side;
+        private double height;
 
         public double Side
         {
@@ -19,12 +19,17 @@ namespace Ex2
         public double Height
         {
             get { return height; }
-            set { height = value; }
         }
-        public EquilateralTriangle(int xPos, int yPos, string color, double side, double height) : base(xPos, yPos, color)
+        public EquilateralTriangle(int xPos, int yPos, string color, double side) : base(xPos, yPos, color)
         {
             Side = side;
-            Height = height;
+            this.height = CalcHeight();
+        }
+
+        private double CalcHeight()
+        {
+            double height = ((Side * Math.Sqrt(3)) / 2);
+            return height;
         }
         public override double CalcPerimeter()
         {

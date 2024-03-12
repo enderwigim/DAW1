@@ -21,11 +21,11 @@ namespace Ex2
             Height = height;
         }
 
-        public override double CalcArea()
+        public override double CalculateArea()
         {
             return Height * height;
         }
-        public override double CalcPerimeter()
+        public override double CalculatePerimeter()
         {
             return Height * 4;
         }
@@ -41,7 +41,7 @@ namespace Ex2
                 $"\nPosition Y: {yPosition} " +
                 $"\nColor: {Color}" +
                 $"\nHeight: {Height}" +
-                $"\nPerimeter: {CalcPerimeter()}";
+                $"\nPerimeter: {CalculatePerimeter()}";
         }
     }
 }

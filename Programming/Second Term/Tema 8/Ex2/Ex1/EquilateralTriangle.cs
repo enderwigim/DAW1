@@ -31,11 +31,11 @@ namespace Ex2
             double height = ((Side * Math.Sqrt(3)) / 2);
             return height;
         }
-        public override double CalcPerimeter()
+        public override double CalculatePerimeter()
         {
             return side * 3;
         }
-        public override double CalcArea()
+        public override double CalculateArea()
         {
             return (height * side) / 2;
         }
@@ -51,7 +51,7 @@ namespace Ex2
                 $"\nColor: {Color}" +
                 $"\nSide: {Side}" +
                 $"\nHeight: {Height}" +
-                $"\nPerimeter: {CalcPerimeter()}";
+                $"\nPerimeter: {CalculatePerimeter()}";
         }
     }
 }

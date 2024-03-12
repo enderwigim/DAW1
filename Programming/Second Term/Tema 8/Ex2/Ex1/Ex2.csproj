@@ -59,6 +59,12 @@
     <Compile Include="AddRectangle.Designer.cs">
       <DependentUpon>AddRectangle.cs</DependentUpon>
     </Compile>
+    <Compile Include="AddRegularHexagon.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddRegularHexagon.Designer.cs">
+      <DependentUpon>AddRegularHexagon.cs</DependentUpon>
+    </Compile>
     <Compile Include="Circle.cs" />
     <Compile Include="Circulo.cs">
       <SubType>Form</SubType>
@@ -68,11 +74,12 @@
     </Compile>
     <Compile Include="EquilateralTriangle.cs" />
     <Compile Include="Rectangle.cs" />
-    <Compile Include="TypeOfTriangle.cs">
+    <Compile Include="RegularHexagon.cs" />
+    <Compile Include="TypeOfShape.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="TypeOfTriangle.Designer.cs">
-      <DependentUpon>TypeOfTriangle.cs</DependentUpon>
+    <Compile Include="TypeOfShape.Designer.cs">
+      <DependentUpon>TypeOfShape.cs</DependentUpon>
     </Compile>
     <Compile Include="Shape.cs" />
     <Compile Include="Form1.cs">
@@ -96,14 +103,17 @@
     <EmbeddedResource Include="AddRectangle.resx">
       <DependentUpon>AddRectangle.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="AddRegularHexagon.resx">
+      <DependentUpon>AddRegularHexagon.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Circulo.resx">
       <DependentUpon>Circulo.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="TypeOfTriangle.resx">
-      <DependentUpon>TypeOfTriangle.cs</DependentUpon>
+    <EmbeddedResource Include="TypeOfShape.resx">
+      <DependentUpon>TypeOfShape.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FSquarecs.resx">
       <DependentUpon>FSquarecs.cs</DependentUpon>

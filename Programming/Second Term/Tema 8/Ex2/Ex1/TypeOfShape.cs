@@ -42,5 +42,11 @@ namespace Ex2
             AddSquare fSquare = new AddSquare(figures);
             fSquare.ShowDialog();
         }
+
+        private void btnCreateRegularHexagon_Click(object sender, EventArgs e)
+        {
+            AddRegularHexagon fHexagon = new AddRegularHexagon(figures);
+            fHexagon.ShowDialog();
+        }
     }
 }

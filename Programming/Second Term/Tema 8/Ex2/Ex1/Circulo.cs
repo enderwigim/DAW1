@@ -34,11 +34,13 @@ namespace Ex2
             {
                 if (radius > 0)
                 {
-                    
-                        Circle circle = new Circle(x, y, null, radius);
+                    if (color != "")
+                    {
+                        Circle circle = new Circle(x, y, color, radius);
                         figures.Add(circle);
                         ClearTxts();
                         MessageBox.Show("Circle added!");
+                    }
                     
                 } else
                 {

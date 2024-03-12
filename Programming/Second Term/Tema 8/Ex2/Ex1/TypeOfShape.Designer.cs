@@ -30,7 +30,7 @@
         {
             this.btnTriangleEquilater = new System.Windows.Forms.Button();
             this.btnRectangle = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
+            this.btnCreateRegularHexagon = new System.Windows.Forms.Button();
             this.btnCreateCircle = new System.Windows.Forms.Button();
             this.btnCreateSquare = new System.Windows.Forms.Button();
             this.SuspendLayout();
@@ -55,14 +55,15 @@
             this.btnRectangle.UseVisualStyleBackColor = true;
             this.btnRectangle.Click += new System.EventHandler(this.btnRectangle_Click);
             // 
-            // button3
+            // btnCreateRegularHexagon
             // 
-            this.button3.Location = new System.Drawing.Point(450, 11);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(186, 86);
-            this.button3.TabIndex = 2;
-            this.button3.Text = "button3";
-            this.button3.UseVisualStyleBackColor = true;
+            this.btnCreateRegularHexagon.Location = new System.Drawing.Point(450, 11);
+            this.btnCreateRegularHexagon.Name = "btnCreateRegularHexagon";
+            this.btnCreateRegularHexagon.Size = new System.Drawing.Size(186, 86);
+            this.btnCreateRegularHexagon.TabIndex = 2;
+            this.btnCreateRegularHexagon.Text = "Hexagono Regular";
+            this.btnCreateRegularHexagon.UseVisualStyleBackColor = true;
+            this.btnCreateRegularHexagon.Click += new System.EventHandler(this.btnCreateRegularHexagon_Click);
             // 
             // btnCreateCircle
             // 
@@ -84,14 +85,14 @@
             this.btnCreateSquare.UseVisualStyleBackColor = true;
             this.btnCreateSquare.Click += new System.EventHandler(this.btnCreateSquare_Click);
             // 
-            // TypeOfTriangle
+            // TypeOfShape
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(667, 288);
             this.Controls.Add(this.btnCreateSquare);
             this.Controls.Add(this.btnCreateCircle);
-            this.Controls.Add(this.button3);
+            this.Controls.Add(this.btnCreateRegularHexagon);
             this.Controls.Add(this.btnRectangle);
             this.Controls.Add(this.btnTriangleEquilater);
             this.Name = "TypeOfShape";
@@ -104,7 +105,7 @@
 
         private System.Windows.Forms.Button btnTriangleEquilater;
         private System.Windows.Forms.Button btnRectangle;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button btnCreateRegularHexagon;
         private System.Windows.Forms.Button btnCreateCircle;
         private System.Windows.Forms.Button btnCreateSquare;
     }

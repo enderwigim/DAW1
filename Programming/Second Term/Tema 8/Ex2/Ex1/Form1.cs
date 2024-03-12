@@ -38,7 +38,7 @@ namespace Ex2
             {
                 MessageBox.Show($"La figura {i + 1}:" +
                     $"\n{figures[i].ToString()}\n" +
-                    $"Area: {figures[i].CalcArea()}");
+                    $"Area: {figures[i].CalculateArea()}");
             }
         }
 
@@ -52,7 +52,7 @@ namespace Ex2
                     text += figures[i].SayMyName() + "\n";
                     text += $"La figura {i + 1}:" +
                         $"\n{figures[i].ToString()}\n" +
-                        $"Area: {figures[i].CalcArea()}\n\n";
+                        $"Area: {figures[i].CalculateArea()}\n\n";
                 }
                 
             }
@@ -69,7 +69,7 @@ namespace Ex2
                     text += figures[i].SayMyName() + "\n";
                     text += $"La figura {i + 1}:" +
                         $"\n{figures[i].ToString()}\n" +
-                        $"Area: {figures[i].CalcArea()}\n";
+                        $"Area: {figures[i].CalculateArea()}\n";
                 }
 
             }

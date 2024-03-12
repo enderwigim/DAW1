@@ -25,11 +25,11 @@ namespace Ex2
             Radius = height;
         }
 
-        public override double CalcArea()
+        public override double CalculateArea()
         {
             return Math.PI * (Radius * Radius);
         }
-        public override double CalcPerimeter()
+        public override double CalculatePerimeter()
         {
             return (Math.PI * 2) * Radius;
         }
@@ -45,7 +45,7 @@ namespace Ex2
                 $"\nPosition Y: {yPosition} " +
                 $"\nColor: {Color}" +
                 $"\nRadius: {Radius}" +
-                $"\nPerimeter: {CalcPerimeter()}";
+                $"\nPerimeter: {CalculatePerimeter()}";
         }
     }
 }

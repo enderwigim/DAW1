@@ -34,8 +34,8 @@ namespace Ex2
             }
         }
 
-        public abstract double CalcArea();
-        public abstract double CalcPerimeter();
+        public abstract double CalculateArea();
+        public abstract double CalculatePerimeter();
 
         public virtual string SayMyName()
         {

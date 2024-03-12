@@ -18,8 +18,8 @@ namespace Ex2
         } 
         public double Height
         {
-            get { return recBase; }
-            set { recBase = value; }
+            get { return height; }
+            set { height = value; }
         }
         public Rectangle(int xPos, int yPos, string color, double recBase, double height) : base(xPos, yPos, color)
         {
@@ -27,12 +27,12 @@ namespace Ex2
             Height = height;
         }
 
-        public override double CalcArea()
+        public override double CalculateArea()
         {
             return Math.Round(Height * RecBase, 2);
         }
 
-        public override double CalcPerimeter()
+        public override double CalculatePerimeter()
         {
             return Math.Round(Height * 2 + RecBase * 2, 2);
         }
@@ -48,7 +48,7 @@ namespace Ex2
                 $"\nPosition Y: {yPosition} " +
                 $"\nColor: {Color}" +
                 $"\nHeight: {Height}" +
-                $"\nPerimeter: {CalcPerimeter()}";
+                $"\nPerimeter: {CalculatePerimeter()}";
         }
     }
 }

@@ -23,15 +23,8 @@ namespace Ex2
         public string Color
         {
             get { return color; }
-            set {
-                if (color == null || color == "")
-                {
-                    throw new Exception("Color cannot be null or empty");
-                } else
-                {
-                    color = value; 
-                }
-            }
+            set {color = value; }
+            
         }
 
         public abstract double CalculateArea();

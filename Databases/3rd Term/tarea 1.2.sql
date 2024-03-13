@@ -15,6 +15,7 @@ USE JARDINERIA
 --
 --		Si el número o la potencia son 0 o <0 devolverá el mensaje: “La operación no se puede realizar.
 -------------------------------------------------------------------------------------------
+/*
 DECLARE @num INT = 4
 DECLARE @power INT = 3
 DECLARE @counter INT = 1
@@ -34,6 +35,7 @@ BEGIN
 END 
 ELSE
     PRINT 'La operación no se puede realizar'
+*/
 -------------------------------------------------------------------------------------------
 -- 2. Crea un script que calcule las soluciones de una ecuación de segundo grado ax^2 + bx + c = 0
 --
@@ -48,21 +50,26 @@ ELSE
 --	
 --	NOTA: Si no sale lo mismo, te recomiendo revisar bien el orden de prioridad de los operadores... ()
 -------------------------------------------------------------------------------------------
+/*
 DECLARE @a INT = 3
 DECLARE @b INT = -4
 DECLARE @c INT = 1
 DECLARE @total1 DECIMAL(5,2)
 DECLARE @total2 DECIMAL(5,2)
 
-SET @total1 = (@b * -1 + SQRT(@b * @b - 4 * @a * @c)) / (2 * @a)
+IF @a > 0 AND @c > 0
+BEGIN
+    SET @total1 = (@b * -1 + SQRT(@b * @b - 4 * @a * @c)) / (2 * @a)
 
 
 
-SET @total2 = (@b * -1 - SQRT(@b * @b - 4 * @a * @c)) / (2 * @a)
+    SET @total2 = (@b * -1 - SQRT(@b * @b - 4 * @a * @c)) / (2 * @a)
 
-PRINT CONCAT('sol1 = ', @total1, ' sol2 = ', @total2)
-
--- 8 / 6
+    PRINT CONCAT('sol1 = ', @total1, ' sol2 = ', @total2)
+END
+ELSE
+    PRINT 'Ninguno de nuestros valores puede ser negativo.'
+¨*/
 
 -------------------------------------------------------------------------------------------
 -- 3. Crea un script que calcule la serie de Fibonacci para un número dado.
@@ -80,7 +87,24 @@ PRINT CONCAT('sol1 = ', @total1, ' sol2 = ', @total2)
 -- 
 --	Ayuda: Quizás necesites guardar en algún sitio el valor actual de la serie antes de sumarlo...
 -------------------------------------------------------------------------------------------
+DECLARE @i INT = 0 
+DECLARE @objective INT = 3
 
+
+DECLARE @a INT = 1
+DECLARE @b INT = 0
+DECLARE @c INT = 0
+
+WHILE @i <= @objective
+BEGIN
+    SET @c = @b
+    SET @b = @a
+    SET @a = @b + @c
+
+    PRINT @a
+
+    SET @i += 1
+END
 
 
 -------------------------------------------------------------------------------------------

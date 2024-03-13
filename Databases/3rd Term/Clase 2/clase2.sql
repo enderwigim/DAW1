@@ -75,3 +75,8 @@ BEGIN
 END
 */
 
+-- TRANSACCIONES
+
+-- Hay que desactivar las transacciones implisitas
+USE JARDINERIA
+SET IMPLICIT_TRANSACTIONS OFF

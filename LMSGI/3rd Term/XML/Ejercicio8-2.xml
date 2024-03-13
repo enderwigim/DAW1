@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resultado tema="XML">
+    <libreria>
+        <nombre>Casa del Libro</nombre>
+        <web>https://www.casadellibro.com/</web>
+        <libro>
+            <ISBN>9788493272074</ISBN>
+            <titulo>SERIE DESARROLLADORES: APLICACIONES XML CON XML SUITE</titulo>
+            <nivel>Avanzado</nivel>
+            <autor>
+                <autor1>
+                    <apellido/>
+                    <nombre>Varios Autores</nombre>
+                </autor1>
+            </autor>
+            <editorial>DANYSOFT</editorial>
+            <año_publicacion>2006</año_publicacion>
+            <web>https://www.todostuslibros.com/libros/aplicaciones-xml-con-xml-suite-serie-desarrolladores_978-84-932720-7-4</web>
+            <precio>50.96€</precio>
+        </libro>
+        <libro>
+            <ISBN>9782746049581 </ISBN>
+            <titulo>XML PRACTICO. BASES ESENCIALES, CONCEPTOS Y CASOS PRACTICOS</titulo>
+            <nivel>Avanzado</nivel>
+            <autor>
+                <autor1>
+                    <apellido>Boulanger</apellido>
+                    <nombre>Thierry</nombre>
+                </autor1>
+            </autor>
+            <editorial>ENI</editorial>
+            <año_publicacion>2009</año_publicacion>
+            <web>https://www.casadellibro.com/libro-xml-practico-bases-esenciales-conceptos-y-casos-practicos/1261538/2900001325392</web>
+            <precio>26.95€</precio>
+        </libro>
+        <libro>
+            <ISBN>9788441525924</ISBN>
+            <titulo>DESARROLLO DE APLICACIONES WEB DINAMICAS XML Y JAVA</titulo>
+            <nivel>Intermedio</nivel>
+            <autor>
+                <autor1>
+                    <apellido>Parsons</apellido>
+                    <nombre>David</nombre>
+                </autor1>
+            </autor>
+            <editorial>ANAYA</editorial>
+            <año_publicacion>2009</año_publicacion>
+            <web>https://www.casadellibro.com/libro-desarrollo-de-aplicaciones-web-dinamicas-xml-y-java-incluye-cd-programacion/1260111/2900001323752</web>
+            <precio>25.60€</precio>
+        </libro>
+    </libreria>
+    <libreria>
+        <nombre>Amazon</nombre>
+        <web>https://www.amazon.es/</web>
+        <libro>
+            <ISBN>9780231559678</ISBN>
+            <titulo>XML: Visual QuickStart Guide (2nd Edition)</titulo>
+            <nivel>Avanzado</nivel>
+            <autor>
+                <autor1>
+                    <apellido>Howard Goldberg</apellido>
+                    <nombre> Kevin</nombre>
+                </autor1>
+            </autor>
+            <editorial>PEACHPIT PRESS</editorial>
+            <año_publicacion>2009</año_publicacion>
+            <web>https://www.amazon.com/XML-Visual-QuickStart-Guide-2nd/dp/0321559673/ref=sr_1_1?ie=UTF8&amp;s=books&amp;qid=1253090976&amp;sr=1-1</web>
+            <precio>23.09€</precio>
+        </libro>
+        <libro>
+            <ISBN>9780470114872</ISBN>
+            <titulo> Beginning XML, 4th Edition</titulo>
+            <nivel>Avanzado</nivel>
+            <autor>
+                <autor1>
+                    <apellido>Hunter</apellido>
+                    <nombre>David</nombre>
+                </autor1>
+                <autor2>
+                    <apellido>Rafter</apellido>
+                    <nombre>Jeff</nombre>
+                </autor2>
+                <autor3>
+                    <apellido>Fawcett</apellido>
+                    <nombre>Joe</nombre>
+                </autor3>
+                <autor4>
+                    <apellido>Van der Vlist</apellido>
+                    <nombre>Eric</nombre>
+                </autor4>
+                <autor5>
+                    <apellido>Ayers</apellido>
+                    <nombre>Danny</nombre>
+                </autor5>
+                <autor6>
+                    <apellido>Duckett</apellido>
+                    <nombre>Jon</nombre>
+                </autor6>
+                <autor7>
+                    <apellido>Watt</apellido>
+                    <nombre>Andrew</nombre>
+                </autor7>
+                <autor8>
+                    <apellido>McKinnon</apellido>
+                    <nombre>Linda</nombre>
+                </autor8>
+            </autor>
+            <editorial>Wiley Publishing</editorial>
+            <año_publicacion>2007</año_publicacion>
+            <web>https://www.amazon.com/Beginning-XML-4th-Programmer/dp/0470114878/ref=sr_1_2?ie=UTF8&amp;s=books&amp;qid=1253090976&amp;sr=1-2</web>
+            <precio>26.39€</precio>
+        </libro>
+        <libro>
+            <ISBN>9780596004200</ISBN>
+            <titulo>Learning XML, Second Edition</titulo>
+            <nivel>Avanzado</nivel>
+            <autor>
+                <autor1>
+                    <apellido>Ray</apellido>
+                    <nombre>Erik</nombre>
+                </autor1>
+            </autor>
+            <editorial>O'Reilly</editorial>
+            <año_publicacion>2003</año_publicacion>
+            <web>https://www.amazon.com/Learning-XML-Second-Erik-Ray/dp/0596004206/ref=sr_1_3?ie=UTF8&amp;s=books&amp;qid=1253090976&amp;sr=1-3#reader</web>
+            <precio>21.50€</precio>
+        </libro>
+    </libreria>
+</resultado>
+
+

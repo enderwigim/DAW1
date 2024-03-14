@@ -34,6 +34,9 @@
             this.btnShowSquares = new System.Windows.Forms.Button();
             this.btnShowEveryFigure = new System.Windows.Forms.Button();
             this.btnShowCircles = new System.Windows.Forms.Button();
+            this.btnShowTriangles = new System.Windows.Forms.Button();
+            this.btnShowRectangles = new System.Windows.Forms.Button();
+            this.btnRegularHexagon = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -56,16 +59,19 @@
             this.btnCreateShape.TabIndex = 2;
             this.btnCreateShape.Text = "Crear Figuras";
             this.btnCreateShape.UseVisualStyleBackColor = true;
-            this.btnCreateShape.Click += new System.EventHandler(this.btnCreateTriangle_Click);
+            this.btnCreateShape.Click += new System.EventHandler(this.btnCreateShape_click);
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.btnRegularHexagon);
+            this.groupBox2.Controls.Add(this.btnShowRectangles);
+            this.groupBox2.Controls.Add(this.btnShowTriangles);
             this.groupBox2.Controls.Add(this.btnShowSquares);
             this.groupBox2.Controls.Add(this.btnShowEveryFigure);
             this.groupBox2.Controls.Add(this.btnShowCircles);
             this.groupBox2.Location = new System.Drawing.Point(302, 60);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(178, 272);
+            this.groupBox2.Size = new System.Drawing.Size(386, 272);
             this.groupBox2.TabIndex = 3;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Crear Figuras";
@@ -100,11 +106,41 @@
             this.btnShowCircles.UseVisualStyleBackColor = true;
             this.btnShowCircles.Click += new System.EventHandler(this.btnShowCircles_Click);
             // 
+            // btnShowTriangles
+            // 
+            this.btnShowTriangles.Location = new System.Drawing.Point(205, 25);
+            this.btnShowTriangles.Name = "btnShowTriangles";
+            this.btnShowTriangles.Size = new System.Drawing.Size(150, 58);
+            this.btnShowTriangles.TabIndex = 3;
+            this.btnShowTriangles.Text = "Mostrar Triangulos";
+            this.btnShowTriangles.UseVisualStyleBackColor = true;
+            this.btnShowTriangles.Click += new System.EventHandler(this.btnShowTriangles_Click);
+            // 
+            // btnShowRectangles
+            // 
+            this.btnShowRectangles.Location = new System.Drawing.Point(205, 110);
+            this.btnShowRectangles.Name = "btnShowRectangles";
+            this.btnShowRectangles.Size = new System.Drawing.Size(150, 58);
+            this.btnShowRectangles.TabIndex = 4;
+            this.btnShowRectangles.Text = "Mostrar Rectangulo";
+            this.btnShowRectangles.UseVisualStyleBackColor = true;
+            this.btnShowRectangles.Click += new System.EventHandler(this.btnShowRectangles_Click);
+            // 
+            // btnRegularHexagon
+            // 
+            this.btnRegularHexagon.Location = new System.Drawing.Point(205, 197);
+            this.btnRegularHexagon.Name = "btnRegularHexagon";
+            this.btnRegularHexagon.Size = new System.Drawing.Size(150, 58);
+            this.btnRegularHexagon.TabIndex = 5;
+            this.btnRegularHexagon.Text = "Mostrar Hexagono Regular";
+            this.btnRegularHexagon.UseVisualStyleBackColor = true;
+            this.btnRegularHexagon.Click += new System.EventHandler(this.btnRegularHexagon_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(567, 401);
+            this.ClientSize = new System.Drawing.Size(822, 402);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Name = "Form1";
@@ -122,6 +158,9 @@
         private System.Windows.Forms.Button btnShowEveryFigure;
         private System.Windows.Forms.Button btnShowCircles;
         private System.Windows.Forms.Button btnCreateShape;
+        private System.Windows.Forms.Button btnRegularHexagon;
+        private System.Windows.Forms.Button btnShowRectangles;
+        private System.Windows.Forms.Button btnShowTriangles;
     }
 }
 

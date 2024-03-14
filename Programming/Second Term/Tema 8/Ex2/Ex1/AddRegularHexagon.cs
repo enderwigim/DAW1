@@ -39,7 +39,8 @@ namespace Ex2
                 {
                     RegularHexagon newHexagon = new RegularHexagon(xPosition, yPosition, color, side);
                     figures.Add(newHexagon);
-                    MessageBox.Show("Hexagon Added");
+                    MessageBox.Show("Hexagono Añadido!");
+                    ClearTxt();
                 }
                 else
                 {
@@ -50,6 +51,14 @@ namespace Ex2
             {
                 MessageBox.Show("El color no puede ser nulo o estar vacio.");
             }
+        }
+
+        public void ClearTxt()
+        {
+            txtTriangleSide.Text = string.Empty;
+            txtPositionY.Text = string.Empty;
+            txtPositionX.Text = string.Empty;
+            txtColor.Text = string.Empty;
         }
     }
 }

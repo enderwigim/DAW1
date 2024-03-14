@@ -27,11 +27,11 @@ namespace Ex2
 
         public override double CalculateArea()
         {
-            return Math.PI * (Radius * Radius);
+            return Math.Round(Math.PI * (Radius * Radius), 2);
         }
         public override double CalculatePerimeter()
         {
-            return (Math.PI * 2) * Radius;
+            return Math.Round((Math.PI * 2) * Radius, 2);
         }
         public override string SayMyName()
         {
@@ -45,7 +45,8 @@ namespace Ex2
                 $"\nPosition Y: {yPosition} " +
                 $"\nColor: {Color}" +
                 $"\nRadius: {Radius}" +
-                $"\nPerimeter: {CalculatePerimeter()}";
+                $"\nPerimeter: {CalculatePerimeter()}" +
+                $"\nArea: {CalculateArea()}\n\n";
         }
     }
 }

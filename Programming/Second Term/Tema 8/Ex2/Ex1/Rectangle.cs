@@ -48,7 +48,8 @@ namespace Ex2
                 $"\nPosition Y: {yPosition} " +
                 $"\nColor: {Color}" +
                 $"\nHeight: {Height}" +
-                $"\nPerimeter: {CalculatePerimeter()}";
+                $"\nPerimeter: {CalculatePerimeter()}" +
+                $"\nArea: {CalculateArea()}\n\n";
         }
     }
 }

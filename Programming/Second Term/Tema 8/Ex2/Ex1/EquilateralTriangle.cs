@@ -33,11 +33,11 @@ namespace Ex2
         }
         public override double CalculatePerimeter()
         {
-            return side * 3;
+            return Math.Round(side * 3, 2);
         }
         public override double CalculateArea()
         {
-            return (height * side) / 2;
+            return Math.Round((height * side) / 2, 2);
         }
         public override string SayMyName()
         {
@@ -51,7 +51,8 @@ namespace Ex2
                 $"\nColor: {Color}" +
                 $"\nSide: {Side}" +
                 $"\nHeight: {Height}" +
-                $"\nPerimeter: {CalculatePerimeter()}";
+                $"\nPerimeter: {CalculatePerimeter()}" +
+                $"\nArea: {CalculateArea()}\n\n";
         }
     }
 }

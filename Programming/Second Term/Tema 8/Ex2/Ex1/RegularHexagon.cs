@@ -52,7 +52,7 @@ namespace Ex2
                 $"\nColor: {Color}" +
                 $"\nSide: {TriangleSide}" +
                 $"\nPerimeter: {CalculatePerimeter()}" +
-                $"\nArea: {CalculateArea()}";
+                $"\nArea: {CalculateArea()}\n\n";
         }
     }
 }

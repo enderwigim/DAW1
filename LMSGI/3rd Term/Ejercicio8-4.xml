@@ -14,47 +14,72 @@
     </compositor2>
     <disquera>EMI RECORDS LTD</disquera>
     <codigo-barras>0777464372</codigo-barras>
-    <CDP>7 46437 2<CDP>
-    <!--Que hacemos con el titulo de canciones????-->
+    <codigo-de-producto>7464372<codigo-de-producto>
     <listaCanciones>
         <cancion1>
             <titulo>A Hard Day's Night</titulo>
+            <duracion/>
+            <compositor/>
         </cancion1>
         <cancion2>
             <titulo>I Should Have Known Better</titulo>
+            <duracion/>
+            <compositor/>
         </cancion2>
         <cancion3>
             <titulo>If I Fell</titulo>
+            <duracion/>
+            <compositor/>
         </cancion3>
         <cancion4>
             <titulo>I'm Happy Just to Dance with You</titulo>
+            <duracion/>
+            <compositor/>
         </cancion4>
         <cancion5>
             <titulo>And I Love Her</titulo>
+            <duracion/>
+            <compositor/>
         </cancion5>
         <cancion6>
             <titulo>Tell Me Why</titulo>
+            <duracion/>
+            <compositor/>
         </cancion6>
         <cancion7>
             <titulo>Can't Buy Me Love</titulo>
+            <duracion/>
+            <compositor/>
         </cancion7>
         <cancion8>
             <titulo>Any Time at All</titulo>
+            <duracion/>
+            <compositor/>
         </cancion8>
         <cancion9>
             <titulo>I'll Cry Instead</titulo>
+            <duracion/>
+            <compositor/>
         </cancion9>
         <cancion10>
             <titulo>Things We Said Today</titulo>
+            <duracion/>
+            <compositor/>
         </cancion10>
         <cancion11>
             <titulo>When I Get Home</titulo>
+            <duracion/>
+            <compositor/>
         </cancion11>
         <cancion12>
             <titulo>You Can't Do That</titulo>
+            <duracion/>
+            <compositor/>
         </cancion12>
         <cancion13>
             <titulo>I'll Be Back</titulo>
+            <duracion/>
+            <compositor/>
         </cancion13>
     </listaCanciones>
 </album>
@@ -65,59 +90,92 @@
     <compositor2/>
     <disquera>EMI RECORDS LTD</disquera>
     <codigo-barras>077774644624</codigo-barras>
-    <CDP>7 46446 2<CDP>
-    <!--Que hacemos con el titulo de canciones????-->
+    <codigo-de-producto>7 46446 2<codigo-de-producto>
     <listaCanciones>
         <cancion1>
             <titulo>Come Together</titulo>
+            <duracion/>
+            <compositor/>
         </cancion1>
         <cancion2>
-            <titulo>Somethingr</titulo>
+            <titulo>Something</titulo>
+            <duracion/>
+            <compositor/>
         </cancion2>
         <cancion3>
             <titulo>Maxwell's Silver Hammer</titulo>
+            <duracion/>
+            <compositor/>
         </cancion3>
         <cancion4>
             <titulo>Oh! Darling</titulo>
+            <duracion/>
+            <compositor/>
         </cancion4>
         <cancion5>
             <titulo>Octopus's Garden</titulo>
+            <duracion/>
+            <compositor/>
         </cancion5>
         <cancion6>
             <titulo>I Want You (She's So Heavy)</titulo>
+            <duracion/>
+            <compositor/>
         </cancion6>
         <cancion7>
             <titulo>Here Comes the Sun</titulo>
+            <duracion/>
+            <compositor/>
         </cancion7>
         <cancion8>
             <titulo>Because</titulo>
+            <duracion/>
+            <compositor/>
         </cancion8>
         <cancion9>
             <titulo>You Never Give Me Your Money</titulo>
+            <duracion/>
+            <compositor/>
         </cancion9>
         <cancion10>
             <titulo>Sun King</titulo>
+            <duracion/>
+            <compositor/>
         </cancion10>
         <cancion11>
             <titulo>Mean Mr. Mustard</titulo>
+            <duracion/>
+            <compositor/>
         </cancion11>
         <cancion12>
             <titulo>Polythene Pam</titulo>
+            <duracion/>
+            <compositor/>
         </cancion12>
         <cancion13>
             <titulo>She Came in Through the Bathroom Window</titulo>
+            <duracion/>
+            <compositor/>
         </cancion13>
         <cancion14>
             <titulo>Golden Slumbers</titulo>
+            <duracion/>
+            <compositor/>
         </cancion14>
         <cancion15>
             <titulo>Carry That Weight</titulo>
+            <duracion/>
+            <compositor/>
         </cancion15>
         <cancion16>
             <titulo>The End</titulo>
+            <duracion/>
+            <compositor/>
         </cancion16>
         <cancion17>
             <titulo>Her Majesty</titulo>
+            <duracion/>
+            <compositor/>
         </cancion17>
     </listaCanciones>
     
@@ -130,62 +188,106 @@
     <productor>Andrew Loog Oldham<productor>
     <disquera>The DECCA Record Company</disquera>
     <codigo-barras>042282013927</codigo-barras>
-    <CDP>8201392<CDP>
-    <!--Que hacemos con el titulo de canciones????-->
+    <codigo-de-producto>8201392</codigo-de-producto>
     <listaCanciones>
         <cancion1>
-            <titulo>Come Together</titulo>
+            <titulo>Ruby Tuesday</titulo>
+            <duracion>
+                <minutos>03</minutos>
+                <segundos>15</segundos>
+            </duracion>
+            <compositor></compositor>
         </cancion1>
         <cancion2>
-            <titulo>Somethingr</titulo>
+            <titulo>Have You Seen Your Mother, Baby, Standing In The Shadow?</titulo>
+            <duracion>
+                <minutos>02</minutos>
+                <segundos>33</segundos>
+            </duracion>
+            <compositor>Jagger-Richards</compositor>
         </cancion2>
         <cancion3>
-            <titulo>Maxwell's Silver Hammer</titulo>
+            <titulo>Let's Spend The Night Together</titulo>
+            <duracion>
+                <minutos>03</minutos>
+                <segundos>36</segundos>
+            </duracion>
+            <compositor>Jagger-Richards</compositor>
         </cancion3>
         <cancion4>
-            <titulo>Oh! Darling</titulo>
+            <titulo>Lady Jane</titulo>
+            <duracion>
+                <minutos>03</minutos>
+                <segundos>36</segundos>
+            </duracion>
+            <compositor>Jagger-Richards</compositor>
         </cancion4>
         <cancion5>
-            <titulo>Octopus's Garden</titulo>
+            <titulo>Out Of Time</titulo>
+            <duracion>
+                <minutos>03</minutos>
+                <segundos>42</segundos>
+            </duracion>
+            <compositor>Jagger-Richards</compositor>
         </cancion5>
         <cancion6>
-            <titulo>I Want You (She's So Heavy)</titulo>
+            <titulo>My Girl</titulo>
+            <duracion>
+                <minutos>02</minutos>
+                <segundos>38</segundos>
+            </duracion>
+            <compositor>Robinson-White</compositor>
         </cancion6>
         <cancion7>
-            <titulo>Here Comes the Sun</titulo>
+            <titulo>Back Street Girl</titulo>
+            <duracion>
+                <minutos>03</minutos>
+                <segundos>26</segundos>
+            </duracion>
+            <compositor>Jagger-Richards</compositor>
         </cancion7>
         <cancion8>
-            <titulo>Because</titulo>
+            <titulo>Please Go Home</titulo>
+            <duracion>
+                <minutos>03</minutos>
+                <segundos>16</segundos>
+            </duracion>
+            <compositor>Jagger-Richards</compositor>
         </cancion8>
         <cancion9>
-            <titulo>You Never Give Me Your Money</titulo>
+            <titulo>Mother's Little Helper</titulo>
+            <duracion>
+                <minutos>02</minutos>
+                <segundos>43</segundos>
+            </duracion>
+            <compositor>Jagger-Richards</compositor>
         </cancion9>
         <cancion10>
-            <titulo>Sun King</titulo>
+            <titulo>Take It Or Leave It</titulo>
+            <duracion>
+                <minutos>02</minutos>
+                <segundos>46</segundos>
+            </duracion>
+            <compositor>Jagger-Richards</compositor>
         </cancion10>
         <cancion11>
-            <titulo>Mean Mr. Mustard</titulo>
+            <titulo>Ride On, Baby</titulo>
+            <duracion>
+                <minutos>02</minutos>
+                <segundos>53</segundos>
+            </duracion>
+            <compositor>Jagger-Richards</compositor>
         </cancion11>
         <cancion12>
-            <titulo>Polythene Pam</titulo>
+            <titulo>Sittin' On A Fence</titulo>
+            <duracion>
+                <minutos>03</minutos>
+                <segundos>02</segundos>
+            </duracion>
+            <compositor>Jagger-Richards</compositor>
         </cancion12>
-        <cancion13>
-            <titulo>She Came in Through the Bathroom Window</titulo>
-        </cancion13>
-        <cancion14>
-            <titulo>Golden Slumbers</titulo>
-        </cancion14>
-        <cancion15>
-            <titulo>Carry That Weight</titulo>
-        </cancion15>
-        <cancion16>
-            <titulo>The End</titulo>
-        </cancion16>
-        <cancion17>
-            <titulo>Her Majesty</titulo>
-        </cancion17>
+        
     </listaCanciones>
-    
 </album>
 
 </resultado tema="XML">

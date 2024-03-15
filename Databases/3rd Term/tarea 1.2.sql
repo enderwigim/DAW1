@@ -87,26 +87,34 @@ ELSE
 -- 
 --	Ayuda: Quizás necesites guardar en algún sitio el valor actual de la serie antes de sumarlo...
 -------------------------------------------------------------------------------------------
+/*
+-- Primero declaramos @i y luego @objetivo. Usaremos estos para controlar las iteraciones que haremos.
 DECLARE @i INT = 0 
-DECLARE @objective INT = 3
+DECLARE @objective INT = 57
 
+-- Declararemos un @total y luego utilizaremos dos auxiliares.
+/*Utilizaremos BIGINT para extender un poco las posibilidades del programa.
+Por ejemplo si queremos hacer 57 iteraciones, el programa seguira funcionando.*/
+DECLARE @total BIGINT = 1
+DECLARE @aux1 BIGINT = 0
+DECLARE @aux2 BIGINT = 0
 
-DECLARE @a INT = 1
-DECLARE @b INT = 0
-DECLARE @c INT = 0
+-- Primero imprimimos el estado inicial
+PRINT CONCAT('ini = ', @total)
 
-WHILE @i <= @objective
+-- Comenzamos las iteraciones
+WHILE @i < @objective
 BEGIN
-    SET @c = @b
-    SET @b = @a
-    SET @a = @b + @c
+    SET @aux2 = @aux1
+    SET @aux1 = @total
+    SET @total = @aux1 + @aux2
 
-    PRINT @a
+    PRINT CONCAT(@aux1, ' + ', @aux2, ' = ', @total)
 
     SET @i += 1
 END
 
-
+*/
 -------------------------------------------------------------------------------------------
 -- 4. Utilizando la BD JARDINERIA, crea un script que realice lo siguiente:
 --		Obtén el nombre del cliente con código 3 y guárdalo en una variable
@@ -117,6 +125,29 @@ END
 --
 --	    Reto opcional: Implementa el script utilizando una única consulta.
 -------------------------------------------------------------------------------------------
+/*
+USE JARDINERIA;
+EXEC sp_columns CLIENTES
+
+-- Declaramos @codCliente para no tener que modificar las selects a futuro.
+DECLARE @codCliente INT = 3
+-- Declaramos las otras variables que vamos utilizar
+DECLARE @nombreCliente VARCHAR(50)
+DECLARE @cantPedidos SMALLINT
+
+-- Seteamos la variable @nombreCliente
+SELECT @nombreCliente = nombre_cliente
+  FROM CLIENTES
+ WHERE codCliente = @codCliente
+-- Seteamos la variable @cantidadPedidos
+SELECT @cantPedidos = COUNT(1)
+  FROM PEDIDOS p,
+       CLIENTES c
+ WHERE c.codCliente = p.codCliente
+   AND c.codCliente = @codCliente;
+
+PRINT CONCAT('El cliente ', @nombreCliente, ' ha realizado ', @cantPedidos, ' pedidos.')
+*/
 
 
 
@@ -138,9 +169,40 @@ END
 --			Westfalls , Larry
 --			Walton , John
 -------------------------------------------------------------------------------------------
+/*
+DECLARE @i INT = 1
+DECLARE @cantidadEmpleados INT
+
+/* Dado a que en nombre completo almacenaremos apellido1, apellido2
+y nombre, de VARCHAR(50) cada uno. Y se le sumaran 3 caracteres mas
+utilizaremos un VARCHAR(103).
+*/
+DECLARE @nombreCompletoEmp VARCHAR(103)
+-- Declaramos @codOficina por si lo queremos cambiar a futuro.
+DECLARE @codOficina CHAR(6) = 'LON-UK'
 
 
+-- Obtenemos la cantidad total de empleados
+SELECT @cantidadEmpleados = COUNT(codEmpleado)
+  FROM EMPLEADOS
 
+
+WHILE @i <= @cantidadEmpleados
+BEGIN
+    SET @nombreCompletoEmp = NULL
+
+    -- Asignamos a @nombreCompletoEmp los apellidos y el nombre de cada 
+    -- empleado segun la posición del bucle
+    SELECT @nombreCompletoEmp = CONCAT(apellido1, ' ', apellido2, ', ', nombre)
+      FROM EMPLEADOS 
+     WHERE codEmpleado = @i
+       AND codOficina = @codOficina
+
+    SET @i += 1
+    IF @nombreCompletoEmp IS NOT NULL
+        PRINT @nombreCompletoEmp
+END
+*/
 -------------------------------------------------------------------------------------------
 -- 6. Utilizando la BD JARDINERIA, crea un script que realice lo siguiente:
 --		Reutilizando el script del ejercicio 4, agrega la siguiente información a la salida:
@@ -168,6 +230,55 @@ END
 -------------------------------------------------------------------------------------------
 
 
+USE JARDINERIA;
+EXEC sp_columns CLIENTES
+
+DECLARE @i INT = 1
+DECLARE @cantidadClientes INT
+-- Declaramos las otras variables que vamos utilizar
+DECLARE @nombreCliente VARCHAR(50)
+DECLARE @cantPedidos SMALLINT
+DECLARE @totalPagado DECIMAL(9,2)
+
+-- Obtenemos la cantidad de clientes
+SELECT @cantidadClientes = COUNT(codCliente)
+  FROM CLIENTES;
+
+WHILE @i < @cantidadClientes
+BEGIN
+
+    SET @nombreCliente = NULL
+    SET @cantPedidos = 0
+    SET @totalPagado = 0.00
+-- Seteamos la variable @nombreCliente
+    SELECT @nombreCliente = nombre_cliente
+    FROM CLIENTES
+    WHERE codCliente = @i
+
+    -- Seteamos la variable @cantidadPedidos
+    SELECT @cantPedidos = COUNT(1)
+    FROM PEDIDOS p,
+        CLIENTES c
+    WHERE c.codCliente = p.codCliente
+    AND c.codCliente = @i
+
+    SELECT @totalPagado = ISNULL(SUM(dp.precio_unidad * dp.cantidad), 0.00) 
+    FROM CLIENTES c,
+        PEDIDOS p,
+        DETALLE_PEDIDOS dp
+    WHERE c.codCliente = p.codCliente
+        AND p.codPedido = dp.codPedido
+        AND c.codCliente = @i
+
+    IF @nombreCliente IS NOT NULL
+    BEGIN
+        PRINT CONCAT('El cliente ', @nombreCliente, ' ha realizado ', @cantPedidos,
+         ' pedidos. Por un coste total de ', @totalPagado, '.')
+    END
+    SET @i += 1
+END
+
+*/
 -------------------------------------------------------------------------------------------
 -- 7. Utilizando la BD JARDINERIA, crea un script que realice las siguientes operaciones:
 --	Importante: debes utilizar TRY/CATCH y Transacciones si fueran necesarias.
@@ -177,9 +288,63 @@ END
 --		Crea un nuevo cliente (datos inventados) (el codCliente a insertar debes obtenerlo automáticamente)
 --		Asigna como representante de ventas el cliente anterior
 -------------------------------------------------------------------------------------------
+/*
+-- Activamos transacciones
+SET IMPLICIT_TRANSACTIONS OFF
+
+DECLARE @nuevoCodEmpleado INT
+DECLARE @nuevoCodCliente INT
+DECLARE @error INT
 
 
+BEGIN TRY
+    BEGIN TRAN
+        -- Insertamos la nueva oficina
+        INSERT INTO OFICINAS (codOficina, ciudad, pais,
+                                codPostal, telefono, linea_direccion1)
+        VALUES('BUE-AR', 'Buenos Aires', 'Argentina', 
+                '12345', '+54 1161677915', 'Yapeyú 493')
 
+        -- Obtengo el Maximo codEmpleado y le sumo 1, será el codigo de nuestro nuevo empleado
+        SELECT @nuevoCodEmpleado = ISNULL(MAX(codEmpleado), 0) + 1
+        FROM EMPLEADOS
+
+        INSERT INTO EMPLEADOS (codEmpleado, nombre, apellido1,
+                                tlf_extension_ofi, email,puesto_cargo, 
+                                salario, codOficina)
+        VALUES (@nuevoCodEmpleado, 'Santiago', 'Lorenzano',
+                '12345', 'santiagolorenzano@gmail.com', 'representante',
+                 1000, 'BUE-AR')
+
+
+        -- Obtengo el Maximo codCliente y le sumo 1, será el codigo de nuestro nuevo cliente
+        SELECT @nuevoCodCliente = ISNULL(MAX(codCliente), 0) + 1
+        FROM CLIENTES
+
+        INSERT INTO CLIENTES (codCliente, nombre_cliente, nombre_contacto,
+                            apellido_contacto, telefono, email,
+                            linea_direccion1, ciudad, pais,
+                            codPostal, codEmpl_ventas, limite_credito)
+        VALUES (@nuevoCodCliente, 'Sergio', 'SergioCrack',
+                'Diez', '1234', 'sergioesargentino@gmail.com',
+                'Marcha de San Lorenzo 123', 'Buenos Aires', 'Argentina',
+                '1876', @nuevoCodEmpleado, 10000)
+    COMMIT
+    PRINT 'Datos actualizados'        
+END TRY
+BEGIN CATCH
+    PRINT CONCAT('CODERROR: ', ERROR_NUMBER(),
+                ', DESCRIPTION: ', ERROR_MESSAGE(),
+                ', LINE: ', ERROR_LINE())
+END CATCH
+exec sp_columns CLIENTES
+
+DELETE FROM OFICINAS
+  WHERE codOficina = 'BUE-AR'
+
+SELECT *
+  FROM EMPLEADOS
+  */
 -------------------------------------------------------------------------------------------
 -- 8. Utilizando la BD JARDINERIA, crea un script que realice las siguientes operaciones:
 --	Importante: debes utilizar TRY/CATCH y Transacciones si fueran necesarias.

@@ -228,7 +228,7 @@ END
 --			El cliente Lasas S.A. ha realizado 0 pedidos por un coste total de 0.00.
 --			...
 -------------------------------------------------------------------------------------------
-
+/*
 
 USE JARDINERIA;
 EXEC sp_columns CLIENTES

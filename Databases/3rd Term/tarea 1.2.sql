@@ -233,15 +233,17 @@ END
 USE JARDINERIA;
 EXEC sp_columns CLIENTES
 
-DECLARE @i INT = 1
+DECLARE @i INT
 DECLARE @cantidadClientes INT
 -- Declaramos las otras variables que vamos utilizar
 DECLARE @nombreCliente VARCHAR(50)
 DECLARE @cantPedidos SMALLINT
 DECLARE @totalPagado DECIMAL(9,2)
 
+
 -- Obtenemos la cantidad de clientes
-SELECT @cantidadClientes = COUNT(codCliente)
+SELECT @cantidadClientes = MAX(codCliente),
+       @i = MIN(codCliente)
   FROM CLIENTES;
 
 WHILE @i < @cantidadClientes
@@ -273,7 +275,7 @@ BEGIN
     IF @nombreCliente IS NOT NULL
     BEGIN
         PRINT CONCAT('El cliente ', @nombreCliente, ' ha realizado ', @cantPedidos,
-         ' pedidos. Por un coste total de ', @totalPagado, '.')
+         ' pedidos. Por un coste total de ', @totalPagado, '.', CHAR(10))
     END
     SET @i += 1
 END
@@ -329,23 +331,23 @@ BEGIN TRY
                 'Diez', '1234', 'sergioesargentino@gmail.com',
                 'Marcha de San Lorenzo 123', 'Buenos Aires', 'Argentina',
                 '1876', @nuevoCodEmpleado, 10000)
+    
+    -- SET @error = 1/0
     COMMIT
     PRINT 'Datos actualizados'        
 END TRY
 BEGIN CATCH
+    ROLLBACK
     PRINT CONCAT('CODERROR: ', ERROR_NUMBER(),
                 ', DESCRIPTION: ', ERROR_MESSAGE(),
                 ', LINE: ', ERROR_LINE())
+    RETURN
 END CATCH
-exec sp_columns CLIENTES
 
-DELETE FROM OFICINAS
-  WHERE codOficina = 'BUE-AR'
 
-SELECT *
-  FROM EMPLEADOS
-  */
--------------------------------------------------------------------------------------------
+
+*/
+-------- -----------------------------------------------------------------------------------
 -- 8. Utilizando la BD JARDINERIA, crea un script que realice las siguientes operaciones:
 --	Importante: debes utilizar TRY/CATCH y Transacciones si fueran necesarias.
 --
@@ -354,9 +356,33 @@ SELECT *
 --			todos los datos de cada una de las tablas en una sola ejecución
 -------------------------------------------------------------------------------------------
 
+SET IMPLICIT_TRANSACTIONS OFF
 
+BEGIN TRY
+    BEGIN TRAN
+    DECLARE @codOficina CHAR(6) = 'BUE-AR'
+    DECLARE @codEmpleado INT = 32
+    DECLARE @codCliente INT = 39
 
+    DELETE FROM CLIENTES
+    WHERE codCliente = @codCliente
 
+    DELETE FROM EMPLEADOS
+    WHERE codEmpleado = @codEmpleado
+
+    DELETE FROM OFICINAS
+    WHERE codOficina = @codOficina
+
+    COMMIT
+    PRINT "Operación completada"
+END TRY
+BEGIN CATCH
+    ROLLBACK
+    PRINT CONCAT('CODERROR: ', ERROR_NUMBER(),
+                ', DESCRIPTION: ', ERROR_MESSAGE(),
+                ', LINE: ', ERROR_LINE())
+    RETURN
+END CATCH
 -------------------------------------------------------------------------------------------
 -- 9. Utilizando la BD JARDINERIA, crea un script que realice lo siguiente:
 --		Crea un nuevo cliente (invéntate los datos). No debes indicar directamente el código, 
@@ -377,5 +403,78 @@ SELECT *
 --				utilizando funciones de SQL Server (piensa que los 6 últimos caracteres son números...)
 --				Forma de pago debe ser: 'PayPal' y Fechapago la del día
 -------------------------------------------------------------------------------------------
+-- EXEC sp_help DETALLE_PEDIDOS
+-- EXEC sp_columns PEDIDOS
+BEGIN TRY
+    BEGIN TRAN
+        -- Declaramos el nuevo codCliente y el nuevo codPedido.
+        DECLARE @nuevoCodCliente INT
+        DECLARE @nuevoCodPedido INT
+        -- DECLARE @error INT
 
+        -- Obtenemos los valores correspondientes para ambos.
+        SELECT @nuevoCodCliente = ISNULL(MAX(codCliente), 0) + 1
+        FROM CLIENTES
 
+        SELECT @nuevoCodPedido = ISNULL(MAX(codPedido), 0) + 1
+        FROM PEDIDOS
+
+        -- Insertamos los datos del cliente.
+        INSERT INTO CLIENTES (codCliente, nombre_cliente, nombre_contacto,
+                            apellido_contacto, telefono, email,
+                            linea_direccion1, ciudad, pais,
+                            codPostal, codEmpl_ventas, limite_credito)
+        VALUES (@nuevoCodCliente, 'Sergio', 'SergioCrack',
+                'Diez', '1234', 'sergioesargentino@gmail.com',
+                'Marcha de San Lorenzo 123', 'Buenos Aires', 'Argentina',
+                '1876', 3, 10000)
+
+        -- Insertamos los datos del pedido.
+        INSERT INTO PEDIDOS(codPedido, fecha_pedido, fecha_esperada,
+                            fecha_entrega, codEstado, comentarios,
+                            codCliente)
+        VALUES (@nuevoCodPedido, GETDATE(), DATEADD(DAY, 10, GETDATE()),
+                NULL, 'P', NULL, 
+                @nuevoCodCliente)
+
+        -- Declaramos el codigo del primer producto.
+        DECLARE @codProducto1 INT = 5
+
+        -- Declaramos el precio de venta del primer producto.
+        DECLARE @precioVentaProducto1 DECIMAL(9,2)
+
+        -- Obtenemos el precio de venta del primer producto a través de una select.
+        SELECT @precioVentaProducto1 = precio_venta
+        FROM PRODUCTOS
+        WHERE codProducto =  @codProducto1
+
+        -- Hacemos lo mismo con el segundo producto.
+        DECLARE @codProducto2 INT = 8
+
+        DECLARE @precioVentaProducto2 DECIMAL(9,2)
+
+        SELECT @precioVentaProducto2 = precio_venta
+        FROM PRODUCTOS
+        WHERE codProducto =  @codProducto2
+
+        -- Insertamos el primer producto
+        INSERT INTO DETALLE_PEDIDOS(codPedido, codProducto, cantidad,
+                                    precio_unidad, numeroLinea)
+        VALUES(@nuevoCodPedido, @codProducto1, 3,
+            @precioVentaProducto1, 1)
+
+        -- Insertamos el segundo producto
+        INSERT INTO DETALLE_PEDIDOS(codPedido, codProducto, cantidad,
+                                    precio_unidad, numeroLinea)
+        VALUES(@nuevoCodPedido, @codProducto2, 3,
+            @precioVentaProducto2, 2)
+        -- @error = 1/0
+    COMMIT
+END TRY
+BEGIN CATCH
+    ROLLBACK
+    PRINT CONCAT('CODERROR: ', ERROR_NUMBER(),
+                ', DESCRIPTION: ', ERROR_MESSAGE(),
+                ', LINE: ', ERROR_LINE())
+    RETURN
+END CATCH

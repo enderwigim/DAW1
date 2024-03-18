@@ -34,7 +34,7 @@ namespace Ex2
 
         public override double CalculatePerimeter()
         {
-            return Math.Round(Height * 2 + RecBase * 2, 2);
+            return Math.Round((Height * 2) + (RecBase * 2), 2);
         }
 
         public override string SayMyName()

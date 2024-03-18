@@ -30,26 +30,22 @@ namespace Ex2
             y = int.Parse(txtPositionY.Text);
             radius = int.Parse(txtRadius.Text);
             color = txtColor.Text;
-            if (x > 0 && y > 0)
+
+            if (radius > 0)
             {
-                if (radius > 0)
+                if (color != "")
                 {
-                    if (color != "")
-                    {
-                        Circle circle = new Circle(x, y, color, radius);
-                        figures.Add(circle);
-                        ClearTxts();
-                        MessageBox.Show("Circle added!");
-                    }
-                    
-                } else
-                {
-                    MessageBox.Show("El radio no puede ser negativo.");
+                    Circle circle = new Circle(x, y, color, radius);
+                    figures.Add(circle);
+                    ClearTxts();
+                    MessageBox.Show("Circle added!");
                 }
+                    
             } else
             {
-                MessageBox.Show("Esas posiciones no son correctas.");
+                MessageBox.Show("El radio no puede ser negativo.");
             }
+            
         }
         public void ClearTxts()
         {

@@ -403,6 +403,11 @@ END CATCH
 --				utilizando funciones de SQL Server (piensa que los 6 últimos caracteres son números...)
 --				Forma de pago debe ser: 'PayPal' y Fechapago la del día
 -------------------------------------------------------------------------------------------
+exec sp_columns PAGOS
+
+
+
+
 -- EXEC sp_help DETALLE_PEDIDOS
 -- EXEC sp_columns PEDIDOS
 BEGIN TRY
@@ -418,7 +423,7 @@ BEGIN TRY
 
         SELECT @nuevoCodPedido = ISNULL(MAX(codPedido), 0) + 1
         FROM PEDIDOS
-
+        
         -- Insertamos los datos del cliente.
         INSERT INTO CLIENTES (codCliente, nombre_cliente, nombre_contacto,
                             apellido_contacto, telefono, email,
@@ -468,6 +473,29 @@ BEGIN TRY
                                     precio_unidad, numeroLinea)
         VALUES(@nuevoCodPedido, @codProducto2, 3,
             @precioVentaProducto2, 2)
+
+
+
+        DECLARE @nuevaTransaccionNum INT
+
+
+        SELECT @nuevaTransaccionNum = RIGHT(id_transaccion, 8) + 1
+        FROM PAGOS
+        ORDER BY id_transaccion ASC
+
+        DECLARE @nuevaTransaccion CHAR(15) = CONCAT('ak-std-',RIGHT(REPLICATE('0', 6) + CAST(@nuevaTransaccionNum AS VARCHAR(8)), 8))
+
+
+        DECLARE @importeTotal INT
+
+        SELECT @importeTotal = SUM(cantidad * precio_unidad)
+          FROM DETALLE_PEDIDOS
+         WHERE codPedido = @nuevoCodPedido
+
+        INSERT INTO PAGOS(codCliente, id_transaccion, fechaHora_pago,
+                        importe_pago, codFormaPago, codPedido)
+        VALUES(@nuevoCodCliente, @nuevaTransaccion, GETDATE(),
+              @importeTotal, 'P', @nuevoCodPedido)
         -- @error = 1/0
     COMMIT
 END TRY
@@ -478,3 +506,4 @@ BEGIN CATCH
                 ', LINE: ', ERROR_LINE())
     RETURN
 END CATCH
+

@@ -28,7 +28,7 @@ namespace Ex2
         {
             double total;
             double halfSide = TriangleSide / 2;
-            total = Math.Sqrt((halfSide * halfSide) - (TriangleSide * TriangleSide));
+            total = Math.Sqrt((TriangleSide * TriangleSide) - (halfSide * halfSide));
             return total;
         }
         public override double CalculatePerimeter()
@@ -41,7 +41,7 @@ namespace Ex2
         }
         public override string SayMyName()
         {
-            return "Soy un cuadrado";
+            return "Soy un hexagono regular";
         }
 
         public override string ToString()

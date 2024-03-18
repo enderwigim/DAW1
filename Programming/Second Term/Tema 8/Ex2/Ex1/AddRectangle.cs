@@ -41,7 +41,9 @@ namespace Ex2
                     {
                         Rectangle newRec = new Rectangle(xPosition, yPosition, color, recBase, height);
                         figures.Add(newRec);
+                        ClearTxt();
                         MessageBox.Show("Rectangle added!");
+
                     } else
                     {
                         MessageBox.Show("El rectangulo no puede tener una altura menor a 0");
@@ -54,6 +56,14 @@ namespace Ex2
             {
                 MessageBox.Show("El color no puede ser null, ni estar vacio.");
             }
+        }
+        public void ClearTxt()
+        {
+            txtBase.Text = string.Empty;
+            txtColor.Text = string.Empty;
+            txtHeight.Text = string.Empty;
+            txtPositionX.Text = string.Empty;
+            txtPositionY.Text = string.Empty;
         }
     }
 }

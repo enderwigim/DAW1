@@ -34,7 +34,7 @@ namespace Ex2
             {
                 for (int i = 0; i < figures.Count; i++)
                 {
-                    MessageBox.Show($"La figura {i + 1}:" +
+                    MessageBox.Show($"La figura Nº{i + 1}:\n" +
                         $"\n{figures[i].ToString()}\n");
                 }
             } else
@@ -50,111 +50,147 @@ namespace Ex2
 
         private void btnShowCircles_Click(object sender, EventArgs e)
         {
-            if (figures.Any(figure => figure.GetType() == typeof(Circle)))
+            if (figures.Count > 0)
             {
-                string text = "Datos de los circulos \n\n";
-                for (int i = 0; i < figures.Count; i++)
+                if (figures.Any(figure => figure.GetType() == typeof(Circle)))
                 {
-                    if (figures[i].GetType() == typeof(Circle))
+                    string text = "Datos de los circulos \n\n";
+                    for (int i = 0; i < figures.Count; i++)
                     {
-                        text += $"La figura {i + 1}:" +
-                            $"\n{figures[i].ToString()}\n";
+                        if (figures[i].GetType() == typeof(Circle))
+                        {
+                            text += $"La figura {i + 1}:" +
+                                $"\n{figures[i].ToString()}\n";
+                        }
                     }
+                    MessageBox.Show(text);
                 }
-                MessageBox.Show(text);
+                else
+                {
+                    MessageBox.Show("No hay ningun circulo en la lista.");
+                }
             }
             else
             {
-                MessageBox.Show("No hay ningun circulo en la lista.");
+                MessageBox.Show("No hay ninguna figura en la lista");
             }
         }
 
         private void btnShowSquares_Click(object sender, EventArgs e)
         {
-            if (figures.Any(figure => figure.GetType() == typeof(Square)))
+            if (figures.Count > 0)
             {
-                string text = "Datos de los cuadrados: \n\n";
-                for (int i = 0; i < figures.Count; i++)
+                if (figures.Any(figure => figure.GetType() == typeof(Square)))
                 {
-                    if (figures[i].GetType() == typeof(Square))
+                    string text = "Datos de los cuadrados: \n\n";
+                    for (int i = 0; i < figures.Count; i++)
                     {
-                        text += $"La figura {i + 1}:" +
-                            $"\n{figures[i].ToString()}\n";
+                        if (figures[i].GetType() == typeof(Square))
+                        {
+                            text += $"La figura {i + 1}:" +
+                                $"\n{figures[i].ToString()}\n";
+                        }
                     }
+                    MessageBox.Show(text);
                 }
-                MessageBox.Show(text);
+                else
+                {
+                    MessageBox.Show("No hay ningun Cuadrado en la lista.");
+                }
             }
             else
             {
-                MessageBox.Show("No hay ningun Cuadrado en la lista.");
+                MessageBox.Show("No hay ninguna figura en la lista.");
             }
         }
 
 
         private void btnShowTriangles_Click(object sender, EventArgs e)
         {
-            if (figures.Any(figure => figure.GetType() == typeof(EquilateralTriangle)))
+            if (figures.Count > 0)
             {
-                string text = "Datos de los triangulos \n\n";
-                for (int i = 0; i < figures.Count; i++)
+                if (figures.Any(figure => figure.GetType() == typeof(EquilateralTriangle)))
                 {
-                    if (figures[i].GetType() == typeof(EquilateralTriangle))
+                    string text = "Datos de los triangulos \n\n";
+                    for (int i = 0; i < figures.Count; i++)
                     {
-                        text += $"La figura {i + 1}:" +
-                            $"\n{figures[i].ToString()}\n";
+                        if (figures[i].GetType() == typeof(EquilateralTriangle))
+                        {
+                            text += $"La figura {i + 1}:" +
+                                $"\n{figures[i].ToString()}\n";
+                        }
                     }
-                }
-                MessageBox.Show(text);
+                    MessageBox.Show(text);
 
+                }
+                else
+                {
+                    MessageBox.Show("No hay ningun Triangulo Equilatero en la lista.");
+                }
             }
             else
             {
-                MessageBox.Show("No hay ningun Triangulo Equilatero en la lista.");
+                MessageBox.Show("No hay ninguna figura en la lista.");
             }
         }
 
         private void btnShowRectangles_Click(object sender, EventArgs e)
         {
-            if (figures.Any(figure => figure.GetType() == typeof(Rectangle)))
+            if (figures.Count > 0)
             {
-                string text = "Datos de los Rectangulos \n\n";
-                for (int i = 0; i < figures.Count; i++)
+                if (figures.Any(figure => figure.GetType() == typeof(Rectangle)))
                 {
-                    if (figures[i].GetType() == typeof(Rectangle))
+                    string text = "Datos de los Rectangulos \n\n";
+                    for (int i = 0; i < figures.Count; i++)
                     {
-                        text += $"La figura {i + 1}:" +
-                            $"\n{figures[i].ToString()}\n";
-                    }
+                        if (figures[i].GetType() == typeof(Rectangle))
+                        {
+                            text += $"La figura {i + 1}:" +
+                                $"\n{figures[i].ToString()}\n";
+                        }
 
+                    }
+                    MessageBox.Show(text);
                 }
-                MessageBox.Show(text);
+                else
+                {
+                    MessageBox.Show("No hay ningun Rectangulo en la lista.");
+                }
             }
             else
             {
-                MessageBox.Show("No hay ningun Rectangulo en la lista.");
+                MessageBox.Show("No hay ninguna figura en la lista.");
             }
         }
 
         private void btnRegularHexagon_Click(object sender, EventArgs e)
         {
-            // Este if lo que hace es tomar la lista figures,
-            // si alguno cumple el requirimiento de ser un tipo RegularHexagon, el if es true.
-            if (figures.Any(figure => figure.GetType() == typeof(RegularHexagon)))
+            if (figures.Count > 0)
             {
-                string text = "Datos de los Hexagonos Regulares \n\n";
-                for (int i = 0; i < figures.Count; i++)
+                // Este if lo que hace es tomar la lista figures,
+                // si alguno cumple el requirimiento de ser un tipo RegularHexagon, el if es true.
+                if (figures.Any(figure => figure.GetType() == typeof(RegularHexagon)))
                 {
-                    if (figures[i].GetType() == typeof(RegularHexagon))
+                    string text = "Datos de los Hexagonos Regulares \n\n";
+                    for (int i = 0; i < figures.Count; i++)
                     {
-                        text += $"La figura {i + 1}:" +
-                            $"\n{figures[i].ToString()}\n";
-                    }
+                        if (figures[i].GetType() == typeof(RegularHexagon))
+                        {
+                            text += $"La figura {i + 1}:" +
+                                $"\n{figures[i].ToString()}\n";
+                        }
 
+                    }
+                    MessageBox.Show(text);
                 }
-                MessageBox.Show(text);
-            } else
+                else
+                {
+                    MessageBox.Show("No hay ningun Hexagono Regular en la lista.");
+                }
+            }
+            else
             {
-                MessageBox.Show("No hay ningun Hexagono Regular en la lista.");
+                MessageBox.Show("No hay ninguna figura en la lista.");
             }
         }
 

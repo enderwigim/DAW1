@@ -28,7 +28,7 @@ namespace Ex2
 
         private double CalcHeight()
         {
-            double height = ((Side * Math.Sqrt(3)) / 2);
+            double height = Math.Round(((Side * Math.Sqrt(3)) / 2));
             return height;
         }
         public override double CalculatePerimeter()

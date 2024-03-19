@@ -20,7 +20,7 @@ namespace Ex5
         public string DNI
         {
             get { return _DNI; }
-            set { _DNI = value; }
+            set { _DNI = value.ToUpper(); }
         }
         public string PhoneNumber
         {
@@ -33,5 +33,6 @@ namespace Ex5
             DNI = dni;
             PhoneNumber = phoneNumber;
         }
+        public abstract string ShowData();
     }
 }

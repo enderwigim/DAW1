@@ -1,24 +1,23 @@
 class ListOfBoats {
     boatList = [];
-    ammountOfSegments = [];
+    // ammountOfSegments = [];
     maxSegments = 3;
 
-    createBoats = function(ammount, mapHeight, mapWidth) {
-        for(let i = 1; i <= ammount; i++) {
-            let randomX = this.GetRandomNumber(mapHeight);
-            let randomY = this.GetRandomNumber(mapWidth);
-            let segment = this.GetRandomNumber(this.maxSegments);
-            let direction = this.SetDirection(randomX, randomY, segment, mapHeight, mapWidth);
+    createBoats = function(mapHeight, mapWidth, randomX, randomY) {
+        
+        // let randomX = GetRandomNumber(mapHeight);
+        // let randomY = GetRandomNumber(mapWidth);
+        let segment = GetRandomNumber(this.maxSegments);
+        let direction = this.SetDirection(randomX, randomY, segment, mapHeight, mapWidth);
 
-            this.ammountOfSegments.push(segment);
-            let newBoat = new Boat(segment, randomX, randomY, direction)
-            newBoat.AddPositionsWithDirec();
-            this.boatList.push(newBoat);
-        }
-    };
-    GetRandomNumber = function(max) {
-        return Math.floor(Math.random() * max) + 1;
-    };
+        // this.ammountOfSegments.push(segment);
+        let newBoat = new Boat(segment, randomX, randomY, direction)
+        newBoat.AddPositionsWithDirec();
+        this.boatList.push(newBoat);
+        return newBoat;
+        
+    }
+    
     SetDirection = function(x, y, segment, mapHeight, mapWidth) {
         let direction;
         if (x - segment <= 0) {
@@ -35,11 +34,10 @@ class ListOfBoats {
         return direction;
     };
     SetRandomDirection = function() {
-        let posibility = this.GetRandomNumber(4);
+        let posibility = GetRandomNumber(4);
         switch (posibility) {
             case 1:
                 return "RIGHT"
-                
             case 2:
                 return "LEFT"
             case 3:
@@ -50,7 +48,7 @@ class ListOfBoats {
                 return "RIGHT"
         }
     };
-    ReturnEveryBoatCoords = function() {
+    ReturnEveryBoatCoordsInString = function() {
         let boats = "";
         for(let i = 0; i < this.boatList.length; i++) {
             boats += "El bote " + i + "Tiene las siguientes coords: "
@@ -58,4 +56,13 @@ class ListOfBoats {
         }
         return boats;
     }
-} 
+    ReturnEveryTakenPosition = function() {
+        let takenPositions = []
+        for (let i = 0; i < this.boatList.length; i++) {
+            takenPositions.push(this.boatList[i].GetBoatCoords())
+        }
+        return takenPositions;
+    }
+
+
+}

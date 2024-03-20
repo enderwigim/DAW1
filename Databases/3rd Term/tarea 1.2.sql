@@ -69,8 +69,7 @@ BEGIN
 END
 ELSE
     PRINT 'Ninguno de nuestros valores puede ser negativo.'
-¨*/
-
+*/
 -------------------------------------------------------------------------------------------
 -- 3. Crea un script que calcule la serie de Fibonacci para un número dado.
 
@@ -113,7 +112,6 @@ BEGIN
 
     SET @i += 1
 END
-
 */
 -------------------------------------------------------------------------------------------
 -- 4. Utilizando la BD JARDINERIA, crea un script que realice lo siguiente:
@@ -148,9 +146,6 @@ SELECT @cantPedidos = COUNT(1)
 
 PRINT CONCAT('El cliente ', @nombreCliente, ' ha realizado ', @cantPedidos, ' pedidos.')
 */
-
-
-
 -------------------------------------------------------------------------------------------
 -- 5. Utilizando la BD JARDINERIA, crea un script que realice lo siguiente:
 --		Obtén el nombre y los apellidos de todos los empleados de la empresa
@@ -229,7 +224,6 @@ END
 --			...
 -------------------------------------------------------------------------------------------
 /*
-
 USE JARDINERIA;
 EXEC sp_columns CLIENTES
 
@@ -279,7 +273,6 @@ BEGIN
     END
     SET @i += 1
 END
-
 */
 -------------------------------------------------------------------------------------------
 -- 7. Utilizando la BD JARDINERIA, crea un script que realice las siguientes operaciones:
@@ -343,9 +336,6 @@ BEGIN CATCH
                 ', LINE: ', ERROR_LINE())
     RETURN
 END CATCH
-
-
-
 */
 -------- -----------------------------------------------------------------------------------
 -- 8. Utilizando la BD JARDINERIA, crea un script que realice las siguientes operaciones:
@@ -355,7 +345,7 @@ END CATCH
 --		Debes crear variables con los identificadores de clave primaria para eliminar
 --			todos los datos de cada una de las tablas en una sola ejecución
 -------------------------------------------------------------------------------------------
-
+/*
 SET IMPLICIT_TRANSACTIONS OFF
 
 BEGIN TRY
@@ -383,6 +373,7 @@ BEGIN CATCH
                 ', LINE: ', ERROR_LINE())
     RETURN
 END CATCH
+*/
 -------------------------------------------------------------------------------------------
 -- 9. Utilizando la BD JARDINERIA, crea un script que realice lo siguiente:
 --		Crea un nuevo cliente (invéntate los datos). No debes indicar directamente el código, 
@@ -403,13 +394,9 @@ END CATCH
 --				utilizando funciones de SQL Server (piensa que los 6 últimos caracteres son números...)
 --				Forma de pago debe ser: 'PayPal' y Fechapago la del día
 -------------------------------------------------------------------------------------------
-exec sp_columns PAGOS
+/*
+SET IMPLICIT_TRANSACTIONS OFF
 
-
-
-
--- EXEC sp_help DETALLE_PEDIDOS
--- EXEC sp_columns PEDIDOS
 BEGIN TRY
     BEGIN TRAN
         -- Declaramos el nuevo codCliente y el nuevo codPedido.
@@ -419,10 +406,10 @@ BEGIN TRY
 
         -- Obtenemos los valores correspondientes para ambos.
         SELECT @nuevoCodCliente = ISNULL(MAX(codCliente), 0) + 1
-        FROM CLIENTES
+          FROM CLIENTES
 
         SELECT @nuevoCodPedido = ISNULL(MAX(codPedido), 0) + 1
-        FROM PEDIDOS
+          FROM PEDIDOS
         
         -- Insertamos los datos del cliente.
         INSERT INTO CLIENTES (codCliente, nombre_cliente, nombre_contacto,
@@ -450,8 +437,8 @@ BEGIN TRY
 
         -- Obtenemos el precio de venta del primer producto a través de una select.
         SELECT @precioVentaProducto1 = precio_venta
-        FROM PRODUCTOS
-        WHERE codProducto =  @codProducto1
+          FROM PRODUCTOS
+         WHERE codProducto =  @codProducto1
 
         -- Hacemos lo mismo con el segundo producto.
         DECLARE @codProducto2 INT = 8
@@ -459,8 +446,8 @@ BEGIN TRY
         DECLARE @precioVentaProducto2 DECIMAL(9,2)
 
         SELECT @precioVentaProducto2 = precio_venta
-        FROM PRODUCTOS
-        WHERE codProducto =  @codProducto2
+          FROM PRODUCTOS
+         WHERE codProducto =  @codProducto2
 
         -- Insertamos el primer producto
         INSERT INTO DETALLE_PEDIDOS(codPedido, codProducto, cantidad,
@@ -475,23 +462,28 @@ BEGIN TRY
             @precioVentaProducto2, 2)
 
 
-
+        -- Declaramos 2 versiones de la nueva transaccion. La primera será INT, para realizar los calculos
+        -- La segunda respetará el tipo de la PK
         DECLARE @nuevaTransaccionNum INT
+        DECLARE @nuevaTransaccion CHAR(15)
 
-
+        -- Obtenemos el valor de la nueva transacción. Como suele verse un patron de 8 numeros, en el cual su mayoria son 0.
+        -- Los obtendremos todos, pero solo se verán los numeros de la transaccion, no los 0 iniciales.
         SELECT @nuevaTransaccionNum = RIGHT(id_transaccion, 8) + 1
-        FROM PAGOS
-        ORDER BY id_transaccion ASC
+          FROM PAGOS
+         ORDER BY id_transaccion ASC
 
-        DECLARE @nuevaTransaccion CHAR(15) = CONCAT('ak-std-',RIGHT(REPLICATE('0', 6) + CAST(@nuevaTransaccionNum AS VARCHAR(8)), 8))
+        -- Seteamos el nuevo codigo de la transacción.
+        SET @nuevaTransaccion = CONCAT('ak-std-',RIGHT(REPLICATE('0', 6) + CAST(@nuevaTransaccionNum AS VARCHAR(8)), 8))
 
-
+        -- Declaramos el importe total y lo obtenemos.
         DECLARE @importeTotal INT
 
         SELECT @importeTotal = SUM(cantidad * precio_unidad)
           FROM DETALLE_PEDIDOS
          WHERE codPedido = @nuevoCodPedido
 
+        -- Insertamos los datos.
         INSERT INTO PAGOS(codCliente, id_transaccion, fechaHora_pago,
                         importe_pago, codFormaPago, codPedido)
         VALUES(@nuevoCodCliente, @nuevaTransaccion, GETDATE(),
@@ -506,4 +498,4 @@ BEGIN CATCH
                 ', LINE: ', ERROR_LINE())
     RETURN
 END CATCH
-
+*/

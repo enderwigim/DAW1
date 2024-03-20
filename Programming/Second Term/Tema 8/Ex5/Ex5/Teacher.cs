@@ -31,5 +31,10 @@ namespace Ex5
             subjects = new List<string>();
         }
 
+        public override string ShowData()
+        {
+            throw new NotImplementedException();
+        }
+
     }
 }

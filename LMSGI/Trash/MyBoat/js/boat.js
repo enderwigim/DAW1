@@ -82,6 +82,9 @@ class Boat {
         textWithCoords += this.direction
         return textWithCoords;
     }
+    GetBoatCoords = function() {
+        return this.coordinates;
+    }
 
 }
 

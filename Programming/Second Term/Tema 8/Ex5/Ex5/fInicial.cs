@@ -17,8 +17,7 @@ namespace Ex5
             InitializeComponent();
         }
         CourseList courses = new CourseList();
-        //StudentList students = new StudentList();
-        //TeachersList teachers = new TeachersList();
+        PersonList people = new PersonList();
         private void bCursos_Click(object sender, EventArgs e)
         {
             fCursos fCur = new fCursos(courses/*, students*/);
@@ -30,10 +29,9 @@ namespace Ex5
 
         private void btnGestionAlumnos_Click(object sender, EventArgs e)
         {
-            /*
             if (!courses.IsEmpty())
             {
-                fStudents fStu = new fStudents(courses, students);
+                fStudents fStu = new fStudents(people, courses);
 
                 fStu.ShowDialog();
             }
@@ -41,7 +39,7 @@ namespace Ex5
             {
                 MessageBox.Show("There's no courses yet. Please, add one before adding students.");
             }
-            */
+            
         }
 
         private void btnTeachersAdministration_Click(object sender, EventArgs e)

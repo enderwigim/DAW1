@@ -200,12 +200,6 @@ namespace Ex5
             }
             return studentText;
         }
-
-        public void AddTeacher(Teacher teacher)
-        {
-            _people.Add(teacher);
-        }
-
         public string ShowEveryStudentInCourse(string courseCode)
         {
             string studentsInCourse = "";
@@ -217,6 +211,24 @@ namespace Ex5
                 }
             }
             return studentsInCourse;
+        }
+
+        public void AddTeacher(Teacher teacher)
+        {
+            _people.Add(teacher);
+        }
+
+        public bool isEmailInList(string email)
+        {
+            bool isEmailInList = false;
+            for (int i = 0; i < _people.Count; i++)
+            {
+                if (((Teacher)_people[i]).Email == email)
+                {
+                    isEmailInList = true;
+                }
+            }
+            return isEmailInList;
         }
     }
 

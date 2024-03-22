@@ -30,6 +30,12 @@ namespace Ex5
             Email = email;
             subjects = new List<string>();
         }
+        public Teacher(string email, string name, string dni, string phoneNumber) : base(name, dni, phoneNumber)
+        {
+            Email = email;
+            subjects = new List<string>();
+        }
+
 
         public override string ShowData()
         {

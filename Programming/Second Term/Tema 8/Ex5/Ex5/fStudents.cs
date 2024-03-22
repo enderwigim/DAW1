@@ -143,7 +143,31 @@ namespace Ex5
 
         private void btnShowStudentsFromCourse_Click(object sender, EventArgs e)
         {
+            if (!courses.IsEmpty())
+            {
+                string studentsInCourse = "The course doesn't exist";
+                string courseCode = Interaction.InputBox("What course's students do you want to see?");
+                int index = courses.GetIndexByCode(courseCode);
 
+                if (index != -1)
+                {
+                    if (people.ShowEveryStudentInCourse(courseCode) != "")
+                    {
+                        studentsInCourse = "The students in " + courseCode.ToUpper() + " are: \n";
+                        studentsInCourse += people.ShowEveryStudentInCourse(courseCode);
+
+                    }
+                    else
+                    {
+                        studentsInCourse = "The course is empty";
+                    }
+                }
+                MessageBox.Show(studentsInCourse);
+            }
+            else
+            {
+                MessageBox.Show("No courses were added yet.");
+            }
         }
 
         private void btnAddGrades_Click(object sender, EventArgs e)
@@ -251,5 +275,5 @@ namespace Ex5
             }
         }
     }
-    }
 }
+

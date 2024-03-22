@@ -205,6 +205,19 @@ namespace Ex5
         {
             _people.Add(teacher);
         }
+
+        public string ShowEveryStudentInCourse(string courseCode)
+        {
+            string studentsInCourse = "";
+            for (int i = 0; i < _people.Count; i++)
+            {
+                if (((Student)_people[i]).CourseCode == courseCode.ToUpper())
+                {
+                    studentsInCourse += _people[i].Name + "\n";
+                }
+            }
+            return studentsInCourse;
+        }
     }
 
 }

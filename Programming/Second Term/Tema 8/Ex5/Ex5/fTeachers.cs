@@ -108,5 +108,126 @@ namespace Ex5
                 }
             }
         }
+
+        private void btnShowTeachers_Click(object sender, EventArgs e)
+        {
+            if (!_people.IsEmpty())
+            {
+                MessageBox.Show(_people.ShowTeachers());
+            }
+            else
+            {
+                MessageBox.Show("There's no teachers in the list yet.");
+            }
+        }
+
+        private void btnDeleteTeacher_Click(object sender, EventArgs e)
+        {
+            if (!_people.IsEmpty())
+            {
+                string dni = Interaction.InputBox("What's the teacher's DNI??");
+                int result = _people.DeleteTeacher(dni);
+                if (result == -1)
+                {
+                    MessageBox.Show("There's no teachers in the list");
+                } else if (result == -2)
+                {
+                    MessageBox.Show("That teacher is not in the list");
+                } else if (result == -3)
+                {
+                    MessageBox.Show("That dni is not from a teacher");
+                }
+                else
+                {
+                    MessageBox.Show("Teacher Deleted");
+                }
+            }
+            else
+            {
+                MessageBox.Show("There's no people in the list yet.");
+            }
+        }
+
+        private void btnTeacherData_Click(object sender, EventArgs e)
+        {
+            if (!_people.IsEmpty())
+            {
+                string dni = Interaction.InputBox("What's the teacher's DNI??");
+                MessageBox.Show(_people.ShowATeacher(dni));
+            }
+            else
+            {
+                MessageBox.Show("There's no people in the list yet.");
+            }
+        }
+
+        private void btnOrderTeachers_Click(object sender, EventArgs e)
+        {
+            if (!_people.IsEmpty())
+            {
+                _people.OrderTeachers();
+                MessageBox.Show("List Ordered");
+            }
+            else
+            {
+                MessageBox.Show("There's no students in the list yet.");
+            }
+        }
+
+        private void btnAddSubjectToTeacher_Click(object sender, EventArgs e)
+        {
+            if (!_people.IsEmpty())
+            {
+                string dni = Interaction.InputBox("What's the teacher's DNI??");
+                DialogResult addMoreSubjects = DialogResult.Yes;
+                DialogResult addToSameDni = DialogResult.Yes;
+                while (addMoreSubjects == DialogResult.Yes)
+                {
+                    if (addToSameDni == DialogResult.No)
+                    {
+                        dni = Interaction.InputBox("What's the teacher's DNI??");
+                    }
+                    bool wasAdded = false;
+                    string subjectName = Interaction.InputBox("What subject do you want to add?");
+                    if (!subjectName.Any(char.IsDigit) || !string.IsNullOrWhiteSpace(subjectName))
+                    {
+                        int result = _people.AddTeachersSubject(dni, subjectName);
+                        if (result == -1)
+                        {
+                            MessageBox.Show("There's no teacher in the List");
+                            addToSameDni = DialogResult.No;
+                        }
+                        else if (result == -2)
+                        {
+                            MessageBox.Show("That DNI is not in the list");
+                            addToSameDni = DialogResult.No;
+                        }
+                        else if (result == -3)
+                        {
+                            MessageBox.Show("That DNI is not from a teacher");
+                            addToSameDni = DialogResult.No;
+                        }
+                        else
+                        {
+                            wasAdded = true;
+                            MessageBox.Show("Subject added");
+                            addToSameDni = MessageBox.Show("Do you want to add more subjects to the same teacher?", "", MessageBoxButtons.YesNo);
+                            if (addToSameDni != DialogResult.Yes)
+                            {
+                                addMoreSubjects = MessageBox.Show("Do you want to add more subjects to another teacher?", "", MessageBoxButtons.YesNo);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("That's no the name of a subject.");
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("There's no teachers in the list yet.");
+            }
+        }
     }
 }

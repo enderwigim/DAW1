@@ -88,6 +88,7 @@ namespace Ex5
 
         private void btnDeleteStudent_Click(object sender, EventArgs e)
         {
+            // TODO: Check if there's teachers in the list
             if (!people.IsEmpty())
             {
                 string dni = Interaction.InputBox("Write the student's DNI/NIE.").ToUpper();

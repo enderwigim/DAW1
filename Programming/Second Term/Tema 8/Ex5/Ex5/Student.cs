@@ -22,14 +22,6 @@ namespace Ex5
             grades = new List<double>();
         }
 
-        public override string ShowData()
-        {
-            return $"\nNombre: {Name}" +
-                   $"\nDNI: {DNI}" +
-                   $"\nTelefono: {PhoneNumber}" +
-                   $"\nTelefono: {PhoneNumber}" +
-                   $"\nNotas: {ShowGrades()}";
-        }
         public string ShowGrades()
         {
             string textGrades = "";
@@ -74,6 +66,13 @@ namespace Ex5
                 isUpper = true;
             }
             return isUpper;
+        }
+        public override string ShowData()
+        {
+            return $"\nNombre: {Name}" +
+                   $"\nDNI: {DNI}" +
+                   $"\nTelefono: {PhoneNumber}" +
+                   $"\nNotas: {ShowGrades()}";
         }
     }
 }

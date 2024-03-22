@@ -44,11 +44,16 @@ namespace Ex5
 
         private void btnTeachersAdministration_Click(object sender, EventArgs e)
         {
-            /*
-            fTeachers fTea = new fTeachers(teachers, courses);
+            if (!courses.IsEmpty())
+            {
+                fTeachers fTea = new fTeachers(people, courses);
 
-            fTea.ShowDialog();
-            */
+                fTea.ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show("There's no courses yet. Please, add one before adding teachers.");
+            }
         }
     }
 }

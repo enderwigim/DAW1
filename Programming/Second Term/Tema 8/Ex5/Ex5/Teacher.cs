@@ -26,7 +26,7 @@ namespace Ex5
         }
         public Teacher(string courseCode, string email, string name, string dni, string phoneNumber) : base(name, dni, phoneNumber)
         {
-            CourseCode = courseCode;
+            CourseCode = courseCode.ToUpper();
             Email = email;
             subjects = new List<string>();
         }
@@ -34,13 +34,48 @@ namespace Ex5
         {
             Email = email;
             subjects = new List<string>();
+            CourseCode = null;
         }
 
+        public void AddSubject(string newSubject)
+        {
+            subjects.Add(newSubject);
+        }
+
+        public string ShowSubjects()
+        {
+            string textSubjects = "This teacher doesn't have subjects yet";
+            if (subjects.Count > 0) 
+            {
+                textSubjects = "";
+                for (int i = 0; i < subjects.Count; i++)
+                {
+                    textSubjects += subjects[i] + ",";
+                }
+            }
+            return textSubjects;
+        }
+        public string ShowIfTutor()
+        {
+            string text = "This teacher is not a tutor";
+            if (courseCode != null)
+            {
+                text = $"This teacher is the tutor of: {CourseCode}";
+            }
+            return text;
+        }
 
         public override string ShowData()
         {
-            throw new NotImplementedException();
+            return $"\nNombre: {Name}" +
+                   $"\nDNI: {DNI}" +
+                   $"\nTelefono: {PhoneNumber}" +
+                   $"\nEmail: {Email}" +
+                   $"\nMaterias: {ShowSubjects()}" +
+                   $"\n{ShowIfTutor()}";
+                   
         }
+
 
     }
 }

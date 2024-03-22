@@ -218,18 +218,99 @@ namespace Ex5
             _people.Add(teacher);
         }
 
+        public int DeleteTeacher(string dni)
+        {
+            int validationCode = -1;
+            if (_people.Any(person => person.GetType() == typeof(Teacher)))
+            {
+                validationCode = -2;
+                int index = GetIndexByDNI(dni);
+                if (index != -1)
+                {
+                    validationCode = -3;
+                    if (GetTypeByIndex(index) == 2)
+                    {
+                        _people.RemoveAt(index);
+                        validationCode = 1;
+                    }
+                }
+
+            }
+            return validationCode;
+        }
+
         public bool isEmailInList(string email)
         {
             bool isEmailInList = false;
             for (int i = 0; i < _people.Count; i++)
             {
-                if (((Teacher)_people[i]).Email == email)
+                if (_people[i].GetType() == typeof(Teacher))
                 {
-                    isEmailInList = true;
+                    if (((Teacher)_people[i]).Email == email)
+                    {
+                        isEmailInList = true;
+                    }
+
                 }
             }
             return isEmailInList;
         }
+        public string ShowTeachers()
+        {
+            string everyTeacher = "";
+            for (int i = 0; i < _people.Count; i++)
+            {
+                everyTeacher += _people[i].ShowData() + "\n";
+            }
+            return everyTeacher;
+        }
+        public string ShowATeacher(string dni)
+        {
+            string teacherData = "That teacher doesn't exist";
+            int index = GetIndexByDNI(dni);
+            if (index != -1)
+            {
+                teacherData = _people[index].ShowData();
+            }
+            return teacherData;
+        }
+        public void OrderTeachers()
+        {
+            for (int i = 0; i < _people.Count - 1; i++)
+            {
+                for (int j = i + 1; j < _people.Count; j++)
+                {
+                    if (_people[i].GetType() == typeof(Teacher) && _people[j].GetType() == typeof(Teacher))
+                    {
+                        if (string.Compare(_people[i].Name, _people[j].Name) > 0)
+                        {
+                            Teacher auxStudent = (Teacher)_people[i];
+                            _people[i] = _people[j];
+                            _people[j] = auxStudent;
+                        }
+                    }
+                }
+            }
+        }
+        public int AddTeachersSubject(string dni, string subjectName)
+        {
+            int validationCode = -1;
+            if (_people.Any(person => person.GetType() == typeof(Teacher)))
+            {
+                validationCode = -2;
+                int index = GetIndexByDNI(dni);
+                if (index != -1)
+                {
+                    validationCode = -3;
+                    if (GetTypeByIndex(index) == 2)
+                    {
+                        ((Teacher)_people[index]).AddSubject(subjectName);
+                    }
+                }
+            }
+            return validationCode;
+        }
+
     }
 
 }

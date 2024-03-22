@@ -184,6 +184,22 @@ namespace Ex5
             }
             return studentText;
         }
+        public string ShowStudentsAVGLess5()
+        {
+            string studentText = "There's no students in the list";
+            if (_people.Any(person => person.GetType() == typeof(Student)))
+            {
+                studentText = "";
+                for (int i = 0; i < _people.Count; i++)
+                {
+                    if (!((Student)_people[i]).IsAVGUpperThan5())
+                    {
+                        studentText += _people[i].Name + " \n";
+                    }
+                }
+            }
+            return studentText;
+        }
 
         public void AddTeacher(Teacher teacher)
         {

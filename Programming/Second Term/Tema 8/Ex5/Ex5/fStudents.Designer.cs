@@ -75,6 +75,7 @@
             this.btnShowStudentsWithAVGLessThan5.TabIndex = 2;
             this.btnShowStudentsWithAVGLessThan5.Text = "Mostrar Alumnos con media menor a 5";
             this.btnShowStudentsWithAVGLessThan5.UseVisualStyleBackColor = true;
+            this.btnShowStudentsWithAVGLessThan5.Click += new System.EventHandler(this.btnShowStudentsWithAVGLessThan5_Click);
             // 
             // btnShowStudentsWithAVGUpperThan5
             // 
@@ -178,7 +179,7 @@
             this.ClientSize = new System.Drawing.Size(688, 478);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "fStudents";
             this.Text = "fStudents";
             this.groupBox2.ResumeLayout(false);

@@ -305,6 +305,7 @@ namespace Ex5
                     if (GetTypeByIndex(index) == 2)
                     {
                         ((Teacher)_people[index]).AddSubject(subjectName);
+                        validationCode = 1;
                     }
                 }
             }

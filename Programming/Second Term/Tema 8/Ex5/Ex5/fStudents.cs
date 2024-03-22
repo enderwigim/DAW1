@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -70,7 +71,7 @@ namespace Ex5
                 }
                 if (wasAdded)
                 {
-                    addMoreStudents = MessageBox.Show("Do you want to add anothe student?", " ", MessageBoxButtons.YesNo);
+                    addMoreStudents = MessageBox.Show("Do you want to add another student?", " ", MessageBoxButtons.YesNo);
                 }
                 else
                 {
@@ -110,6 +111,123 @@ namespace Ex5
             else
             {
                 MessageBox.Show("There's no students in the list yet.");
+            }
+        }
+
+        private void btnOrderByName_Click(object sender, EventArgs e)
+        {
+            if (!people.IsEmpty())
+            {
+                people.OrderStudents();
+                MessageBox.Show("List Ordered");
+            }
+            else
+            {
+                MessageBox.Show("There's no students in the list yet.");
+            }
+        }
+
+        private void btnShowStudentData_Click(object sender, EventArgs e)
+        {
+            if (!people.IsEmpty())
+            {
+                string name = Interaction.InputBox("What's the student Name?");
+                MessageBox.Show(people.ShowOneStudentByName(name));
+                
+            }
+            else
+            {
+                MessageBox.Show("There's no students in the list yet.");
+            }
+        }
+
+        private void btnShowStudentsFromCourse_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnAddGrades_Click(object sender, EventArgs e)
+        {
+            if (!people.IsEmpty())
+            {
+                DialogResult addMoreGrades = DialogResult.Yes;
+                DialogResult addGradeToSameStudents = DialogResult.No;
+                while (addMoreGrades == DialogResult.Yes)
+                {
+                    string dni = null;
+                    if (addGradeToSameStudents == DialogResult.No)
+                    {
+                        dni = Interaction.InputBox("What's the student dni?");
+                    }
+                    int newGrade = int.Parse(Interaction.InputBox("What grade?"));
+                    int result = people.AddGradeToStudent(dni, newGrade);
+                    if (result == -1)
+                    {
+                        MessageBox.Show("That student is not in the list");
+                    }
+                    else if (result == -2)
+                    {
+                        MessageBox.Show("That dni is not from a student");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Grade added!");
+                    }
+                    addGradeToSameStudents = MessageBox.Show("Do you want to add another grade to the same student?", " ", MessageBoxButtons.YesNo);
+                    if (addGradeToSameStudents == DialogResult.No)
+                    {
+                        addMoreGrades = MessageBox.Show("And to another student?", " ", MessageBoxButtons.YesNo);
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("There's no students in the list yet.");
+            }
+        }
+    private void btnDeleteGrades_Click(object sender, EventArgs e)
+        {
+                if (!people.IsEmpty())
+                {
+                    string dni = Interaction.InputBox("What's the student dni?");
+                    int result = people.RemoveGradeToStudent(dni);
+                    if (result == -1)
+                    {
+                        MessageBox.Show("That student is not in the list");
+                    }
+                    else if (result == -2)
+                    {
+                        MessageBox.Show("That dni is not from a student");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Grade added!");
+                    }
+
+                }
+                else
+                {
+                    MessageBox.Show("There's no students in the list yet.");
+                }
+
+        }
+
+        private void btnShowStudentsWithAVGUpperThan5_Click(object sender, EventArgs e)
+        {
+            if (!people.IsEmpty())
+            {
+                string students = people.ShowStudentsAVGMore5();
+                if (students == "")
+                {
+                    MessageBox.Show("There's no students with an AVG more than 5");
+                } else
+                {
+                    MessageBox.Show("The students with an AVG more than 5 are: \n" + students);
+                }
+            }
+            else
+            {
+                MessageBox.Show("The list is empty yet.");
             }
         }
     }

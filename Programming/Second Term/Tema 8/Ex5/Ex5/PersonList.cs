@@ -89,6 +89,102 @@ namespace Ex5
             }
             return text;
         }
+        public void OrderStudents()
+        {
+            for (int i = 0; i < _people.Count - 1; i++)
+            {
+                for (int j = i + 1; j < _people.Count; j++)
+                {
+                    if (_people[i].GetType() == typeof(Student) && _people[j].GetType() == typeof(Student))
+                    {
+                        if (string.Compare(_people[i].Name, _people[j].Name) > 0)
+                        {
+                            Student auxStudent = (Student)_people[i];
+                            _people[i] = _people[j];
+                            _people[j] = auxStudent;
+                        }
+                    }
+                }
+            }
+        }
+        public string ShowOneStudentByName(string name)
+        {
+            string text = "That DNI isn't in the list";
+            for (int i = 0; i < _people.Count; i++)
+            {
+                if (_people[i].Name.ToLower() == name.ToLower())
+                {
+                    text = "That DNI is not from a student";
+                    if (GetTypeByIndex(i) == 1)
+                    {
+                        text = _people[i].ShowData();
+                    }
+                }
+
+            }
+            return text;
+        }
+        public int AddGradeToStudent(string dni, int grade)
+        {
+            /*
+             * Devolveremos un validationCode con el que controlaremos si se ha agregado la nota o no.
+             * validationCode = -1 SI NO SE ENCUENTRA EN LA LISTA
+             * validationCode = -2  SI NO ES ALUMNO
+             * validationCode = 1 Si se realiza con exito.
+             */
+            int validationCode = -1;
+            int index = GetIndexByDNI(dni);
+            if (index != -1)
+            {
+                validationCode = -2;
+                if (GetTypeByIndex(index) == 1)
+                {
+                    ((Student)_people[index]).AddGrades(grade);
+                    validationCode = 1;
+                }
+            }
+            return validationCode;
+        }
+        public int RemoveGradeToStudent(string dni)
+        { 
+            /*
+            * Devolveremos un validationCode con el que controlaremos si se ha agregado la nota o no.
+            * validationCode = -1 SI NO SE ENCUENTRA EN LA LISTA
+            * validationCode = -2  SI NO ES ALUMNO
+            * validationCode = 1 Si se realiza con exito.
+            */
+            int validationCode = -1;
+            int index = GetIndexByDNI(dni);
+            if (index != -1)
+            {
+                validationCode = -2;
+                if (GetTypeByIndex(index) == 1)
+                {
+                    ((Student)_people[index]).DeleteGrades();
+                    validationCode = 1;
+                }
+            }
+            return validationCode;
+
+
+        }
+        public string ShowStudentsAVGMore5()
+        {
+            string studentText = "There's no students in the list";
+            if (_people.Any(person => person.GetType() == typeof(Student)))
+            {
+                studentText = "";
+                for (int i = 0; i < _people.Count; i++)
+                {
+                    if (((Student)_people[i]).IsAVGUpperThan5())
+                    {
+                        studentText += _people[i].Name + " \n";
+                    }
+                }
+            }
+            return studentText;
+        }
+
         public void AddTeacher(Teacher teacher)
         {
             _people.Add(teacher);

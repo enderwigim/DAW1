@@ -46,5 +46,34 @@ namespace Ex5
             }
             return textGrades;
         }
+
+        public void AddGrades(int newGrade)
+        {
+            grades.Add(newGrade);
+        }
+        public void DeleteGrades()
+        {
+            grades.Clear();
+        }
+        public double CalcAVG()
+        {
+            double avg = 0;
+            for (int i = 0; i < grades.Count; i++)
+            {
+                avg += grades[i];
+            }
+            avg /= grades.Count;
+            return avg;
+        }
+        public bool IsAVGUpperThan5()
+        {
+            bool isUpper = false;
+            double avg = CalcAVG();
+            if (avg >= 5)
+            {
+                isUpper = true;
+            }
+            return isUpper;
+        }
     }
 }

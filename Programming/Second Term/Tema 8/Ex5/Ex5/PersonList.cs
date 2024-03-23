@@ -39,7 +39,7 @@ namespace Ex5
                 type = 2;
             }
             return type;
-        } 
+        }
         public void DeleteByIndex(int index)
         {
             _people.RemoveAt(index);
@@ -146,7 +146,7 @@ namespace Ex5
             return validationCode;
         }
         public int RemoveGradeToStudent(string dni)
-        { 
+        {
             /*
             * Devolveremos un validationCode con el que controlaremos si se ha agregado la nota o no.
             * validationCode = -1 SI NO SE ENCUENTRA EN LA LISTA
@@ -294,6 +294,11 @@ namespace Ex5
         }
         public int AddTeachersSubject(string dni, string subjectName)
         {
+            // ValidationCode =
+            // -1 = No hay Teacher en _people
+            // -2 = Ese DNI no esta en la lista
+            // -3 = Ese DNI no es de un profesor
+            // -4 = El profesor ya tiene esa materia ingresada.
             int validationCode = -1;
             if (_people.Any(person => person.GetType() == typeof(Teacher)))
             {
@@ -304,14 +309,39 @@ namespace Ex5
                     validationCode = -3;
                     if (GetTypeByIndex(index) == 2)
                     {
-                        ((Teacher)_people[index]).AddSubject(subjectName);
-                        validationCode = 1;
+                        validationCode = -4;
+                        if (((Teacher)_people[index]).AddSubject(subjectName))
+                        {
+                            validationCode = 1;
+                        }
                     }
                 }
             }
             return validationCode;
         }
-
+        public int RemoveEverySubject(string dni)
+        {
+            // ValidationCode =
+            // -1 = No hay Teacher en _people
+            // -2 = Ese DNI no esta en la lista
+            // -3 = Ese DNI no es de un profesor
+            int validationCode = -1;
+            if (_people.Any(person => person.GetType() == typeof(Teacher)))
+            {
+                validationCode = -2;
+                int index = GetIndexByDNI(dni);
+                if (index != -1)
+                {
+                    validationCode = -3;
+                    if (GetTypeByIndex(index) == 2)
+                    {                       
+                        ((Teacher)_people[index]).RemoveSubjects();
+                        validationCode = 1;                       
+                    }
+                }
+            }
+            return validationCode;
+        }
     }
 
 }

@@ -207,6 +207,11 @@ namespace Ex5
                             MessageBox.Show("That DNI is not from a teacher");
                             addToSameDni = DialogResult.No;
                         }
+                        else if (result == -4)
+                        {
+                            MessageBox.Show("That teacher already has that subject");
+                            addToSameDni = DialogResult.No;
+                        }
                         else
                         {
                             wasAdded = true;
@@ -221,6 +226,41 @@ namespace Ex5
                     else
                     {
                         MessageBox.Show("That's no the name of a subject.");
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("There's no teachers in the list yet.");
+            }
+        }
+
+        private void btnDeleteSubjectsFromTeacher_Click(object sender, EventArgs e)
+        {
+            if (!_people.IsEmpty())
+            {
+                DialogResult DeleteFromAnotherTeacher = DialogResult.Yes;
+                while (DeleteFromAnotherTeacher == DialogResult.Yes)
+                {
+
+                    string dni = Interaction.InputBox("What's the teacher's DNI??");
+                    int result = _people.RemoveEverySubject(dni);
+                    if (result == -1)
+                    {
+                        MessageBox.Show("There's no teacher in the List");               
+                    }
+                    else if (result == -2)
+                    {
+                        MessageBox.Show("That DNI is not in the list");                  
+                    }
+                    else if (result == -3)
+                    {
+                        MessageBox.Show("That DNI is not from a teacher");                   
+                    }
+                    else
+                    {
+                        MessageBox.Show("Subjects Deleted");
+                        DeleteFromAnotherTeacher = MessageBox.Show("Do you want to remove a subject from another teacher?", "", MessageBoxButtons.YesNo);
                     }
                 }
             }

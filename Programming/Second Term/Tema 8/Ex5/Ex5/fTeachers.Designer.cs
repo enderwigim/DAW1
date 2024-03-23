@@ -49,45 +49,52 @@
             this.groupBox2.Controls.Add(this.btnShowTeachersBySubject);
             this.groupBox2.Controls.Add(this.btnDeleteSubjectsFromTeacher);
             this.groupBox2.Controls.Add(this.btnAddSubjectToTeacher);
-            this.groupBox2.Location = new System.Drawing.Point(12, 239);
+            this.groupBox2.Location = new System.Drawing.Point(16, 294);
+            this.groupBox2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(775, 198);
+            this.groupBox2.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox2.Size = new System.Drawing.Size(1033, 244);
             this.groupBox2.TabIndex = 3;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Asignaturas";
             // 
             // btnDeleteJustOneSubject
             // 
-            this.btnDeleteJustOneSubject.Location = new System.Drawing.Point(317, 110);
+            this.btnDeleteJustOneSubject.Location = new System.Drawing.Point(423, 135);
+            this.btnDeleteJustOneSubject.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnDeleteJustOneSubject.Name = "btnDeleteJustOneSubject";
-            this.btnDeleteJustOneSubject.Size = new System.Drawing.Size(145, 45);
+            this.btnDeleteJustOneSubject.Size = new System.Drawing.Size(193, 55);
             this.btnDeleteJustOneSubject.TabIndex = 3;
             this.btnDeleteJustOneSubject.Text = "Eliminar una asignatura de un profesor";
             this.btnDeleteJustOneSubject.UseVisualStyleBackColor = true;
             // 
             // btnShowTeachersBySubject
             // 
-            this.btnShowTeachersBySubject.Location = new System.Drawing.Point(555, 83);
+            this.btnShowTeachersBySubject.Location = new System.Drawing.Point(740, 102);
+            this.btnShowTeachersBySubject.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnShowTeachersBySubject.Name = "btnShowTeachersBySubject";
-            this.btnShowTeachersBySubject.Size = new System.Drawing.Size(145, 45);
+            this.btnShowTeachersBySubject.Size = new System.Drawing.Size(193, 55);
             this.btnShowTeachersBySubject.TabIndex = 2;
             this.btnShowTeachersBySubject.Text = "Mostrar Profesores que imparten una asignatura";
             this.btnShowTeachersBySubject.UseVisualStyleBackColor = true;
             // 
             // btnDeleteSubjectsFromTeacher
             // 
-            this.btnDeleteSubjectsFromTeacher.Location = new System.Drawing.Point(317, 19);
+            this.btnDeleteSubjectsFromTeacher.Location = new System.Drawing.Point(423, 23);
+            this.btnDeleteSubjectsFromTeacher.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnDeleteSubjectsFromTeacher.Name = "btnDeleteSubjectsFromTeacher";
-            this.btnDeleteSubjectsFromTeacher.Size = new System.Drawing.Size(145, 45);
+            this.btnDeleteSubjectsFromTeacher.Size = new System.Drawing.Size(193, 55);
             this.btnDeleteSubjectsFromTeacher.TabIndex = 1;
             this.btnDeleteSubjectsFromTeacher.Text = "Eliminar las asignaturas de un profesor";
             this.btnDeleteSubjectsFromTeacher.UseVisualStyleBackColor = true;
+            this.btnDeleteSubjectsFromTeacher.Click += new System.EventHandler(this.btnDeleteSubjectsFromTeacher_Click);
             // 
             // btnAddSubjectToTeacher
             // 
-            this.btnAddSubjectToTeacher.Location = new System.Drawing.Point(69, 83);
+            this.btnAddSubjectToTeacher.Location = new System.Drawing.Point(92, 102);
+            this.btnAddSubjectToTeacher.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnAddSubjectToTeacher.Name = "btnAddSubjectToTeacher";
-            this.btnAddSubjectToTeacher.Size = new System.Drawing.Size(145, 45);
+            this.btnAddSubjectToTeacher.Size = new System.Drawing.Size(193, 55);
             this.btnAddSubjectToTeacher.TabIndex = 0;
             this.btnAddSubjectToTeacher.Text = "Añadir Asignatura a Profesor";
             this.btnAddSubjectToTeacher.UseVisualStyleBackColor = true;
@@ -100,18 +107,21 @@
             this.groupBox1.Controls.Add(this.btnShowTeachers);
             this.groupBox1.Controls.Add(this.btnDeleteTeacher);
             this.groupBox1.Controls.Add(this.btnAddTeacher);
-            this.groupBox1.Location = new System.Drawing.Point(12, 12);
+            this.groupBox1.Location = new System.Drawing.Point(16, 15);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(775, 221);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox1.Size = new System.Drawing.Size(1033, 272);
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Profesores";
             // 
             // btnTeacherData
             // 
-            this.btnTeacherData.Location = new System.Drawing.Point(434, 136);
+            this.btnTeacherData.Location = new System.Drawing.Point(579, 167);
+            this.btnTeacherData.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnTeacherData.Name = "btnTeacherData";
-            this.btnTeacherData.Size = new System.Drawing.Size(164, 42);
+            this.btnTeacherData.Size = new System.Drawing.Size(219, 52);
             this.btnTeacherData.TabIndex = 4;
             this.btnTeacherData.Text = "Mostrar Datos Profesores";
             this.btnTeacherData.UseVisualStyleBackColor = true;
@@ -119,9 +129,10 @@
             // 
             // btnOrderTeachers
             // 
-            this.btnOrderTeachers.Location = new System.Drawing.Point(141, 136);
+            this.btnOrderTeachers.Location = new System.Drawing.Point(188, 167);
+            this.btnOrderTeachers.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnOrderTeachers.Name = "btnOrderTeachers";
-            this.btnOrderTeachers.Size = new System.Drawing.Size(164, 42);
+            this.btnOrderTeachers.Size = new System.Drawing.Size(219, 52);
             this.btnOrderTeachers.TabIndex = 3;
             this.btnOrderTeachers.Text = "Ordernar Profesores Por Orden Alfabetico";
             this.btnOrderTeachers.UseVisualStyleBackColor = true;
@@ -129,9 +140,10 @@
             // 
             // btnShowTeachers
             // 
-            this.btnShowTeachers.Location = new System.Drawing.Point(536, 33);
+            this.btnShowTeachers.Location = new System.Drawing.Point(715, 41);
+            this.btnShowTeachers.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnShowTeachers.Name = "btnShowTeachers";
-            this.btnShowTeachers.Size = new System.Drawing.Size(164, 42);
+            this.btnShowTeachers.Size = new System.Drawing.Size(219, 52);
             this.btnShowTeachers.TabIndex = 2;
             this.btnShowTeachers.Text = "Mostrar Profesores";
             this.btnShowTeachers.UseVisualStyleBackColor = true;
@@ -139,9 +151,10 @@
             // 
             // btnDeleteTeacher
             // 
-            this.btnDeleteTeacher.Location = new System.Drawing.Point(298, 33);
+            this.btnDeleteTeacher.Location = new System.Drawing.Point(397, 41);
+            this.btnDeleteTeacher.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnDeleteTeacher.Name = "btnDeleteTeacher";
-            this.btnDeleteTeacher.Size = new System.Drawing.Size(164, 42);
+            this.btnDeleteTeacher.Size = new System.Drawing.Size(219, 52);
             this.btnDeleteTeacher.TabIndex = 1;
             this.btnDeleteTeacher.Text = "Eliminar Profesor";
             this.btnDeleteTeacher.UseVisualStyleBackColor = true;
@@ -149,9 +162,10 @@
             // 
             // btnAddTeacher
             // 
-            this.btnAddTeacher.Location = new System.Drawing.Point(17, 33);
+            this.btnAddTeacher.Location = new System.Drawing.Point(23, 41);
+            this.btnAddTeacher.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnAddTeacher.Name = "btnAddTeacher";
-            this.btnAddTeacher.Size = new System.Drawing.Size(164, 42);
+            this.btnAddTeacher.Size = new System.Drawing.Size(219, 52);
             this.btnAddTeacher.TabIndex = 0;
             this.btnAddTeacher.Text = "Introducir Profesor";
             this.btnAddTeacher.UseVisualStyleBackColor = true;
@@ -159,11 +173,12 @@
             // 
             // fTeachers
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(802, 451);
+            this.ClientSize = new System.Drawing.Size(1069, 555);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "fTeachers";
             this.Text = "fTeachers";
             this.groupBox2.ResumeLayout(false);

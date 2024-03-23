@@ -37,9 +37,19 @@ namespace Ex5
             CourseCode = null;
         }
 
-        public void AddSubject(string newSubject)
+        public bool AddSubject(string newSubject)
         {
-            subjects.Add(newSubject);
+            bool subjectAdded = false;
+            if (!subjects.Contains(newSubject.ToLower()))
+            {
+                subjects.Add(newSubject.ToLower());
+                subjectAdded = true;
+            }
+            return subjectAdded;
+        }
+        public void RemoveSubjects()
+        {
+            subjects.Clear();
         }
 
         public string ShowSubjects()

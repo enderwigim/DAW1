@@ -15,7 +15,7 @@ namespace Ex5
         public string Name
         {
             get { return _name; }
-            set { _name = value; }
+            set { _name = CustomFunctions.FirstLetterToCapital(value); }
         }
         public string DNI
         {

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Security.AccessControl;
 using System.Text;
 using System.Threading.Tasks;
@@ -334,13 +335,54 @@ namespace Ex5
                 {
                     validationCode = -3;
                     if (GetTypeByIndex(index) == 2)
-                    {                       
+                    {
                         ((Teacher)_people[index]).RemoveSubjects();
-                        validationCode = 1;                       
+                        validationCode = 1;
                     }
                 }
             }
             return validationCode;
+        }
+        public int RemoveASubject(string subject, string dni)
+        {
+            // ValidationCode =
+            // -1 = No hay Teacher en _people
+            // -2 = Ese DNI no esta en la lista
+            // -3 = Ese DNI no es de un profesor
+            // -4 = Esa materia no es impartida por el profesor
+            int validationCode = -1;
+            if (_people.Any(person => person.GetType() == typeof(Teacher)))
+            {
+                int index = GetIndexByDNI(dni);
+                validationCode = -2;
+                if (index != -1)
+                {
+                    validationCode = -3;
+                    if (GetTypeByIndex(index) == 2)
+                    {
+                        validationCode = -4;
+                        if (((Teacher)_people[index]).RemoveJustOneSubject(subject))
+                        {
+                            validationCode = 1;
+                        }
+                    }
+                }
+            }
+            return validationCode;
+        }
+        public string ShowTeachersBySubject(string subject)
+        {
+            string teachersText = "";
+            for (int i = 0; i < _people.Count; i++)
+            {
+                if (_people[i].GetType() == typeof(Teacher))
+                {
+                    if (((Teacher)_people[i]).HasSubject(subject))
+                        teachersText += _people[i].Name + "\n";
+
+                }
+            }
+            return teachersText;
         }
     }
 

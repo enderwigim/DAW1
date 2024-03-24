@@ -20,7 +20,7 @@ namespace Ex5
         PersonList people = new PersonList();
         private void bCursos_Click(object sender, EventArgs e)
         {
-            fCursos fCur = new fCursos(courses/*, students*/);
+            fCursos fCur = new fCursos(courses, people);
 
             // Aquí le pasamos la lista de cursos para poder utilizarla luego en el formulario de cursos.
 

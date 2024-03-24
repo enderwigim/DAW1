@@ -14,12 +14,12 @@ namespace Ex5
     public partial class fCursos : Form
     {
         public CourseList courseList;
-        //public StudentList studentList;
-        public fCursos(CourseList courseList /*,StudentList studentList*/)
+        public PersonList people;
+        public fCursos(CourseList courseList,PersonList personList)
         {
             InitializeComponent();
             this.courseList = courseList;
-            //this.studentList = studentList;
+            this.people = personList;
         }
 
         private void btnAddCourse_Click(object sender, EventArgs e)
@@ -101,7 +101,31 @@ namespace Ex5
 
         private void ShowEveryStudentInCourse_Click(object sender, EventArgs e)
         {
+            if (!courseList.IsEmpty())
+            {
+                string studentsInCourse = "The course doesn't exist";
+                string courseCode = Interaction.InputBox("What course's students do you want to see?");
+                int index = courseList.GetIndexByCode(courseCode);
 
+                if (index != -1)
+                {
+                    if (people.ShowEveryStudentInCourse(courseCode) != "")
+                    {
+                        studentsInCourse = "The students in " + courseCode.ToUpper() + " are: \n";
+                        studentsInCourse += people.ShowEveryStudentInCourse(courseCode);
+
+                    }
+                    else
+                    {
+                        studentsInCourse = "The course is empty";
+                    }
+                }
+                MessageBox.Show(studentsInCourse);
+            }
+            else
+            {
+                MessageBox.Show("No courses were added yet.");
+            }
         }
     }
 }

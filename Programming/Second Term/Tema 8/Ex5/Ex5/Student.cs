@@ -72,6 +72,7 @@ namespace Ex5
             return $"\nNombre: {Name}" +
                    $"\nDNI: {DNI}" +
                    $"\nTelefono: {PhoneNumber}" +
+                   $"\nGrupo: {courseCode}" +
                    $"\nNotas: {ShowGrades()}";
         }
     }

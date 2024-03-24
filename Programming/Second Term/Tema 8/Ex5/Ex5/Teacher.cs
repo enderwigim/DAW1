@@ -40,9 +40,9 @@ namespace Ex5
         public bool AddSubject(string newSubject)
         {
             bool subjectAdded = false;
-            if (!subjects.Contains(newSubject.ToLower()))
+            if (!subjects.Contains(CustomFunctions.FirstLetterToCapital(newSubject)))
             {
-                subjects.Add(newSubject.ToLower());
+                subjects.Add(CustomFunctions.FirstLetterToCapital(newSubject));
                 subjectAdded = true;
             }
             return subjectAdded;
@@ -50,6 +50,19 @@ namespace Ex5
         public void RemoveSubjects()
         {
             subjects.Clear();
+        }
+
+        public bool RemoveJustOneSubject(string subjectName)
+        {
+            bool subjectRemoved = false;
+            subjectName = CustomFunctions.FirstLetterToCapital(subjectName);
+            int subjectIndex = subjects.IndexOf(subjectName);
+            if (subjectIndex != -1)
+            {
+                subjects.RemoveAt(subjectIndex);
+                subjectRemoved = true;
+            }
+            return subjectRemoved;
         }
 
         public string ShowSubjects()
@@ -73,6 +86,15 @@ namespace Ex5
                 text = $"This teacher is the tutor of: {CourseCode}";
             }
             return text;
+        }
+        public bool HasSubject(string subjectToHave)
+        {
+            bool HasSubject = false;
+            if (subjects.Contains(CustomFunctions.FirstLetterToCapital(subjectToHave)))
+            {
+                HasSubject = true;
+            }
+            return HasSubject;
         }
 
         public override string ShowData()

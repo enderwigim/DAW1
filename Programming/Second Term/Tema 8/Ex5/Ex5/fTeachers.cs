@@ -269,5 +269,77 @@ namespace Ex5
                 MessageBox.Show("There's no teachers in the list yet.");
             }
         }
+
+        private void btnDeleteJustOneSubject_Click(object sender, EventArgs e)
+        {
+            DialogResult wantToDelete = DialogResult.Yes;
+            DialogResult deleteSameTeacher = DialogResult.Yes;
+            string dni = Interaction.InputBox("What's the teacher's DNI??");
+            while (wantToDelete == DialogResult.Yes)
+            {
+
+                if (deleteSameTeacher == DialogResult.No)
+                {
+                    dni = Interaction.InputBox("What's the teacher's DNI??");
+                }
+                string subjectToDelete = Interaction.InputBox("What subject?");
+                int result = _people.RemoveASubject(subjectToDelete, dni);
+
+                if (result == -1)
+                {
+                    MessageBox.Show("There's no teacher in the List");
+                    deleteSameTeacher = DialogResult.No;
+                }
+                else if (result == -2)
+                {
+                    MessageBox.Show("That DNI is not in the list");
+                    deleteSameTeacher = DialogResult.No;
+                }
+                else if (result == -3)
+                {
+                    MessageBox.Show("That DNI is not from a teacher");
+                    deleteSameTeacher = DialogResult.No;
+                }
+                else if (result == -4)
+                {
+                    MessageBox.Show("That teacher doesn't have that subject");
+                    deleteSameTeacher = DialogResult.No;
+                }
+                else
+                {
+                    MessageBox.Show("Subject Deleted");
+                    deleteSameTeacher = MessageBox.Show("Do you want to remove a subject from the same teacher?", "", MessageBoxButtons.YesNo);
+                }
+                if (deleteSameTeacher == DialogResult.No)
+                {
+                    wantToDelete = MessageBox.Show("Do you want to remove a subject from another teacher?", "", MessageBoxButtons.YesNo);
+                }
+                
+                    
+
+                
+            }
+        }
+
+        private void btnShowTeachersBySubject_Click(object sender, EventArgs e)
+        {
+            if (!_people.IsEmpty())
+            {
+                string teachersText = "There's no teachers teaching that subject";
+                string subject = Interaction.InputBox("What subject are you looking for?");
+                subject = CustomFunctions.FirstLetterToCapital(subject);
+                if (_people.ShowTeachersBySubject(subject) != "")
+                {
+
+                    teachersText = "The teachers that teach " + subject + " are: \n";
+                    teachersText += _people.ShowTeachersBySubject(subject);
+                }
+                MessageBox.Show(teachersText);
+            }
+            else
+            {
+                MessageBox.Show("There's no teachers in the list yet.");
+            }
+        }
     }
 }

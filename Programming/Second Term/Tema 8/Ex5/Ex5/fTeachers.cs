@@ -189,6 +189,7 @@ namespace Ex5
                     }
                     bool wasAdded = false;
                     string subjectName = Interaction.InputBox("What subject do you want to add?");
+                    // Subjects vacias las añade
                     if (!subjectName.Any(char.IsDigit) || !string.IsNullOrWhiteSpace(subjectName))
                     {
                         int result = _people.AddTeachersSubject(dni, subjectName);

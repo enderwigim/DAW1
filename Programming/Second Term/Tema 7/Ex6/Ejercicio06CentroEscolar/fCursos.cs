@@ -59,7 +59,7 @@ namespace Ejercicio06CentroEscolar
                 }
                 if (wasAdded)
                 {
-                    addMoreCourses = MessageBox.Show("Do you want to add more", "", MessageBoxButtons.YesNo);
+                    addMoreCourses = MessageBox.Show("Do you want to add another course?", "", MessageBoxButtons.YesNo);
                 } else
                 {
                     MessageBox.Show("Try again!");

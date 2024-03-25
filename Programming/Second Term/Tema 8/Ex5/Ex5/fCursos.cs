@@ -56,7 +56,7 @@ namespace Ex5
                 }
                 if (wasAdded)
                 {
-                    addMoreCourses = MessageBox.Show("Do you want to add more", "", MessageBoxButtons.YesNo);
+                    addMoreCourses = MessageBox.Show("Do you want to add another course to the list?", "", MessageBoxButtons.YesNo);
                 }
                 else
                 {

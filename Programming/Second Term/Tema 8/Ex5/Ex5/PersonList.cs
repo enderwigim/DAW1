@@ -29,6 +29,11 @@ namespace Ex5
             }
             return index;
         }
+        public int GetTypeByDNI(string dni)
+        {
+            int index = GetIndexByDNI(dni);
+            return GetTypeByIndex(index);
+        }
         public int GetTypeByIndex(int index)
         {
             int type = -1;
@@ -108,6 +113,7 @@ namespace Ex5
                 }
             }
         }
+        
         public string ShowOneStudentByName(string name)
         {
             string text = "That DNI isn't in the list";
@@ -124,6 +130,21 @@ namespace Ex5
 
             }
             return text;
+        }
+        public int CountStudentsAVGLess5()
+        {
+            int studentsWithAVGLess5 = 0;
+            for (int i = 0; i < _people.Count; i++)
+            {
+                if (_people[i].GetType() == typeof(Student))
+                {
+                    if (((Student)_people[i]).IsAVGUpperThan5())
+                    {
+                        studentsWithAVGLess5++;
+                    }
+                }
+            }
+            return studentsWithAVGLess5;
         }
         public int AddGradeToStudent(string dni, int grade)
         {
@@ -187,10 +208,9 @@ namespace Ex5
         }
         public string ShowStudentsAVGLess5()
         {
-            string studentText = "There's no students in the list";
+            string studentText = "";
             if (_people.Any(person => person.GetType() == typeof(Student)))
             {
-                studentText = "";
                 for (int i = 0; i < _people.Count; i++)
                 {
                     if (!((Student)_people[i]).IsAVGUpperThan5())
@@ -383,6 +403,12 @@ namespace Ex5
                 }
             }
             return teachersText;
+        }
+        public string ShowEverySubject(string dni)
+        {
+            int index = GetIndexByDNI(dni);
+            string textSubjects = $"El profesor {_people[index].Name} imparte las siguientes materias.\n {((Teacher)_people[index]).ShowSubjects()}";
+            return textSubjects;
         }
     }
 

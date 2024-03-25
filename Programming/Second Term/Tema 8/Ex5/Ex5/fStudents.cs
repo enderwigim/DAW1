@@ -255,19 +255,19 @@ namespace Ex5
                 MessageBox.Show("The list is empty yet.");
             }
         }
+        
 
         private void btnShowStudentsWithAVGLessThan5_Click(object sender, EventArgs e)
         {
             if (!people.IsEmpty())
             {
-                string students = people.ShowStudentsAVGLess5();
-                if (students == "")
+                if (people.CountStudentsAVGLess5() > 0)
+                {
+                    string students = people.ShowStudentsAVGLess5();
+                    MessageBox.Show("The students with an AVG less than 5 are: \n" + students);
+                } else
                 {
                     MessageBox.Show("There's no students with an AVG less than 5");
-                }
-                else
-                {
-                    MessageBox.Show("The students with an AVG less than 5 are: \n" + students);
                 }
             }
             else

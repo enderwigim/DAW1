@@ -138,7 +138,7 @@ namespace Ex5
             {
                 if (_people[i].GetType() == typeof(Student))
                 {
-                    if (((Student)_people[i]).IsAVGUpperThan5())
+                    if (!((Student)_people[i]).IsAVGUpperThan5())
                     {
                         studentsWithAVGLess5++;
                     }
@@ -152,6 +152,7 @@ namespace Ex5
              * Devolveremos un validationCode con el que controlaremos si se ha agregado la nota o no.
              * validationCode = -1 SI NO SE ENCUENTRA EN LA LISTA
              * validationCode = -2  SI NO ES ALUMNO
+             *  validationCode = -3  SI LA NOTA NO ESTA ENTRE 1 A 10
              * validationCode = 1 Si se realiza con exito.
              */
             int validationCode = -1;
@@ -159,10 +160,15 @@ namespace Ex5
             if (index != -1)
             {
                 validationCode = -2;
+
                 if (GetTypeByIndex(index) == 1)
                 {
-                    ((Student)_people[index]).AddGrades(grade);
-                    validationCode = 1;
+                    validationCode = -3;
+                    if (grade >= 1 && grade <= 10)
+                    {
+                        ((Student)_people[index]).AddGrades(grade);
+                        validationCode = 1;
+                    }
                 }
             }
             return validationCode;

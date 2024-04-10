@@ -126,4 +126,79 @@ IF @ret <> 0
 PRINT CONCAT('El nombre del cliente es: ', @nomCli)
 PRINT 'EXEC siguiente procedure...'
 
+GO
+USE TIENDA
+GO
+-- Procedimiento que cree un nuevo fabricante
+CREATE OR ALTER PROCEDURE crearFabricante (@nombreFabricante varchar(100),
+                                           @codFabricante int OUTPUT)
+AS
+BEGIN
 
+    BEGIN TRY
+        -- Validacion
+        IF @nombreFabricante IS NULL
+        BEGIN
+            PRINT 'El parametro nombre es obligatorio'
+            RETURN -1
+        END
+
+        
+        INSERT INTO FABRICANTE(nombre)
+        VALUES(@nombreFabricante)
+        
+        SET @codFabricante = SCOPE_IDENTITY()
+        
+    END TRY
+    BEGIN CATCH
+        PRINT CONCAT('ERROR=', ERROR_NUMBER(),
+                     ' LINEA=', ERROR_LINE(),
+                     ' DESC=', ERROR_MESSAGE()
+                     )
+    END CATCH
+END
+GO
+----------------------------------------------------------------------------
+DECLARE @nombre VARCHAR(100) = 'Apple';
+DECLARE @codFabricante INT;
+DECLARE @ret INT
+
+EXEC @ret = crearFabricante @nombre,
+                            @codFabricante OUTPUT   
+
+IF @ret <> 0
+    RETURN
+
+PRINT CONCAT('El nuevo fabricante es el: ', @codFabricante)
+GO
+-- Procedimineto que reciba un codigo de fabricante y devuelva su nombre
+CREATE OR ALTER PROCEDURE GetName(@codFabricante INT, 
+                                  @nombreFabricante VARCHAR(100) OUTPUT)
+AS
+BEGIN 
+    SELECT @nombreFabricante = nombre
+      FROM FABRICANTE
+     WHERE codigo = @codFabricante
+
+    IF @nombreFabricante IS NULL
+        PRINT('El fabricante no existe')
+        RETURN -1
+END
+
+
+----------------------------------------------------------------------------
+GO
+DECLARE @ret INT;
+DECLARE @codFabricante INT = 1002;
+DECLARE @nombreFabricante VARCHAR(100);
+
+EXEC @ret = GetName @codFabricante, 
+                    @nombreFabricante OUTPUT
+
+IF @ret <> 0
+    RETURN
+
+PRINT CONCAT('El fabricante es ', @nombreFabricante)
+-- Procedimiento que modifique el nombre del fabricante a partir de su codigo
+
+-- Procedimiento que elimine un fabircante a partir de su codigo.

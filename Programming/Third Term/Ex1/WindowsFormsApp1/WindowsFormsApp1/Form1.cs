@@ -54,6 +54,7 @@ namespace WindowsFormsApp1
             txtApellidos.Text = dRegistro[2].ToString();
             txtTlf.Text = dRegistro[3].ToString();
             txteMail.Text = dRegistro[4].ToString();
+            lblEntryNumber.Text = (int)(pos++) + " de " + maxRegistros; 
 
         }
 
@@ -125,6 +126,42 @@ namespace WindowsFormsApp1
             // Actualizamos el número de registros y la posición en la tabla
             maxRegistros++;
             pos = maxRegistros - 1;
+        }
+
+        private void btnUpdate_Click(object sender, EventArgs e)
+        {
+            // Cogemos el registro situado en la posición actual.
+            DataRow dRegistro = dataSetProfs.Tables["Profesores"].Rows[pos];
+            // Metemos los datos en el registro
+            dRegistro[0] = txtDNI.Text;
+            dRegistro[1] = txtNombre.Text;
+            dRegistro[2] = txtApellidos.Text;
+            dRegistro[3] = txtTlf.Text;
+            dRegistro[4] = txteMail.Text;
+            // Si quisieramos hacerlo por nombre de columna en vez de posición
+            /* dRegistro["DNI"] = txtDNI.Text;
+            dRegistro["Nombre"] = txtNombre.Text;
+            dRegistro["Apellido"] = txtApellidos.Text;
+            dRegistro["Tlf"] = txtTlf.Text;
+            dRegistro["EMail"] = txteMail.Text;*/
+            // Reconectamos con el dataAdapter y actualizamos la BD
+            SqlCommandBuilder cb = new SqlCommandBuilder(dataAdapterProfs);
+            dataAdapterProfs.Update(dataSetProfs, "Profesores");
+
+        }
+
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            // Eliminamos el registro situado en la posición actual.
+            dataSetProfs.Tables["Profesores"].Rows[pos].Delete();
+            // Tenemos un registro menos
+            maxRegistros--;
+            // Nos vamos al primer registro y lo mostramos
+            pos = 0;
+            MostrarRegistro(pos);
+            // Reconectamos con el dataAdapter y actualizamos la BD
+            SqlCommandBuilder cb = new SqlCommandBuilder(dataAdapterProfs);
+            dataAdapterProfs.Update(dataSetProfs, "Profesores");
         }
     }
 }

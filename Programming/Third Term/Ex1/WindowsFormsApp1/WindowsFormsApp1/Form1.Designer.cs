@@ -49,6 +49,8 @@
             this.txtApellidos = new System.Windows.Forms.TextBox();
             this.txtTlf = new System.Windows.Forms.TextBox();
             this.txtNombre = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.lblEntryNumber = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -212,6 +214,7 @@
             this.btnDelete.TabIndex = 7;
             this.btnDelete.Text = "Eliminar";
             this.btnDelete.UseVisualStyleBackColor = true;
+            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
             // btnUpdate
             // 
@@ -222,6 +225,7 @@
             this.btnUpdate.TabIndex = 6;
             this.btnUpdate.Text = "Actualizar";
             this.btnUpdate.UseVisualStyleBackColor = true;
+            this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
             // 
             // txtDNI
             // 
@@ -258,11 +262,30 @@
             this.txtNombre.Size = new System.Drawing.Size(170, 20);
             this.txtNombre.TabIndex = 12;
             // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(622, 41);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(52, 13);
+            this.label6.TabIndex = 13;
+            this.label6.Text = "Registro: ";
+            // 
+            // lblEntryNumber
+            // 
+            this.lblEntryNumber.AutoSize = true;
+            this.lblEntryNumber.Location = new System.Drawing.Point(669, 41);
+            this.lblEntryNumber.Name = "lblEntryNumber";
+            this.lblEntryNumber.Size = new System.Drawing.Size(0, 13);
+            this.lblEntryNumber.TabIndex = 14;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.lblEntryNumber);
+            this.Controls.Add(this.label6);
             this.Controls.Add(this.txtNombre);
             this.Controls.Add(this.txtTlf);
             this.Controls.Add(this.txtApellidos);
@@ -310,6 +333,8 @@
         private System.Windows.Forms.TextBox txtNombre;
         private System.Windows.Forms.Button btnDelete;
         private System.Windows.Forms.Button btnUpdate;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label lblEntryNumber;
     }
 }
 

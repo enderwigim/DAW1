@@ -51,6 +51,7 @@
             this.txtNombre = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.lblEntryNumber = new System.Windows.Forms.Label();
+            this.btnLookBySurname = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -279,11 +280,22 @@
             this.lblEntryNumber.Size = new System.Drawing.Size(0, 13);
             this.lblEntryNumber.TabIndex = 14;
             // 
+            // btnLookBySurname
+            // 
+            this.btnLookBySurname.Location = new System.Drawing.Point(601, 82);
+            this.btnLookBySurname.Name = "btnLookBySurname";
+            this.btnLookBySurname.Size = new System.Drawing.Size(172, 56);
+            this.btnLookBySurname.TabIndex = 15;
+            this.btnLookBySurname.Text = "Buscar Apellido";
+            this.btnLookBySurname.UseVisualStyleBackColor = true;
+            this.btnLookBySurname.Click += new System.EventHandler(this.btnLookBySurname_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.btnLookBySurname);
             this.Controls.Add(this.lblEntryNumber);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.txtNombre);
@@ -335,6 +347,7 @@
         private System.Windows.Forms.Button btnUpdate;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label lblEntryNumber;
+        private System.Windows.Forms.Button btnLookBySurname;
     }
 }
 

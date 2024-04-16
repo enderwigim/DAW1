@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
+using Microsoft.VisualBasic;
 
 namespace WindowsFormsApp1
 {
@@ -22,6 +23,34 @@ namespace WindowsFormsApp1
         private int pos;
         private int maxRegistros;
 
+        // TODO: DALEEEEEEE BOBOOOO
+        /* 
+        public List<string> GetEveryTeacher()
+        {
+            
+            /* 
+            List<string> TeacherList = new List<string>();
+            for (int i = 0; i <= maxRegistros - 1; i++)
+            {
+                DataRow entry = dataSetProfs.Tables["Profesores"].Rows[i];
+                TeacherList.Add(entry[])
+            }
+            */
+       
+
+    public int GetIndexBySurname(string surname)
+        {
+            int rowIndex = -1;
+            for (int i = 0; i <= maxRegistros - 1; i++)
+            {
+                DataRow entry = dataSetProfs.Tables["Profesores"].Rows[i];
+                if (entry["Apellido"].ToString().ToUpper() == surname.ToUpper())
+                {
+                    rowIndex = i;
+                }
+            }
+            return rowIndex;
+        }
         public void CheckNavButtons()
         {
             if (pos == maxRegistros - 1)
@@ -86,8 +115,8 @@ namespace WindowsFormsApp1
             string cadenaSQL = "SELECT * From Profesores";
             dataAdapterProfs = new SqlDataAdapter(cadenaSQL, con);
             dataSetProfs = new DataSet();
-            dataAdapterProfs.Fill(dataSetProfs, "Profesores");
 
+            dataAdapterProfs.Fill(dataSetProfs, "Profesores");
             pos = 0;
             maxRegistros = dataSetProfs.Tables["Profesores"].Rows.Count;
             MostrarRegistro(pos);
@@ -101,6 +130,7 @@ namespace WindowsFormsApp1
         {
             // Objeto que nos permite recoger un registro de la tabla.
             DataRow dRegistro;
+
             // Cogemos el registro de la posición pos en la tabla Profesores
             dRegistro = dataSetProfs.Tables["Profesores"].Rows[pos];
             // Cogemos el valor de cada una de las columnas del registro
@@ -219,6 +249,7 @@ namespace WindowsFormsApp1
                 // Actualizamos el número de registros y la posición en la tabla
                 maxRegistros++;
                 pos = maxRegistros - 1;
+                
                 MostrarRegistro(pos);
                 btnSaveNew.Enabled = false;
             }
@@ -250,7 +281,7 @@ namespace WindowsFormsApp1
         private void btnDelete_Click(object sender, EventArgs e)
         {
             DialogResult wantToDelete;
-            wantToDelete = MessageBox.Show("Are you sure that you want to delete this student?", " ", MessageBoxButtons.YesNo);
+            wantToDelete = MessageBox.Show("Are you sure that you want to delete this teacher?", " ", MessageBoxButtons.YesNo);
             if (wantToDelete == DialogResult.Yes)
             {
                 // Eliminamos el registro situado en la posición actual.
@@ -259,6 +290,8 @@ namespace WindowsFormsApp1
                 maxRegistros--;
                 // Nos vamos al primer registro y lo mostramos
                 pos = 0;
+                dataAdapterProfs.Fill(dataSetProfs, "Profesores");
+
                 MostrarRegistro(pos);
                 // Reconectamos con el dataAdapter y actualizamos la BD
                 SqlCommandBuilder cb = new SqlCommandBuilder(dataAdapterProfs);
@@ -266,6 +299,18 @@ namespace WindowsFormsApp1
                 MessageBox.Show("Student Deleted");
             }
         }
-        
+
+        private void btnLookBySurname_Click(object sender, EventArgs e)
+        {
+            string surname = Interaction.InputBox("What teacher do you want to look for?");
+            int index = GetIndexBySurname(surname);
+            if (index != -1)
+            {
+                MostrarRegistro(index);
+            } else
+            {
+                MessageBox.Show("That teacher is not in the database");
+            }
+        }
     }
 }

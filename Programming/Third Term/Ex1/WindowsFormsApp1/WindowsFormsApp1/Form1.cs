@@ -21,6 +21,61 @@ namespace WindowsFormsApp1
         SqlDataAdapter dataAdapterProfs;
         private int pos;
         private int maxRegistros;
+
+        public void CheckNavButtons()
+        {
+            if (pos == maxRegistros - 1)
+            {
+                btnShowNextTeacher.Enabled = false;
+                btnShowLastTeacher.Enabled = false;
+                
+            } else
+            {
+                btnShowNextTeacher.Enabled = true;
+                btnShowLastTeacher.Enabled = true;
+            }
+            if (pos == 0)
+            {
+                btnShowPreviousTeacher.Enabled = false;
+                btnShowFirstTeacher.Enabled = false;
+            } else
+            {
+                btnShowPreviousTeacher.Enabled = true;
+                btnShowFirstTeacher.Enabled = true;
+            }
+        }
+        public List<int> EntryIsValid()
+        {
+            // Esta función validará a través del siguiente sistema de codigos.
+            // -1 Ha fallado el DNI
+            // -2 Ha fallado el Nombre
+            // -3 Han fallado los apellidos
+            // -4 Ha fallado el Telefono
+            // -5 Ha fallado el Email
+            List<int> validationCodes = new List<int>();
+
+            if ((txtDNI.Text.Length < 9 && txtDNI.Text.Length > 10) || txtDNI.Text == string.Empty)
+            {
+                validationCodes.Add(-1);
+            }
+            if (string.IsNullOrWhiteSpace(txtNombre.Text) || txtNombre.Text == string.Empty)
+            {
+                validationCodes.Add(-2);
+            }
+            if (string.IsNullOrWhiteSpace(txtApellidos.Text) || txtApellidos.Text == string.Empty)
+            {
+                validationCodes.Add(-3);
+            }
+            if (txtTlf.Text.Length != 9)
+            {
+                validationCodes.Add(-4);
+            }
+            if (!txteMail.Text.Contains('@'))
+            {
+                validationCodes.Add(-5);
+            }
+            return validationCodes;
+        }
         private void Form1_Load(object sender, EventArgs e)
         {
             string cadenaConexion = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\sanlor2\\Desktop\\Repos\\1Daw\\1daw\\Programming\\Third Term\\Ex1\\WindowsFormsApp1\\WindowsFormsApp1\\App_Data\\Instituto.mdf;Integrated Security=True";
@@ -36,6 +91,8 @@ namespace WindowsFormsApp1
             pos = 0;
             maxRegistros = dataSetProfs.Tables["Profesores"].Rows.Count;
             MostrarRegistro(pos);
+            btnSaveNew.Enabled = false;
+
 
             // Cerramos la conexion
             con.Close();
@@ -54,7 +111,9 @@ namespace WindowsFormsApp1
             txtApellidos.Text = dRegistro[2].ToString();
             txtTlf.Text = dRegistro[3].ToString();
             txteMail.Text = dRegistro[4].ToString();
-            lblEntryNumber.Text = (int)(pos++) + " de " + maxRegistros; 
+            lblEntryNumber.Text = (int)((pos + 1)) + " de " + maxRegistros;
+
+            CheckNavButtons();
 
         }
 
@@ -105,27 +164,64 @@ namespace WindowsFormsApp1
             txtApellidos.Clear();
             txtTlf.Clear();
             txteMail.Clear();
+
+            btnSaveNew.Enabled = true;
         }
 
         private void btnSaveNew_Click(object sender, EventArgs e)
         {
-            // Creamos un nuevo registro.
-            DataRow dRegistro = dataSetProfs.Tables["Profesores"].NewRow();
-            // Metemos los datos en el nuevo registro
-            dRegistro[0] = txtDNI.Text;
-            dRegistro[1] = txtNombre.Text;
-            dRegistro[2] = txtApellidos.Text;
-            dRegistro[3] = txtTlf.Text;
-            dRegistro[4] = txteMail.Text;
+            // Validamos el nuevo registro
+            List<int> IsValid = EntryIsValid();
 
-            // Añadimos el registro al Dataset
-            dataSetProfs.Tables["Profesores"].Rows.Add(dRegistro);
-            // Reconectamos con el dataAdapter y actualizamos la BD
-            SqlCommandBuilder cb = new SqlCommandBuilder(dataAdapterProfs);
-            dataAdapterProfs.Update(dataSetProfs, "Profesores");
-            // Actualizamos el número de registros y la posición en la tabla
-            maxRegistros++;
-            pos = maxRegistros - 1;
+            if (IsValid.Count > 0)
+            {
+                string errorMessage = "";
+                if (IsValid.Contains(-1))
+                {
+                    errorMessage += "*DNI\n";
+                }
+                if (IsValid.Contains(-2))
+                {
+                    errorMessage += "*Nombre\n";
+                }
+                if (IsValid.Contains(-3))
+                {
+                    errorMessage += "*Apellidos\n";
+                }
+                if (IsValid.Contains(-4))
+                {
+                    errorMessage += "*Telefono\n";
+                }
+                if (IsValid.Contains(-5))
+                {
+                    errorMessage += "*Email\n";
+                }
+                MessageBox.Show(errorMessage);
+            }
+            else
+            {
+
+                // Creamos un nuevo registro.
+                DataRow dRegistro = dataSetProfs.Tables["Profesores"].NewRow();
+                // Metemos los datos en el nuevo registro
+                dRegistro[0] = txtDNI.Text;
+                dRegistro[1] = txtNombre.Text;
+                dRegistro[2] = txtApellidos.Text;
+                dRegistro[3] = txtTlf.Text;
+                dRegistro[4] = txteMail.Text;
+
+
+                // Añadimos el registro al Dataset
+                dataSetProfs.Tables["Profesores"].Rows.Add(dRegistro);
+                // Reconectamos con el dataAdapter y actualizamos la BD
+                SqlCommandBuilder cb = new SqlCommandBuilder(dataAdapterProfs);
+                dataAdapterProfs.Update(dataSetProfs, "Profesores");
+                // Actualizamos el número de registros y la posición en la tabla
+                maxRegistros++;
+                pos = maxRegistros - 1;
+                MostrarRegistro(pos);
+                btnSaveNew.Enabled = false;
+            }
         }
 
         private void btnUpdate_Click(object sender, EventArgs e)
@@ -147,21 +243,29 @@ namespace WindowsFormsApp1
             // Reconectamos con el dataAdapter y actualizamos la BD
             SqlCommandBuilder cb = new SqlCommandBuilder(dataAdapterProfs);
             dataAdapterProfs.Update(dataSetProfs, "Profesores");
-
         }
+
+        
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
-            // Eliminamos el registro situado en la posición actual.
-            dataSetProfs.Tables["Profesores"].Rows[pos].Delete();
-            // Tenemos un registro menos
-            maxRegistros--;
-            // Nos vamos al primer registro y lo mostramos
-            pos = 0;
-            MostrarRegistro(pos);
-            // Reconectamos con el dataAdapter y actualizamos la BD
-            SqlCommandBuilder cb = new SqlCommandBuilder(dataAdapterProfs);
-            dataAdapterProfs.Update(dataSetProfs, "Profesores");
+            DialogResult wantToDelete;
+            wantToDelete = MessageBox.Show("Are you sure that you want to delete this student?", " ", MessageBoxButtons.YesNo);
+            if (wantToDelete == DialogResult.Yes)
+            {
+                // Eliminamos el registro situado en la posición actual.
+                dataSetProfs.Tables["Profesores"].Rows[pos].Delete();
+                // Tenemos un registro menos
+                maxRegistros--;
+                // Nos vamos al primer registro y lo mostramos
+                pos = 0;
+                MostrarRegistro(pos);
+                // Reconectamos con el dataAdapter y actualizamos la BD
+                SqlCommandBuilder cb = new SqlCommandBuilder(dataAdapterProfs);
+                dataAdapterProfs.Update(dataSetProfs, "Profesores");
+                MessageBox.Show("Student Deleted");
+            }
         }
+        
     }
 }

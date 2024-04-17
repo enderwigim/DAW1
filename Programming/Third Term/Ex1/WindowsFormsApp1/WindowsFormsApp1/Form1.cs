@@ -23,28 +23,61 @@ namespace WindowsFormsApp1
         private int pos;
         private int maxRegistros;
 
-        // TODO: DALEEEEEEE BOBOOOO
-        /* 
-        public List<string> GetEveryTeacher()
+        public bool checkIfChanges(int pos)
         {
-            
-            /* 
-            List<string> TeacherList = new List<string>();
+            bool itChanged = false;
+            DataRow entry = dataSetProfs.Tables["Profesores"].Rows[pos];
+
+            if (txtDNI.Text != entry["DNI"].ToString())
+            {
+                itChanged = true;
+            }
+            if (txtNombre.Text != entry["Nombre"].ToString())
+            {
+                itChanged = true;
+            }
+            if (txtApellidos.Text != entry["Apellido"].ToString())
+            {
+                itChanged = true;
+            }
+            if (txtTlf.Text != entry["Tlf"].ToString())
+            {
+                itChanged = true;
+            }
+            if (txteMail.Text != entry["Email"].ToString())
+            {
+                itChanged = true;
+            }
+            return itChanged;
+            /* dRegistro["DNI"] = txtDNI.Text;
+            dRegistro["Nombre"] = txtNombre.Text;
+            dRegistro["Apellido"] = txtApellidos.Text;
+            dRegistro["Tlf"] = txtTlf.Text;
+            dRegistro["EMail"] = txteMail.Text;*/
+
+        }
+
+        public string GetEveryTeacher()
+        {
+
+
+            string teacherList = "";
             for (int i = 0; i <= maxRegistros - 1; i++)
             {
                 DataRow entry = dataSetProfs.Tables["Profesores"].Rows[i];
-                TeacherList.Add(entry[])
+                teacherList += entry["Nombre"] + " " + entry["Apellido"] + "\n";
             }
-            */
-       
+            return teacherList;
 
+        }
     public int GetIndexBySurname(string surname)
         {
             int rowIndex = -1;
             for (int i = 0; i <= maxRegistros - 1; i++)
             {
                 DataRow entry = dataSetProfs.Tables["Profesores"].Rows[i];
-                if (entry["Apellido"].ToString().ToUpper() == surname.ToUpper())
+                bool entryContainsSurname = entry["Apellido"].ToString().ToUpper().Contains(surname.ToUpper());
+                if (entryContainsSurname)
                 {
                     rowIndex = i;
                 }
@@ -67,10 +100,33 @@ namespace WindowsFormsApp1
             {
                 btnShowPreviousTeacher.Enabled = false;
                 btnShowFirstTeacher.Enabled = false;
-            } else
+            } 
+            else
             {
                 btnShowPreviousTeacher.Enabled = true;
                 btnShowFirstTeacher.Enabled = true;
+            }
+        }
+        public void CheckButtons()
+        {
+            if (maxRegistros >= 1)
+            {
+                btnDelete.Enabled = true;
+                btnUpdate.Enabled = true;
+                btnShowEveryTeacher.Enabled = true;
+                btnSaveNew.Enabled = false;
+                btnLookBySurname.Enabled = true;
+                btnAddTeacher.Enabled = true;
+                btnUpdate.Enabled = false;
+            } else
+            {
+                btnDelete.Enabled = false;
+                btnUpdate.Enabled = false;
+                btnSaveNew.Enabled = false;
+                btnShowEveryTeacher.Enabled = false;
+                btnLookBySurname.Enabled = false;
+                btnShowNextTeacher.Enabled = false;
+                btnShowLastTeacher.Enabled = false;
             }
         }
         public List<int> EntryIsValid()
@@ -144,12 +200,41 @@ namespace WindowsFormsApp1
             lblEntryNumber.Text = (int)((pos + 1)) + " de " + maxRegistros;
 
             CheckNavButtons();
+            CheckButtons();
+
+        }
+        public void MostrarVacio()
+        {
+            txtDNI.Text = string.Empty;
+            txtNombre.Text = string.Empty; 
+            txtApellidos.Text = string.Empty;
+            txtTlf.Text = string.Empty;
+            txteMail.Text = string.Empty;
+
+            lblEntryNumber.Text = "0 de 0";
+
+            CheckButtons();
 
         }
 
         private void btnShowFirstTeacher_Click(object sender, EventArgs e)
         {
-            
+            if (checkIfChanges(pos))
+            {
+                DialogResult wantToUpdate = MessageBox.Show("Do you want to update this teacher data?"," " ,MessageBoxButtons.YesNo);
+                if (wantToUpdate == DialogResult.Yes)
+                {
+                    if (EntryIsValid().Count == 0) 
+                    {
+                        SqlCommandBuilder cb = new SqlCommandBuilder(dataAdapterProfs);
+                        dataAdapterProfs.Update(dataSetProfs, "Profesores");
+                    }
+                    else
+                    {
+                        MessageBox.Show("La entrada no era correcta. No se ha cambiando");
+                    }
+                }
+            }
             pos = 0;
             MostrarRegistro(pos);
         }
@@ -196,6 +281,7 @@ namespace WindowsFormsApp1
             txteMail.Clear();
 
             btnSaveNew.Enabled = true;
+            btnAddTeacher.Enabled = false;
         }
 
         private void btnSaveNew_Click(object sender, EventArgs e)
@@ -226,6 +312,7 @@ namespace WindowsFormsApp1
                 {
                     errorMessage += "*Email\n";
                 }
+                errorMessage = "Los siguientes parametros son erroneos: \n" + errorMessage;
                 MessageBox.Show(errorMessage);
             }
             else
@@ -252,6 +339,7 @@ namespace WindowsFormsApp1
                 
                 MostrarRegistro(pos);
                 btnSaveNew.Enabled = false;
+
             }
         }
 
@@ -266,11 +354,7 @@ namespace WindowsFormsApp1
             dRegistro[3] = txtTlf.Text;
             dRegistro[4] = txteMail.Text;
             // Si quisieramos hacerlo por nombre de columna en vez de posición
-            /* dRegistro["DNI"] = txtDNI.Text;
-            dRegistro["Nombre"] = txtNombre.Text;
-            dRegistro["Apellido"] = txtApellidos.Text;
-            dRegistro["Tlf"] = txtTlf.Text;
-            dRegistro["EMail"] = txteMail.Text;*/
+            
             // Reconectamos con el dataAdapter y actualizamos la BD
             SqlCommandBuilder cb = new SqlCommandBuilder(dataAdapterProfs);
             dataAdapterProfs.Update(dataSetProfs, "Profesores");
@@ -288,15 +372,22 @@ namespace WindowsFormsApp1
                 dataSetProfs.Tables["Profesores"].Rows[pos].Delete();
                 // Tenemos un registro menos
                 maxRegistros--;
-                // Nos vamos al primer registro y lo mostramos
-                pos = 0;
-                dataAdapterProfs.Fill(dataSetProfs, "Profesores");
+                if (maxRegistros >= 1)
+                {
+                    // Nos vamos al primer registro y lo mostramos
+                    pos = 0;
 
-                MostrarRegistro(pos);
-                // Reconectamos con el dataAdapter y actualizamos la BD
-                SqlCommandBuilder cb = new SqlCommandBuilder(dataAdapterProfs);
-                dataAdapterProfs.Update(dataSetProfs, "Profesores");
-                MessageBox.Show("Student Deleted");
+                    // Reconectamos con el dataAdapter y actualizamos la BD
+                    SqlCommandBuilder cb = new SqlCommandBuilder(dataAdapterProfs);
+                    dataAdapterProfs.Update(dataSetProfs, "Profesores");
+
+                    MostrarRegistro(pos);
+                    MessageBox.Show("Student Deleted");
+                }
+                else
+                {
+                    MostrarVacio();
+                }
             }
         }
 
@@ -310,6 +401,53 @@ namespace WindowsFormsApp1
             } else
             {
                 MessageBox.Show("That teacher is not in the database");
+            }
+        }
+
+
+        private void btnShowEveryTeacher_Click(object sender, EventArgs e)
+        {
+            string everyTeacher = GetEveryTeacher();
+            MessageBox.Show("The teachers are: \n" + everyTeacher);
+
+        }
+        private void txtDNI_TextChanged(object sender, EventArgs e)
+        {
+            if (EntryIsValid().Count == 0)
+            {
+                btnUpdate.Enabled = true;
+            }
+        }
+
+        private void txtNombre_TextChanged(object sender, EventArgs e)
+        {
+            if (EntryIsValid().Count == 0)
+            {
+                btnUpdate.Enabled = true;
+            }
+        }
+
+        private void txtTlf_TextChanged(object sender, EventArgs e)
+        {
+            if (EntryIsValid().Count == 0)
+            {
+                btnUpdate.Enabled = true;
+            }
+        }
+
+        private void txtApellidos_TextChanged(object sender, EventArgs e)
+        {
+            if (EntryIsValid().Count == 0)
+            {
+                btnUpdate.Enabled = true;
+            }
+        }
+
+        private void txteMail_TextChanged(object sender, EventArgs e)
+        {
+            if (EntryIsValid().Count == 0)
+            {
+                btnUpdate.Enabled = true;
             }
         }
     }

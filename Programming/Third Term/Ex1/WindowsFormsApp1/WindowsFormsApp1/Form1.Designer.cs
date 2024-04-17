@@ -52,6 +52,7 @@
             this.label6 = new System.Windows.Forms.Label();
             this.lblEntryNumber = new System.Windows.Forms.Label();
             this.btnLookBySurname = new System.Windows.Forms.Button();
+            this.btnShowEveryTeacher = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -234,6 +235,7 @@
             this.txtDNI.Name = "txtDNI";
             this.txtDNI.Size = new System.Drawing.Size(170, 20);
             this.txtDNI.TabIndex = 8;
+            this.txtDNI.TextChanged += new System.EventHandler(this.txtDNI_TextChanged);
             // 
             // txteMail
             // 
@@ -241,6 +243,7 @@
             this.txteMail.Name = "txteMail";
             this.txteMail.Size = new System.Drawing.Size(170, 20);
             this.txteMail.TabIndex = 9;
+            this.txteMail.TextChanged += new System.EventHandler(this.txteMail_TextChanged);
             // 
             // txtApellidos
             // 
@@ -248,6 +251,7 @@
             this.txtApellidos.Name = "txtApellidos";
             this.txtApellidos.Size = new System.Drawing.Size(170, 20);
             this.txtApellidos.TabIndex = 10;
+            this.txtApellidos.TextChanged += new System.EventHandler(this.txtApellidos_TextChanged);
             // 
             // txtTlf
             // 
@@ -255,6 +259,7 @@
             this.txtTlf.Name = "txtTlf";
             this.txtTlf.Size = new System.Drawing.Size(170, 20);
             this.txtTlf.TabIndex = 11;
+            this.txtTlf.TextChanged += new System.EventHandler(this.txtTlf_TextChanged);
             // 
             // txtNombre
             // 
@@ -262,6 +267,7 @@
             this.txtNombre.Name = "txtNombre";
             this.txtNombre.Size = new System.Drawing.Size(170, 20);
             this.txtNombre.TabIndex = 12;
+            this.txtNombre.TextChanged += new System.EventHandler(this.txtNombre_TextChanged);
             // 
             // label6
             // 
@@ -290,11 +296,22 @@
             this.btnLookBySurname.UseVisualStyleBackColor = true;
             this.btnLookBySurname.Click += new System.EventHandler(this.btnLookBySurname_Click);
             // 
+            // btnShowEveryTeacher
+            // 
+            this.btnShowEveryTeacher.Location = new System.Drawing.Point(601, 167);
+            this.btnShowEveryTeacher.Name = "btnShowEveryTeacher";
+            this.btnShowEveryTeacher.Size = new System.Drawing.Size(172, 56);
+            this.btnShowEveryTeacher.TabIndex = 16;
+            this.btnShowEveryTeacher.Text = "Mostrar Profesores";
+            this.btnShowEveryTeacher.UseVisualStyleBackColor = true;
+            this.btnShowEveryTeacher.Click += new System.EventHandler(this.btnShowEveryTeacher_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.btnShowEveryTeacher);
             this.Controls.Add(this.btnLookBySurname);
             this.Controls.Add(this.lblEntryNumber);
             this.Controls.Add(this.label6);
@@ -348,6 +365,7 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label lblEntryNumber;
         private System.Windows.Forms.Button btnLookBySurname;
+        private System.Windows.Forms.Button btnShowEveryTeacher;
     }
 }
 

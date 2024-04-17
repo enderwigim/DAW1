@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE mensaje [
+<!ELEMENT mensaje (para+ , de , titulo , cuerpo)>
+<!ELEMENT para (#PCDATA)>
+<!ELEMENT de (#PCDATA)>
+<!ELEMENT titulo (#PCDATA)>
+<!ELEMENT cuerpo (#PCDATA)>
+]>
+<mensaje>
+ <para>Jose</para>
+ <para>Raquel</para>
+ <de>Maria</de>
+ <titulo>Recordatorio</titulo>
+ <cuerpo>¿Podrémos ir el sábado al cine?</cuerpo>
+</mensaje>

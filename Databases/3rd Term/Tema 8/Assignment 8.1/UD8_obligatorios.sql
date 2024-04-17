@@ -99,8 +99,14 @@ BEGIN
 		PRINT 'El parametro @codCliente no puede ser nulo'
 		RETURN -1
 	END
-	-- NECESITAMOS COMPROBAR DE ALGUNA MANERA SI EL CLIENTE EXISTE O NO.
-	-- ¿A traves de algun parametro que no pueda ser null?
+	IF NOT EXISTS (SELECT *
+			     FROM CLIENTES
+			    WHERE codCliente = @codCliente)
+	BEGIN
+		PRINT 'El cliente no existe'
+		RETURN -2
+	END
+
 	-- Obtenemos el numero de pagos.
 	SELECT @numPagos = COUNT(id_transaccion)
       FROM PAGOS
@@ -122,7 +128,7 @@ BEGIN
 END
 -------------------------------------------------------------------------------------------
 GO
-DECLARE @codCliente INT = 2;
+DECLARE @codCliente INT = 20000;
 DECLARE @numPagos INT;
 DECLARE @numPedidos INT;
 DECLARE @ret INT;
@@ -158,10 +164,61 @@ PRINT CONCAT('El cliente', @codCLiente ,' ha realizado ', @numPagos, ' pagos y '
 --              EXEC @ret = crearCategoriaProducto ...
 --              IF @ret <> 0 ...
 -------------------------------------------------------------------------------------------
+EXEC sp_help CATEGORIA_PRODUCTOS
+GO
+CREATE OR ALTER PROCEDURE crearCategoriaProducto(@codCategoria CHAR(2),
+												 @nombre VARCHAR(50),
+							 		   			 @descripcion_texto VARCHAR(100),
+									   			 @descripcion_html VARCHAR(100),
+									   			 @imagen VARCHAR(256))
+AS
+BEGIN
+	BEGIN TRY
+		-- Validamos los datos codCategoria, el cual es el unico que no tiene caracter Nulleable
+
+		IF @codCategoria IS NULL
+		BEGIN
+			PRINT 'El @codCategoria no puede ser NULL'
+			RETURN -1
+		END
+
+		INSERT INTO CATEGORIA_PRODUCTOS(codCategoria, nombre, descripcion_texto,
+										descripcion_html, imagen)
+		VALUES(@codCategoria, @nombre, @descripcion_texto,
+			@descripcion_html, @imagen)
+
+	END TRY
+	BEGIN CATCH
+		PRINT CONCAT('CODERROR: ', ERROR_NUMBER(),
+						', DESCRIPCION: ', ERROR_MESSAGE(),
+						', LINEA: ', ERROR_LINE())
+	END CATCH
+END
 
 
+-- Implementacion
 
+GO
 
+DECLARE @codCategoria CHAR(2) = 'BR'
+DECLARE @nombre VARCHAR(50)
+DECLARE @descripcion_texto VARCHAR(100)
+DECLARE @descripcion_html VARCHAR(100)
+DECLARE @imagen VARCHAR(256)
+DECLARE @ret INT
+
+EXEC @ret = crearCategoriaProducto @codCategoria, 
+								   @nombre,
+								   @descripcion_texto,
+								   @descripcion_html,
+								   @imagen
+
+IF @ret <> 0
+	RETURN
+
+PRINT 'Categoria creada!'
+
+SELECT * FROM CATEGORIA_PRODUCTOS 
 
 -------------------------------------------------------------------------------------------
 -- 4. Implementa un procedimiento llamado 'acuseRecepcionPedidosCliente' que actualice la fecha de entrega de los pedidos
@@ -182,7 +239,11 @@ PRINT CONCAT('El cliente', @codCLiente ,' ha realizado ', @numPagos, ' pagos y '
 --		Se puede hacer una SELECT antes de ejecutar la sentencia de actualización o bien utilizar la variable @@ROWCOUNT
 --
 -------------------------------------------------------------------------------------------
+CREATE OR ALTER PROCEDURE acuseRecepcionPedidosCliente(@codCliente INT)
+AS
+BEGIN
 
+END
 
 
 

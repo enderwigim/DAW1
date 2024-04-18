@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Support.UI;
 using System.Threading;
-
+using System.IO;
 
 namespace Subscribing_NewsLetter_WebDriving
 {
@@ -16,12 +16,25 @@ namespace Subscribing_NewsLetter_WebDriving
     {
         static void Main(string[] args)
         {
+            // We obtain the absolute path of our xml, through geting the current proyect directory.
+            string sCurrentDirectory = AppDomain.CurrentDomain.BaseDirectory;
+            string sFile = System.IO.Path.Combine(sCurrentDirectory, @"..\..\..\..\Data\webs.xml");
+            string sFilePath = Path.GetFullPath(sFile);
+
+            // We create our XML reader.
+            XMLReader reader = new XMLReader(sFilePath);
+
+            Console.WriteLine(reader.ReadXml());
+            Console.ReadLine();
+
+            /*
+             * 
             // Create Instance for Chrome
             IWebDriver chromeDriver = new EdgeDriver();
             chromeDriver.Manage().Window.Maximize();
 
             chromeDriver.Navigate().GoToUrl("https://wizzair.com/en-gb/newsletter");
-            Thread.Sleep(20000);
+            Thread.Sleep(5000);
             bool cookiesPresent = (chromeDriver.FindElements(By.XPath("//*[@id=\"onetrust-accept-btn-handler\"]")).Count() > 0);
             if (cookiesPresent)
             {
@@ -48,6 +61,8 @@ namespace Subscribing_NewsLetter_WebDriving
             IWebElement sendButton = chromeDriver.FindElement(By.XPath("//*[@id=\"app\"]/div/main/div/form/fieldset/div[4]/div[2]/button"));
             sendButton.Click();
             // chromeDriver.Close();
+
+            */
         }
     }
 }

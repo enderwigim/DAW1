@@ -344,6 +344,7 @@ namespace WindowsFormsApp1
                 if (entryContainsSurname)
                 {
                     rowIndex = i;
+                    return rowIndex;
                 }
             }
             return rowIndex;

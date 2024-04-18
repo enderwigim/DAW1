@@ -23,6 +23,7 @@ namespace WindowsFormsApp1
         SqlDataAdapter dataAdapterProfs;
         private int pos;
         private int maxRegistros;
+        private bool isANewEntry = false;
         private void Form1_Load(object sender, EventArgs e)
         {
             string cadenaConexion = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\sanlor2\\Desktop\\Repos\\1Daw\\1daw\\Programming\\Third Term\\Ex1\\WindowsFormsApp1\\WindowsFormsApp1\\App_Data\\Instituto.mdf;Integrated Security=True";
@@ -99,6 +100,7 @@ namespace WindowsFormsApp1
 
             btnSaveNew.Enabled = true;
             btnAddTeacher.Enabled = false;
+            isANewEntry = true;
         }
 
         private void btnSaveNew_Click(object sender, EventArgs e)
@@ -157,6 +159,7 @@ namespace WindowsFormsApp1
                 MostrarRegistro(pos);
                 btnSaveNew.Enabled = false;
 
+                isANewEntry = false;
             }
         }
         private void btnUpdate_Click(object sender, EventArgs e)
@@ -218,41 +221,56 @@ namespace WindowsFormsApp1
         // TextBoxes
         private void txtDNI_TextChanged(object sender, EventArgs e)
         {
-            if (EntryIsValid().Count == 0)
+            if (!isANewEntry)
             {
-                btnUpdate.Enabled = true;
+                if (EntryIsValid().Count == 0)
+                {
+                    btnUpdate.Enabled = true;
+                }
             }
         }
 
         private void txtNombre_TextChanged(object sender, EventArgs e)
         {
-            if (EntryIsValid().Count == 0)
+            if (!isANewEntry)
             {
-                btnUpdate.Enabled = true;
+                if (EntryIsValid().Count == 0)
+                {
+                    btnUpdate.Enabled = true;
+                }
             }
         }
 
         private void txtTlf_TextChanged(object sender, EventArgs e)
         {
-            if (EntryIsValid().Count == 0)
+            if (!isANewEntry)
             {
-                btnUpdate.Enabled = true;
+                if (EntryIsValid().Count == 0)
+                {
+                    btnUpdate.Enabled = true;
+                }
             }
         }
 
         private void txtApellidos_TextChanged(object sender, EventArgs e)
         {
-            if (EntryIsValid().Count == 0)
+            if (!isANewEntry)
             {
-                btnUpdate.Enabled = true;
+                if (EntryIsValid().Count == 0)
+                {
+                    btnUpdate.Enabled = true;
+                }
             }
         }
 
         private void txteMail_TextChanged(object sender, EventArgs e)
         {
-            if (EntryIsValid().Count == 0)
+            if (!isANewEntry)
             {
-                btnUpdate.Enabled = true;
+                if (EntryIsValid().Count == 0)
+                {
+                    btnUpdate.Enabled = true;
+                }
             }
         }
     

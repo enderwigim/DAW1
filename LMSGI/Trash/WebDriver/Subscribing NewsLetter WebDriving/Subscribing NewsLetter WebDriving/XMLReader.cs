@@ -9,5 +9,6 @@ namespace Subscribing_NewsLetter_WebDriving
 {
     public class XMLReader
     {
+        private string filePath = "../../Data/webs.xml";
     }
 }

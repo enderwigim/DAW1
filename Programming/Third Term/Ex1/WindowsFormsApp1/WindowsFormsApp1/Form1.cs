@@ -381,17 +381,16 @@ namespace WindowsFormsApp1
                 btnSaveNew.Enabled = false;
                 btnLookBySurname.Enabled = true;
                 btnAddTeacher.Enabled = true;
-                btnUpdate.Enabled = false;
             } else
             {
                 btnDelete.Enabled = false;
-                btnUpdate.Enabled = false;
                 btnSaveNew.Enabled = false;
                 btnShowEveryTeacher.Enabled = false;
                 btnLookBySurname.Enabled = false;
                 btnShowNextTeacher.Enabled = false;
                 btnShowLastTeacher.Enabled = false;
             }
+            btnUpdate.Enabled = false;
         }
         public List<int> EntryIsValid()
         {

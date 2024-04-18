@@ -82,7 +82,6 @@ namespace Ejercicio06CentroEscolar
                         MessageBox.Show("Try again!");
                     }
                 } 
-
             } else
             {
                 MessageBox.Show("There's no courses. Please add one before adding a student.");

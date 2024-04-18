@@ -88,7 +88,6 @@ namespace Ex5
 
         private void btnDeleteStudent_Click(object sender, EventArgs e)
         {
-            // TODO: Check if there's teachers in the list
             if (!people.IsEmpty())
             {
                 string dni = Interaction.InputBox("Write the student's DNI/NIE.").ToUpper();
@@ -111,7 +110,7 @@ namespace Ex5
             }
             else
             {
-                MessageBox.Show("There's no students in the list yet.");
+                MessageBox.Show("There's no people in the list yet.");
             }
         }
 
@@ -177,9 +176,9 @@ namespace Ex5
             {
                 DialogResult addMoreGrades = DialogResult.Yes;
                 DialogResult addGradeToSameStudents = DialogResult.No;
+                string dni = null;
                 while (addMoreGrades == DialogResult.Yes)
                 {
-                    string dni = null;
                     if (addGradeToSameStudents == DialogResult.No)
                     {
                         dni = Interaction.InputBox("What's the student dni?");
@@ -194,14 +193,21 @@ namespace Ex5
                     {
                         MessageBox.Show("That dni is not from a student");
                     }
+                    else if (result == -3)
+                    {
+                        MessageBox.Show("That grade is not correct, try again");
+                    }
                     else
                     {
                         MessageBox.Show("Grade added!");
                     }
-                    addGradeToSameStudents = MessageBox.Show("Do you want to add another grade to the same student?", " ", MessageBoxButtons.YesNo);
-                    if (addGradeToSameStudents == DialogResult.No)
+                    if (result != -1 && result != -2)
                     {
-                        addMoreGrades = MessageBox.Show("And to another student?", " ", MessageBoxButtons.YesNo);
+                        addGradeToSameStudents = MessageBox.Show("Do you want to add another grade to the same student?", " ", MessageBoxButtons.YesNo);
+                        if (addGradeToSameStudents == DialogResult.No )
+                        {
+                            addMoreGrades = MessageBox.Show("And to another student?", " ", MessageBoxButtons.YesNo);
+                        }
                     }
                 }
             }
@@ -226,7 +232,7 @@ namespace Ex5
                     }
                     else
                     {
-                        MessageBox.Show("Grade added!");
+                        MessageBox.Show("Grades Deleted");
                     }
 
                 }
@@ -255,19 +261,19 @@ namespace Ex5
                 MessageBox.Show("The list is empty yet.");
             }
         }
+        
 
         private void btnShowStudentsWithAVGLessThan5_Click(object sender, EventArgs e)
         {
             if (!people.IsEmpty())
             {
-                string students = people.ShowStudentsAVGLess5();
-                if (students == "")
+                if (people.CountStudentsAVGLess5() > 0)
+                {
+                    string students = people.ShowStudentsAVGLess5();
+                    MessageBox.Show("The students with an AVG less than 5 are: \n" + students);
+                } else
                 {
                     MessageBox.Show("There's no students with an AVG less than 5");
-                }
-                else
-                {
-                    MessageBox.Show("The students with an AVG less than 5 are: \n" + students);
                 }
             }
             else

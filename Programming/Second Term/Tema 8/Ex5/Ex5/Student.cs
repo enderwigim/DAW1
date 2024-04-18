@@ -73,7 +73,7 @@ namespace Ex5
                    $"\nDNI: {DNI}" +
                    $"\nTelefono: {PhoneNumber}" +
                    $"\nGrupo: {courseCode}" +
-                   $"\nNotas: {ShowGrades()}";
+                   $"\nNotas: {ShowGrades()}\n\n";
         }
     }
 }

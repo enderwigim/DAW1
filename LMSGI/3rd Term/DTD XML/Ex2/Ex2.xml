@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE mensaje SYSTEM "Ex2.dtd">
+<mensaje>
+ <para>Jose</para>
+ <para>Raquel</para>
+ <de>Maria</de>
+ <titulo>Recordatorio</titulo>
+ <cuerpo>¿Podrémos ir el sábado al cine?</cuerpo>
+</mensaje>

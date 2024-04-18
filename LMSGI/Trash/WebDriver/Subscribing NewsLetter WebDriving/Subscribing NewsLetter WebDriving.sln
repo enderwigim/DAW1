@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.7.34221.43
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Subscribing NewsLetter WebDriving", "Subscribing NewsLetter WebDriving\Subscribing NewsLetter WebDriving.csproj", "{745745B3-C6B7-490B-999F-07A9F590D1EB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{745745B3-C6B7-490B-999F-07A9F590D1EB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{745745B3-C6B7-490B-999F-07A9F590D1EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{745745B3-C6B7-490B-999F-07A9F590D1EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{745745B3-C6B7-490B-999F-07A9F590D1EB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {DC7E41F2-17CC-4DEA-A271-1FDA55B6FE39}
+	EndGlobalSection
+EndGlobal

@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Linq;
+using System.Xml.XPath;
 
 namespace Subscribing_NewsLetter_WebDriving
 {
@@ -12,6 +13,7 @@ namespace Subscribing_NewsLetter_WebDriving
     {
         private string _filePath;
         private XmlDocument _document;
+        private XPathNavigator _nav;
 
 
         public XMLReader(string filePath)
@@ -25,6 +27,19 @@ namespace Subscribing_NewsLetter_WebDriving
         public string ReadXml()
         {
             return _document.InnerXml;
+        }
+        public void GetEveryElement()
+        {
+            /*
+            var buttons = _document.GetElementsByTagName;
+            _document.Re()
+
+
+            for (int i = 0; i < _document.GetElementsByTagName("button").Count; i++)
+            {
+                Console.WriteLine();
+            }
+            */
         }
     }
 }

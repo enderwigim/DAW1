@@ -175,11 +175,28 @@ AS
 BEGIN
 	BEGIN TRY
 		-- Validamos los datos codCategoria, el cual es el unico que no tiene caracter Nulleable
-
+		DECLARE @salida VARCHAR(MAX) = '';
 		IF @codCategoria IS NULL
 		BEGIN
-			PRINT 'El @codCategoria no puede ser NULL'
+			PRINT '@codCategoria'
+		END
+		IF @nombre IS NULL
+		BEGIN
+			PRINT '@nombre'
+		END
+		IF @salida <> ''
+		BEGIN
+			SET @salida = 'Falta/n el/los parametro/s: ' + @salida
+			PRINT (LEFT(@salida, LEN(@salida) - 1))
 			RETURN -1
+		END
+
+		IF EXISTS (SELECT *
+					 FROM CATEGORIA_PRODUCTOS
+				    WHERE codCategoria = @codCategoria)
+		BEGIN
+			PRINT 'El parametro @codCategoria ya existe.'
+			RETURN -2
 		END
 
 		INSERT INTO CATEGORIA_PRODUCTOS(codCategoria, nombre, descripcion_texto,
@@ -239,20 +256,69 @@ SELECT * FROM CATEGORIA_PRODUCTOS
 --		Se puede hacer una SELECT antes de ejecutar la sentencia de actualización o bien utilizar la variable @@ROWCOUNT
 --
 -------------------------------------------------------------------------------------------
-CREATE OR ALTER PROCEDURE acuseRecepcionPedidosCliente(@codCliente INT)
+USE JARDINERIA
+GO
+CREATE OR ALTER PROCEDURE acuseRecepcionPedidosCliente(@codCliente INT,
+													   @numPedidosAct INT OUTPUT)
 AS
 BEGIN
+	BEGIN TRY
+		-- Validación de @codCliente
+		IF @codCliente IS NULL
+		BEGIN
+			PRINT 'El parametro @codCliente no puede ser nulo'
+			RETURN -1
+		END
 
+		IF NOT EXISTS (SELECT *
+					FROM CLIENTES
+					WHERE codCliente = @codCliente)
+		BEGIN
+			PRINT 'El parametro @codCliente no existe en la base de datos'
+			RETURN -2
+		END
+
+		UPDATE PEDIDOS
+		   SET fecha_entrega = GETDATE(),
+			   codEstado = 'E'
+		 WHERE codCliente = @codCliente
+		   AND fecha_entrega IS NULL
+		   AND codEstado = 'P'
+		
+		SET @numPedidosAct = @@ROWCOUNT
+
+		
+		
+	END TRY
+	BEGIN CATCH
+		PRINT CONCAT('CODERROR: ', ERROR_NUMBER(),
+					 ', DESCRIPCION: ', ERROR_MESSAGE(),
+				  	 ', LINEA: ', ERROR_LINE())
+	END CATCH
 END
 
 
+-- Implementación
+GO
+DECLARE @codCliente INT = 39
+DECLARE @numPedidosAct INT;
+DECLARE @ret INT;
+
+EXEC @ret = acuseRecepcionPedidosCliente @codCliente, 
+                                         @numPedidosAct OUTPUT
+
+IF @ret <> 0
+	RETURN
+IF @numPedidosAct > 0
+		PRINT 'Pedidos entregados'
+	ELSE
+		PRINT 'No habia pedidos a entregar'
 
 -------------------------------------------------------------------------------------------
 -- 5. Implementa un procedimiento llamado 'crearOficina' que inserte una nueva oficina en JARDINERIA.
 --		Parámetros de entrada: codOficina CHAR(6)
 --                             ciudad VARCHAR(40)
 --                             pais VARCHAR(50)
---                             region VARCHAR(50) (no obligatorio)
 --                             codigo_postal CHAR(5)
 --                             telefono VARCHAR(15)
 --                             linea_direccion1 VARCHAR(100)
@@ -274,9 +340,85 @@ END
 --              EXEC @ret = crearOficina ...
 --              IF @ret <> 0 ...
 -------------------------------------------------------------------------------------------
+GO
+CREATE OR ALTER PROCEDURE crearOficina  @codOficina CHAR(6),
+                             			@ciudad VARCHAR(40),
+                             			@pais VARCHAR(50),
+                             		    @codigo_postal CHAR(5),
+                             		    @telefono VARCHAR(15),
+                             			@linea_direccion1 VARCHAR(100),
+                             			@linea_direccion2 VARCHAR(100)
+AS
+BEGIN
+	BEGIN TRY
+		DECLARE @salida VARCHAR(MAX) = '';
+		-- Validamos en caso de que sea nulo.
+		IF @codOficina IS NULL
+			SET @salida += '@codOficina, '
+		IF @ciudad IS NULL
+			SET @salida += '@ciudad, '
+		IF @pais IS NULL
+			SET @salida += '@pais, '
+		IF @codigo_postal IS NULL
+			SET @salida += '@codigo_postal, '
+		IF @telefono IS NULL
+			SET @salida += '@telefono, '
+		IF @linea_direccion1 IS NULL
+			SET @salida += '@linea_direccion1, '
+
+		IF @salida <> ''
+		BEGIN
+				SET @salida = 'Falta/n el/los parametro/s: ' + @salida
+				PRINT (LEFT(@salida, LEN(@salida) - 1))
+				RETURN -1
+		END
+
+		-- Validamos si la PK existe
+		IF EXISTS (SELECT *
+					FROM OFICINAS
+					WHERE codOficina = @codOficina)
+		BEGIN
+			PRINT '@codOficina ya existe'
+			RETURN -1
+		END
+
+		INSERT INTO OFICINAS(codOficina, ciudad, pais,
+							codPostal, telefono, linea_direccion1,
+							linea_direccion2)
+		VALUES (@codOficina, @ciudad, @pais,
+				@codigo_postal, @telefono, @linea_direccion1,
+				@linea_direccion2)
+	END TRY
+
+	BEGIN CATCH
+		PRINT CONCAT('CODERROR: ', ERROR_NUMBER(),
+					 ', DESCRIPCION: ', ERROR_MESSAGE(),
+				  	 ', LINEA: ', ERROR_LINE())
+	END CATCH
+END
 
 
+--Implementación
+GO
+DECLARE @codOficina CHAR(6) = 'BS-AR'
+DECLARE @ciudad VARCHAR(40) = 'Buenos Aires'
+DECLARE @pais VARCHAR(50) = 'Argentina'
+DECLARE @codigo_postal CHAR(5) = '1810'
+DECLARE @telefono VARCHAR(15) = '1167617915'
+DECLARE @linea_direccion1 VARCHAR(100) = 'Plaza 25 de Mayo'
+DECLARE @linea_direccion2 VARCHAR(100)
+DECLARE @ret INT
 
+EXEC @ret = crearOficina @codOficina,
+						 @ciudad,
+						 @pais,
+						 @codigo_postal,
+						 @telefono,
+						 @linea_direccion1,
+						 @linea_direccion2
+IF @ret <> 0
+	RETURN
+PRINT 'Oficina Creada!'
 
 
 -------------------------------------------------------------------------------------------
@@ -296,17 +438,75 @@ END
 --              EXEC @ret = cambioJefes ...
 --              IF @ret <> 0 ...
 -------------------------------------------------------------------------------------------
+GO
+-- TODO: CHECK THIS
+CREATE OR ALTER PROCEDURE cambioJefe @ant_codEmplJefe INT,
+									 @des_codEmplJefe INT
+AS
+BEGIN
+	BEGIN TRY
+		-- Validación sobre los parametros.
+		-- Si existen los paramentros.
+		DECLARE @codEmplJefeNotExists VARCHAR(MAX) = ''
 
+		IF NOT EXISTS (SELECT *
+						FROM EMPLEADOS
+						WHERE codEmpleado = @ant_codEmplJefe)
+			SET @codEmplJefeNotExists += CONCAT(@ant_codEmplJefe, ', ')
 
+		IF NOT EXISTS (SELECT *
+						FROM EMPLEADOS
+						WHERE codEmpleado = @des_codEmplJefe)
+			SET @codEmplJefeNotExists += CONCAT(@des_codEmplJefe, ', ')
+		
+		IF @codEmplJefeNotExists <> ''
+		BEGIN
+			SET @codEmplJefeNotExists = 'Falta/n el/los parametro/s: ' + @codEmplJefeNotExists
+			PRINT (LEFT(@codEmplJefeNotExists, LEN(@codEmplJefeNotExists) - 1))
+			RETURN -1
+		END
 
+		IF NOT EXISTS (SELECT *
+						FROM EMPLEADOS
+						WHERE codEmplJefe = @ant_codEmplJefe)
+		BEGIN
+			PRINT 'Ese empleado no es jefe de nadie.'
+			RETURN -2
+		END
+
+		UPDATE EMPLEADOS
+		SET codEmplJefe = @des_codEmplJefe
+		WHERE codEmplJefe = @ant_codEmplJefe
+	END TRY
+	BEGIN CATCH 
+		PRINT CONCAT('CODERROR: ', ERROR_NUMBER(),
+					 ', DESCRIPCION: ', ERROR_MESSAGE(),
+				  	 ', LINEA: ', ERROR_LINE())
+	END CATCH
+END
+
+-- Implementación 
+GO
+DECLARE @ret INT
+DECLARE @ant_codEmplJefe INT = 3
+DECLARE @des_codEmplJefe INT = 5;
+
+EXEC @ret = cambioJefe @ant_codEmplJefe,
+					   @des_codEmplJefe
+
+IF @ret <> 0
+	RETURN
+
+PRINT 'Jefes cambiados'
+SELECT *
+  FROM EMPLEADOS
 -------------------------------------------------------------------------------------------
 -- 7. Implementa una función llamada getCostePedidos que reciba como parámetro un codCliente y devuelva
 --		el coste de todos los pedidos realizados por dicho cliente.
 --	
 --	Recuerda que debes incluir la SELECT y comprobar el funcionamiento
 -------------------------------------------------------------------------------------------
-SELECT idCliente, <llamada a tu funcion>
-  FROM CLIENTES;
+
 
 
 -------------------------------------------------------------------------------------------

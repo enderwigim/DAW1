@@ -25,7 +25,11 @@ namespace Subscribing_NewsLetter_WebDriving
             // We create our XML reader.
             XMLReader reader = new XMLReader(sFilePath);
 
-            reader.GetEveryElement();
+            List<Button> buttons = reader.GenerateButtonsToWeb(0);
+            Console.WriteLine(buttons[0].Name);
+            Console.WriteLine(buttons[0].XPath);
+            Console.WriteLine(buttons[0].Type);
+            Console.WriteLine(buttons[0].Insert);
             Console.ReadLine();
             
             /*
@@ -39,7 +43,7 @@ namespace Subscribing_NewsLetter_WebDriving
             chromeDriver.Navigate().GoToUrl("https://wizzair.com/en-gb/newsletter");
 
             Thread.Sleep(5000);
-            bool cookiesPresent = (chromeDriver.FindElements(By.XPath("//*[@id=\"onetrust-accept-btn-handler\"]")).Count() > 0);
+            bool cookiesPresent = (chromeDriver.FindElements(By.XPath("//*[@id=\'onetrust-accept-btn-handler\']")).Count() > 0);
             if (cookiesPresent)
             {
                 chromeDriver.FindElement(By.XPath("//*[@id=\"onetrust-accept-btn-handler\"]")).Click();

@@ -71,17 +71,15 @@ namespace Subscribing_NewsLetter_WebDriving
             }
             return buttons;
         }
-        public void GetWebData()
+        public string GetWebURL(int paginaIndex)
         {
-
+            XmlNodeList pagina = _listaPaginas.Item(paginaIndex).ChildNodes;
+            return pagina.Item(0).InnerText;
         }
         public int CountItems(string tag)
         {
-            // We will get the nodes we are interested about as an array with the names, and will
-            // return a dictionary with every part.
             XmlNodeList pagina = _document.SelectNodes("//" + tag);
             return pagina.Count;
-
 
         }
     }

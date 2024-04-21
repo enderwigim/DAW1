@@ -33,7 +33,6 @@ namespace Subscribing_NewsLetter_WebDriving
 
         private Button(string name, string xPath, string type, string insert)
         {
-            
             _name = name;
             _xPath = xPath;
             _type = type;

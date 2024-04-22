@@ -24,52 +24,25 @@ namespace Subscribing_NewsLetter_WebDriving
 
             // We create our XML reader.
             XMLReader reader = new XMLReader(sFilePath);
+            // Create Driver
+            Driver chromeDriver = new Driver();
 
-            List<Button> buttons = reader.GenerateButtonsToWeb(0);
-            Console.WriteLine(buttons[0].Name);
-            Console.WriteLine(buttons[0].XPath);
-            Console.WriteLine(buttons[0].Type);
-            Console.WriteLine(buttons[0].Insert);
-            Console.ReadLine();
-            
-            /*
-            // Create Instance for Chrome
-            ChromeOptions chromeOptions = new ChromeOptions();
-            chromeOptions.BinaryLocation = "C:\\Program Files\\Google\\Chrome\\Application";
-            
-            IWebDriver chromeDriver = new ChromeDriver();
-            
-            chromeDriver.Manage().Window.Maximize();
-            chromeDriver.Navigate().GoToUrl("https://wizzair.com/en-gb/newsletter");
-
-            Thread.Sleep(5000);
-            bool cookiesPresent = (chromeDriver.FindElements(By.XPath("//*[@id=\'onetrust-accept-btn-handler\']")).Count() > 0);
-            if (cookiesPresent)
+            for (int i = 1; i < reader.CountItems("pagina"); i++)
             {
-                chromeDriver.FindElement(By.XPath("//*[@id=\"onetrust-accept-btn-handler\"]")).Click();
+                Console.WriteLine($"Entraré a: {reader.GetWebURL(i)}");
+                chromeDriver.GoToUrl(reader.GetWebURL(i));
+                List<Button> buttons = reader.GenerateButtonsToWeb(i);
+
+                for (int j = 0; j < buttons.Count; j++)
+                {
+                    chromeDriver.HandleButton(buttons[j]);
+                }
+                Console.WriteLine($"Terminé con: {reader.GetWebURL(i)}");
+                Console.ReadKey();
+
             }
-            Thread.Sleep(5000);
-
-            IWebElement name = chromeDriver.FindElement(By.XPath("//*[@id=\"app\"]/div/main/div/form/fieldset/div[1]/div[1]/div/div/label/input"));
-            name.SendKeys("Sergito");
-
-            IWebElement surname = chromeDriver.FindElement(By.XPath("*[@id='app']/div/main/div/form/fieldset/div[1]/div[2]/div/div/label/input"));
-            surname.SendKeys("Voixito");
-
-            IWebElement gender = chromeDriver.FindElement(By.XPath("*//*[@id=\"app\"]/div/main/div/form/fieldset/div[1]/div[3]/div/div/label/select"));
-            SelectElement selectgender = new SelectElement(gender);
-            selectgender.SelectByIndex(1);
-
-            IWebElement email = chromeDriver.FindElement(By.XPath("//*[@id=\"app\"]/div/main/div/form/fieldset/div[2]/div/label/input"));
-            email.SendKeys("email");
-
-            IWebElement acceptButton = chromeDriver.FindElement(By.XPath("//*[@id=\"app\"]/div/main/div/form/fieldset/div[4]/div[1]/span/label[1]"));
-            acceptButton.Click();
-
-            IWebElement sendButton = chromeDriver.FindElement(By.XPath("//*[@id=\"app\"]/div/main/div/form/fieldset/div[4]/div[2]/button"));
-            sendButton.Click();
-            // chromeDriver.Close();
-            */
+            chromeDriver.DriveClose();
+            
             
         }
     }

@@ -78,8 +78,8 @@ namespace Subscribing_NewsLetter_WebDriving
         }
         public int CountItems(string tag)
         {
-            XmlNodeList pagina = _document.SelectNodes("//" + tag);
-            return pagina.Count;
+            XmlNodeList xml = _document.SelectNodes("//" + tag);
+            return xml.Count;
 
         }
     }

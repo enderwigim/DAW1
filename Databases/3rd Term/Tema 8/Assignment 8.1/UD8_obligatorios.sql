@@ -176,14 +176,17 @@ BEGIN
 	BEGIN TRY
 		-- Validamos los datos codCategoria, el cual es el unico que no tiene caracter Nulleable
 		DECLARE @salida VARCHAR(MAX) = '';
+
 		IF @codCategoria IS NULL
 		BEGIN
 			PRINT '@codCategoria'
 		END
+
 		IF @nombre IS NULL
 		BEGIN
 			PRINT '@nombre'
 		END
+
 		IF @salida <> ''
 		BEGIN
 			SET @salida = 'Falta/n el/los parametro/s: ' + @salida
@@ -191,12 +194,17 @@ BEGIN
 			RETURN -1
 		END
 
+		IF @nombre = '' OR LEN(@nombre) < 3
+		BEGIN
+			PRINT 'El parametro @nombre no puede estar vacio, o contener menos de 3 caracteres.'
+		END
+
 		IF EXISTS (SELECT *
 					 FROM CATEGORIA_PRODUCTOS
 				    WHERE codCategoria = @codCategoria)
 		BEGIN
 			PRINT 'El parametro @codCategoria ya existe.'
-			RETURN -2
+			RETURN -3
 		END
 
 		INSERT INTO CATEGORIA_PRODUCTOS(codCategoria, nombre, descripcion_texto,
@@ -439,9 +447,11 @@ PRINT 'Oficina Creada!'
 --              IF @ret <> 0 ...
 -------------------------------------------------------------------------------------------
 GO
--- TODO: CHECK THIS
+-- Version 1 CON NULL
 CREATE OR ALTER PROCEDURE cambioJefe @ant_codEmplJefe INT,
-									 @des_codEmplJefe INT
+									 @des_codEmplJefe INT,
+									 @reemplazaJefeSN CHAR(1),
+									 @numEmpleados INT OUTPUT
 AS
 BEGIN
 	BEGIN TRY
@@ -474,11 +484,40 @@ BEGIN
 			RETURN -2
 		END
 
-		UPDATE EMPLEADOS
-		SET codEmplJefe = @des_codEmplJefe
-		WHERE codEmplJefe = @ant_codEmplJefe
+		BEGIN TRAN
+			IF LOWER(@reemplazaJefeSN) = 's'
+			BEGIN
+				UPDATE EMPLEADOS
+				SET codEmplJefe = NULL
+				WHERE codEmpleado = @des_codEmplJefe
+				
+				SET @numEmpleados = @@ROWCOUNT
+
+				UPDATE EMPLEADOS
+				SET codEmplJefe = @des_codEmplJefe
+				WHERE codEmpleado = @ant_codEmplJefe 
+				
+				SET @numEmpleados += @@ROWCOUNT
+			END
+			ELSE
+			BEGIN
+				UPDATE EMPLEADOS
+				SET codEmplJefe = NULL
+				WHERE codEmpleado = @des_codEmplJefe
+				
+				SET @numEmpleados = @@ROWCOUNT
+			END
+
+			UPDATE EMPLEADOS
+			SET codEmplJefe = @des_codEmplJefe
+			WHERE codEmplJefe = @ant_codEmplJefe
+			SET @numEmpleados += @@ROWCOUNT;
+			
+			COMMIT
+
 	END TRY
 	BEGIN CATCH 
+		ROLLBACK
 		PRINT CONCAT('CODERROR: ', ERROR_NUMBER(),
 					 ', DESCRIPCION: ', ERROR_MESSAGE(),
 				  	 ', LINEA: ', ERROR_LINE())
@@ -488,18 +527,120 @@ END
 -- Implementación 
 GO
 DECLARE @ret INT
-DECLARE @ant_codEmplJefe INT = 3
-DECLARE @des_codEmplJefe INT = 5;
+DECLARE @ant_codEmplJefe INT = 1
+DECLARE @des_codEmplJefe INT = 7;
+DECLARE @reemplazaJefeSN CHAR(1) = 'N';
+DECLARE @numEmpleados INT
 
 EXEC @ret = cambioJefe @ant_codEmplJefe,
-					   @des_codEmplJefe
+					   @des_codEmplJefe,
+					   @reemplazaJefeSN,
+					   @numEmpleados OUTPUT
 
 IF @ret <> 0
 	RETURN
 
-PRINT 'Jefes cambiados'
-SELECT *
-  FROM EMPLEADOS
+
+PRINT CONCAT(@numEmpleados, ' empleados han sidos actualizado');
+
+--Versión sin NULL
+
+GO
+CREATE OR ALTER PROCEDURE cambioJefe @ant_codEmplJefe INT,
+									 @des_codEmplJefe INT,
+									 @reemplazaJefeSN CHAR(1),
+									 @numEmpleados INT OUTPUT
+AS
+BEGIN
+	BEGIN TRY
+		-- Validación sobre los parametros.
+		-- Si existen los paramentros.
+		DECLARE @codEmplJefeNotExists VARCHAR(MAX) = ''
+
+		IF NOT EXISTS (SELECT *
+						FROM EMPLEADOS
+						WHERE codEmpleado = @ant_codEmplJefe)
+			SET @codEmplJefeNotExists += CONCAT(@ant_codEmplJefe, ', ')
+
+		IF NOT EXISTS (SELECT *
+						FROM EMPLEADOS
+						WHERE codEmpleado = @des_codEmplJefe)
+			SET @codEmplJefeNotExists += CONCAT(@des_codEmplJefe, ', ')
+		
+		IF @codEmplJefeNotExists <> ''
+		BEGIN
+			SET @codEmplJefeNotExists = 'Falta/n el/los parametro/s: ' + @codEmplJefeNotExists
+			PRINT (LEFT(@codEmplJefeNotExists, LEN(@codEmplJefeNotExists) - 1))
+			RETURN -1
+		END
+
+		IF NOT EXISTS (SELECT *
+						FROM EMPLEADOS
+						WHERE codEmplJefe = @ant_codEmplJefe)
+		BEGIN
+			PRINT 'Ese empleado no es jefe de nadie.'
+			RETURN -2
+		END
+
+		BEGIN TRAN
+			IF LOWER(@reemplazaJefeSN) = 's'
+			BEGIN
+				UPDATE EMPLEADOS
+				SET codEmplJefe = codEmpleado
+				WHERE codEmpleado = @des_codEmplJefe
+				
+				SET @numEmpleados = @@ROWCOUNT
+
+				UPDATE EMPLEADOS
+				SET codEmplJefe = @des_codEmplJefe
+				WHERE codEmpleado = @ant_codEmplJefe 
+				
+				SET @numEmpleados += @@ROWCOUNT
+			END
+			ELSE
+			BEGIN
+				UPDATE EMPLEADOS
+				SET codEmplJefe = codEmpleado
+				WHERE codEmpleado = @des_codEmplJefe
+				
+				SET @numEmpleados = @@ROWCOUNT
+			END
+
+			UPDATE EMPLEADOS
+			SET codEmplJefe = @des_codEmplJefe
+			WHERE codEmplJefe = @ant_codEmplJefe
+			SET @numEmpleados += @@ROWCOUNT;
+			
+			COMMIT
+
+	END TRY
+	BEGIN CATCH 
+		ROLLBACK
+		PRINT CONCAT('CODERROR: ', ERROR_NUMBER(),
+					 ', DESCRIPCION: ', ERROR_MESSAGE(),
+				  	 ', LINEA: ', ERROR_LINE())
+	END CATCH
+END
+
+-- Implementación 
+GO
+DECLARE @ret INT
+DECLARE @ant_codEmplJefe INT = 1
+DECLARE @des_codEmplJefe INT = 7;
+DECLARE @reemplazaJefeSN CHAR(1) = 'N';
+DECLARE @numEmpleados INT
+
+EXEC @ret = cambioJefe @ant_codEmplJefe,
+					   @des_codEmplJefe,
+					   @reemplazaJefeSN,
+					   @numEmpleados OUTPUT
+
+IF @ret <> 0
+	RETURN
+
+
+PRINT CONCAT(@numEmpleados, ' empleados han sido actualizados');
+
 -------------------------------------------------------------------------------------------
 -- 7. Implementa una función llamada getCostePedidos que reciba como parámetro un codCliente y devuelva
 --		el coste de todos los pedidos realizados por dicho cliente.

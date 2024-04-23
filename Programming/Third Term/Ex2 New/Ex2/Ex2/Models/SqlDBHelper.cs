@@ -15,11 +15,11 @@ namespace Ex2.Models
         private DataSet dataSetProfs;
         private SqlDataAdapter daProfesores;
         // Miembro para guardar el número de profesores.
-        private int _numProfesores;
+        private int _ammountOfTeachers;
         // Propiedad de solo lectura.
         public int NumProfesores
         {
-            get => _numProfesores;
+            get => _ammountOfTeachers;
         }
         // Constructor del objeto. 
         // En el mismo hacemos la conexión y creamos dataSet y dataAdapter
@@ -36,7 +36,7 @@ namespace Ex2.Models
             dataSetProfs = new DataSet();
             daProfesores.Fill(dataSetProfs, "Profesores");
             // Obtenemos el número de profesores
-            _numProfesores = dataSetProfs.Tables["Profesores"].Rows.Count;
+            _ammountOfTeachers = dataSetProfs.Tables["Profesores"].Rows.Count;
             // Cerramos la conexión.
             con.Close();
 
@@ -47,7 +47,7 @@ namespace Ex2.Models
             // Objeto que nos permite recoger un registro de la tabla.
             DataRow entry;
 
-            if (pos >= 0 && pos < _numProfesores)
+            if (pos >= 0 && pos < _ammountOfTeachers)
             {
                 // Cogemos el registro de la posición pos en la tabla Profesores
                 entry = dataSetProfs.Tables["Profesores"].Rows[pos];
@@ -87,13 +87,20 @@ namespace Ex2.Models
             dRegistro[4] = profesor.eMail;
             // Si quisieramos hacerlo por nombre de columna en vez de posición
 
-            // Reconectamos con el dataAdapter y actualizamos la BD
-            SqlCommandBuilder cb = new SqlCommandBuilder(daProfesores);
-            daProfesores.Update(dataSetProfs, "Profesores");
+            ReconnectToDB();
         }
         public void DeleteRow(int pos)
         {
             dataSetProfs.Tables["Profesores"].Rows[pos].Delete();
+            _ammountOfTeachers--;
+
+            ReconnectToDB();
+        }
+        public void ReconnectToDB()
+        {
+            // Reconectamos con el da y actualizamos la BD
+            SqlCommandBuilder cb = new SqlCommandBuilder(daProfesores);
+            daProfesores.Update(dataSetProfs, "Profesores");
         }
     }
 }

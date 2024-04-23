@@ -88,6 +88,18 @@ namespace Ex2
             CheckButtons();
             CheckNavButtons();
         }
+        public void ShowEmpty()
+        {
+            txtDNI.Text = string.Empty;
+            txtNombre.Text = string.Empty;
+            txtApellidos.Text = string.Empty;
+            txtTlf.Text = string.Empty;
+            txteMail.Text = string.Empty;
+
+            lblEntryNumber.Text = "0 de 0";
+
+            CheckButtons();
+        }
 
         private void btnUpdate_Click(object sender, EventArgs e)
         {
@@ -188,6 +200,28 @@ namespace Ex2
             }
             // We set the btnUpdate.Enable to false always so we can activate and deactivate it when a change was done.
             btnUpdate.Enabled = false;
+        }
+
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            DialogResult wantToDelete;
+            wantToDelete = MessageBox.Show("Are you sure that you want to delete this teacher?", " ", MessageBoxButtons.YesNo);
+            if (wantToDelete == DialogResult.Yes)
+            {
+                db.DeleteRow(pos);
+                if (db.NumProfesores >= 1)
+                {
+                    // Nos vamos al primer registro y lo mostramos
+                    pos = 0;
+
+                    ShowEntry(pos);
+                    MessageBox.Show("Student Deleted");
+                }
+                else
+                {
+                    ShowEmpty();
+                }
+            }
         }
     }
 }

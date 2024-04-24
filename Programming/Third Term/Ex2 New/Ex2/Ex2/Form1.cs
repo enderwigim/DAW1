@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Ex2.Models;
+using Microsoft.VisualBasic;
 
 namespace Ex2
 {
@@ -35,7 +36,7 @@ namespace Ex2
 
         private void btnShowNextTeacher_Click(object sender, EventArgs e)
         {
-            if (pos != db.NumProfesores - 1)
+            if (pos != db.AmmountOfTeachers - 1)
             {
                 pos++;
             }
@@ -48,7 +49,7 @@ namespace Ex2
 
         private void btnShowLastTeacher_Click(object sender, EventArgs e)
         {
-            pos = db.NumProfesores - 1;
+            pos = db.AmmountOfTeachers - 1;
             ShowEntry(pos);
         }
 
@@ -60,7 +61,7 @@ namespace Ex2
             }
             else
             {
-                pos = db.NumProfesores - 1;
+                pos = db.AmmountOfTeachers - 1;
             }
             ShowEntry(pos);
         }
@@ -83,7 +84,7 @@ namespace Ex2
             txteMail.Text = profesor.eMail;
 
             // lblEntryNumbers management.
-            lblEntryNumber.Text = (int)((pos + 1)) + " de " + db.NumProfesores;
+            lblEntryNumber.Text = (int)((pos + 1)) + " de " + db.AmmountOfTeachers;
             CheckButtons();
             CheckNavButtons();
         }
@@ -129,6 +130,8 @@ namespace Ex2
                 db.CreateRow(profesor);
                 btnSaveNew.Enabled = false;
                 isANewEntry = false;
+                pos = db.AmmountOfTeachers - 1;
+                ShowEntry(pos);
 
             }
              else
@@ -161,7 +164,7 @@ namespace Ex2
         }
         public void CheckNavButtons()
         {
-            if (pos == db.NumProfesores - 1)
+            if (pos == db.AmmountOfTeachers - 1)
             {
                 btnShowNextTeacher.Enabled = false;
                 btnShowLastTeacher.Enabled = false;
@@ -186,7 +189,7 @@ namespace Ex2
         public void CheckButtons()
         {
             // In case, the ammount of teachers isn't more than 1.
-            if (db.NumProfesores >= 1)
+            if (db.AmmountOfTeachers >= 1)
             {
                 btnDelete.Enabled = true;
                 btnUpdate.Enabled = true;
@@ -215,7 +218,7 @@ namespace Ex2
             if (wantToDelete == DialogResult.Yes)
             {
                 db.DeleteRow(pos);
-                if (db.NumProfesores >= 1)
+                if (db.AmmountOfTeachers >= 1)
                 {
                     // Nos vamos al primer registro y lo mostramos
                     pos = 0;
@@ -296,6 +299,24 @@ namespace Ex2
 
             Teacher profesor = Teacher.CreateTeacher(dni, nombre, surname, tlf, email);
             return profesor;
+        }
+        private void btnLookBySurname_Click(object sender, EventArgs e)
+        {
+            string surname = Interaction.InputBox("What surname do you want to look for?");
+            int foundedPos = db.LookBySurname(surname);
+            if (foundedPos != -1)
+                pos = foundedPos;
+            else
+                MessageBox.Show("That teacher wasn't founded");
+            ShowEntry(pos);
+
+
+        }
+
+        private void btnShowEveryTeacher_Click(object sender, EventArgs e)
+        {
+            string text = db.GetEveryTeacher();
+            MessageBox.Show("Teacher List:\n" + text);
         }
     }
 }

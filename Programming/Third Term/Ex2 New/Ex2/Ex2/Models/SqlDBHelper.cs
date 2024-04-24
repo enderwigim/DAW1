@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using Microsoft.Win32;
 
 namespace Ex2.Models
 {
@@ -17,7 +18,7 @@ namespace Ex2.Models
         // Miembro para guardar el número de profesores.
         private int _ammountOfTeachers;
         // Propiedad de solo lectura.
-        public int NumProfesores
+        public int AmmountOfTeachers
         {
             get => _ammountOfTeachers;
         }
@@ -78,14 +79,16 @@ namespace Ex2.Models
         public void CreateRow(Teacher profesor)
         {
             // Cogemos el registro situado en la posición actual.
-            DataRow dRegistro = dataSetProfs.Tables["Profesores"].NewRow();
+            DataRow entry = dataSetProfs.Tables["Profesores"].NewRow();
             // Metemos los datos en el registro
-            dRegistro[0] = profesor.dni;
-            dRegistro[1] = profesor.Name;
-            dRegistro[2] = profesor.Surname;
-            dRegistro[3] = profesor.Tlf;
-            dRegistro[4] = profesor.eMail;
-            // Si quisieramos hacerlo por nombre de columna en vez de posición
+            entry[0] = profesor.dni;
+            entry[1] = profesor.Name;
+            entry[2] = profesor.Surname;
+            entry[3] = profesor.Tlf;
+            entry[4] = profesor.eMail;
+
+            dataSetProfs.Tables["Profesores"].Rows.Add(entry);
+            _ammountOfTeachers++;
 
             ReconnectToDB();
         }
@@ -101,6 +104,31 @@ namespace Ex2.Models
             // Reconectamos con el da y actualizamos la BD
             SqlCommandBuilder cb = new SqlCommandBuilder(daProfesores);
             daProfesores.Update(dataSetProfs, "Profesores");
+        }
+        public int LookBySurname(string surname)
+        {
+            int pos = -1;
+            for (int i = 0; i < _ammountOfTeachers; i++)
+            {
+                DataRow entry = dataSetProfs.Tables["Profesores"].Rows[i];
+                if (entry[2].ToString().ToLower().Contains(surname.ToLower()))
+                {
+                    pos = i;
+                    return pos;
+                }
+
+            }
+            return pos;
+        }
+        public string GetEveryTeacher()
+        {
+            string teacher = "";
+            for (int i = 0; i < _ammountOfTeachers; i++)
+            {
+                DataRow entry = dataSetProfs.Tables["Profesores"].Rows[i];
+                teacher += $"{entry[1]} {entry[2]}\n";
+            }
+            return teacher;
         }
     }
 }

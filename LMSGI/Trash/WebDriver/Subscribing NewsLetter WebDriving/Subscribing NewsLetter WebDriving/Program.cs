@@ -27,7 +27,7 @@ namespace Subscribing_NewsLetter_WebDriving
             // Create Driver
             Driver chromeDriver = new Driver();
 
-            for (int i = 2; i < reader.CountItems("pagina"); i++)
+            for (int i = 1; i < reader.CountItems("pagina"); i++)
             {
                 Console.WriteLine($"Entraré a: {reader.GetWebURL(i)}");
                 chromeDriver.GoToUrl(reader.GetWebURL(i));

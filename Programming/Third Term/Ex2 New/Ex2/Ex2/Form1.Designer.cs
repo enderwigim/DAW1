@@ -66,6 +66,7 @@
             this.btnShowEveryTeacher.TabIndex = 33;
             this.btnShowEveryTeacher.Text = "Mostrar Profesores";
             this.btnShowEveryTeacher.UseVisualStyleBackColor = true;
+            this.btnShowEveryTeacher.Click += new System.EventHandler(this.btnShowEveryTeacher_Click);
             // 
             // btnLookBySurname
             // 
@@ -75,6 +76,7 @@
             this.btnLookBySurname.TabIndex = 32;
             this.btnLookBySurname.Text = "Buscar Apellido";
             this.btnLookBySurname.UseVisualStyleBackColor = true;
+            this.btnLookBySurname.Click += new System.EventHandler(this.btnLookBySurname_Click);
             // 
             // lblEntryNumber
             // 

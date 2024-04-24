@@ -78,7 +78,7 @@
         <xpath>//*[@id='search']</xpath>
         <type>text</type>
         <insert>Baitybait</insert>
-      </button> 
+      </button>
       <button>
         <name>submit</name>
         <xpath>//*[@id='search-icon-legacy']</xpath>

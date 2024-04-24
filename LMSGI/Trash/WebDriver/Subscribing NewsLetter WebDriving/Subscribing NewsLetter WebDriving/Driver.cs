@@ -29,21 +29,30 @@ namespace Subscribing_NewsLetter_WebDriving
         }
         public void HandleButton(Button button)
         {
-            var buttonDriver = _chromeDriver.FindElement(By.XPath(button.XPath));
-            if (button.Type.ToLower() == "click")
+            try
             {
-                buttonDriver.Click();
+                var buttonDriver = _chromeDriver.FindElement(By.XPath(button.XPath));
+                if (button.Type.ToLower() == "click")
+                {
+                    buttonDriver.Click();
+                }
+                else if (button.Type.ToLower() == "text")
+                {
+                    buttonDriver.SendKeys(button.Insert);
+                }
+                else if (button.Type.ToLower() == "select")
+                {
+                    SelectElement selectButton = new SelectElement(buttonDriver);
+                    selectButton.SelectByIndex(int.Parse(button.Insert));
+                }
+                Thread.Sleep(3000);
             }
-            else if (button.Type.ToLower() == "text")
+            catch (Exception ex)
             {
-                buttonDriver.SendKeys(button.Insert);
+                throw ex;
+                
+                
             }
-            else if (button.Type.ToLower() == "select")
-            {
-                SelectElement selectButton = new SelectElement(buttonDriver);
-                selectButton.SelectByIndex(int.Parse(button.Insert));
-            }
-            Thread.Sleep(3000);
         }
         public void DriveClose()
         {

@@ -21,7 +21,6 @@ namespace Ex2
         // Global Variables
         SqlDBHelper db;
         private int pos;
-        private int maxRegistros;
         private bool isANewEntry = false;
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -126,10 +125,15 @@ namespace Ex2
 
             Teacher profesor = Teacher.CreateTeacher(dni, nombre, surname, tlf, email);
             if (profesor != null)
+            {
                 db.CreateRow(profesor);
+                btnSaveNew.Enabled = false;
+                isANewEntry = false;
+
+            }
              else
                 ErrorMessage();
-            
+
         }
         public void ErrorMessage()
         {
@@ -152,6 +156,8 @@ namespace Ex2
 
             btnSaveNew.Enabled = true;
             btnAddTeacher.Enabled = false;
+            isANewEntry = true;
+
         }
         public void CheckNavButtons()
         {
@@ -222,6 +228,74 @@ namespace Ex2
                     ShowEmpty();
                 }
             }
+        }
+
+        // TextBox were changed
+        private void txtDNI_TextChanged(object sender, EventArgs e)
+        {
+            if (!isANewEntry)
+            {
+                if (EntryIsValid() != null)
+                {
+                    btnUpdate.Enabled = true;
+                }
+            }
+
+        }
+
+        private void txtNombre_TextChanged(object sender, EventArgs e)
+        {
+            if (!isANewEntry)
+            {
+                if (EntryIsValid() != null)
+                {
+                    btnUpdate.Enabled = true;
+                }
+            }
+        }
+
+        private void txtTlf_TextChanged(object sender, EventArgs e)
+        {
+            if (!isANewEntry)
+            {
+                if (EntryIsValid() != null)
+                {
+                    btnUpdate.Enabled = true;
+                }
+            }
+        }
+
+        private void txtApellidos_TextChanged(object sender, EventArgs e)
+        {
+            if (!isANewEntry)
+            {
+                if (EntryIsValid() != null)
+                {
+                    btnUpdate.Enabled = true;
+                }
+            }
+        }
+
+        private void txteMail_TextChanged(object sender, EventArgs e)
+        {
+            if (!isANewEntry)
+            {
+                if (EntryIsValid() != null)
+                {
+                    btnUpdate.Enabled = true;
+                }
+            }
+        }
+        public Teacher EntryIsValid()
+        {
+            string dni = txtDNI.Text;
+            string nombre = txtNombre.Text;
+            string surname = txtApellidos.Text;
+            string tlf = txtTlf.Text;
+            string email = txteMail.Text;
+
+            Teacher profesor = Teacher.CreateTeacher(dni, nombre, surname, tlf, email);
+            return profesor;
         }
     }
 }

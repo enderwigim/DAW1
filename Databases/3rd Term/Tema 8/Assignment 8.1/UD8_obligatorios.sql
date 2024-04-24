@@ -32,7 +32,7 @@ BEGIN
 	-- Validación de parametros.
 	IF @codCliente IS NULL
 	BEGIN
-		PRINT 'El parametro @codCliente no puede ser nulo'
+		 PRINT 'El parametro @codCliente no puede ser nulo'
 		RETURN -1
 	END
 
@@ -43,7 +43,7 @@ BEGIN
 	-- Validamos que existe el cliente.
 	IF @nombreCliente IS NULL
 	BEGIN
-		PRINT 'Ese cliente no existe'
+		 PRINT 'Ese cliente no existe'
 		RETURN -2
 	END
 	END TRY
@@ -96,14 +96,14 @@ BEGIN
 	-- Validación del @codCliente
 	IF @codCliente IS NULL
 	BEGIN
-		PRINT 'El parametro @codCliente no puede ser nulo'
+		 PRINT 'El parametro @codCliente no puede ser nulo'
 		RETURN -1
 	END
 	IF NOT EXISTS (SELECT *
-			     FROM CLIENTES
-			    WHERE codCliente = @codCliente)
+			         FROM CLIENTES
+			        WHERE codCliente = @codCliente)
 	BEGIN
-		PRINT 'El cliente no existe'
+		 PRINT 'El cliente no existe'
 		RETURN -2
 	END
 
@@ -189,8 +189,8 @@ BEGIN
 
 		IF @salida <> ''
 		BEGIN
-			SET @salida = 'Falta/n el/los parametro/s: ' + @salida
-			PRINT (LEFT(@salida, LEN(@salida) - 1))
+			   SET @salida = 'Falta/n el/los parametro/s: ' + @salida
+			 PRINT (LEFT(@salida, LEN(@salida) - 1))
 			RETURN -1
 		END
 
@@ -203,20 +203,20 @@ BEGIN
 					 FROM CATEGORIA_PRODUCTOS
 				    WHERE codCategoria = @codCategoria)
 		BEGIN
-			PRINT 'El parametro @codCategoria ya existe.'
+			 PRINT 'El parametro @codCategoria ya existe.'
 			RETURN -3
 		END
 
 		INSERT INTO CATEGORIA_PRODUCTOS(codCategoria, nombre, descripcion_texto,
 										descripcion_html, imagen)
 		VALUES(@codCategoria, @nombre, @descripcion_texto,
-			@descripcion_html, @imagen)
+			   @descripcion_html, @imagen)
 
 	END TRY
 	BEGIN CATCH
 		PRINT CONCAT('CODERROR: ', ERROR_NUMBER(),
-						', DESCRIPCION: ', ERROR_MESSAGE(),
-						', LINEA: ', ERROR_LINE())
+					 ', DESCRIPCION: ', ERROR_MESSAGE(),
+				     ', LINEA: ', ERROR_LINE())
 	END CATCH
 END
 
@@ -243,7 +243,6 @@ IF @ret <> 0
 
 PRINT 'Categoria creada!'
 
-SELECT * FROM CATEGORIA_PRODUCTOS 
 
 -------------------------------------------------------------------------------------------
 -- 4. Implementa un procedimiento llamado 'acuseRecepcionPedidosCliente' que actualice la fecha de entrega de los pedidos
@@ -274,15 +273,15 @@ BEGIN
 		-- Validación de @codCliente
 		IF @codCliente IS NULL
 		BEGIN
-			PRINT 'El parametro @codCliente no puede ser nulo'
+ 			 PRINT 'El parametro @codCliente no puede ser nulo'
 			RETURN -1
 		END
 
 		IF NOT EXISTS (SELECT *
-					FROM CLIENTES
-					WHERE codCliente = @codCliente)
+					     FROM CLIENTES
+					    WHERE codCliente = @codCliente)
 		BEGIN
-			PRINT 'El parametro @codCliente no existe en la base de datos'
+			 PRINT 'El parametro @codCliente no existe en la base de datos'
 			RETURN -2
 		END
 
@@ -376,17 +375,17 @@ BEGIN
 
 		IF @salida <> ''
 		BEGIN
-				SET @salida = 'Falta/n el/los parametro/s: ' + @salida
-				PRINT (LEFT(@salida, LEN(@salida) - 1))
+				   SET @salida = 'Falta/n el/los parametro/s: ' + @salida
+				 PRINT (LEFT(@salida, LEN(@salida) - 1))
 				RETURN -1
 		END
 
 		-- Validamos si la PK existe
 		IF EXISTS (SELECT *
-					FROM OFICINAS
+					 FROM OFICINAS
 					WHERE codOficina = @codOficina)
 		BEGIN
-			PRINT '@codOficina ya existe'
+			 PRINT '@codOficina ya existe'
 			RETURN -1
 		END
 
@@ -460,27 +459,27 @@ BEGIN
 		DECLARE @codEmplJefeNotExists VARCHAR(MAX) = ''
 
 		IF NOT EXISTS (SELECT *
-						FROM EMPLEADOS
+						 FROM EMPLEADOS
 						WHERE codEmpleado = @ant_codEmplJefe)
 			SET @codEmplJefeNotExists += CONCAT(@ant_codEmplJefe, ', ')
 
 		IF NOT EXISTS (SELECT *
-						FROM EMPLEADOS
+						 FROM EMPLEADOS
 						WHERE codEmpleado = @des_codEmplJefe)
 			SET @codEmplJefeNotExists += CONCAT(@des_codEmplJefe, ', ')
 		
 		IF @codEmplJefeNotExists <> ''
 		BEGIN
-			SET @codEmplJefeNotExists = 'Falta/n el/los parametro/s: ' + @codEmplJefeNotExists
-			PRINT (LEFT(@codEmplJefeNotExists, LEN(@codEmplJefeNotExists) - 1))
+			   SET @codEmplJefeNotExists = 'Falta/n el/los parametro/s: ' + @codEmplJefeNotExists
+			 PRINT (LEFT(@codEmplJefeNotExists, LEN(@codEmplJefeNotExists) - 1))
 			RETURN -1
 		END
 
 		IF NOT EXISTS (SELECT *
-						FROM EMPLEADOS
+						 FROM EMPLEADOS
 						WHERE codEmplJefe = @ant_codEmplJefe)
 		BEGIN
-			PRINT 'Ese empleado no es jefe de nadie.'
+			 PRINT 'Ese empleado no es jefe de nadie.'
 			RETURN -2
 		END
 
@@ -488,31 +487,32 @@ BEGIN
 			IF LOWER(@reemplazaJefeSN) = 's'
 			BEGIN
 				UPDATE EMPLEADOS
-				SET codEmplJefe = NULL
-				WHERE codEmpleado = @des_codEmplJefe
+				   SET codEmplJefe = NULL
+				 WHERE codEmpleado = @des_codEmplJefe
 				
 				SET @numEmpleados = @@ROWCOUNT
 
 				UPDATE EMPLEADOS
-				SET codEmplJefe = @des_codEmplJefe
-				WHERE codEmpleado = @ant_codEmplJefe 
+				   SET codEmplJefe = @des_codEmplJefe
+				 WHERE codEmpleado = @ant_codEmplJefe 
 				
 				SET @numEmpleados += @@ROWCOUNT
 			END
 			ELSE
 			BEGIN
 				UPDATE EMPLEADOS
-				SET codEmplJefe = NULL
-				WHERE codEmpleado = @des_codEmplJefe
+				   SET codEmplJefe = NULL
+				 WHERE codEmpleado = @des_codEmplJefe
 				
 				SET @numEmpleados = @@ROWCOUNT
 			END
 
 			UPDATE EMPLEADOS
-			SET codEmplJefe = @des_codEmplJefe
-			WHERE codEmplJefe = @ant_codEmplJefe
-			SET @numEmpleados += @@ROWCOUNT;
+			   SET codEmplJefe = @des_codEmplJefe
+			 WHERE codEmplJefe = @ant_codEmplJefe
 			
+			SET @numEmpleados += @@ROWCOUNT;
+
 			COMMIT
 
 	END TRY

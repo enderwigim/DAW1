@@ -27,7 +27,7 @@ namespace Subscribing_NewsLetter_WebDriving
             // Create Driver
             Driver chromeDriver = new Driver();
 
-            for (int i = 1; i < reader.CountItems("pagina"); i++)
+            for (int i = 2; i < reader.CountItems("pagina"); i++)
             {
                 Console.WriteLine($"Entraré a: {reader.GetWebURL(i)}");
                 chromeDriver.GoToUrl(reader.GetWebURL(i));
@@ -35,7 +35,18 @@ namespace Subscribing_NewsLetter_WebDriving
 
                 for (int j = 0; j < buttons.Count; j++)
                 {
-                    chromeDriver.HandleButton(buttons[j]);
+                    try
+                    {
+                        chromeDriver.HandleButton(buttons[j]);
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine($"Ha ocurrido un error con el boton de nombre: {buttons[j].Name}\nMensaje de error: {ex.Message}");
+                        Console.WriteLine("Se cerrará el programa");
+                        chromeDriver.DriveClose();
+                        Console.ReadLine();
+                        return;
+                    }
                 }
                 Console.WriteLine($"Terminé con: {reader.GetWebURL(i)}");
                 Console.ReadKey();

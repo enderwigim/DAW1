@@ -23,6 +23,14 @@
                 </descripcion>
                 <cantidad>1</cantidad>
             </item>
+            <item tipo="mochila">
+                <nombre>Mochila pequeña</nombre>
+                <descripcion>
+                    La Mochila Pequeña es una opción compacta pero funcional para aumentar el espacio de almacenamiento
+                     del inventario. Esta mochila ofrece espacio para llevar hasta 5 objetos adicionales
+                </descripcion>
+                <cantidad>1</cantidad>
+            </item>
             <item tipo="consumible">
                 <nombre>Botiquín Médico</nombre>
                 <descripcion>El Botiquín Médico es un elemento esencial para la supervivencia en un mundo infestado 

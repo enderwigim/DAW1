@@ -6,6 +6,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -26,10 +27,252 @@ namespace Ex3
             db = new SqlDBHelper();
             pos = 0;
 
-            //ShowEntry(pos);
+            ShowEntry(pos);
 
             //btnSaveNew.Enabled = false;
 
         }
+        
+        public int GetClass(string className)
+        {
+            // Return the class as an int so It can be added to the character to update the database
+            // later.
+            int @class = -1;
+            string[] classArray = {
+            "Paladin", 
+            "DeathKnight",
+            "Priest",
+            "Mage",
+            "Warlock",
+            "Warrior",
+            "Rogue",
+            "Hunter",
+            "Druid",
+            "Shaman" 
+            };
+            for (int i = 0; i < classArray.Length; i++)
+            {
+                if (classArray[i].ToUpper() == className.ToUpper())
+                {
+                    @class = i;
+                    return @class;
+                }
+            }
+            return @class;
+        }
+
+        private void btnAddNeyCharacter_Click(object sender, EventArgs e)
+        {
+            txtClass.Text = string.Empty;
+            txtFaction.Text = string.Empty;
+            txtLevel.Text = string.Empty;
+            txtName.Text = string.Empty;
+            txtLocation.Text = string.Empty;
+            btnCreateNew.Enabled = true;
+        }
+
+        private void btnCreateNew_Click(object sender, EventArgs e)
+        {
+            string name, faction, location, @class;
+            int classNumber, level;
+
+            name = txtName.Text;
+            faction = txtFaction.Text;
+            location = txtLocation.Text;
+            @class = txtClass.Text;
+
+            classNumber = GetClass(@class);
+            level = int.Parse(txtLevel.Text);
+
+            if (classNumber != -1)
+            {
+                Character newCharacter = Character.CreateCharacter(name, classNumber, faction, location, level);
+                if (newCharacter != null)
+                {
+                    db.CreateRow(newCharacter);
+                    pos = db.AmmountOfCharacters - 1;
+                    ShowEntry(pos);
+                }
+                ErrorMessage();
+            }
+            ErrorClass();
+
+        }
+
+        private void btnShowNext_Click(object sender, EventArgs e)
+        {
+            if (pos != db.AmmountOfCharacters - 1)
+            {
+                pos++;
+            }
+            else
+            {
+                pos = 0;
+            }
+            ShowEntry(pos);
+        }
+
+        private void btnShowPrevious_Click(object sender, EventArgs e)
+        {
+            if (pos != 0)
+            {
+                pos--;
+            }
+            else
+            {
+                pos = db.AmmountOfCharacters - 1;
+            }
+            ShowEntry(pos);
+        }
+        private void btnShowLast_Click(object sender, EventArgs e)
+        {
+            pos = db.AmmountOfCharacters - 1;
+            ShowEntry(pos);
+        }
+
+        private void btnShowFirst_Click(object sender, EventArgs e)
+        {
+            pos = 0;
+            ShowEntry(pos);
+        }
+        private void btnDeleteChar_Click(object sender, EventArgs e)
+        {
+            DialogResult wantToDelete;
+            wantToDelete = MessageBox.Show("Are you sure that you want to delete this character?", " ", MessageBoxButtons.YesNo);
+            if (wantToDelete == DialogResult.Yes)
+            {
+                db.DeleteRow(pos);
+                if (db.AmmountOfCharacters >= 1)
+                {
+                    // Nos vamos al primer registro y lo mostramos
+                    pos = 0;
+
+                    ShowEntry(pos);
+                    MessageBox.Show("Character Deleted");
+                }
+                else
+                {
+                    ShowEmpty();
+                }
+            }
+        }
+        private void btnUpdateChar_Click(object sender, EventArgs e)
+        {
+            string name, faction, location, @class;
+            int classNumber, level;
+
+            name = txtName.Text;
+            faction = txtFaction.Text;
+            location = txtLocation.Text;
+            @class = txtClass.Text;
+
+            classNumber = GetClass(@class);
+            level = int.Parse(txtLevel.Text);
+
+            if (classNumber != -1)
+            {
+                Character newCharacter = Character.CreateCharacter(name, classNumber, faction, location, level);
+                if (newCharacter != null)
+                {
+                    db.UpdateRow(newCharacter, pos);
+                    pos = db.AmmountOfCharacters - 1;
+                    ShowEntry(pos);
+                }
+                ErrorMessage();
+            }
+            ErrorClass();
+        }
+
+
+        public void ShowEntry(int pos)
+        {
+            Character character = db.GetCharacter(pos);
+
+
+            txtName.Text = character.Name;
+            txtFaction.Text = character.Faction;
+            txtClass.Text = character.Class.ToString();
+            txtLocation.Text = character.Location;
+            txtLevel.Text = character.Level.ToString();
+
+            // lblEntryNumbers management.
+            lblEntryNumber.Text = (int)((pos + 1)) + " de " + db.AmmountOfCharacters;
+            CheckButtons();
+            CheckNavButtons();
+        }
+        public void ShowEmpty()
+        {
+            txtName.Text = string.Empty;
+            txtFaction.Text = string.Empty;
+            txtClass.Text = string.Empty;
+            txtLocation.Text = string.Empty;
+            txtLevel.Text = string.Empty;
+            lblEntryNumber.Text = "0 de 0";
+        }
+        public void CheckButtons()
+        {
+            // In case, the ammount of teachers isn't more than 1.
+            if (db.AmmountOfCharacters >= 1)
+            {
+                btnDeleteChar.Enabled = true;
+                btnUpdateChar.Enabled = true;
+                //btnShowEveryTeacher.Enabled = true;
+                btnCreateNew.Enabled = false;
+                //btnLookBySurname.Enabled = true;
+                btnAddNeyCharacter.Enabled = true;
+            }
+            else
+            {
+                btnDeleteChar.Enabled = false;
+                btnCreateNew.Enabled = false;
+                // btnShowEveryTeacher.Enabled = false;
+                // btnLookBySurname.Enabled = false;
+                btnShowNext.Enabled = false;
+                btnShowLast.Enabled = false;
+            }
+            // We set the btnUpdate.Enable to false always so we can activate and deactivate it when a change was done.
+            btnUpdateChar.Enabled = false;
+        }
+        public void CheckNavButtons()
+        {
+            if (pos == db.AmmountOfCharacters - 1)
+            {
+                btnShowNext.Enabled = false;
+                btnShowLast.Enabled = false;
+
+            }
+            else
+            {
+                btnShowNext.Enabled = true;
+                btnShowLast.Enabled = true;
+            }
+            if (pos == 0)
+            {
+                btnShowPrevious.Enabled = false;
+                btnShowFirst.Enabled = false;
+            }
+            else
+            {
+                btnShowPrevious.Enabled = true;
+                btnShowFirst.Enabled = true;
+            }
+        }
+        public void ErrorMessage()
+        {
+            MessageBox.Show("There was an error with the data introduced: \n" +
+                            "Follow the next to do it properly\n" +
+                            "Name: Ender\n" +
+                            "Class: Paladin\n" +
+                            "Faction: Alliance || Horde\n" +
+                            "Location: StormWind\n" +
+                            "Level: 80(MAX LEVEL)");
+        }
+        public void ErrorClass()
+        {
+            MessageBox.Show("The classes available are: \n" +
+                "Paladin\nDeathKnight\nPriest\nMage\nWarlock\nWarrior\nRogue\nHunter\nDruid\nShaman");
+        }
+
     }
+
 }

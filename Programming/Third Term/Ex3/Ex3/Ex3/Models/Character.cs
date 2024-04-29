@@ -59,7 +59,8 @@ namespace Ex3.Models
 
         public static Character CreateCharacter(string name, int className, string faction, string location, int lvl)
         {
-            if (string.IsNullOrEmpty(name) || className < 0 || className > 9 || string.IsNullOrEmpty(faction) || string.IsNullOrEmpty(location) || lvl <= 0 || lvl >= 80)
+            if (string.IsNullOrEmpty(name) || className < 0 || className > 9 || (faction.ToUpper() != "HORDE" && faction.ToUpper() != "ALLIANCE") 
+                || string.IsNullOrEmpty(location) || lvl <= 0 || lvl > 80)
             {
                 return null;
             }

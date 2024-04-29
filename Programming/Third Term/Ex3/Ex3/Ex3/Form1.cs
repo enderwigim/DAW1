@@ -28,7 +28,6 @@ namespace Ex3
             pos = 0;
 
             ShowEntry(pos);
-
             //btnSaveNew.Enabled = false;
 
         }
@@ -93,11 +92,16 @@ namespace Ex3
                     db.CreateRow(newCharacter);
                     pos = db.AmmountOfCharacters - 1;
                     ShowEntry(pos);
+                    isANewEntry = false;
                 }
-                ErrorMessage();
+                else
+                {
+                    ErrorMessage();
+                }
+            } else
+            {
+                ErrorClass();
             }
-            ErrorClass();
-            isANewEntry = false;
 
         }
 
@@ -181,9 +185,14 @@ namespace Ex3
                     pos = db.AmmountOfCharacters - 1;
                     ShowEntry(pos);
                 }
-                ErrorMessage();
+                else
+                {
+                    ErrorMessage();
+                }
+            } else
+            {
+                ErrorClass();
             }
-            ErrorClass();
         }
 
 
@@ -283,8 +292,12 @@ namespace Ex3
 
             string faction = txtFaction.Text;
             string location = txtLocation.Text;
+            if (string.IsNullOrEmpty(txtLevel.Text)) 
+                return dataIsValid;
+
             int level = int.Parse(txtLevel.Text);
 
+            
 
 
             int classNum = GetClass(@class);
@@ -380,7 +393,7 @@ namespace Ex3
 
             string faction = txtFaction.Text;
             string location = txtLocation.Text;
-            int level = int.Parse(txtLevel.Text);
+            int level = Convert.ToInt16(txtLevel.Text);
 
 
 

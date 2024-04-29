@@ -107,8 +107,8 @@ namespace Ex3.Models
             bool itChanged = true;
             DataRow entry = dataSetChars.Tables["character"].Rows[pos];
             // Metemos los datos en el registro
-            if (entry[0].ToString() == newCharacter.Name || entry[1].ToString() == newCharacter.Class.ToString() || entry[2].ToString() == newCharacter.Faction || entry[3].ToString() == newCharacter.Location
-                || Convert.ToInt16(entry[4]) == newCharacter.Level)
+            if (entry[0].ToString() == newCharacter.Name && entry[1].ToString() == newCharacter.Class.ToString() && entry[2].ToString() == newCharacter.Faction && entry[3].ToString() == newCharacter.Location
+                && Convert.ToInt16(entry[4]) == newCharacter.Level)
                 itChanged = false;
             return itChanged;
         }

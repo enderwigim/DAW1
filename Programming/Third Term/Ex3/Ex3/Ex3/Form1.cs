@@ -82,6 +82,11 @@ namespace Ex3
             @class = txtClass.Text;
 
             classNumber = GetClass(@class);
+            if (string.IsNullOrEmpty(txtLevel.Text))
+            {
+                ErrorMessage();
+                return;
+            }
             level = int.Parse(txtLevel.Text);
 
             if (classNumber != -1)
@@ -89,10 +94,15 @@ namespace Ex3
                 Character newCharacter = Character.CreateCharacter(name, classNumber, faction, location, level);
                 if (newCharacter != null)
                 {
-                    db.CreateRow(newCharacter);
-                    pos = db.AmmountOfCharacters - 1;
-                    ShowEntry(pos);
-                    isANewEntry = false;
+                    if (db.CreateRow(newCharacter))
+                    {
+                        pos = db.AmmountOfCharacters - 1;
+                        ShowEntry(pos);
+                        isANewEntry = false;
+                    } else
+                    {
+                        MessageBox.Show("That character already exists");
+                    }
                 }
                 else
                 {
@@ -244,6 +254,7 @@ namespace Ex3
             }
             // We set the btnUpdate.Enable to false always so we can activate and deactivate it when a change was done.
             btnUpdateChar.Enabled = false;
+            isANewEntry = false;
         }
         public void CheckNavButtons()
         {
@@ -368,20 +379,23 @@ namespace Ex3
         }
         public void UpdateIfWasChangedAndIsValid()
         {
-            if (dataIsValid())
+            if (!isANewEntry)
             {
-                if (checkIfChanges(pos))
+                if (dataIsValid())
                 {
-                    DialogResult wantToUpdate = MessageBox.Show("Do you want to update this character data?", " ", MessageBoxButtons.YesNo);
-                    if (wantToUpdate == DialogResult.Yes)
+                    if (checkIfChanges(pos))
                     {
-                        btnUpdateChar.PerformClick();
+                        DialogResult wantToUpdate = MessageBox.Show("Do you want to update this character data?", " ", MessageBoxButtons.YesNo);
+                        if (wantToUpdate == DialogResult.Yes)
+                        {
+                            btnUpdateChar.PerformClick();
+                        }
                     }
                 }
-            }
-            else
-            {
-                MessageBox.Show("Changes were detected, but as they are not valid, data wasnt updated");
+                else
+                {
+                    MessageBox.Show("Changes were detected, but as they are not valid, data wasnt updated");
+                }
             }
         }
         public bool checkIfChanges(int pos)

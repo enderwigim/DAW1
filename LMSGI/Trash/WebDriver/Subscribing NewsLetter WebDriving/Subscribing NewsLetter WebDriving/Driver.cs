@@ -1,6 +1,6 @@
 ﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
-using OpenQA.Selenium.Support.UI;
+using OpenQA.Selenium.Support.UI;                    // Seba: Limpia tu codigo, si no usas ninguno de estos using borralos, si usas alguno conserva solamente el que usas
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -57,8 +57,8 @@ namespace Subscribing_NewsLetter_WebDriving
         }
         public void DriveClose()
         {
-            _chromeDriver.Close();
-        }
+            _chromeDriver.Close();            // Seba: Si es una opcion de diseño en particular conservala, es a gusto de cada, pero investiga el using a ver que te parece
+        }                                        // te va a prevenir de dolores de cabeza.
 
 
     }

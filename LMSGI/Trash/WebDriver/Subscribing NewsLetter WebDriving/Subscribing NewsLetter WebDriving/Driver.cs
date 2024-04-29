@@ -27,7 +27,7 @@ namespace Subscribing_NewsLetter_WebDriving
             _chromeDriver.Navigate().GoToUrl(URL);
             Thread.Sleep(3000);
         }
-        public void HandleButton(Button button)
+        public void HandleButton(Button button)         // Seba:  Si es mas de una opcion devuelve un int en lo que fallo (un 0 o un 1 si se completo correctamente, si es una sola un bool)
         {
             try
             {
@@ -49,7 +49,8 @@ namespace Subscribing_NewsLetter_WebDriving
             }
             catch (Exception ex)
             {
-                throw ex;
+                Console.Error.WriteLine(ex.ToString());
+                return;
                 
                 
             }

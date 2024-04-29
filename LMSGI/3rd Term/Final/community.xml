@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<comunidad nombre="The survivors" cantidadHabitantes="2">
+    <persona>
+        <nombre>Sergio</nombre>
+        <edad>37</edad>
+        <habilidades>
+            <cardio>1</cardio>
+            <ingenio>3</ingenio>
+            <pelea>5</pelea>
+            <disparo>5</disparo>
+        </habilidades>
+        <inventario>
+            <item tipo="armaMele">
+                <nombre>Katana Otaku</nombre>
+                <descripcion>Desprende un olor espantoso, no importa cuanto la limpies. No se quita.</descripcion>
+                <cantidad>1</cantidad>
+            </item>
+            <item tipo="armaDistancia">
+                <nombre>AR-15</nombre>
+                <descripcion>El Fusil AR-15 es un arma de fuego semiautomática o automática, conocida por su 
+                versatilidad, precisión y fiabilidad. Diseñado originalmente como un fusil de asalto ligero, 
+                el AR-15 ha ganado popularidad en todo el mundo tanto en el ámbito militar como en el civil. 
+                </descripcion>
+                <cantidad>1</cantidad>
+            </item>
+            <item tipo="mochila">
+                <nombre>Mochila pequeña</nombre>
+                <descripcion>
+                    La Mochila Pequeña es una opción compacta pero funcional para aumentar el espacio de almacenamiento
+                     del inventario. Esta mochila ofrece espacio para llevar hasta 5 objetos adicionales
+                </descripcion>
+                <cantidad>1</cantidad>
+            </item>
+            <item tipo="consumible">
+                <nombre>Botiquín Médico</nombre>
+                <descripcion>El Botiquín Médico es un elemento esencial para la supervivencia en un mundo infestado 
+                de zombies.</descripcion>
+                <cantidad>2</cantidad>
+            </item>
+
+            <item tipo="consumible">
+                <nombre>Latas de comida en conserva</nombre>
+                <descripcion>Las latas de comida en conserva son una fuente de alimento duradero 
+                </descripcion>
+                <cantidad>5</cantidad>
+            </item>
+        </inventario>
+    </persona>
+</comunidad>

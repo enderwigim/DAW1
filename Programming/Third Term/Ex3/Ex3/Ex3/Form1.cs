@@ -69,6 +69,7 @@ namespace Ex3
             txtName.Text = string.Empty;
             txtLocation.Text = string.Empty;
             btnCreateNew.Enabled = true;
+            isANewEntry = true;
         }
 
         private void btnCreateNew_Click(object sender, EventArgs e)
@@ -96,11 +97,13 @@ namespace Ex3
                 ErrorMessage();
             }
             ErrorClass();
+            isANewEntry = false;
 
         }
 
         private void btnShowNext_Click(object sender, EventArgs e)
         {
+            UpdateIfWasChangedAndIsValid();
             if (pos != db.AmmountOfCharacters - 1)
             {
                 pos++;
@@ -272,7 +275,127 @@ namespace Ex3
             MessageBox.Show("The classes available are: \n" +
                 "Paladin\nDeathKnight\nPriest\nMage\nWarlock\nWarrior\nRogue\nHunter\nDruid\nShaman");
         }
+        public bool dataIsValid()
+        {
+            bool dataIsValid = false;
+            string name = txtName.Text;
+            string @class = txtClass.Text;
 
+            string faction = txtFaction.Text;
+            string location = txtLocation.Text;
+            int level = int.Parse(txtLevel.Text);
+
+
+
+            int classNum = GetClass(@class);
+
+
+            if (classNum != -1)
+            {
+                Character character = Character.CreateCharacter(name, classNum, faction, location, level);
+                if (character != null)
+                    dataIsValid = true;
+            }
+            return dataIsValid;
+        }
+
+        private void txtName_TextChanged(object sender, EventArgs e)
+        {
+            if (!isANewEntry)
+            {
+                if (dataIsValid())
+                {
+                    btnUpdateChar.Enabled = true;
+                }
+            }
+        }
+
+        private void txtClass_TextChanged(object sender, EventArgs e)
+        {
+            if (!isANewEntry)
+            {
+                if (dataIsValid())
+                {
+                    btnUpdateChar.Enabled = true;
+                }
+            }
+        }
+
+        private void txtFaction_TextChanged(object sender, EventArgs e)
+        {
+            if (!isANewEntry)
+            {
+                if (dataIsValid())
+                {
+                    btnUpdateChar.Enabled = true;
+                }
+            }
+        }
+
+        private void txtLevel_TextChanged(object sender, EventArgs e)
+        {
+            if (!isANewEntry)
+            {
+                if (dataIsValid())
+                {
+                    btnUpdateChar.Enabled = true;
+                }
+            }
+        }
+
+        private void txtLocation_TextChanged(object sender, EventArgs e)
+        {
+            if (!isANewEntry)
+            {
+                if (dataIsValid())
+                {
+                    btnUpdateChar.Enabled = true;
+                }
+            }
+        }
+        public void UpdateIfWasChangedAndIsValid()
+        {
+            if (dataIsValid())
+            {
+                if (checkIfChanges(pos))
+                {
+                    DialogResult wantToUpdate = MessageBox.Show("Do you want to update this character data?", " ", MessageBoxButtons.YesNo);
+                    if (wantToUpdate == DialogResult.Yes)
+                    {
+                        btnUpdateChar.PerformClick();
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("Changes were detected, but as they are not valid, data wasnt updated");
+            }
+        }
+        public bool checkIfChanges(int pos)
+        {
+            bool itChanged = false;
+
+            string name = txtName.Text;
+            string @class = txtClass.Text;
+
+            string faction = txtFaction.Text;
+            string location = txtLocation.Text;
+            int level = int.Parse(txtLevel.Text);
+
+
+
+            int classNum = GetClass(@class);
+            Character character = Character.CreateCharacter(name, classNum, faction, location, level);
+            if (character != null)
+            {
+                if (db.CheckIfChanged(pos, character)) 
+                {
+                    itChanged = true;
+                }
+            }
+
+            return itChanged;
+        }
     }
 
 }

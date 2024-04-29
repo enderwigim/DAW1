@@ -62,13 +62,13 @@ namespace Ex3.Models
         public void UpdateRow(Character character, int pos)
         {
             // Cogemos el registro situado en la posición actual.
-            DataRow dRegistro = dataSetChars.Tables["character"].Rows[pos];
+            DataRow entry = dataSetChars.Tables["character"].Rows[pos];
             // Metemos los datos en el registro
-            dRegistro[0] = character.Name;
-            dRegistro[1] = character.Class;
-            dRegistro[2] = character.Faction;
-            dRegistro[3] = character.Location;
-            dRegistro[4] = character.Level;
+            entry[0] = character.Name;
+            entry[1] = character.Class;
+            entry[2] = character.Faction;
+            entry[3] = character.Location;
+            entry[4] = character.Level;
             // Si quisieramos hacerlo por nombre de columna en vez de posición
 
             ReconnectToDB();   
@@ -101,6 +101,16 @@ namespace Ex3.Models
             // Reconectamos con el dataAdapter y actualizamos la BD
             SqlCommandBuilder cb = new SqlCommandBuilder(daCharacters);
             daCharacters.Update(dataSetChars, "character");
+        }
+        public bool CheckIfChanged(int pos, Character newCharacter)
+        {
+            bool itChanged = true;
+            DataRow entry = dataSetChars.Tables["character"].Rows[pos];
+            // Metemos los datos en el registro
+            if (entry[0].ToString() == newCharacter.Name || entry[1].ToString() == newCharacter.Class.ToString() || entry[2].ToString() == newCharacter.Faction || entry[3].ToString() == newCharacter.Location
+                || Convert.ToInt16(entry[4]) == newCharacter.Level)
+                itChanged = false;
+            return itChanged;
         }
     }
 }

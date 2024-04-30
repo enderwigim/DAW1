@@ -41,7 +41,6 @@
             this.btnCreateNew = new System.Windows.Forms.Button();
             this.btnUpdateChar = new System.Windows.Forms.Button();
             this.btnDeleteChar = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
             this.btnAddNeyCharacter = new System.Windows.Forms.Button();
             this.btnShowFirst = new System.Windows.Forms.Button();
             this.btnShowNext = new System.Windows.Forms.Button();
@@ -51,8 +50,10 @@
             this.label6 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -170,15 +171,6 @@
             this.btnDeleteChar.UseVisualStyleBackColor = true;
             this.btnDeleteChar.Click += new System.EventHandler(this.btnDeleteChar_Click);
             // 
-            // button4
-            // 
-            this.button4.Location = new System.Drawing.Point(409, 164);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(168, 46);
-            this.button4.TabIndex = 12;
-            this.button4.Text = "Show Every Character";
-            this.button4.UseVisualStyleBackColor = true;
-            // 
             // btnAddNeyCharacter
             // 
             this.btnAddNeyCharacter.Location = new System.Drawing.Point(5, 18);
@@ -252,10 +244,10 @@
             this.groupBox1.Controls.Add(this.btnCreateNew);
             this.groupBox1.Controls.Add(this.btnDeleteChar);
             this.groupBox1.Controls.Add(this.btnUpdateChar);
-            this.groupBox1.Location = new System.Drawing.Point(12, 146);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox1.Location = new System.Drawing.Point(35, 175);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(2);
             this.groupBox1.Size = new System.Drawing.Size(187, 237);
             this.groupBox1.TabIndex = 34;
             this.groupBox1.TabStop = false;
@@ -267,14 +259,22 @@
             this.groupBox2.Controls.Add(this.btnShowNext);
             this.groupBox2.Controls.Add(this.btnShowPrevious);
             this.groupBox2.Controls.Add(this.btnShowLast);
-            this.groupBox2.Location = new System.Drawing.Point(217, 146);
-            this.groupBox2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox2.Location = new System.Drawing.Point(240, 175);
+            this.groupBox2.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox2.Padding = new System.Windows.Forms.Padding(2);
             this.groupBox2.Size = new System.Drawing.Size(187, 237);
             this.groupBox2.TabIndex = 35;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Nav";
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Location = new System.Drawing.Point(532, 155);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(178, 269);
+            this.pictureBox1.TabIndex = 36;
+            this.pictureBox1.TabStop = false;
             // 
             // Form1
             // 
@@ -282,11 +282,11 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.lblEntryNumber);
             this.Controls.Add(this.label6);
-            this.Controls.Add(this.button4);
             this.Controls.Add(this.txtLocation);
             this.Controls.Add(this.txtLevel);
             this.Controls.Add(this.txtFaction);
@@ -302,6 +302,7 @@
             this.Load += new System.EventHandler(this.Form1_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -322,7 +323,6 @@
         private System.Windows.Forms.Button btnCreateNew;
         private System.Windows.Forms.Button btnUpdateChar;
         private System.Windows.Forms.Button btnDeleteChar;
-        private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Button btnAddNeyCharacter;
         private System.Windows.Forms.Button btnShowFirst;
         private System.Windows.Forms.Button btnShowNext;
@@ -332,6 +332,7 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }
 

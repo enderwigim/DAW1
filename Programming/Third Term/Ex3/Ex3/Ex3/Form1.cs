@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -217,6 +218,8 @@ namespace Ex3
             txtLocation.Text = character.Location;
             txtLevel.Text = character.Level.ToString();
 
+            ChangeImageWithClass();
+
             // lblEntryNumbers management.
             lblEntryNumber.Text = (int)((pos + 1)) + " de " + db.AmmountOfCharacters;
             CheckButtons();
@@ -422,6 +425,23 @@ namespace Ex3
             }
 
             return itChanged;
+            
+        }
+        public void ChangeImageWithClass()
+        {
+            string imgPath = Path.GetFullPath(@"..\\..\\img\\");
+            string currentClass = txtClass.Text;
+            if (currentClass.ToLower() == "paladin")
+            {
+                imgPath = Path.GetFullPath(@"..\\..\\img\\paladin.gif");
+                pictureBox1.Image = Image.FromFile(imgPath);
+            }
+            if (currentClass.ToLower() == "deathknight")
+            {
+                imgPath = Path.GetFullPath(@"..\\..\\img\\deathknight.gif");
+                pictureBox1.Image = Image.FromFile(imgPath);
+            }
+            
         }
     }
 

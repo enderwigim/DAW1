@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics.Eventing.Reader;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -111,7 +112,7 @@ namespace Ex5
 
         private void btnShowTeachers_Click(object sender, EventArgs e)
         {
-            if (!_people.IsEmpty())
+            if (!_people.IsEmptyOfTeachers())
             {
                 MessageBox.Show(_people.ShowTeachers());
             }
@@ -123,7 +124,7 @@ namespace Ex5
 
         private void btnDeleteTeacher_Click(object sender, EventArgs e)
         {
-            if (!_people.IsEmpty())
+            if (!_people.IsEmptyOfTeachers())
             {
                 string dni = Interaction.InputBox("What's the teacher's DNI??");
                 int result = _people.DeleteTeacher(dni);
@@ -150,7 +151,7 @@ namespace Ex5
 
         private void btnTeacherData_Click(object sender, EventArgs e)
         {
-            if (!_people.IsEmpty())
+            if (!_people.IsEmptyOfTeachers())
             {
                 string dni = Interaction.InputBox("What's the teacher's DNI??");
                 MessageBox.Show(_people.ShowATeacher(dni));
@@ -163,7 +164,7 @@ namespace Ex5
 
         private void btnOrderTeachers_Click(object sender, EventArgs e)
         {
-            if (!_people.IsEmpty())
+            if (!_people.IsEmptyOfTeachers())
             {
                 _people.OrderTeachers();
                 MessageBox.Show("List Ordered");
@@ -176,7 +177,7 @@ namespace Ex5
 
         private void btnAddSubjectToTeacher_Click(object sender, EventArgs e)
         {
-            if (!_people.IsEmpty())
+            if (!_people.IsEmptyOfTeachers())
             {
                 string dni = Interaction.InputBox("What's the teacher's DNI??");
                 DialogResult addMoreSubjects = DialogResult.Yes;
@@ -238,7 +239,7 @@ namespace Ex5
 
         private void btnDeleteSubjectsFromTeacher_Click(object sender, EventArgs e)
         {
-            if (!_people.IsEmpty())
+            if (!_people.IsEmptyOfTeachers())
             {
                 DialogResult DeleteFromAnotherTeacher = DialogResult.Yes;
                 while (DeleteFromAnotherTeacher == DialogResult.Yes)
@@ -275,60 +276,73 @@ namespace Ex5
         {
             DialogResult wantToDelete = DialogResult.Yes;
             DialogResult deleteSameTeacher = DialogResult.Yes;
-            string dni = Interaction.InputBox("What's the teacher's DNI??");
-            while (wantToDelete == DialogResult.Yes)
+            if (!_people.IsEmptyOfTeachers())
             {
 
-                if (deleteSameTeacher == DialogResult.No)
+                string dni = Interaction.InputBox("What's the teacher's DNI??");
+                while (wantToDelete == DialogResult.Yes)
                 {
-                    dni = Interaction.InputBox("What's the teacher's DNI??");
-                }
-                if (_people.GetTypeByDNI(dni) == 2)
-                {
-                    MessageBox.Show(_people.ShowEverySubject(dni));
-                    string subjectToDelete = Interaction.InputBox("What subject?");
-                    int result = _people.RemoveASubject(subjectToDelete, dni);
 
-                    if (result == -1)
-                    {
-                        MessageBox.Show("There's no teacher in the List");
-                        deleteSameTeacher = DialogResult.No;
-                    }
-                    else if (result == -2)
-                    {
-                        MessageBox.Show("That DNI is not in the list");
-                        deleteSameTeacher = DialogResult.No;
-                    }
-                    else if (result == -3)
-                    {
-                        MessageBox.Show("That DNI is not from a teacher");
-                        deleteSameTeacher = DialogResult.No;
-                    }
-                    else if (result == -4)
-                    {
-                        MessageBox.Show("That teacher doesn't have that subject");
-                        deleteSameTeacher = DialogResult.No;
-                    }
-                    else
-                    {
-                        MessageBox.Show("Subject Deleted");
-                        deleteSameTeacher = MessageBox.Show("Do you want to remove a subject from the same teacher?", "", MessageBoxButtons.YesNo);
-                    }
                     if (deleteSameTeacher == DialogResult.No)
                     {
-                        wantToDelete = MessageBox.Show("Do you want to remove a subject from another teacher?", "", MessageBoxButtons.YesNo);
+                        dni = Interaction.InputBox("What's the teacher's DNI??");
                     }
-                
-                    
+                    int peopleType = _people.GetTypeByDNI(dni);
+                    if (peopleType == 2)
+                    {
+                        MessageBox.Show(_people.ShowEverySubject(dni));
+                        string subjectToDelete = Interaction.InputBox("What subject?");
+                        int result = _people.RemoveASubject(subjectToDelete, dni);
 
-                
-                }
+                        if (result == -1)
+                        {
+                            MessageBox.Show("There's no teacher in the List");
+                            deleteSameTeacher = DialogResult.No;
+                        }
+                        else if (result == -2)
+                        {
+                            MessageBox.Show("That DNI is not in the list");
+                            deleteSameTeacher = DialogResult.No;
+                        }
+                        else if (result == -3)
+                        {
+                            MessageBox.Show("That DNI is not from a teacher");
+                            deleteSameTeacher = DialogResult.No;
+                        }
+                        else if (result == -4)
+                        {
+                            MessageBox.Show("That teacher doesn't have that subject");
+                            deleteSameTeacher = DialogResult.No;
+                        }
+                        else
+                        {
+                            MessageBox.Show("Subject Deleted");
+                            deleteSameTeacher = MessageBox.Show("Do you want to remove a subject from the same teacher?", "", MessageBoxButtons.YesNo);
+                        }
+                        if (deleteSameTeacher == DialogResult.No)
+                        {
+                            wantToDelete = MessageBox.Show("Do you want to remove a subject from another teacher?", "", MessageBoxButtons.YesNo);
+                        }
+                    } else if (peopleType == 1)
+                    {
+                        MessageBox.Show("That DNI is from a student");
+                        deleteSameTeacher = DialogResult.No;
+
+                    } else
+                    {
+                        MessageBox.Show("That DNI does not exist in the list");
+                        deleteSameTeacher = DialogResult.No;
+                    }
+                } 
+            } else
+            {
+                MessageBox.Show("There's no teachers in the list.");
             }
         }
 
         private void btnShowTeachersBySubject_Click(object sender, EventArgs e)
         {
-            if (!_people.IsEmpty())
+            if (!_people.IsEmptyOfTeachers())
             {
                 string teachersText = "There's no teachers teaching that subject";
                 string subject = Interaction.InputBox("What subject are you looking for?");

@@ -31,8 +31,14 @@ namespace Ex5
         }
         public int GetTypeByDNI(string dni)
         {
+            
+            
             int index = GetIndexByDNI(dni);
-            return GetTypeByIndex(index);
+            if (index != -1)
+            {
+                return GetTypeByIndex(index);
+            }
+            return index;
         }
         public int GetTypeByIndex(int index)
         {
@@ -63,12 +69,29 @@ namespace Ex5
             }
             return isInList;
         }
-        public bool IsEmpty()
+        public bool IsEmptyOfStudents()
         {
             bool isEmpty = true;
-            if (_people.Count != 0)
+            for (int i = 0; i < _people.Count; i++)
             {
-                isEmpty = false;
+                if (_people[i].GetType() == typeof(Student))
+                {
+                    isEmpty = false;
+                    return isEmpty;
+                }
+            }
+            return isEmpty;
+        }
+        public bool IsEmptyOfTeachers()
+        {
+            bool isEmpty = true;
+            for (int i = 0; i < _people.Count; i++)
+            {
+                if (_people[i].GetType() == typeof(Teacher))
+                {
+                    isEmpty = false;
+                    return isEmpty;
+                }
             }
             return isEmpty;
         }
@@ -116,12 +139,12 @@ namespace Ex5
         
         public string ShowOneStudentByName(string name)
         {
-            string text = "That DNI isn't in the list";
+            string text = "That name isn't in the list";
             for (int i = 0; i < _people.Count; i++)
             {
                 if (_people[i].Name.ToLower() == name.ToLower())
                 {
-                    text = "That DNI is not from a student";
+                    text = "That name is not from a student";
                     if (GetTypeByIndex(i) == 1)
                     {
                         text = _people[i].ShowData();
@@ -287,7 +310,8 @@ namespace Ex5
             string everyTeacher = "";
             for (int i = 0; i < _people.Count; i++)
             {
-                everyTeacher += _people[i].ShowData() + "\n";
+                if (_people[i].GetType() == typeof(Teacher))
+                    everyTeacher += _people[i].ShowData() + "\n";
             }
             return everyTeacher;
         }

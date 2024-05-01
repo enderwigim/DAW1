@@ -88,7 +88,7 @@ namespace Ex5
 
         private void btnDeleteStudent_Click(object sender, EventArgs e)
         {
-            if (!people.IsEmpty())
+            if (!people.IsEmptyOfStudents())
             {
                 string dni = Interaction.InputBox("Write the student's DNI/NIE.").ToUpper();
                 int index = people.GetIndexByDNI(dni);
@@ -116,7 +116,7 @@ namespace Ex5
 
         private void btnOrderByName_Click(object sender, EventArgs e)
         {
-            if (!people.IsEmpty())
+            if (!people.IsEmptyOfStudents())
             {
                 people.OrderStudents();
                 MessageBox.Show("List Ordered");
@@ -129,7 +129,7 @@ namespace Ex5
 
         private void btnShowStudentData_Click(object sender, EventArgs e)
         {
-            if (!people.IsEmpty())
+            if (!people.IsEmptyOfStudents())
             {
                 string name = Interaction.InputBox("What's the student Name?");
                 MessageBox.Show(people.ShowOneStudentByName(name));
@@ -172,7 +172,7 @@ namespace Ex5
 
         private void btnAddGrades_Click(object sender, EventArgs e)
         {
-            if (!people.IsEmpty())
+            if (!people.IsEmptyOfStudents())
             {
                 DialogResult addMoreGrades = DialogResult.Yes;
                 DialogResult addGradeToSameStudents = DialogResult.No;
@@ -218,7 +218,7 @@ namespace Ex5
         }
     private void btnDeleteGrades_Click(object sender, EventArgs e)
         {
-                if (!people.IsEmpty())
+                if (!people.IsEmptyOfStudents())
                 {
                     string dni = Interaction.InputBox("What's the student dni?");
                     int result = people.RemoveGradeToStudent(dni);
@@ -245,7 +245,7 @@ namespace Ex5
 
         private void btnShowStudentsWithAVGUpperThan5_Click(object sender, EventArgs e)
         {
-            if (!people.IsEmpty())
+            if (!people.IsEmptyOfStudents())
             {
                 string students = people.ShowStudentsAVGMore5();
                 if (students == "")
@@ -265,7 +265,7 @@ namespace Ex5
 
         private void btnShowStudentsWithAVGLessThan5_Click(object sender, EventArgs e)
         {
-            if (!people.IsEmpty())
+            if (!people.IsEmptyOfStudents())
             {
                 if (people.CountStudentsAVGLess5() > 0)
                 {

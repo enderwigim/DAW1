@@ -64,7 +64,7 @@ namespace Ex5
             }
             return subjectRemoved;
         }
-
+        
         public string ShowSubjects()
         {
             string textSubjects = "This teacher doesn't have subjects yet";

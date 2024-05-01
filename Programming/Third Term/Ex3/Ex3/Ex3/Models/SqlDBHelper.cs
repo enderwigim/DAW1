@@ -61,33 +61,44 @@ namespace Ex3.Models
         }
         public void UpdateRow(Character character, int pos)
         {
+            
             // Cogemos el registro situado en la posición actual.
-            DataRow dRegistro = dataSetChars.Tables["character"].Rows[pos];
-            // Metemos los datos en el registro
-            dRegistro[0] = character.Name;
-            dRegistro[1] = character.Class;
-            dRegistro[2] = character.Faction;
-            dRegistro[3] = character.Location;
-            dRegistro[4] = character.Level;
-            // Si quisieramos hacerlo por nombre de columna en vez de posición
-
-            ReconnectToDB();   
-        }
-        public void CreateRow(Character character)
-        {
-            // Cogemos el registro situado en la posición actual.
-            DataRow entry = dataSetChars.Tables["character"].NewRow();
+            DataRow entry = dataSetChars.Tables["character"].Rows[pos];
             // Metemos los datos en el registro
             entry[0] = character.Name;
             entry[1] = character.Class;
             entry[2] = character.Faction;
             entry[3] = character.Location;
             entry[4] = character.Level;
+            // Si quisieramos hacerlo por nombre de columna en vez de posición
 
-            dataSetChars.Tables["character"].Rows.Add(entry);
-            _ammountOfCharacters++;
+            ReconnectToDB();   
+        }
+        public bool CreateRow(Character character)
+        {
+            bool wasCreated = false;
+            try
+            {
+                // Cogemos el registro situado en la posición actual.
+                DataRow entry = dataSetChars.Tables["character"].NewRow();
+                // Metemos los datos en el registro
+                entry[0] = character.Name;
+                entry[1] = character.Class;
+                entry[2] = character.Faction;
+                entry[3] = character.Location;
+                entry[4] = character.Level;
 
-            ReconnectToDB();
+                dataSetChars.Tables["character"].Rows.Add(entry);
+                _ammountOfCharacters++;
+
+                ReconnectToDB();
+                wasCreated = true;
+                return wasCreated;
+            } catch
+            {
+                return wasCreated;
+            }
+            
         }
         public void DeleteRow(int pos)
         {
@@ -101,6 +112,16 @@ namespace Ex3.Models
             // Reconectamos con el dataAdapter y actualizamos la BD
             SqlCommandBuilder cb = new SqlCommandBuilder(daCharacters);
             daCharacters.Update(dataSetChars, "character");
+        }
+        public bool CheckIfChanged(int pos, Character newCharacter)
+        {
+            bool itChanged = true;
+            DataRow entry = dataSetChars.Tables["character"].Rows[pos];
+            // Metemos los datos en el registro
+            if (entry[0].ToString() == newCharacter.Name && Convert.ToInt16(entry[1]) == (int)newCharacter.Class && entry[2].ToString() == newCharacter.Faction && entry[3].ToString() == newCharacter.Location
+                && Convert.ToInt16(entry[4]) == newCharacter.Level)
+                itChanged = false;
+            return itChanged;
         }
     }
 }

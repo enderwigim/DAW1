@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -28,7 +29,6 @@ namespace Ex3
             pos = 0;
 
             ShowEntry(pos);
-
             //btnSaveNew.Enabled = false;
 
         }
@@ -69,6 +69,7 @@ namespace Ex3
             txtName.Text = string.Empty;
             txtLocation.Text = string.Empty;
             btnCreateNew.Enabled = true;
+            isANewEntry = true;
         }
 
         private void btnCreateNew_Click(object sender, EventArgs e)
@@ -82,6 +83,11 @@ namespace Ex3
             @class = txtClass.Text;
 
             classNumber = GetClass(@class);
+            if (string.IsNullOrEmpty(txtLevel.Text))
+            {
+                ErrorMessage();
+                return;
+            }
             level = int.Parse(txtLevel.Text);
 
             if (classNumber != -1)
@@ -89,18 +95,30 @@ namespace Ex3
                 Character newCharacter = Character.CreateCharacter(name, classNumber, faction, location, level);
                 if (newCharacter != null)
                 {
-                    db.CreateRow(newCharacter);
-                    pos = db.AmmountOfCharacters - 1;
-                    ShowEntry(pos);
+                    if (db.CreateRow(newCharacter))
+                    {
+                        pos = db.AmmountOfCharacters - 1;
+                        ShowEntry(pos);
+                        isANewEntry = false;
+                    } else
+                    {
+                        MessageBox.Show("That character already exists");
+                    }
                 }
-                ErrorMessage();
+                else
+                {
+                    ErrorMessage();
+                }
+            } else
+            {
+                ErrorClass();
             }
-            ErrorClass();
 
         }
 
         private void btnShowNext_Click(object sender, EventArgs e)
         {
+            UpdateIfWasChangedAndIsValid();
             if (pos != db.AmmountOfCharacters - 1)
             {
                 pos++;
@@ -178,9 +196,14 @@ namespace Ex3
                     pos = db.AmmountOfCharacters - 1;
                     ShowEntry(pos);
                 }
-                ErrorMessage();
+                else
+                {
+                    ErrorMessage();
+                }
+            } else
+            {
+                ErrorClass();
             }
-            ErrorClass();
         }
 
 
@@ -194,6 +217,8 @@ namespace Ex3
             txtClass.Text = character.Class.ToString();
             txtLocation.Text = character.Location;
             txtLevel.Text = character.Level.ToString();
+
+            ChangeImageWithClass();
 
             // lblEntryNumbers management.
             lblEntryNumber.Text = (int)((pos + 1)) + " de " + db.AmmountOfCharacters;
@@ -232,6 +257,7 @@ namespace Ex3
             }
             // We set the btnUpdate.Enable to false always so we can activate and deactivate it when a change was done.
             btnUpdateChar.Enabled = false;
+            isANewEntry = false;
         }
         public void CheckNavButtons()
         {
@@ -272,7 +298,151 @@ namespace Ex3
             MessageBox.Show("The classes available are: \n" +
                 "Paladin\nDeathKnight\nPriest\nMage\nWarlock\nWarrior\nRogue\nHunter\nDruid\nShaman");
         }
+        public bool dataIsValid()
+        {
+            bool dataIsValid = false;
+            string name = txtName.Text;
+            string @class = txtClass.Text;
 
+            string faction = txtFaction.Text;
+            string location = txtLocation.Text;
+            if (string.IsNullOrEmpty(txtLevel.Text)) 
+                return dataIsValid;
+
+            int level = int.Parse(txtLevel.Text);
+
+            
+
+
+            int classNum = GetClass(@class);
+
+
+            if (classNum != -1)
+            {
+                Character character = Character.CreateCharacter(name, classNum, faction, location, level);
+                if (character != null)
+                    dataIsValid = true;
+            }
+            return dataIsValid;
+        }
+
+        private void txtName_TextChanged(object sender, EventArgs e)
+        {
+            if (!isANewEntry)
+            {
+                if (dataIsValid())
+                {
+                    btnUpdateChar.Enabled = true;
+                }
+            }
+        }
+
+        private void txtClass_TextChanged(object sender, EventArgs e)
+        {
+            if (!isANewEntry)
+            {
+                if (dataIsValid())
+                {
+                    btnUpdateChar.Enabled = true;
+                }
+            }
+        }
+
+        private void txtFaction_TextChanged(object sender, EventArgs e)
+        {
+            if (!isANewEntry)
+            {
+                if (dataIsValid())
+                {
+                    btnUpdateChar.Enabled = true;
+                }
+            }
+        }
+
+        private void txtLevel_TextChanged(object sender, EventArgs e)
+        {
+            if (!isANewEntry)
+            {
+                if (dataIsValid())
+                {
+                    btnUpdateChar.Enabled = true;
+                }
+            }
+        }
+
+        private void txtLocation_TextChanged(object sender, EventArgs e)
+        {
+            if (!isANewEntry)
+            {
+                if (dataIsValid())
+                {
+                    btnUpdateChar.Enabled = true;
+                }
+            }
+        }
+        public void UpdateIfWasChangedAndIsValid()
+        {
+            if (!isANewEntry)
+            {
+                if (dataIsValid())
+                {
+                    if (checkIfChanges(pos))
+                    {
+                        DialogResult wantToUpdate = MessageBox.Show("Do you want to update this character data?", " ", MessageBoxButtons.YesNo);
+                        if (wantToUpdate == DialogResult.Yes)
+                        {
+                            btnUpdateChar.PerformClick();
+                        }
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Changes were detected, but as they are not valid, data wasnt updated");
+                }
+            }
+        }
+        public bool checkIfChanges(int pos)
+        {
+            bool itChanged = false;
+
+            string name = txtName.Text;
+            string @class = txtClass.Text;
+
+            string faction = txtFaction.Text;
+            string location = txtLocation.Text;
+            int level = Convert.ToInt16(txtLevel.Text);
+
+
+
+            int classNum = GetClass(@class);
+            Character character = Character.CreateCharacter(name, classNum, faction, location, level);
+            if (character != null)
+            {
+                if (db.CheckIfChanged(pos, character)) 
+                {
+                    itChanged = true;
+                }
+            }
+
+            return itChanged;
+            
+        }
+        public void ChangeImageWithClass()
+        {
+            string imgPath = Path.GetFullPath(@"..\\..\\img\\");
+            string currentClass = txtClass.Text;
+            if (currentClass.ToLower() == "paladin")
+            {
+                imgPath = Path.GetFullPath(@"..\\..\\img\\paladin.gif");
+                pictureBox1.Image = Image.FromFile(imgPath);
+            }
+            if (currentClass.ToLower() == "deathknight")
+            {
+                imgPath = Path.GetFullPath(@"..\\..\\img\\deathknight.gif");
+                pictureBox1.Image = Image.FromFile(imgPath);
+            }
+            
+        }
     }
 
 }

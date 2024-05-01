@@ -13,10 +13,7 @@ namespace Subscribing_NewsLetter_WebDriving
         private string _type;
         private string _insert;
 
-        public string Name
-        {
-            get { return _name; }
-        }
+        public string Name => _name;                    // Seba: Aca podes acortar tus properties un monton para hacer el codigo mas legible como te edite el Name
         public string XPath
         {
             get { return _xPath; }
@@ -31,15 +28,16 @@ namespace Subscribing_NewsLetter_WebDriving
 
         }
 
-        private Button(string name, string xPath, string type, string insert)
+        private Button(string name, string xPath, string type, string insert)        // Seba: Buen uso de constructor privado
         {
             _name = name;
             _xPath = xPath;
             _type = type;
             _insert = insert;
         }
-        public static Button Create(string name, string xPath, string type, string insert)
-        {
+        public static Button Create(string name, string xPath, string type, string insert)        // Seba: Te falta el ? a la derecha de lo que devuelve para 
+        {                                                                                          // indicar que puede devolver null, no hace nada pero ayuda a quien usa el codigo (vos)
+            
             if (name == null || xPath == null || type == null)
             {
                 return null;

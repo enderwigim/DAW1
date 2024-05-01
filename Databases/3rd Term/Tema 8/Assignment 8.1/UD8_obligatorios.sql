@@ -49,8 +49,9 @@ BEGIN
 	END TRY
 	BEGIN CATCH
 		PRINT CONCAT('CODERROR: ', ERROR_NUMBER(),
- 					 ', DESCRIPCION: ', ERROR_MESSAGE(),
-  					 ', LINEA: ', ERROR_LINE())
+					 ', DESCRIPCION: ', ERROR_MESSAGE(),
+				  	 ', LINEA: ', ERROR_LINE(),
+					 ', PROCEDURE: ', ERROR_PROCEDURE())
 	END CATCH
 
 END
@@ -121,8 +122,9 @@ BEGIN
 
 	BEGIN CATCH
 		PRINT CONCAT('CODERROR: ', ERROR_NUMBER(),
- 					 ', DESCRIPCION: ', ERROR_MESSAGE(),
-  					 ', LINEA: ', ERROR_LINE())
+					 ', DESCRIPCION: ', ERROR_MESSAGE(),
+				  	 ', LINEA: ', ERROR_LINE(),
+					 ', PROCEDURE: ', ERROR_PROCEDURE())
 	END CATCH
 
 END
@@ -216,7 +218,8 @@ BEGIN
 	BEGIN CATCH
 		PRINT CONCAT('CODERROR: ', ERROR_NUMBER(),
 					 ', DESCRIPCION: ', ERROR_MESSAGE(),
-				     ', LINEA: ', ERROR_LINE())
+				  	 ', LINEA: ', ERROR_LINE(),
+					 ', PROCEDURE: ', ERROR_PROCEDURE())
 	END CATCH
 END
 
@@ -300,7 +303,8 @@ BEGIN
 	BEGIN CATCH
 		PRINT CONCAT('CODERROR: ', ERROR_NUMBER(),
 					 ', DESCRIPCION: ', ERROR_MESSAGE(),
-				  	 ', LINEA: ', ERROR_LINE())
+				  	 ', LINEA: ', ERROR_LINE(),
+					 ', PROCEDURE: ', ERROR_PROCEDURE())
 	END CATCH
 END
 
@@ -400,7 +404,8 @@ BEGIN
 	BEGIN CATCH
 		PRINT CONCAT('CODERROR: ', ERROR_NUMBER(),
 					 ', DESCRIPCION: ', ERROR_MESSAGE(),
-				  	 ', LINEA: ', ERROR_LINE())
+				  	 ', LINEA: ', ERROR_LINE(),
+					 ', PROCEDURE: ', ERROR_PROCEDURE())
 	END CATCH
 END
 
@@ -520,7 +525,8 @@ BEGIN
 		ROLLBACK
 		PRINT CONCAT('CODERROR: ', ERROR_NUMBER(),
 					 ', DESCRIPCION: ', ERROR_MESSAGE(),
-				  	 ', LINEA: ', ERROR_LINE())
+				  	 ', LINEA: ', ERROR_LINE(),
+					 ', PROCEDURE: ', ERROR_PROCEDURE())
 	END CATCH
 END
 
@@ -618,7 +624,8 @@ BEGIN
 		ROLLBACK
 		PRINT CONCAT('CODERROR: ', ERROR_NUMBER(),
 					 ', DESCRIPCION: ', ERROR_MESSAGE(),
-				  	 ', LINEA: ', ERROR_LINE())
+				  	 ', LINEA: ', ERROR_LINE(),
+					 ', PROCEDURE: ', ERROR_PROCEDURE())
 	END CATCH
 END
 
@@ -647,6 +654,34 @@ PRINT CONCAT(@numEmpleados, ' empleados han sido actualizados');
 --	
 --	Recuerda que debes incluir la SELECT y comprobar el funcionamiento
 -------------------------------------------------------------------------------------------
+GO
+
+
+GO
+CREATE OR ALTER FUNCTION getCostePedido(@codPedido INT)
+RETURNS DECIMAL(11,2)
+AS
+BEGIN
+	RETURN (SELECT ISNULL(SUM(cantidad*precio_unidad), 0)
+	          FROM DETALLE_PEDIDOS
+			 WHERE codPedido = @codPedido)
+END
+
+GO
+
+CREATE OR ALTER FUNCTION getCostePedidos(@codCLiente INT)
+RETURNS DECIMAL(11,2)
+AS
+BEGIN	
+	RETURN (SELECT SUM(dbo.getCostePedido(codPedido))
+	  	      FROM PEDIDOS
+	 		 WHERE codCliente = @codCLiente)
+	
+END
+GO
+DECLARE @codCliente INT = 9
+SELECT dbo.getCostePedidos(@codCLiente);
+
 
 
 
@@ -656,6 +691,25 @@ PRINT CONCAT(@numEmpleados, ' empleados han sido actualizados');
 --	
 --	Recuerda que debes incluir la SELECT y comprobar el funcionamiento
 -------------------------------------------------------------------------------------------
+GO
+CREATE OR ALTER FUNCTION numEmpleadosOfic(@codOficina CHAR(6))
+RETURNS DECIMAL(4,0)
+AS
+BEGIN
+	-- Revisamos si la oficina existe. Sino devolverá nulo.
+	IF NOT EXISTS(SELECT *
+	                FROM OFICINAS
+				   WHERE codOficina = @codOficina)
+		RETURN NULL
+	RETURN (SELECT COUNT(codEmpleado)
+	          FROM EMPLEADOS
+	         WHERE codOficina = @codOficina)
+END
+
+--Implementación
+GO
+DECLARE @codOficina CHAR(6) = 'VAL-ES'
+SELECT dbo.numEmpleadosOfic(@codOficina)
 
 
 
@@ -665,7 +719,28 @@ PRINT CONCAT(@numEmpleados, ' empleados han sido actualizados');
 --	
 --	Recuerda que debes incluir la SELECT y comprobar el funcionamiento
 -------------------------------------------------------------------------------------------
+GO
+CREATE OR ALTER FUNCTION clientePagos_SN(@codCliente INT)
+RETURNS CHAR(1)
+AS
+BEGIN
+	-- Revisamos si el cliente existe
+	IF NOT EXISTS (SELECT *
+	                 FROM CLIENTES
+					WHERE codCliente = @codCliente)
+		RETURN NULL
+	-- En caso de que exista. Revisamos si tiene pagos o no.
+	IF EXISTS(SELECT *
+	            FROM PAGOS
+	           WHERE codCliente = @codCliente)
+		RETURN 'S'
+	RETURN 'N'
+END
 
+-- Implementación
+GO
+DECLARE @codCliente INT = 2;
+SELECT dbo.clientePagos_SN(@codCliente)
 
 
 -------------------------------------------------------------------------------------------
@@ -674,4 +749,18 @@ PRINT CONCAT(@numEmpleados, ' empleados han sido actualizados');
 
 --	Recuerda que debes incluir la SELECT y comprobar el funcionamiento
 -------------------------------------------------------------------------------------------
+GO
+CREATE OR ALTER FUNCTION pedidosPendientesAnyo (@codEstado CHAR(1),
+                                                @anyo CHAR(4))
+RETURNS TABLE
+AS
+	RETURN SELECT *
+	         FROM PEDIDOS
+	        WHERE codEstado = @codEstado
+	          AND @anyo = YEAR(fecha_pedido)
 
+
+-- Implementación
+GO
+SELECT *
+  FROM dbo.pedidosPendientesAnyo('P', '2009')

@@ -47,7 +47,7 @@
             // btnShowNext
             // 
             this.btnShowNext.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.25F);
-            this.btnShowNext.Location = new System.Drawing.Point(271, 316);
+            this.btnShowNext.Location = new System.Drawing.Point(325, 375);
             this.btnShowNext.Name = "btnShowNext";
             this.btnShowNext.Size = new System.Drawing.Size(112, 32);
             this.btnShowNext.TabIndex = 63;
@@ -58,7 +58,7 @@
             // btnShowPrevious
             // 
             this.btnShowPrevious.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.25F);
-            this.btnShowPrevious.Location = new System.Drawing.Point(12, 316);
+            this.btnShowPrevious.Location = new System.Drawing.Point(66, 375);
             this.btnShowPrevious.Name = "btnShowPrevious";
             this.btnShowPrevious.Size = new System.Drawing.Size(112, 32);
             this.btnShowPrevious.TabIndex = 62;
@@ -70,7 +70,7 @@
             // 
             this.lblLocation.AutoSize = true;
             this.lblLocation.Font = new System.Drawing.Font("Sylfaen", 14.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblLocation.Location = new System.Drawing.Point(53, 179);
+            this.lblLocation.Location = new System.Drawing.Point(91, 299);
             this.lblLocation.Name = "lblLocation";
             this.lblLocation.Size = new System.Drawing.Size(111, 25);
             this.lblLocation.TabIndex = 61;
@@ -80,7 +80,7 @@
             // 
             this.lblLevel.AutoSize = true;
             this.lblLevel.Font = new System.Drawing.Font("Sylfaen", 14.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblLevel.Location = new System.Drawing.Point(116, 135);
+            this.lblLevel.Location = new System.Drawing.Point(158, 225);
             this.lblLevel.Name = "lblLevel";
             this.lblLevel.Size = new System.Drawing.Size(34, 25);
             this.lblLevel.TabIndex = 60;
@@ -90,7 +90,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Sylfaen", 14.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(43, 135);
+            this.label4.Location = new System.Drawing.Point(85, 225);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(67, 25);
             this.label4.TabIndex = 59;
@@ -100,7 +100,7 @@
             // 
             this.lblFaction.AutoSize = true;
             this.lblFaction.Font = new System.Drawing.Font("Sylfaen", 14.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblFaction.Location = new System.Drawing.Point(53, 87);
+            this.lblFaction.Location = new System.Drawing.Point(91, 170);
             this.lblFaction.Name = "lblFaction";
             this.lblFaction.Size = new System.Drawing.Size(87, 25);
             this.lblFaction.TabIndex = 57;
@@ -110,7 +110,7 @@
             // 
             this.lblClass.AutoSize = true;
             this.lblClass.Font = new System.Drawing.Font("Sylfaen", 14.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblClass.Location = new System.Drawing.Point(53, 49);
+            this.lblClass.Location = new System.Drawing.Point(91, 108);
             this.lblClass.Name = "lblClass";
             this.lblClass.Size = new System.Drawing.Size(79, 25);
             this.lblClass.TabIndex = 56;
@@ -119,7 +119,7 @@
             // characterImg
             // 
             this.characterImg.Image = ((System.Drawing.Image)(resources.GetObject("characterImg.Image")));
-            this.characterImg.Location = new System.Drawing.Point(196, 49);
+            this.characterImg.Location = new System.Drawing.Point(250, 108);
             this.characterImg.Name = "characterImg";
             this.characterImg.Size = new System.Drawing.Size(158, 251);
             this.characterImg.TabIndex = 55;
@@ -129,7 +129,7 @@
             // 
             this.lblName.AutoSize = true;
             this.lblName.Font = new System.Drawing.Font("Sylfaen", 20F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblName.Location = new System.Drawing.Point(154, 11);
+            this.lblName.Location = new System.Drawing.Point(191, 32);
             this.lblName.Name = "lblName";
             this.lblName.Size = new System.Drawing.Size(86, 35);
             this.lblName.TabIndex = 54;
@@ -138,7 +138,7 @@
             // btnChangeCharacters
             // 
             this.btnChangeCharacters.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.25F);
-            this.btnChangeCharacters.Location = new System.Drawing.Point(141, 316);
+            this.btnChangeCharacters.Location = new System.Drawing.Point(195, 375);
             this.btnChangeCharacters.Name = "btnChangeCharacters";
             this.btnChangeCharacters.Size = new System.Drawing.Size(112, 32);
             this.btnChangeCharacters.TabIndex = 64;
@@ -149,7 +149,7 @@
             // factionImg
             // 
             this.factionImg.Image = ((System.Drawing.Image)(resources.GetObject("factionImg.Image")));
-            this.factionImg.Location = new System.Drawing.Point(58, 216);
+            this.factionImg.Location = new System.Drawing.Point(325, 18);
             this.factionImg.Name = "factionImg";
             this.factionImg.Size = new System.Drawing.Size(82, 84);
             this.factionImg.TabIndex = 65;
@@ -159,7 +159,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(395, 361);
+            this.ClientSize = new System.Drawing.Size(492, 443);
             this.Controls.Add(this.factionImg);
             this.Controls.Add(this.btnChangeCharacters);
             this.Controls.Add(this.btnShowNext);

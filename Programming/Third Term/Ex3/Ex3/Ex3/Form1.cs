@@ -30,27 +30,28 @@ namespace Ex3
             //pos = 0;
 
             ShowEntry(pos);
+            lblClassSelector.Text = classArray[classPosition];
+            ManageClassImage();
             //btnSaveNew.Enabled = false;
 
         }
-        
-        public int GetClass(string className)
-        {
-            // Return the class as an int so It can be added to the character to update the database
-            // later.
-            int @class = -1;
-            string[] classArray = {
-            "Paladin", 
+        string[] classArray = {
+            "Paladin",
             "DeathKnight",
             "Priest",
             "Mage",
             "Warlock",
             "Warrior",
             "Rogue",
-            "Hunter",
-            "Druid",
-            "Shaman" 
+            "Hunter"
             };
+        int classPosition = 0;
+        public int GetClass(string className)
+        {
+            // Return the class as an int so It can be added to the character to update the database
+            // later.
+            int @class = -1;
+            
             for (int i = 0; i < classArray.Length; i++)
             {
                 if (classArray[i].ToUpper() == className.ToUpper())
@@ -212,19 +213,23 @@ namespace Ex3
         {
             Character character = db.GetCharacter(pos);
 
+            if (character != null) {
+                txtName.Text = character.Name;
+                txtFaction.Text = character.Faction;
+                txtClass.Text = character.Class.ToString();
+                txtLocation.Text = character.Location;
+                txtLevel.Text = character.Level.ToString();
 
-            txtName.Text = character.Name;
-            txtFaction.Text = character.Faction;
-            txtClass.Text = character.Class.ToString();
-            txtLocation.Text = character.Location;
-            txtLevel.Text = character.Level.ToString();
 
-            ChangeImageWithClass();
-
-            // lblEntryNumbers management.
-            lblEntryNumber.Text = (int)((pos + 1)) + " de " + db.AmmountOfCharacters;
-            CheckButtons();
-            CheckNavButtons();
+                // lblEntryNumbers management.
+                lblEntryNumber.Text = (int)((pos + 1)) + " de " + db.AmmountOfCharacters;
+                CheckButtons();
+                CheckNavButtons();
+            } else
+            {
+                ShowEmpty();
+            }
+            
         }
         public void ShowEmpty()
         {
@@ -428,21 +433,38 @@ namespace Ex3
             return itChanged;
             
         }
-        public void ChangeImageWithClass()
+        public void ManageClassImage()
         {
-            string imgPath = Path.GetFullPath(@"..\\..\\img\\");
-            string currentClass = txtClass.Text;
-            if (currentClass.ToLower() == "paladin")
+            string imgPath = @"..\\..\\img\\";
+            imgPath = Path.GetFullPath(imgPath + lblClassSelector.Text.ToLower() + ".gif");
+            characterImg.Image = Image.FromFile(imgPath);
+        }
+
+        private void btnNextClass_Click(object sender, EventArgs e)
+        {
+            if (classPosition < classArray.Length - 1)
             {
-                imgPath = Path.GetFullPath(@"..\\..\\img\\paladin.gif");
-                pictureBox1.Image = Image.FromFile(imgPath);
-            }
-            if (currentClass.ToLower() == "deathknight")
+                classPosition++;
+            } else
             {
-                imgPath = Path.GetFullPath(@"..\\..\\img\\deathknight.gif");
-                pictureBox1.Image = Image.FromFile(imgPath);
+                classPosition = 0;
             }
-            
+            lblClassSelector.Text = classArray[classPosition];
+            ManageClassImage();
+        }
+
+        private void btnPreviousClass_Click(object sender, EventArgs e)
+        {
+            if (classPosition > 0)
+            {
+                classPosition--;
+            }
+            else
+            {
+                classPosition = classArray.Length - 1;
+            }
+            lblClassSelector.Text = classArray[classPosition];
+            ManageClassImage();
         }
     }
 

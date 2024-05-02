@@ -14,7 +14,7 @@ namespace Ex3.Models
         private string _faction;
         private string _location;
         private int _lvl;
-
+        // private string _img;
         public string Name 
         { 
             get { return _name; }
@@ -35,6 +35,12 @@ namespace Ex3.Models
         {
             get { return _lvl; }
         }
+        /*
+        public string Image
+        {
+            get { return _img; }
+        }
+        */
         public enum @class
         {
             Paladin,

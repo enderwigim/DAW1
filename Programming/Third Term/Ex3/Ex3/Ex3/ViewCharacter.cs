@@ -36,11 +36,22 @@ namespace Ex3
         public void ShowEntry()
         {
             Character entryCharacter = db.GetCharacter(pos);
-            lblName.Text = entryCharacter.Name;
-            lblFaction.Text = entryCharacter.Faction;
-            lblClass.Text = entryCharacter.Class.ToString();
-            lblLocation.Text = entryCharacter.Location;
-            lblLevel.Text = entryCharacter.Level.ToString();
+            if (entryCharacter != null)
+            {
+                lblName.Text = entryCharacter.Name;
+                lblFaction.Text = entryCharacter.Faction;
+                lblClass.Text = entryCharacter.Class.ToString();
+                lblLocation.Text = entryCharacter.Location;
+                lblLevel.Text = entryCharacter.Level.ToString();
+            } else {
+                lblName.Text = "Future Aventurer";
+                lblClass.Text = "Villager";
+                lblFaction.Text = "Unknown";
+                lblLevel.Text = "0";
+                lblLocation.Text = "Create a character and start your adventure!";
+                pos = 0;
+            }
+
             ChangeEveryFont();
             ManageFactionImage();
             ManageClassImage();
@@ -51,9 +62,13 @@ namespace Ex3
             if (lblFaction.Text.ToLower() == "horde")
             {
                 imgPath = Path.GetFullPath(imgPath + lblFaction.Text.ToLower() + ".png");
-            } else
+            } else if (lblFaction.Text.ToLower() == "alliance")
             {
                 imgPath = Path.GetFullPath(imgPath + lblFaction.Text.ToLower() + ".png");
+            } else
+            {
+                factionImg.Image = null;
+                return;
             }
             factionImg.Image = Image.FromFile(imgPath);
         }
@@ -75,6 +90,8 @@ namespace Ex3
         {
             Form1 dbForm = new Form1(pos);
             dbForm.ShowDialog();
+            db.RefreshDB();
+            ShowEntry();
         }
 
         private void btnShowNext_Click(object sender, EventArgs e)
@@ -88,6 +105,7 @@ namespace Ex3
                 pos = 0;
             }
             ShowEntry();
+
         }
 
         private void btnShowPrevious_Click(object sender, EventArgs e)
@@ -102,5 +120,6 @@ namespace Ex3
             }
             ShowEntry();
         }
+        
     }
 }

@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
@@ -50,10 +49,13 @@
             this.label6 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.characterImg = new System.Windows.Forms.PictureBox();
+            this.lblClassSelector = new System.Windows.Forms.Label();
+            this.btnNextClass = new System.Windows.Forms.Button();
+            this.btnPreviousClass = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.characterImg)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -65,19 +67,10 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Name";
             // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(13, 52);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(32, 13);
-            this.label2.TabIndex = 1;
-            this.label2.Text = "Class";
-            // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(394, 52);
+            this.label3.Location = new System.Drawing.Point(12, 63);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(33, 13);
             this.label3.TabIndex = 2;
@@ -86,7 +79,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(394, 106);
+            this.label4.Location = new System.Drawing.Point(397, 60);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(48, 13);
             this.label4.TabIndex = 3;
@@ -111,7 +104,7 @@
             // 
             // txtClass
             // 
-            this.txtClass.Location = new System.Drawing.Point(54, 52);
+            this.txtClass.Location = new System.Drawing.Point(35, 417);
             this.txtClass.Name = "txtClass";
             this.txtClass.Size = new System.Drawing.Size(309, 20);
             this.txtClass.TabIndex = 6;
@@ -127,7 +120,7 @@
             // 
             // txtLevel
             // 
-            this.txtLevel.Location = new System.Drawing.Point(454, 49);
+            this.txtLevel.Location = new System.Drawing.Point(54, 60);
             this.txtLevel.Name = "txtLevel";
             this.txtLevel.Size = new System.Drawing.Size(309, 20);
             this.txtLevel.TabIndex = 8;
@@ -135,7 +128,7 @@
             // 
             // txtLocation
             // 
-            this.txtLocation.Location = new System.Drawing.Point(454, 106);
+            this.txtLocation.Location = new System.Drawing.Point(457, 60);
             this.txtLocation.Name = "txtLocation";
             this.txtLocation.Size = new System.Drawing.Size(309, 20);
             this.txtLocation.TabIndex = 9;
@@ -268,13 +261,43 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Nav";
             // 
-            // pictureBox1
+            // characterImg
             // 
-            this.pictureBox1.Location = new System.Drawing.Point(532, 155);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(178, 269);
-            this.pictureBox1.TabIndex = 36;
-            this.pictureBox1.TabStop = false;
+            this.characterImg.Location = new System.Drawing.Point(542, 101);
+            this.characterImg.Name = "characterImg";
+            this.characterImg.Size = new System.Drawing.Size(178, 269);
+            this.characterImg.TabIndex = 36;
+            this.characterImg.TabStop = false;
+            // 
+            // lblClassSelector
+            // 
+            this.lblClassSelector.AutoSize = true;
+            this.lblClassSelector.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblClassSelector.Location = new System.Drawing.Point(605, 373);
+            this.lblClassSelector.Name = "lblClassSelector";
+            this.lblClassSelector.Size = new System.Drawing.Size(55, 24);
+            this.lblClassSelector.TabIndex = 37;
+            this.lblClassSelector.Text = "Class";
+            // 
+            // btnNextClass
+            // 
+            this.btnNextClass.Location = new System.Drawing.Point(677, 408);
+            this.btnNextClass.Name = "btnNextClass";
+            this.btnNextClass.Size = new System.Drawing.Size(89, 29);
+            this.btnNextClass.TabIndex = 18;
+            this.btnNextClass.Text = "Next";
+            this.btnNextClass.UseVisualStyleBackColor = true;
+            this.btnNextClass.Click += new System.EventHandler(this.btnNextClass_Click);
+            // 
+            // btnPreviousClass
+            // 
+            this.btnPreviousClass.Location = new System.Drawing.Point(508, 408);
+            this.btnPreviousClass.Name = "btnPreviousClass";
+            this.btnPreviousClass.Size = new System.Drawing.Size(89, 29);
+            this.btnPreviousClass.TabIndex = 38;
+            this.btnPreviousClass.Text = "Previous";
+            this.btnPreviousClass.UseVisualStyleBackColor = true;
+            this.btnPreviousClass.Click += new System.EventHandler(this.btnPreviousClass_Click);
             // 
             // Form1
             // 
@@ -282,7 +305,10 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.btnPreviousClass);
+            this.Controls.Add(this.btnNextClass);
+            this.Controls.Add(this.lblClassSelector);
+            this.Controls.Add(this.characterImg);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.lblEntryNumber);
@@ -295,14 +321,13 @@
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Name = "Form1";
             this.Text = "World Of Warcraft";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.characterImg)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -311,7 +336,6 @@
         #endregion
 
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
@@ -332,7 +356,10 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.PictureBox characterImg;
+        private System.Windows.Forms.Label lblClassSelector;
+        private System.Windows.Forms.Button btnNextClass;
+        private System.Windows.Forms.Button btnPreviousClass;
     }
 }
 

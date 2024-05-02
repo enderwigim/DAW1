@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+using System.Drawing;
 
 namespace Ex3.Models
 {
@@ -16,6 +17,7 @@ namespace Ex3.Models
         private SqlDataAdapter daCharacters;
         // Attributes to save ammount of characters.
         private int _ammountOfCharacters;
+        
         // Propiedad de solo lectura.
         public int AmmountOfCharacters
         {
@@ -23,11 +25,16 @@ namespace Ex3.Models
         }
         // Constructor del objeto. 
         // En el mismo hacemos la conexión y creamos dataSet y dataAdapter
+
+
         public SqlDBHelper()
         {
+            RefreshDB();
+
+        }
+        public void RefreshDB()
+        {
             string filePath = Path.GetFullPath(@"..\\..\\AppData\\Character.mdf;");
-
-
             SqlConnection con = new SqlConnection("Data Source = (LocalDB)\\MSSQLLocalDB; AttachDbFilename=" + filePath + "Integrated Security=True");
             // Abrimos la conexión.
             con.Open();
@@ -39,7 +46,6 @@ namespace Ex3.Models
             _ammountOfCharacters = dataSetChars.Tables["character"].Rows.Count;
             // Cerramos la conexión.
             con.Close();
-
         }
         public Character GetCharacter(int pos)
         {

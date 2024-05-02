@@ -17,6 +17,7 @@ namespace Ex3
     {
         SqlDBHelper db = new SqlDBHelper();
         int pos = 0;
+        
         public SelectCharacter()
         {
             InitializeComponent();
@@ -41,6 +42,27 @@ namespace Ex3
             lblLocation.Text = entryCharacter.Location;
             lblLevel.Text = entryCharacter.Level.ToString();
             ChangeEveryFont();
+            ManageFactionImage();
+            ManageClassImage();
+        }
+        public void ManageFactionImage()
+        {
+            string imgPath = @"..\\..\\img\\";
+            if (lblFaction.Text.ToLower() == "horde")
+            {
+                imgPath = Path.GetFullPath(imgPath + lblFaction.Text.ToLower() + ".png");
+            } else
+            {
+                imgPath = Path.GetFullPath(imgPath + lblFaction.Text.ToLower() + ".png");
+            }
+            factionImg.Image = Image.FromFile(imgPath);
+        }
+        
+        public void ManageClassImage()
+        {
+            string imgPath = @"..\\..\\img\\";
+            imgPath = Path.GetFullPath(imgPath + lblClass.Text.ToLower() + ".gif");
+            characterImg.Image = Image.FromFile(imgPath);
         }
         
         private void ViewCharacter_Load(object sender, EventArgs e)

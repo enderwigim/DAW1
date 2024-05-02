@@ -129,10 +129,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="AppData\character.mdf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="AppData\character_log.ldf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <DependentUpon>character.mdf</DependentUpon>
     </Content>
     <None Include="img\deathknight.gif" />

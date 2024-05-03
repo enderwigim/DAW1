@@ -1,4 +1,16 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE comunidades [
+<!ELEMENT comunidades (comunidad)>
+<!ELEMENT comunidad (persona)>
+<!ELEMENT persona(nombre, edad, habilidades, inventario)>
+<!ELEMENT habilidades(cardio, ingenio, pelea, disparo)>
+<!ELEMENT cardio (#PCDATA)>
+<!ELEMENT ingenio(#PCDATA)>
+<!ELEMENT pelea(#PCDATA)>
+<!ELEMENT disparo(#PCDATA)>
+<!ELEMENT inventario(item)>
+]>
+<comunidades>
 <comunidad nombre="The survivors" cantidadHabitantes="2">
     <persona>
         <nombre>Sergio</nombre>
@@ -37,7 +49,6 @@
                 de zombies.</descripcion>
                 <cantidad>2</cantidad>
             </item>
-
             <item tipo="consumible">
                 <nombre>Latas de comida en conserva</nombre>
                 <descripcion>Las latas de comida en conserva son una fuente de alimento duradero 
@@ -46,4 +57,157 @@
             </item>
         </inventario>
     </persona>
+    
+    <persona>
+        <nombre>Abel</nombre>
+        <edad>20</edad>
+        <habilidades>
+            <cardio>5</cardio>
+            <ingenio>5</ingenio>
+            <pelea>5</pelea>
+            <disparo>5</disparo>
+        </habilidades>
+        <inventario>
+            <item tipo="armaMele">
+                <nombre>Bate</nombre>
+                <descripcion>Un bate común y corriente. Pero la mejor manera de romper cabezas.</descripcion>
+                <cantidad>1</cantidad>
+            </item>
+            <item tipo="armaDistancia">
+                <nombre>AR-15</nombre>
+                <descripcion>El Fusil AR-15 es un arma de fuego semiautomática o automática, conocida por su 
+                versatilidad, precisión y fiabilidad. Diseñado originalmente como un fusil de asalto ligero, 
+                el AR-15 ha ganado popularidad en todo el mundo tanto en el ámbito militar como en el civil. 
+                </descripcion>
+                <cantidad>1</cantidad>
+            </item>
+            <item tipo="mochila">
+                <nombre>Mochila Grande</nombre>
+                <descripcion>
+                    Esta Mochila Grande de Supervivencia es un equipo imprescindible para cualquier personaje que busque sobrevivir en un mundo postapocalíptico lleno de peligros.  Puede llevar hasta 10 elementos adicionales.
+                </descripcion>
+                <cantidad>1</cantidad>
+            </item>
+            <item tipo="consumible">
+                <nombre>Latas de comida en conserva</nombre>
+                <descripcion>Las latas de comida en conserva son una fuente de alimento duradero 
+                </descripcion>
+                <cantidad>2</cantidad>
+            </item>
+        </inventario>
+    </persona>
 </comunidad>
+
+<comunidad nombre="Los Supervivientes" cantidadHabitantes="3">
+    <persona>
+        <nombre>Luisa</nombre>
+        <edad>28</edad>
+        <habilidades>
+            <carisma>4</carisma>
+            <estrategia>5</estrategia>
+            <sigilo>3</sigilo>
+            <primerosAuxilios>2</primerosAuxilios>
+        </habilidades>
+        <inventario>
+            <item tipo="armaMele">
+                <nombre>Cuchillo Multiusos</nombre>
+                <descripcion>Un cuchillo versátil con varias funciones, útil para cortar, tallar y otras tareas de supervivencia.</descripcion>
+                <cantidad>1</cantidad>
+            </item>
+            <item tipo="consumible">
+                <nombre>Botiquín de Viaje</nombre>
+                <descripcion>Un kit compacto de primeros auxilios para tratar heridas leves durante desplazamientos.</descripcion>
+                <cantidad>1</cantidad>
+            </item>
+            <item tipo="consumible">
+                <nombre>Barritas Energéticas</nombre>
+                <descripcion>Barritas nutritivas y energéticas ideales para mantenerse activo durante situaciones de emergencia.</descripcion>
+                <cantidad>5</cantidad>
+            </item>
+            <item tipo="mochila">
+                <nombre>Mochila pequeña</nombre>
+                <descripcion>
+                    La Mochila Pequeña es una opción compacta pero funcional para aumentar el espacio de almacenamiento
+                     del inventario. Esta mochila ofrece espacio para llevar hasta 5 objetos adicionales
+                </descripcion>
+                <cantidad>1</cantidad>
+            </item>
+        </inventario>
+    </persona>
+    <persona>
+        <nombre>Pablo</nombre>
+        <edad>34</edad>
+        <habilidades>
+            <sigilo>4</sigilo>
+            <combate>5</combate>
+            <supervivencia>3</supervivencia>
+            <estrategia>3</estrategia>
+        </habilidades>
+        <inventario>
+            <item tipo="armaDistancia">
+                <nombre>Rifle de Francotirador</nombre>
+                <descripcion>Un rifle de largo alcance altamente preciso, ideal para eliminar objetivos a distancia con sigilo.</descripcion>
+                <cantidad>1</cantidad>
+            </item>
+            <item tipo="consumible">
+                <nombre>Agua Purificada</nombre>
+                <descripcion>Botellas de agua purificada para mantenerse hidratado durante la supervivencia.</descripcion>
+                <cantidad>3</cantidad>
+            </item>
+            <item tipo="consumible">
+                <nombre>Comida enlatada</nombre>
+                <descripcion>Latasy conservas de alimentos no perecederos, ideal para una alimentación duradera durante situaciones de emergencia.</descripcion>
+                <cantidad>5</cantidad>
+            </item>
+            <item tipo="mochila">
+                <nombre>Mochila pequeña</nombre>
+                <descripcion>
+                    La Mochila Pequeña es una opción compacta pero funcional para aumentar el espacio de almacenamiento
+                     del inventario. Esta mochila ofrece espacio para llevar hasta 5 objetos adicionales
+                </descripcion>
+                <cantidad>1</cantidad>
+            </item>
+        </inventario>
+    </persona>
+    <persona>
+        <nombre>Ana</nombre>
+        <edad>25</edad>
+        <habilidades>
+            <supervivencia>4</supervivencia>
+            <carisma>3</carisma>
+            <estrategia>2</estrategia>
+            <sigilo>3</sigilo>
+        </habilidades>
+        <inventario>
+            <item tipo="armaDistancia">
+                <nombre>Pistola Compacta</nombre>
+                <descripcion>Una pistola ligera y fácil de ocultar, ideal para situaciones de autodefensa en espacios reducidos.</descripcion>
+                <cantidad>1</cantidad>
+            </item>
+            <item tipo="mochila">
+                <nombre>Mochila pequeña</nombre>
+                <descripcion>
+                    La Mochila Pequeña es una opción compacta pero funcional para aumentar el espacio de almacenamiento
+                     del inventario. Esta mochila ofrece espacio para llevar hasta 5 objetos adicionales
+                </descripcion>
+                <cantidad>1</cantidad>
+            </item>
+            <item tipo="equipamiento">
+                <nombre>Chaleco Táctico</nombre>
+                <descripcion>Un chaleco resistente con múltiples bolsillos para llevar suministros y protegerse de ataques menores.</descripcion>
+                <cantidad>1</cantidad>
+            </item>
+            <item tipo="consumible">
+                <nombre>Botiquín de Emergencia</nombre>
+                <descripcion>Un botiquín completo con suministros médicos para tratar heridas y lesiones durante emergencias.</descripcion>
+                <cantidad>2</cantidad>
+            </item>
+            <item tipo="alimento">
+                <nombre>Conservas de Frutas</nombre>
+                <descripcion>Frutas enlatadas en conserva para una fuente de vitaminas y energía durante la supervivencia.</descripcion>
+                <cantidad>7</cantidad>
+            </item>
+        </inventario>
+    </persona>
+</comunidad>
+</comunidades>

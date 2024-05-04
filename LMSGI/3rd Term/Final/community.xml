@@ -1,15 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE comunidades [
-<!ELEMENT comunidades (comunidad)>
-<!ELEMENT comunidad (persona)>
-<!ELEMENT persona(nombre, edad, habilidades, inventario)>
-<!ELEMENT habilidades(cardio, ingenio, pelea, disparo)>
-<!ELEMENT cardio (#PCDATA)>
-<!ELEMENT ingenio(#PCDATA)>
-<!ELEMENT pelea(#PCDATA)>
-<!ELEMENT disparo(#PCDATA)>
-<!ELEMENT inventario(item)>
-]>
+<!DOCTYPE comunidades SYSTEM "community.dtd">
 <comunidades>
 <comunidad nombre="The survivors" cantidadHabitantes="2">
     <persona>
@@ -31,8 +21,7 @@
                 <nombre>AR-15</nombre>
                 <descripcion>El Fusil AR-15 es un arma de fuego semiautomática o automática, conocida por su 
                 versatilidad, precisión y fiabilidad. Diseñado originalmente como un fusil de asalto ligero, 
-                el AR-15 ha ganado popularidad en todo el mundo tanto en el ámbito militar como en el civil. 
-                </descripcion>
+                el AR-15 ha ganado popularidad en todo el mundo tanto en el ámbito militar como en el civil.</descripcion>
                 <cantidad>1</cantidad>
             </item>
             <item tipo="mochila">
@@ -103,10 +92,10 @@
         <nombre>Luisa</nombre>
         <edad>28</edad>
         <habilidades>
-            <carisma>4</carisma>
-            <estrategia>5</estrategia>
-            <sigilo>3</sigilo>
-            <primerosAuxilios>2</primerosAuxilios>
+            <cardio>1</cardio>
+            <ingenio>3</ingenio>
+            <pelea>5</pelea>
+            <disparo>5</disparo>
         </habilidades>
         <inventario>
             <item tipo="armaMele">
@@ -138,10 +127,10 @@
         <nombre>Pablo</nombre>
         <edad>34</edad>
         <habilidades>
-            <sigilo>4</sigilo>
-            <combate>5</combate>
-            <supervivencia>3</supervivencia>
-            <estrategia>3</estrategia>
+            <cardio>1</cardio>
+            <ingenio>3</ingenio>
+            <pelea>5</pelea>
+            <disparo>5</disparo>
         </habilidades>
         <inventario>
             <item tipo="armaDistancia">
@@ -173,10 +162,10 @@
         <nombre>Ana</nombre>
         <edad>25</edad>
         <habilidades>
-            <supervivencia>4</supervivencia>
-            <carisma>3</carisma>
-            <estrategia>2</estrategia>
-            <sigilo>3</sigilo>
+            <cardio>1</cardio>
+            <ingenio>3</ingenio>
+            <pelea>5</pelea>
+            <disparo>5</disparo>
         </habilidades>
         <inventario>
             <item tipo="armaDistancia">
@@ -202,7 +191,7 @@
                 <descripcion>Un botiquín completo con suministros médicos para tratar heridas y lesiones durante emergencias.</descripcion>
                 <cantidad>2</cantidad>
             </item>
-            <item tipo="alimento">
+            <item tipo="consumible">
                 <nombre>Conservas de Frutas</nombre>
                 <descripcion>Frutas enlatadas en conserva para una fuente de vitaminas y energía durante la supervivencia.</descripcion>
                 <cantidad>7</cantidad>
@@ -210,4 +199,131 @@
         </inventario>
     </persona>
 </comunidad>
+    <comunidad nombre="Los de Benidorms" cantidadHabitantes="4">
+        <persona>
+            <nombre>John</nombre>
+            <edad>23</edad>
+            <habilidades>
+                <cardio>5</cardio>
+                <ingenio>5</ingenio>
+                <pelea>5</pelea>
+                <disparo>5</disparo>
+            </habilidades>
+            <inventario>
+                <item tipo="armaMele">
+                    <nombre>Machete</nombre>
+                    <descripcion>Un machete afilado, ideal para cortar maleza y carne.</descripcion>
+                    <cantidad>1</cantidad>
+                </item>
+                <item tipo="consumible">
+                    <nombre>Agua embotellada</nombre>
+                    <descripcion>Botellas de agua purificada para mantenerse hidratado durante la supervivencia.</descripcion>
+                    <cantidad>3</cantidad>
+                </item>
+                <item tipo="consumible">
+                    <nombre>Conservas de carne</nombre>
+                    <descripcion>Latasy conservas de carne no perecedera, ideal para una alimentación proteica durante situaciones de emergencia.</descripcion>
+                    <cantidad>5</cantidad>
+                </item>
+                <item tipo="mochila">
+                    <nombre>Mochila resistente</nombre>
+                    <descripcion>
+                        Una mochila resistente y espaciosa para transportar suministros y objetos esenciales durante la supervivencia.
+                        Agrega 5 espacios extra, pero es mas duradera.
+                    </descripcion>
+                    <cantidad>1</cantidad>
+                </item>
+            </inventario>
+        </persona>
+        <persona>
+            <nombre>Emily</nombre>
+            <edad>25</edad>
+            <habilidades>
+                <cardio>3</cardio>
+                <ingenio>4</ingenio>
+                <pelea>2</pelea>
+                <disparo>3</disparo>
+            </habilidades>
+            <inventario>
+                <item tipo="armaDistancia">
+                    <nombre>Arco y flechas</nombre>
+                    <descripcion>Un arco resistente y un carcaj de flechas para cazar y defenderse a distancia.</descripcion>
+                    <cantidad>1</cantidad>
+                </item>
+                <item tipo="consumible">
+                    <nombre>Barritas energéticas</nombre>
+                    <descripcion>Barritas nutritivas y energéticas ideales para mantenerse activo durante situaciones de emergencia.</descripcion>
+                    <cantidad>5</cantidad>
+                </item>
+                <item tipo="mochila">
+                    <nombre>Mochila de exploración</nombre>
+                    <descripcion>
+                        Una mochila diseñada para excursiones y exploraciones largas, con compartimentos especiales para equipos de navegación y comunicación.
+                        Agrega 11 espacios extra.
+                    </descripcion>
+                    <cantidad>1</cantidad>
+                </item>
+            </inventario>
+        </persona>
+        <persona>
+            <nombre>Paula</nombre>
+            <edad>21</edad>
+            <habilidades>
+                <cardio>5</cardio>
+                <ingenio>5</ingenio>
+                <pelea>2</pelea>
+                <disparo>1</disparo>
+            </habilidades>
+            <inventario>
+                <item tipo="consumible">
+                    <nombre>Botiquín avanzado</nombre>
+                    <descripcion>Un completo kit de primeros auxilios con suministros médicos avanzados para tratar heridas graves y realizar procedimientos de emergencia.</descripcion>
+                    <cantidad>1</cantidad>
+                </item>
+                <item tipo="consumible">
+                    <nombre>Suplementos vitamínicos</nombre>
+                    <descripcion>Tabletas de suplementos vitamínicos para mantenerse saludable y resistente durante la supervivencia.</descripcion>
+                    <cantidad>2</cantidad>
+                </item>
+                <item tipo="mochila">
+                    <nombre>Mochila táctica</nombre>
+                    <descripcion>
+                        Una mochila táctica de alto rendimiento con múltiples compartimentos y correas ajustables para una máxima versatilidad durante la supervivencia.
+                        Agrega 8 espacios extra.
+                    </descripcion>
+                    <cantidad>1</cantidad>
+                </item>
+            </inventario>
+        </persona>
+        <persona>
+            <nombre>Sophia</nombre>
+            <edad>19</edad>
+            <habilidades>
+                <cardio>3</cardio>
+                <ingenio>3</ingenio>
+                <pelea>4</pelea>
+                <disparo>3</disparo>
+            </habilidades>
+            <inventario>
+                <item tipo="consumible">
+                    <nombre>Kit de herramientas</nombre>
+                    <descripcion>Un conjunto de herramientas manuales esenciales para reparaciones y mantenimiento durante la supervivencia.</descripcion>
+                    <cantidad>1</cantidad>
+                </item>
+                <item tipo="consumible">
+                    <nombre>Botellas de alcohol</nombre>
+                    <descripcion>Botellas de alcohol desinfectante para limpiar heridas y equipos médicos durante emergencias.</descripcion>
+                    <cantidad>3</cantidad>
+                </item>
+                <item tipo="mochila">
+                    <nombre>Mochila de supervivencia</nombre>
+                    <descripcion>
+                        Una mochila de supervivencia de alta resistencia con compartimentos impermeables y correas acolchadas para transportar suministros y equipo esencial durante situaciones de emergencia.
+                        Agrega 7 espacios extra.
+                    </descripcion>
+                    <cantidad>1</cantidad>
+                </item>
+            </inventario>
+        </persona>
+    </comunidad>
 </comunidades>

@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE comunidades SYSTEM "community.dtd">
 <comunidades>
-<comunidad nombre="The survivors" cantidadHabitantes="2">
+<comunidad nombre="Los protas" cantidadHabitantes="2">
     <persona>
         <nombre>Sergio</nombre>
         <edad>37</edad>
@@ -199,7 +199,7 @@
         </inventario>
     </persona>
 </comunidad>
-    <comunidad nombre="Los de Benidorms" cantidadHabitantes="4">
+    <comunidad nombre="Los de Benidorm" cantidadHabitantes="4">
         <persona>
             <nombre>John</nombre>
             <edad>23</edad>

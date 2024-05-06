@@ -15,6 +15,17 @@ namespace Ex3
 {
     public partial class Form1 : Form
     {
+        string[] classArray = {
+            "Paladin",
+            "DeathKnight",
+            "Priest",
+            "Mage",
+            "Warlock",
+            "Warrior",
+            "Rogue",
+            "Hunter"
+            };
+        int classPosition = 0;
         // Global Variables
         SqlDBHelper db;
         private int pos;
@@ -27,25 +38,13 @@ namespace Ex3
         private void Form1_Load(object sender, EventArgs e)
         {
             db = new SqlDBHelper();
-            //pos = 0;
 
             ShowEntry(pos);
-            lblClassSelector.Text = classArray[classPosition];
             ManageClassImage();
             //btnSaveNew.Enabled = false;
 
         }
-        string[] classArray = {
-            "Paladin",
-            "DeathKnight",
-            "Priest",
-            "Mage",
-            "Warlock",
-            "Warrior",
-            "Rogue",
-            "Hunter"
-            };
-        int classPosition = 0;
+        
         public int GetClass(string className)
         {
             // Return the class as an int so It can be added to the character to update the database
@@ -65,11 +64,13 @@ namespace Ex3
 
         private void btnAddNeyCharacter_Click(object sender, EventArgs e)
         {
-            txtClass.Text = string.Empty;
+
             txtFaction.Text = string.Empty;
             txtLevel.Text = string.Empty;
             txtName.Text = string.Empty;
             txtLocation.Text = string.Empty;
+
+            btnAddNewCharacter.Enabled = false;
             btnCreateNew.Enabled = true;
             isANewEntry = true;
         }
@@ -82,7 +83,7 @@ namespace Ex3
             name = txtName.Text;
             faction = txtFaction.Text;
             location = txtLocation.Text;
-            @class = txtClass.Text;
+            @class = lblClassSelector.Text;
 
             classNumber = GetClass(@class);
             if (string.IsNullOrEmpty(txtLevel.Text))
@@ -134,6 +135,7 @@ namespace Ex3
 
         private void btnShowPrevious_Click(object sender, EventArgs e)
         {
+            UpdateIfWasChangedAndIsValid();
             if (pos != 0)
             {
                 pos--;
@@ -146,12 +148,14 @@ namespace Ex3
         }
         private void btnShowLast_Click(object sender, EventArgs e)
         {
+            UpdateIfWasChangedAndIsValid();
             pos = db.AmmountOfCharacters - 1;
             ShowEntry(pos);
         }
 
         private void btnShowFirst_Click(object sender, EventArgs e)
         {
+            UpdateIfWasChangedAndIsValid();
             pos = 0;
             ShowEntry(pos);
         }
@@ -184,7 +188,7 @@ namespace Ex3
             name = txtName.Text;
             faction = txtFaction.Text;
             location = txtLocation.Text;
-            @class = txtClass.Text;
+            @class = lblClassSelector.Text;
 
             classNumber = GetClass(@class);
             level = int.Parse(txtLevel.Text);
@@ -195,7 +199,6 @@ namespace Ex3
                 if (newCharacter != null)
                 {
                     db.UpdateRow(newCharacter, pos);
-                    pos = db.AmmountOfCharacters - 1;
                     ShowEntry(pos);
                 }
                 else
@@ -216,7 +219,7 @@ namespace Ex3
             if (character != null) {
                 txtName.Text = character.Name;
                 txtFaction.Text = character.Faction;
-                txtClass.Text = character.Class.ToString();
+                lblClassSelector.Text = character.Class.ToString();
                 txtLocation.Text = character.Location;
                 txtLevel.Text = character.Level.ToString();
 
@@ -225,6 +228,7 @@ namespace Ex3
                 lblEntryNumber.Text = (int)((pos + 1)) + " de " + db.AmmountOfCharacters;
                 CheckButtons();
                 CheckNavButtons();
+                ManageClassImage();
             } else
             {
                 ShowEmpty();
@@ -235,29 +239,23 @@ namespace Ex3
         {
             txtName.Text = string.Empty;
             txtFaction.Text = string.Empty;
-            txtClass.Text = string.Empty;
             txtLocation.Text = string.Empty;
             txtLevel.Text = string.Empty;
             lblEntryNumber.Text = "0 de 0";
         }
         public void CheckButtons()
         {
-            // In case, the ammount of teachers isn't more than 1.
+            // In case, the ammount of teachers is more than 1.
             if (db.AmmountOfCharacters >= 1)
             {
                 btnDeleteChar.Enabled = true;
-                btnUpdateChar.Enabled = true;
-                //btnShowEveryTeacher.Enabled = true;
                 btnCreateNew.Enabled = false;
-                //btnLookBySurname.Enabled = true;
-                btnAddNeyCharacter.Enabled = true;
+                btnAddNewCharacter.Enabled = true;
             }
             else
             {
                 btnDeleteChar.Enabled = false;
                 btnCreateNew.Enabled = false;
-                // btnShowEveryTeacher.Enabled = false;
-                // btnLookBySurname.Enabled = false;
                 btnShowNext.Enabled = false;
                 btnShowLast.Enabled = false;
             }
@@ -267,27 +265,10 @@ namespace Ex3
         }
         public void CheckNavButtons()
         {
-            if (pos == db.AmmountOfCharacters - 1)
-            {
-                btnShowNext.Enabled = false;
-                btnShowLast.Enabled = false;
-
-            }
-            else
-            {
-                btnShowNext.Enabled = true;
-                btnShowLast.Enabled = true;
-            }
-            if (pos == 0)
-            {
-                btnShowPrevious.Enabled = false;
-                btnShowFirst.Enabled = false;
-            }
-            else
-            {
-                btnShowPrevious.Enabled = true;
-                btnShowFirst.Enabled = true;
-            }
+            btnShowNext.Enabled = (db.AmmountOfCharacters != 0 && pos < db.AmmountOfCharacters - 1);
+            btnShowPrevious.Enabled = (db.AmmountOfCharacters != 0 && pos > 0);
+            btnShowLast.Enabled = (db.AmmountOfCharacters != 0 && pos != db.AmmountOfCharacters - 1);
+            btnShowFirst.Enabled = (db.AmmountOfCharacters != 0 && pos != 0);
         }
         public void ErrorMessage()
         {
@@ -308,7 +289,7 @@ namespace Ex3
         {
             bool dataIsValid = false;
             string name = txtName.Text;
-            string @class = txtClass.Text;
+            string @class = lblClassSelector.Text;
 
             string faction = txtFaction.Text;
             string location = txtLocation.Text;
@@ -397,6 +378,7 @@ namespace Ex3
                         DialogResult wantToUpdate = MessageBox.Show("Do you want to update this character data?", " ", MessageBoxButtons.YesNo);
                         if (wantToUpdate == DialogResult.Yes)
                         {
+                            btnUpdateChar.Enabled = true;
                             btnUpdateChar.PerformClick();
                         }
                     }
@@ -412,7 +394,7 @@ namespace Ex3
             bool itChanged = false;
 
             string name = txtName.Text;
-            string @class = txtClass.Text;
+            string @class = lblClassSelector.Text;
 
             string faction = txtFaction.Text;
             string location = txtLocation.Text;
@@ -442,6 +424,7 @@ namespace Ex3
 
         private void btnNextClass_Click(object sender, EventArgs e)
         {
+            UpdateClassPosition();
             if (classPosition < classArray.Length - 1)
             {
                 classPosition++;
@@ -451,10 +434,20 @@ namespace Ex3
             }
             lblClassSelector.Text = classArray[classPosition];
             ManageClassImage();
+            // Necesitamos vereficar si la data es valida. En caso de que lo sea. Despues de tocar el boton, el usuario podra 
+            // updatear el boton.
+            if (!isANewEntry)
+            {
+                if (dataIsValid())
+                {
+                    btnUpdateChar.Enabled = true;
+                }
+            }
         }
 
         private void btnPreviousClass_Click(object sender, EventArgs e)
         {
+            UpdateClassPosition();
             if (classPosition > 0)
             {
                 classPosition--;
@@ -465,6 +458,17 @@ namespace Ex3
             }
             lblClassSelector.Text = classArray[classPosition];
             ManageClassImage();
+        }
+        public void UpdateClassPosition()
+        {
+            // Tenemos esto para updatear la posición del array. Asi podremos seguir cambiando entre unos y otros.
+            for (int i = 0; i < classArray.Length; i++)
+            {
+                if (lblClassSelector.Text == classArray[i])
+                {
+                    classPosition = i;
+                }
+            }
         }
     }
 

@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using System.Drawing.Text;
 using System.IO;
 using Ex3.Models;
+using System.Runtime.InteropServices;
 
 namespace Ex3
 {
@@ -24,6 +25,7 @@ namespace Ex3
         }
         public void ChangeEveryFont()
         {
+
             /* THIS WILL CHANGE EVERY FONT TO A CUSTOM ONE */
             PrivateFontCollection pfc = new PrivateFontCollection();
             string fontPath = Path.GetFullPath(@"..\\..\\font\\Alkhemikal.ttf");
@@ -52,6 +54,7 @@ namespace Ex3
                 pos = 0;
             }
 
+            ManageButtons();
             ChangeEveryFont();
             ManageFactionImage();
             ManageClassImage();
@@ -79,12 +82,25 @@ namespace Ex3
             imgPath = Path.GetFullPath(imgPath + lblClass.Text.ToLower() + ".gif");
             characterImg.Image = Image.FromFile(imgPath);
         }
-        
+        public void ManageButtons()
+        {
+            
+            btnShowNext.Enabled = (db.AmmountOfCharacters != 0 && pos < db.AmmountOfCharacters - 1);
+            btnShowPrevious.Enabled = (db.AmmountOfCharacters != 0 && pos > 0);
+            if (db.AmmountOfCharacters == 0)
+            {
+                btnChangeCharacters.Text = "CREATE";
+            } else
+            {
+                btnChangeCharacters.Text = "EDIT";
+            }
+        }
         private void ViewCharacter_Load(object sender, EventArgs e)
         {
             ChangeEveryFont();
             ShowEntry();
         }
+        
 
         private void btnChangeCharacters_Click(object sender, EventArgs e)
         {

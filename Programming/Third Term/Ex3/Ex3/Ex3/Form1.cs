@@ -70,6 +70,9 @@ namespace Ex3
             txtName.Text = string.Empty;
             txtLocation.Text = string.Empty;
 
+            btnNextClass.Enabled = true;
+            btnPreviousClass.Enabled = true;
+
             btnAddNewCharacter.Enabled = false;
             btnCreateNew.Enabled = true;
             isANewEntry = true;
@@ -417,10 +420,24 @@ namespace Ex3
         }
         public void ManageClassImage()
         {
-            string imgPath = @"..\\..\\img\\";
-            imgPath = Path.GetFullPath(imgPath + lblClassSelector.Text.ToLower() + ".gif");
-            characterImg.Image = Image.FromFile(imgPath);
+            if (db.AmmountOfCharacters > 0)
+            {
+                string imgPath = @"..\\..\\img\\";
+                imgPath = Path.GetFullPath(imgPath + lblClassSelector.Text.ToLower() + ".gif");
+                characterImg.Image = Image.FromFile(imgPath);
+            }
+            else
+            {
+                string imgPath = @"..\\..\\img\\villager.gif";
+                imgPath = Path.GetFullPath(imgPath);
+                characterImg.Image = Image.FromFile(imgPath);
+                btnNextClass.Enabled = false;
+                btnPreviousClass.Enabled = false;
+            }
+
+
         }
+
 
         private void btnNextClass_Click(object sender, EventArgs e)
         {

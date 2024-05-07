@@ -10,31 +10,14 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Net.WebRequestMethods;
 
 namespace Ex3
 {
     public partial class Form1 : Form
     {
         // Global Variables
-        SqlDBHelper db;
-        private int pos;
-        private bool isANewEntry = false;
-        public Form1(int position)
-        {
-            InitializeComponent();
-            pos = position;
-        }
-        private void Form1_Load(object sender, EventArgs e)
-        {
-            db = new SqlDBHelper();
-            //pos = 0;
-
-            ShowEntry(pos);
-            lblClassSelector.Text = classArray[classPosition];
-            ManageClassImage();
-            //btnSaveNew.Enabled = false;
-
-        }
+        // Create a classArray and a classPosition to navigate through
         string[] classArray = {
             "Paladin",
             "DeathKnight",
@@ -46,34 +29,60 @@ namespace Ex3
             "Hunter"
             };
         int classPosition = 0;
-        public int GetClass(string className)
+        
+        // Declare SqlDBHelper and it's position.
+        SqlDBHelper db;
+        private int pos;
+        // A variable to know if we are working with a new entry
+        private bool isANewEntry;
+        // Constructor with a position added. That pos will come from the form that calls it.
+        public Form1(int position)
         {
-            // Return the class as an int so It can be added to the character to update the database
-            // later.
-            int @class = -1;
-            
-            for (int i = 0; i < classArray.Length; i++)
-            {
-                if (classArray[i].ToUpper() == className.ToUpper())
-                {
-                    @class = i;
-                    return @class;
-                }
-            }
-            return @class;
+            InitializeComponent();
+            pos = position;
         }
-
-        private void btnAddNeyCharacter_Click(object sender, EventArgs e)
+        private void Form1_Load(object sender, EventArgs e)
         {
-            txtClass.Text = string.Empty;
+            db = new SqlDBHelper();
+
+            isANewEntry = false;
+            ShowEntry(pos);
+            ManageClassImage();
+
+        }
+        public int FormPos()
+        {
+            return pos;
+        }
+        
+        // CRUD BUTTONS
+        // AddNewCharacter
+        private void btnAddNewCharacter_Click(object sender, EventArgs e)
+        {
+            //Set every txt to Empty or to default value.
             txtFaction.Text = string.Empty;
-            txtLevel.Text = string.Empty;
+            txtLevel.Text = "1";
             txtName.Text = string.Empty;
             txtLocation.Text = string.Empty;
-            btnCreateNew.Enabled = true;
-            isANewEntry = true;
-        }
 
+            // We activate the class menu navigation 
+            btnNextClass.Enabled = true;
+            btnPreviousClass.Enabled = true;
+
+            isANewEntry = true;
+            
+            CheckNavButtons();
+            CheckCRUDbtns();
+            // We deactivate this buttons so it can't be clicked twice.
+            btnAddNewCharacter.Enabled = false;
+            // We activate btnCreateNew manually for this case.
+            btnCreateNew.Enabled = true;
+
+            lblClassSelector.Text = classArray[classPosition];
+            ManageClassImage();
+            txtsReadOnlyFalse();
+        }
+        
         private void btnCreateNew_Click(object sender, EventArgs e)
         {
             string name, faction, location, @class;
@@ -82,7 +91,7 @@ namespace Ex3
             name = txtName.Text;
             faction = txtFaction.Text;
             location = txtLocation.Text;
-            @class = txtClass.Text;
+            @class = lblClassSelector.Text;
 
             classNumber = GetClass(@class);
             if (string.IsNullOrEmpty(txtLevel.Text))
@@ -102,6 +111,7 @@ namespace Ex3
                         pos = db.AmmountOfCharacters - 1;
                         ShowEntry(pos);
                         isANewEntry = false;
+                        btnCreateNew.Enabled = false;
                     } else
                     {
                         MessageBox.Show("That character already exists");
@@ -134,6 +144,7 @@ namespace Ex3
 
         private void btnShowPrevious_Click(object sender, EventArgs e)
         {
+            UpdateIfWasChangedAndIsValid();
             if (pos != 0)
             {
                 pos--;
@@ -146,12 +157,14 @@ namespace Ex3
         }
         private void btnShowLast_Click(object sender, EventArgs e)
         {
+            UpdateIfWasChangedAndIsValid();
             pos = db.AmmountOfCharacters - 1;
             ShowEntry(pos);
         }
 
         private void btnShowFirst_Click(object sender, EventArgs e)
         {
+            UpdateIfWasChangedAndIsValid();
             pos = 0;
             ShowEntry(pos);
         }
@@ -172,7 +185,7 @@ namespace Ex3
                 }
                 else
                 {
-                    ShowEmpty();
+                    ShowEntry(pos);
                 }
             }
         }
@@ -184,7 +197,7 @@ namespace Ex3
             name = txtName.Text;
             faction = txtFaction.Text;
             location = txtLocation.Text;
-            @class = txtClass.Text;
+            @class = lblClassSelector.Text;
 
             classNumber = GetClass(@class);
             level = int.Parse(txtLevel.Text);
@@ -195,7 +208,6 @@ namespace Ex3
                 if (newCharacter != null)
                 {
                     db.UpdateRow(newCharacter, pos);
-                    pos = db.AmmountOfCharacters - 1;
                     ShowEntry(pos);
                 }
                 else
@@ -207,131 +219,6 @@ namespace Ex3
                 ErrorClass();
             }
         }
-
-
-        public void ShowEntry(int pos)
-        {
-            Character character = db.GetCharacter(pos);
-
-            if (character != null) {
-                txtName.Text = character.Name;
-                txtFaction.Text = character.Faction;
-                txtClass.Text = character.Class.ToString();
-                txtLocation.Text = character.Location;
-                txtLevel.Text = character.Level.ToString();
-
-
-                // lblEntryNumbers management.
-                lblEntryNumber.Text = (int)((pos + 1)) + " de " + db.AmmountOfCharacters;
-                CheckButtons();
-                CheckNavButtons();
-            } else
-            {
-                ShowEmpty();
-            }
-            
-        }
-        public void ShowEmpty()
-        {
-            txtName.Text = string.Empty;
-            txtFaction.Text = string.Empty;
-            txtClass.Text = string.Empty;
-            txtLocation.Text = string.Empty;
-            txtLevel.Text = string.Empty;
-            lblEntryNumber.Text = "0 de 0";
-        }
-        public void CheckButtons()
-        {
-            // In case, the ammount of teachers isn't more than 1.
-            if (db.AmmountOfCharacters >= 1)
-            {
-                btnDeleteChar.Enabled = true;
-                btnUpdateChar.Enabled = true;
-                //btnShowEveryTeacher.Enabled = true;
-                btnCreateNew.Enabled = false;
-                //btnLookBySurname.Enabled = true;
-                btnAddNeyCharacter.Enabled = true;
-            }
-            else
-            {
-                btnDeleteChar.Enabled = false;
-                btnCreateNew.Enabled = false;
-                // btnShowEveryTeacher.Enabled = false;
-                // btnLookBySurname.Enabled = false;
-                btnShowNext.Enabled = false;
-                btnShowLast.Enabled = false;
-            }
-            // We set the btnUpdate.Enable to false always so we can activate and deactivate it when a change was done.
-            btnUpdateChar.Enabled = false;
-            isANewEntry = false;
-        }
-        public void CheckNavButtons()
-        {
-            if (pos == db.AmmountOfCharacters - 1)
-            {
-                btnShowNext.Enabled = false;
-                btnShowLast.Enabled = false;
-
-            }
-            else
-            {
-                btnShowNext.Enabled = true;
-                btnShowLast.Enabled = true;
-            }
-            if (pos == 0)
-            {
-                btnShowPrevious.Enabled = false;
-                btnShowFirst.Enabled = false;
-            }
-            else
-            {
-                btnShowPrevious.Enabled = true;
-                btnShowFirst.Enabled = true;
-            }
-        }
-        public void ErrorMessage()
-        {
-            MessageBox.Show("There was an error with the data introduced: \n" +
-                            "Follow the next to do it properly\n" +
-                            "Name: Ender\n" +
-                            "Class: Paladin\n" +
-                            "Faction: Alliance || Horde\n" +
-                            "Location: StormWind\n" +
-                            "Level: 80(MAX LEVEL)");
-        }
-        public void ErrorClass()
-        {
-            MessageBox.Show("The classes available are: \n" +
-                "Paladin\nDeathKnight\nPriest\nMage\nWarlock\nWarrior\nRogue\nHunter\nDruid\nShaman");
-        }
-        public bool dataIsValid()
-        {
-            bool dataIsValid = false;
-            string name = txtName.Text;
-            string @class = txtClass.Text;
-
-            string faction = txtFaction.Text;
-            string location = txtLocation.Text;
-            if (string.IsNullOrEmpty(txtLevel.Text)) 
-                return dataIsValid;
-
-            int level = int.Parse(txtLevel.Text);
-
-            
-
-
-            int classNum = GetClass(@class);
-
-
-            if (classNum != -1)
-            {
-                Character character = Character.CreateCharacter(name, classNum, faction, location, level);
-                if (character != null)
-                    dataIsValid = true;
-            }
-            return dataIsValid;
-        }
-
         private void txtName_TextChanged(object sender, EventArgs e)
         {
             if (!isANewEntry)
@@ -339,6 +226,10 @@ namespace Ex3
                 if (dataIsValid())
                 {
                     btnUpdateChar.Enabled = true;
+                }
+                else
+                {
+                    btnUpdateChar.Enabled = false;
                 }
             }
         }
@@ -351,6 +242,10 @@ namespace Ex3
                 {
                     btnUpdateChar.Enabled = true;
                 }
+                else
+                {
+                    btnUpdateChar.Enabled = false;
+                }
             }
         }
 
@@ -361,6 +256,10 @@ namespace Ex3
                 if (dataIsValid())
                 {
                     btnUpdateChar.Enabled = true;
+                }
+                else
+                {
+                    btnUpdateChar.Enabled = false;
                 }
             }
         }
@@ -384,8 +283,176 @@ namespace Ex3
                 {
                     btnUpdateChar.Enabled = true;
                 }
+                else
+                {
+                    btnUpdateChar.Enabled = false;
+                }
             }
         }
+        private void btnNextClass_Click(object sender, EventArgs e)
+        {
+            UpdateClassPosition();
+            if (classPosition < classArray.Length - 1)
+            {
+                classPosition++;
+            }
+            else
+            {
+                classPosition = 0;
+            }
+            lblClassSelector.Text = classArray[classPosition];
+            ManageClassImage();
+            // Necesitamos vereficar si la data es valida. En caso de que lo sea. Despues de tocar el boton, el usuario podra 
+            // updatear el boton.
+            if (!isANewEntry)
+            {
+                if (dataIsValid())
+                {
+                    btnUpdateChar.Enabled = true;
+                }
+            }
+        }
+
+        private void btnPreviousClass_Click(object sender, EventArgs e)
+        {
+            UpdateClassPosition();
+            if (classPosition > 0)
+            {
+                classPosition--;
+            }
+            else
+            {
+                classPosition = classArray.Length - 1;
+            }
+            lblClassSelector.Text = classArray[classPosition];
+            ManageClassImage();
+            if (!isANewEntry)
+            {
+                if (dataIsValid())
+                {
+                    btnUpdateChar.Enabled = true;
+                }
+            }
+        }
+
+
+        public void ShowEntry(int pos)
+        {
+            Character character = db.GetCharacter(pos);
+
+            if (character != null) {
+                txtName.Text = character.Name;
+                txtFaction.Text = character.Faction;
+                lblClassSelector.Text = character.Class.ToString();
+                txtLocation.Text = character.Location;
+                txtLevel.Text = character.Level.ToString();
+
+
+                // lblEntryNumbers management.
+                lblEntryNumber.Text = (int)((pos + 1)) + " de " + db.AmmountOfCharacters;
+
+                // Allows the user to write in every textbox.
+                txtsReadOnlyFalse();
+                isANewEntry = false;
+            } else
+            {
+                ShowEmpty();
+            }
+            
+            CheckCRUDbtns();
+            CheckNavButtons();
+            UpdateClassPosition();
+            ManageClassImage();
+            
+        }
+        public void ShowEmpty()
+        {
+            txtName.Text = string.Empty;
+            txtFaction.Text = string.Empty;
+            txtLocation.Text = string.Empty;
+            txtLevel.Text = string.Empty;
+            lblClassSelector.Text = string.Empty;
+
+            lblEntryNumber.Text = "0 de 0";
+            // Let's turn every textbox to Read-Only.
+            txtsReadOnlyTrue();
+        }
+        public void txtsReadOnlyTrue()
+        {
+            // Turns every textbox to Read-Only
+            txtName.ReadOnly = true;
+            txtFaction.ReadOnly = true;
+            txtLocation.ReadOnly = true;
+            txtLevel.ReadOnly = true;
+        }
+        public void txtsReadOnlyFalse()
+        {
+            // Allows the user to write in every text box.
+            txtName.ReadOnly = false;
+            txtFaction.ReadOnly = false;
+            txtLocation.ReadOnly = false;
+            txtLevel.ReadOnly = false;
+        }
+        public void CheckCRUDbtns()
+        {
+            // In case, the ammount of teachers is more than 1 and is not a new entry, the following buttons will be activated.
+            btnDeleteChar.Enabled = (db.AmmountOfCharacters >= 1 && !isANewEntry);
+            btnCreateNew.Enabled = (db.AmmountOfCharacters >= 1 && isANewEntry);
+            btnAddNewCharacter.Enabled = (!isANewEntry);
+            
+            // We set the btnUpdate.Enable to false always so we can activate and deactivate it when a change was done.
+            btnUpdateChar.Enabled = false;
+
+        }
+        public void CheckNavButtons()
+        {
+            btnShowNext.Enabled = (db.AmmountOfCharacters != 0 && pos < db.AmmountOfCharacters - 1 && !isANewEntry);
+            btnShowPrevious.Enabled = (db.AmmountOfCharacters != 0 && pos > 0 && !isANewEntry);
+            btnShowLast.Enabled = (db.AmmountOfCharacters != 0 && pos != db.AmmountOfCharacters - 1 && !isANewEntry);
+            btnShowFirst.Enabled = (db.AmmountOfCharacters != 0 && pos != 0 && !isANewEntry);
+        }
+        public void ErrorMessage()
+        {
+            MessageBox.Show("There was an error with the data introduced: \n" +
+                            "Follow the next to do it properly\n" +
+                            "Name: Ender\n" +
+                            "Class: Paladin\n" +
+                            "Faction: Alliance || Horde\n" +
+                            "Location: StormWind\n" +
+                            "Level: 80(MAX LEVEL)");
+        }
+        public void ErrorClass()
+        {
+            MessageBox.Show("The classes available are: \n" +
+                "Paladin\nDeathKnight\nPriest\nMage\nWarlock\nWarrior\nRogue\nHunter\nDruid\nShaman");
+        }
+        public bool dataIsValid()
+        {
+            bool dataIsValid = false;
+            string name = txtName.Text;
+            string @class = lblClassSelector.Text;
+
+            string faction = txtFaction.Text;
+            string location = txtLocation.Text;
+            int level = -1;
+
+            if (CustomRegex.RegexLevel(txtLevel.Text))
+            {
+                level = int.Parse(txtLevel.Text);
+                return dataIsValid;
+            }
+            int classNum = GetClass(@class);
+
+            if (classNum != -1)
+            {
+                Character character = Character.CreateCharacter(name, classNum, faction, location, level);
+                if (character != null)
+                    dataIsValid = true;
+            }
+            return dataIsValid;
+        }
+
+       
         public void UpdateIfWasChangedAndIsValid()
         {
             if (!isANewEntry)
@@ -397,6 +464,7 @@ namespace Ex3
                         DialogResult wantToUpdate = MessageBox.Show("Do you want to update this character data?", " ", MessageBoxButtons.YesNo);
                         if (wantToUpdate == DialogResult.Yes)
                         {
+                            btnUpdateChar.Enabled = true;
                             btnUpdateChar.PerformClick();
                         }
                     }
@@ -412,7 +480,7 @@ namespace Ex3
             bool itChanged = false;
 
             string name = txtName.Text;
-            string @class = txtClass.Text;
+            string @class = lblClassSelector.Text;
 
             string faction = txtFaction.Text;
             string location = txtLocation.Text;
@@ -435,37 +503,56 @@ namespace Ex3
         }
         public void ManageClassImage()
         {
-            string imgPath = @"..\\..\\img\\";
-            imgPath = Path.GetFullPath(imgPath + lblClassSelector.Text.ToLower() + ".gif");
-            characterImg.Image = Image.FromFile(imgPath);
-        }
-
-        private void btnNextClass_Click(object sender, EventArgs e)
-        {
-            if (classPosition < classArray.Length - 1)
+            // If the db is not empty or isANewEntry. We will show a real class img.
+            if (db.AmmountOfCharacters > 0 || isANewEntry)
             {
-                classPosition++;
-            } else
-            {
-                classPosition = 0;
-            }
-            lblClassSelector.Text = classArray[classPosition];
-            ManageClassImage();
-        }
-
-        private void btnPreviousClass_Click(object sender, EventArgs e)
-        {
-            if (classPosition > 0)
-            {
-                classPosition--;
+                string imgPath = @"..\\..\\img\\";
+                imgPath = Path.GetFullPath(imgPath + lblClassSelector.Text.ToLower() + ".gif");
+                characterImg.Image = Image.FromFile(imgPath);
             }
             else
             {
-                classPosition = classArray.Length - 1;
+                // We will show a village img otherwise. And we will not loop through the classes.
+                string imgPath = @"..\\..\\img\\villager.gif";
+                imgPath = Path.GetFullPath(imgPath);
+                characterImg.Image = Image.FromFile(imgPath);
+                btnNextClass.Enabled = false;
+                btnPreviousClass.Enabled = false;
             }
-            lblClassSelector.Text = classArray[classPosition];
-            ManageClassImage();
+
+
         }
+
+
+        
+        public void UpdateClassPosition()
+        {
+            // We need to update the classPostion before keep looping through it.
+            for (int i = 0; i < classArray.Length; i++)
+            {
+                if (lblClassSelector.Text == classArray[i])
+                {
+                    classPosition = i;
+                }
+            }
+        }
+        public int GetClass(string className)
+        {
+            // Return the class as an int so It can be added to the character to update the database
+            // later.
+            int @class = -1;
+
+            for (int i = 0; i < classArray.Length; i++)
+            {
+                if (classArray[i].ToUpper() == className.ToUpper())
+                {
+                    @class = i;
+                    return @class;
+                }
+            }
+            return @class;
+        }
+
     }
 
 }

@@ -33,14 +33,13 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.txtName = new System.Windows.Forms.TextBox();
-            this.txtClass = new System.Windows.Forms.TextBox();
             this.txtFaction = new System.Windows.Forms.TextBox();
             this.txtLevel = new System.Windows.Forms.TextBox();
             this.txtLocation = new System.Windows.Forms.TextBox();
             this.btnCreateNew = new System.Windows.Forms.Button();
             this.btnUpdateChar = new System.Windows.Forms.Button();
             this.btnDeleteChar = new System.Windows.Forms.Button();
-            this.btnAddNeyCharacter = new System.Windows.Forms.Button();
+            this.btnAddNewCharacter = new System.Windows.Forms.Button();
             this.btnShowFirst = new System.Windows.Forms.Button();
             this.btnShowNext = new System.Windows.Forms.Button();
             this.btnShowPrevious = new System.Windows.Forms.Button();
@@ -102,14 +101,6 @@
             this.txtName.TabIndex = 5;
             this.txtName.TextChanged += new System.EventHandler(this.txtName_TextChanged);
             // 
-            // txtClass
-            // 
-            this.txtClass.Location = new System.Drawing.Point(35, 417);
-            this.txtClass.Name = "txtClass";
-            this.txtClass.Size = new System.Drawing.Size(309, 20);
-            this.txtClass.TabIndex = 6;
-            this.txtClass.TextChanged += new System.EventHandler(this.txtClass_TextChanged);
-            // 
             // txtFaction
             // 
             this.txtFaction.Location = new System.Drawing.Point(54, 106);
@@ -166,13 +157,13 @@
             // 
             // btnAddNeyCharacter
             // 
-            this.btnAddNeyCharacter.Location = new System.Drawing.Point(5, 18);
-            this.btnAddNeyCharacter.Name = "btnAddNeyCharacter";
-            this.btnAddNeyCharacter.Size = new System.Drawing.Size(168, 46);
-            this.btnAddNeyCharacter.TabIndex = 13;
-            this.btnAddNeyCharacter.Text = "Add New Character";
-            this.btnAddNeyCharacter.UseVisualStyleBackColor = true;
-            this.btnAddNeyCharacter.Click += new System.EventHandler(this.btnAddNeyCharacter_Click);
+            this.btnAddNewCharacter.Location = new System.Drawing.Point(5, 18);
+            this.btnAddNewCharacter.Name = "btnAddNewCharacter";
+            this.btnAddNewCharacter.Size = new System.Drawing.Size(168, 46);
+            this.btnAddNewCharacter.TabIndex = 13;
+            this.btnAddNewCharacter.Text = "Add New Character";
+            this.btnAddNewCharacter.UseVisualStyleBackColor = true;
+            this.btnAddNewCharacter.Click += new System.EventHandler(this.btnAddNewCharacter_Click);
             // 
             // btnShowFirst
             // 
@@ -233,7 +224,7 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.btnAddNeyCharacter);
+            this.groupBox1.Controls.Add(this.btnAddNewCharacter);
             this.groupBox1.Controls.Add(this.btnCreateNew);
             this.groupBox1.Controls.Add(this.btnDeleteChar);
             this.groupBox1.Controls.Add(this.btnUpdateChar);
@@ -316,7 +307,6 @@
             this.Controls.Add(this.txtLocation);
             this.Controls.Add(this.txtLevel);
             this.Controls.Add(this.txtFaction);
-            this.Controls.Add(this.txtClass);
             this.Controls.Add(this.txtName);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
@@ -340,14 +330,13 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox txtName;
-        private System.Windows.Forms.TextBox txtClass;
         private System.Windows.Forms.TextBox txtFaction;
         private System.Windows.Forms.TextBox txtLevel;
         private System.Windows.Forms.TextBox txtLocation;
         private System.Windows.Forms.Button btnCreateNew;
         private System.Windows.Forms.Button btnUpdateChar;
         private System.Windows.Forms.Button btnDeleteChar;
-        private System.Windows.Forms.Button btnAddNeyCharacter;
+        private System.Windows.Forms.Button btnAddNewCharacter;
         private System.Windows.Forms.Button btnShowFirst;
         private System.Windows.Forms.Button btnShowNext;
         private System.Windows.Forms.Button btnShowPrevious;

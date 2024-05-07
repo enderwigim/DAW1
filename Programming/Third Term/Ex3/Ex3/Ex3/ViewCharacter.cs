@@ -106,7 +106,9 @@ namespace Ex3
         {
             Form1 dbForm = new Form1(pos);
             dbForm.ShowDialog();
+            pos = dbForm.FormPos();
             db.RefreshDB();
+            //pos = 0;
             ShowEntry();
         }
 

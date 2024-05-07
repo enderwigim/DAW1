@@ -163,7 +163,7 @@
             this.btnAddNewCharacter.TabIndex = 13;
             this.btnAddNewCharacter.Text = "Add New Character";
             this.btnAddNewCharacter.UseVisualStyleBackColor = true;
-            this.btnAddNewCharacter.Click += new System.EventHandler(this.btnAddNeyCharacter_Click);
+            this.btnAddNewCharacter.Click += new System.EventHandler(this.btnAddNewCharacter_Click);
             // 
             // btnShowFirst
             // 

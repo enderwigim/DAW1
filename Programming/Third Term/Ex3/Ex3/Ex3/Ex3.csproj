@@ -71,6 +71,7 @@
     <Compile Include="Models\SqlDBHelper.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="CustomRegex.cs" />
     <Compile Include="ViewCharacter.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -35,12 +35,6 @@ namespace Ex3.Models
         {
             get { return _lvl; }
         }
-        /*
-        public string Image
-        {
-            get { return _img; }
-        }
-        */
         public enum @class
         {
             Paladin,

@@ -434,13 +434,12 @@ namespace Ex3
 
             string faction = txtFaction.Text;
             string location = txtLocation.Text;
-            int level = -1;
 
-            if (CustomRegex.RegexLevel(txtLevel.Text))
+            if (!CustomRegex.RegexLevel(txtLevel.Text))
             {
-                level = int.Parse(txtLevel.Text);
                 return dataIsValid;
             }
+            int level = int.Parse(txtLevel.Text);
             int classNum = GetClass(@class);
 
             if (classNum != -1)
@@ -457,9 +456,9 @@ namespace Ex3
         {
             if (!isANewEntry)
             {
-                if (dataIsValid())
+                if (checkIfChanges(pos))
                 {
-                    if (checkIfChanges(pos))
+                    if (dataIsValid())
                     {
                         DialogResult wantToUpdate = MessageBox.Show("Do you want to update this character data?", " ", MessageBoxButtons.YesNo);
                         if (wantToUpdate == DialogResult.Yes)
@@ -468,11 +467,12 @@ namespace Ex3
                             btnUpdateChar.PerformClick();
                         }
                     }
+                    else
+                    {
+                        MessageBox.Show("Changes were detected, but as they are not valid, data wasnt updated");
+                    }
                 }
-                else
-                {
-                    MessageBox.Show("Changes were detected, but as they are not valid, data wasnt updated");
-                }
+                
             }
         }
         public bool checkIfChanges(int pos)

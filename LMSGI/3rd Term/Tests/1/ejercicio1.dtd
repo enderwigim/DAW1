@@ -1,0 +1,13 @@
+  <!ELEMENT oferta (vehiculo+)>
+  <!ELEMENT vehiculo (marca, modelo, motor, kilometros, precio, extra*, foto*)>
+  <!ELEMENT marca (#PCDATA)>
+  <!ELEMENT modelo (#PCDATA)>
+  <!ELEMENT motor (#PCDATA)>
+  <!ELEMENT kilometros (#PCDATA)>
+  <!ELEMENT precio (#PCDATA) >
+  <!ELEMENT extra (#PCDATA)>
+  <!ELEMENT foto (#PCDATA)>
+  <!ATTLIST vehiculo matricula ID #REQUIRED>  
+  <!ATTLIST modelo color (gris | blanco | azul | rojo) #REQUIRED>
+  <!ATTLIST motor combustible (diesel | gasolina) #REQUIRED>
+  <!ATTLIST  extra valor CDATA #IMPLIED>

@@ -287,6 +287,7 @@ BEGIN
         END CATCH
 END
 
+-- Validaciones
 BEGIN TRAN
 BEGIN TRY
   DELETE FROM TECNICOS
@@ -310,3 +311,71 @@ SELECT *
 GO
 USE master 
 DROP DATABASE EJERCICIO2 
+/*
+ _______________________________________________________________
+/--           Crear un disparador para que cuando demos de baja  --\
+|             un Proveedor se realice lo siguiente:               |
+|                                                                 |
+|  - Comprobar si ese proveedor suministra algún artículo cuyo    |
+|    Stock sea igual a 0, y si es así, que añada a la tabla      |
+|    ARTICULOS_INEXISTENTES esos artículos (la tabla              |
+|    ARTICULOS_INEXISTENTES tendrá los mismos campos que la tabla |
+|    ARTICULOS más la fecha de inserción (fecha del sistema) y el |
+|    nombre del proveedor que se da de baja).                    |
+\_________________________________________________________________/
+*/
+
+USE master
+CREATE DATABASE EJERCICIO3
+GO
+USE EJERCICIO3
+
+GO
+CREATE TABLE ALMACENES(
+  codAlmacen INT NOT NULL,
+  descripcion VARCHAR(1000) NOT NULL,
+  direccion VARCHAR(100) NOT NULL,
+  ciudad VARCHAR(100) NOT NULL
+  CONSTRAINT PK_ALMACENES PRIMARY KEY (codAlmacen)
+)
+CREATE TABLE PROVEEDORES(
+  codProveedor INT NOT NULL,
+  nombre VARCHAR(100) NOT NULL,
+  direccion VARCHAR(100) NOT NULL,
+  ciudad VARCHAR(100) NOT NULL,
+  deuda DECIMAL(9,2) NOT NULL,
+  tipo CHAR(2) NOT NULL
+  CONSTRAINT PK_PROVEEDORES PRIMARY KEY (codProveedor)
+  CONSTRAINT DEFAULT_TIPO DEFAULT 'MI'
+)
+CREATE TABLE ARTICULOS(
+  codArticulo INT NOT NULL,
+  nombre VARCHAR(100) NOT NULL,
+  stock DECIMAL(7,0) NOT NULL,
+  pvp DECIMAL(9,2) NOT NULL,
+  precio_compra DECIMAL(9,2) NOT NULL,
+  codAlmacen INT NOT NULL,
+  codProveedor INT NOT NULL,
+  CONSTRAINT PK_ARTICULOS PRIMARY KEY (codArticulo),
+  CONSTRAINT FK_ARTICULOS_PROVEEDORES FOREIGN KEY (codProveedor)
+  REFERENCES PROVEEDORES(codProveedor),
+  CONSTRAINT FK_ARTICULOS_ALMACENES FOREIGN KEY (codAlmacen)
+  REFERENCES ALMACENES(codAlmacen)
+)
+
+SELECT *
+  INTO ARTICULOS_INEXISTENTES
+  FROM ARTICULOS
+ WHERE 1 = 0
+
+ALTER TABLE ARTICULOS_INEXISTENTES
+  ADD fechaInsercion  DATE,
+      nombreProveedor VARCHAR(100)
+
+GO
+CREATE OR ALTER TRIGGER TX_PROVEEDORES ON PROVEEDORES
+INSTEAD OF DELETE
+AS
+BEGIN
+  
+END

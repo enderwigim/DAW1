@@ -60,12 +60,12 @@ namespace Ex4
                 if (tableName == "Profesores")
                 {
                     entity = Teacher.CreateTeacher(entry[0].ToString(), entry[1].ToString(), entry[2].ToString(),
-                                                 entry[3].ToString(), entry[4].ToString());
+                                                   entry[3].ToString(), entry[4].ToString());
                 }
                 else if (tableName == "Alumnos")
                 {
                     entity = Student.CreateStudent(entry[0].ToString(), entry[1].ToString(), entry[2].ToString(),
-                                                 entry[3].ToString(), entry[4].ToString());
+                                                   entry[3].ToString(), entry[4].ToString());
                 }
                 else if (tableName == "Cursos")
                 {

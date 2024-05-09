@@ -52,9 +52,9 @@ namespace Ex4
 
             if (pos >= 0 && pos < _ammountOfEntries)
             {
-                
+
                 entry = dataSet.Tables[tableName].Rows[pos];
-                
+
                 // If attribute tableName is Profesores, we will create a Teacher, but if it's Alumnos 
                 // we will get a Student
                 if (tableName == "Profesores")
@@ -101,11 +101,11 @@ namespace Ex4
                 }
                 else if (tableName == "Alumnos")
                 {
-
+                    UpdateStudent((Student)entity, ref entry);
                 }
                 else if (tableName == "Cursos")
-                { 
-                
+                {
+
                 }
 
                 dataSet.Tables[tableName].Rows.Add(entry);
@@ -120,7 +120,7 @@ namespace Ex4
                 return wasCreated;
             }
 
-            
+
         }
         public void DeleteRow(int pos)
         {
@@ -137,11 +137,52 @@ namespace Ex4
             entry[3] = profesor.Tlf;
             entry[4] = profesor.eMail;
         }
+        public void UpdateStudent(Student student, ref DataRow entry)
+        {
+            entry[0] = student.DNI;
+            entry[1] = student.Name;
+            entry[2] = student.Surname;
+            entry[3] = student.Address;
+            entry[4] = student.Tlf;
+        }
         public void ReconnectToDB()
         {
             // Reconectamos con el dataAdapter y actualizamos la BD
             SqlCommandBuilder cb = new SqlCommandBuilder(dataAdapter);
             dataAdapter.Update(dataSet, tableName);
+        }
+        public int LookBySurname(string surname)
+        {
+            int pos = -1;
+            if (tableName != "Cursos")
+            {
+                for (int i = 0; i < _ammountOfEntries; i++)
+                {
+                    DataRow entry = dataSet.Tables[tableName].Rows[i];
+                    if (entry[2].ToString().ToLower().Contains(surname.ToLower()))
+                    {
+                        pos = i;
+                        return pos;
+                    }
+
+                }
+            }
+
+            return pos;
+        }
+        public string GetEveryName()
+        {
+            string everyName = "";
+            if (tableName != "Cursos")
+            {
+                for (int i = 0; i < AmmountOfEntries; i++)
+                {
+                    Person person = (Person)GetEntry(i);
+                    everyName += $"{person.Name} {person.Surname} \n";
+                }
+
+            }
+            return everyName;
         }
     }
 }

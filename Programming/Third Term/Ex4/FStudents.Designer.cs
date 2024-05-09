@@ -1,16 +1,16 @@
 ﻿namespace Ex4
 {
-    partial class FTeacher
+    partial class FStudents
     {
         /// <summary>
-        /// Variable del diseñador necesaria.
+        /// Required designer variable.
         /// </summary>
         private System.ComponentModel.IContainer components = null;
 
         /// <summary>
-        /// Limpiar los recursos que se estén usando.
+        /// Clean up any resources being used.
         /// </summary>
-        /// <param name="disposing">true si los recursos administrados se deben desechar; false en caso contrario.</param>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -20,15 +20,20 @@
             base.Dispose(disposing);
         }
 
-        #region Código generado por el Diseñador de Windows Forms
+        #region Windows Form Designer generated code
 
         /// <summary>
-        /// Método necesario para admitir el Diseñador. No se puede modificar
-        /// el contenido de este método con el editor de código.
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent()
         {
-            this.btnShowEveryTeacher = new System.Windows.Forms.Button();
+            this.txtAddress = new System.Windows.Forms.TextBox();
+            this.txtApellidos = new System.Windows.Forms.TextBox();
+            this.txtTlf = new System.Windows.Forms.TextBox();
+            this.txtNombre = new System.Windows.Forms.TextBox();
+            this.txtDNI = new System.Windows.Forms.TextBox();
+            this.btnShowStudents = new System.Windows.Forms.Button();
             this.btnLookBySurname = new System.Windows.Forms.Button();
             this.lblEntryNumber = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
@@ -48,51 +53,79 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.txtDNI = new System.Windows.Forms.TextBox();
-            this.txtNombre = new System.Windows.Forms.TextBox();
-            this.txtTlf = new System.Windows.Forms.TextBox();
-            this.txtApellidos = new System.Windows.Forms.TextBox();
-            this.txteMail = new System.Windows.Forms.TextBox();
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // btnShowEveryTeacher
+            // txtAddress
             // 
-            this.btnShowEveryTeacher.Location = new System.Drawing.Point(602, 154);
-            this.btnShowEveryTeacher.Name = "btnShowEveryTeacher";
-            this.btnShowEveryTeacher.Size = new System.Drawing.Size(172, 56);
-            this.btnShowEveryTeacher.TabIndex = 50;
-            this.btnShowEveryTeacher.Text = "Mostrar Profesores";
-            this.btnShowEveryTeacher.UseVisualStyleBackColor = true;
-            this.btnShowEveryTeacher.Click += new System.EventHandler(this.btnShowEveryTeacher_Click);
+            this.txtAddress.Location = new System.Drawing.Point(358, 172);
+            this.txtAddress.Name = "txtAddress";
+            this.txtAddress.Size = new System.Drawing.Size(189, 20);
+            this.txtAddress.TabIndex = 72;
+            // 
+            // txtApellidos
+            // 
+            this.txtApellidos.Location = new System.Drawing.Point(358, 108);
+            this.txtApellidos.Name = "txtApellidos";
+            this.txtApellidos.Size = new System.Drawing.Size(189, 20);
+            this.txtApellidos.TabIndex = 71;
+            // 
+            // txtTlf
+            // 
+            this.txtTlf.Location = new System.Drawing.Point(78, 172);
+            this.txtTlf.Name = "txtTlf";
+            this.txtTlf.Size = new System.Drawing.Size(189, 20);
+            this.txtTlf.TabIndex = 70;
+            // 
+            // txtNombre
+            // 
+            this.txtNombre.Location = new System.Drawing.Point(78, 108);
+            this.txtNombre.Name = "txtNombre";
+            this.txtNombre.Size = new System.Drawing.Size(189, 20);
+            this.txtNombre.TabIndex = 69;
+            // 
+            // txtDNI
+            // 
+            this.txtDNI.Location = new System.Drawing.Point(78, 32);
+            this.txtDNI.Name = "txtDNI";
+            this.txtDNI.Size = new System.Drawing.Size(189, 20);
+            this.txtDNI.TabIndex = 68;
+            // 
+            // btnShowStudents
+            // 
+            this.btnShowStudents.Location = new System.Drawing.Point(602, 153);
+            this.btnShowStudents.Name = "btnShowStudents";
+            this.btnShowStudents.Size = new System.Drawing.Size(172, 56);
+            this.btnShowStudents.TabIndex = 67;
+            this.btnShowStudents.Text = "Mostrar Estudiantes";
+            this.btnShowStudents.UseVisualStyleBackColor = true;
             // 
             // btnLookBySurname
             // 
-            this.btnLookBySurname.Location = new System.Drawing.Point(602, 69);
+            this.btnLookBySurname.Location = new System.Drawing.Point(602, 68);
             this.btnLookBySurname.Name = "btnLookBySurname";
             this.btnLookBySurname.Size = new System.Drawing.Size(172, 56);
-            this.btnLookBySurname.TabIndex = 49;
+            this.btnLookBySurname.TabIndex = 66;
             this.btnLookBySurname.Text = "Buscar Apellido";
             this.btnLookBySurname.UseVisualStyleBackColor = true;
-            this.btnLookBySurname.Click += new System.EventHandler(this.btnLookBySurname_Click);
             // 
             // lblEntryNumber
             // 
             this.lblEntryNumber.AutoSize = true;
-            this.lblEntryNumber.Location = new System.Drawing.Point(670, 28);
+            this.lblEntryNumber.Location = new System.Drawing.Point(670, 27);
             this.lblEntryNumber.Name = "lblEntryNumber";
             this.lblEntryNumber.Size = new System.Drawing.Size(0, 13);
-            this.lblEntryNumber.TabIndex = 48;
+            this.lblEntryNumber.TabIndex = 65;
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(623, 28);
+            this.label6.Location = new System.Drawing.Point(623, 27);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(52, 13);
-            this.label6.TabIndex = 47;
+            this.label6.TabIndex = 64;
             this.label6.Text = "Registro: ";
             // 
             // groupBox3
@@ -100,10 +133,10 @@
             this.groupBox3.Controls.Add(this.btnDelete);
             this.groupBox3.Controls.Add(this.btnUpdate);
             this.groupBox3.ForeColor = System.Drawing.SystemColors.MenuHighlight;
-            this.groupBox3.Location = new System.Drawing.Point(430, 338);
+            this.groupBox3.Location = new System.Drawing.Point(430, 337);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(339, 87);
-            this.groupBox3.TabIndex = 41;
+            this.groupBox3.TabIndex = 63;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Actualizar y Eliminar";
             // 
@@ -116,7 +149,6 @@
             this.btnDelete.TabIndex = 7;
             this.btnDelete.Text = "Eliminar";
             this.btnDelete.UseVisualStyleBackColor = true;
-            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
             // btnUpdate
             // 
@@ -127,17 +159,16 @@
             this.btnUpdate.TabIndex = 6;
             this.btnUpdate.Text = "Actualizar";
             this.btnUpdate.UseVisualStyleBackColor = true;
-            this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
             // 
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.btnSaveNew);
             this.groupBox2.Controls.Add(this.btnAddTeacher);
             this.groupBox2.ForeColor = System.Drawing.SystemColors.MenuHighlight;
-            this.groupBox2.Location = new System.Drawing.Point(30, 338);
+            this.groupBox2.Location = new System.Drawing.Point(30, 337);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(375, 87);
-            this.groupBox2.TabIndex = 40;
+            this.groupBox2.TabIndex = 62;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Nuevo Registro";
             // 
@@ -150,7 +181,6 @@
             this.btnSaveNew.TabIndex = 5;
             this.btnSaveNew.Text = "Guardar Nuevo";
             this.btnSaveNew.UseVisualStyleBackColor = true;
-            this.btnSaveNew.Click += new System.EventHandler(this.btnSaveNew_Click);
             // 
             // btnAddTeacher
             // 
@@ -161,7 +191,6 @@
             this.btnAddTeacher.TabIndex = 4;
             this.btnAddTeacher.Text = "Añadir";
             this.btnAddTeacher.UseVisualStyleBackColor = true;
-            this.btnAddTeacher.Click += new System.EventHandler(this.btnAddTeacher_Click);
             // 
             // groupBox1
             // 
@@ -170,10 +199,10 @@
             this.groupBox1.Controls.Add(this.btnShowPreviousTeacher);
             this.groupBox1.Controls.Add(this.btnShowFirstTeacher);
             this.groupBox1.ForeColor = System.Drawing.SystemColors.MenuHighlight;
-            this.groupBox1.Location = new System.Drawing.Point(30, 230);
+            this.groupBox1.Location = new System.Drawing.Point(30, 229);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(739, 87);
-            this.groupBox1.TabIndex = 39;
+            this.groupBox1.TabIndex = 61;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Navegar";
             // 
@@ -186,7 +215,6 @@
             this.btnShowLastTeacher.TabIndex = 3;
             this.btnShowLastTeacher.Text = "Ultimo";
             this.btnShowLastTeacher.UseVisualStyleBackColor = true;
-            this.btnShowLastTeacher.Click += new System.EventHandler(this.btnShowLastTeacher_Click);
             // 
             // btnShowNextTeacher
             // 
@@ -197,7 +225,6 @@
             this.btnShowNextTeacher.TabIndex = 2;
             this.btnShowNextTeacher.Text = "Siguiente";
             this.btnShowNextTeacher.UseVisualStyleBackColor = true;
-            this.btnShowNextTeacher.Click += new System.EventHandler(this.btnShowNextTeacher_Click);
             // 
             // btnShowPreviousTeacher
             // 
@@ -208,7 +235,6 @@
             this.btnShowPreviousTeacher.TabIndex = 1;
             this.btnShowPreviousTeacher.Text = "Anterior";
             this.btnShowPreviousTeacher.UseVisualStyleBackColor = true;
-            this.btnShowPreviousTeacher.Click += new System.EventHandler(this.btnShowPreviousTeacher_Click);
             // 
             // btnShowFirstTeacher
             // 
@@ -219,99 +245,63 @@
             this.btnShowFirstTeacher.TabIndex = 0;
             this.btnShowFirstTeacher.Text = "Primero";
             this.btnShowFirstTeacher.UseVisualStyleBackColor = true;
-            this.btnShowFirstTeacher.Click += new System.EventHandler(this.btnShowFirstTeacher_Click);
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(318, 176);
+            this.label5.Location = new System.Drawing.Point(307, 175);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(35, 13);
-            this.label5.TabIndex = 38;
-            this.label5.Text = "Email:";
+            this.label5.Size = new System.Drawing.Size(45, 13);
+            this.label5.TabIndex = 60;
+            this.label5.Text = "Address";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(300, 112);
+            this.label4.Location = new System.Drawing.Point(300, 111);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(52, 13);
-            this.label4.TabIndex = 37;
+            this.label4.TabIndex = 59;
             this.label4.Text = "Surname:";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(45, 176);
+            this.label3.Location = new System.Drawing.Point(45, 175);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(22, 13);
-            this.label3.TabIndex = 36;
+            this.label3.TabIndex = 58;
             this.label3.Text = "Tlf:";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(27, 112);
+            this.label2.Location = new System.Drawing.Point(27, 111);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(38, 13);
-            this.label2.TabIndex = 35;
+            this.label2.TabIndex = 57;
             this.label2.Text = "Name:";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(38, 36);
+            this.label1.Location = new System.Drawing.Point(38, 35);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(29, 13);
-            this.label1.TabIndex = 34;
+            this.label1.TabIndex = 56;
             this.label1.Text = "DNI:";
             // 
-            // txtDNI
-            // 
-            this.txtDNI.Location = new System.Drawing.Point(78, 33);
-            this.txtDNI.Name = "txtDNI";
-            this.txtDNI.Size = new System.Drawing.Size(189, 20);
-            this.txtDNI.TabIndex = 51;
-            // 
-            // txtNombre
-            // 
-            this.txtNombre.Location = new System.Drawing.Point(78, 109);
-            this.txtNombre.Name = "txtNombre";
-            this.txtNombre.Size = new System.Drawing.Size(189, 20);
-            this.txtNombre.TabIndex = 52;
-            // 
-            // txtTlf
-            // 
-            this.txtTlf.Location = new System.Drawing.Point(78, 173);
-            this.txtTlf.Name = "txtTlf";
-            this.txtTlf.Size = new System.Drawing.Size(189, 20);
-            this.txtTlf.TabIndex = 53;
-            // 
-            // txtApellidos
-            // 
-            this.txtApellidos.Location = new System.Drawing.Point(358, 109);
-            this.txtApellidos.Name = "txtApellidos";
-            this.txtApellidos.Size = new System.Drawing.Size(189, 20);
-            this.txtApellidos.TabIndex = 54;
-            // 
-            // txteMail
-            // 
-            this.txteMail.Location = new System.Drawing.Point(358, 173);
-            this.txteMail.Name = "txteMail";
-            this.txteMail.Size = new System.Drawing.Size(189, 20);
-            this.txteMail.TabIndex = 55;
-            // 
-            // FTeacher
+            // FStudents
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.txteMail);
+            this.Controls.Add(this.txtAddress);
             this.Controls.Add(this.txtApellidos);
             this.Controls.Add(this.txtTlf);
             this.Controls.Add(this.txtNombre);
             this.Controls.Add(this.txtDNI);
-            this.Controls.Add(this.btnShowEveryTeacher);
+            this.Controls.Add(this.btnShowStudents);
             this.Controls.Add(this.btnLookBySurname);
             this.Controls.Add(this.lblEntryNumber);
             this.Controls.Add(this.label6);
@@ -323,9 +313,8 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Name = "FTeacher";
-            this.Text = "Teachers";
-            this.Load += new System.EventHandler(this.FTeacher_Load);
+            this.Name = "FStudents";
+            this.Text = "Students";
             this.groupBox3.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
@@ -336,7 +325,12 @@
 
         #endregion
 
-        private System.Windows.Forms.Button btnShowEveryTeacher;
+        private System.Windows.Forms.TextBox txtAddress;
+        private System.Windows.Forms.TextBox txtApellidos;
+        private System.Windows.Forms.TextBox txtTlf;
+        private System.Windows.Forms.TextBox txtNombre;
+        private System.Windows.Forms.TextBox txtDNI;
+        private System.Windows.Forms.Button btnShowStudents;
         private System.Windows.Forms.Button btnLookBySurname;
         private System.Windows.Forms.Label lblEntryNumber;
         private System.Windows.Forms.Label label6;
@@ -356,11 +350,5 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox txtDNI;
-        private System.Windows.Forms.TextBox txtNombre;
-        private System.Windows.Forms.TextBox txtTlf;
-        private System.Windows.Forms.TextBox txtApellidos;
-        private System.Windows.Forms.TextBox txteMail;
     }
 }
-

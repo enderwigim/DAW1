@@ -183,6 +183,19 @@ namespace Ex4
 
         private void btnShowEveryTeacher_Click(object sender, EventArgs e)
         {
+            string everyName = db.GetEveryName();
+            if (everyName != "")
+            {
+                MessageBox.Show("The teachers in the database are: \n" + everyName);
+            } 
+            else
+            {
+                MessageBox.Show("There's no teachers in the database");
+            }
+        }
+
+        private void btnLookBySurname_Click(object sender, EventArgs e)
+        {
             string surname = Interaction.InputBox("What surname do you want to look for?");
             int foundedPos = db.LookBySurname(surname);
             if (foundedPos != -1)
@@ -190,6 +203,16 @@ namespace Ex4
             else
                 MessageBox.Show("That teacher wasn't founded");
             ShowEntry(pos);
+        }
+        public void CheckButtons()
+        {
+            btnAddTeacher.Enabled = (!isANewEntry);
+            btnDelete.Enabled = (db.AmmountOfEntries != 0 && !isANewEntry);
+            btnSaveNew.Enabled = (isANewEntry);
+            btnLookBySurname.Enabled = (db.AmmountOfEntries > 0 && !isANewEntry);
+            btnShowEveryTeacher.Enabled = (db.AmmountOfEntries > 0 && !isANewEntry);
+
+            btnUpdate.Enabled = false; 
         }
     }
 }

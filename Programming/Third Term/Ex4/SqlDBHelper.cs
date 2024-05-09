@@ -88,6 +88,40 @@ namespace Ex4
             SqlCommandBuilder cb = new SqlCommandBuilder(dataAdapter);
             dataAdapter.Update(dataSet, tableName);
         }
+        public bool CreateRow(Entity entity)
+        {
+
+            bool wasCreated = false;
+            try
+            {
+                // Cogemos el registro situado en la posición actual.
+                DataRow entry = dataSet.Tables[tableName].NewRow();
+
+                if (tableName == "Profesores")
+                {
+                    UpdateTeacher((Teacher)entity, ref entry);
+                }
+                else if (tableName == "Alumnos")
+                {
+
+                }
+                else if (tableName == "Cursos")
+                
+
+                dataSet.Tables[tableName].Rows.Add(entry);
+                _ammountOfEntries++;
+
+                ReconnectToDB();
+                wasCreated = true;
+                return wasCreated;
+            }
+            catch
+            {
+                return wasCreated;
+            }
+
+            
+        }
         public void UpdateTeacher(Teacher profesor, ref DataRow entry)
         {
             entry[0] = profesor.DNI;
@@ -95,6 +129,12 @@ namespace Ex4
             entry[2] = profesor.Surname;
             entry[3] = profesor.Tlf;
             entry[4] = profesor.eMail;
+        }
+        public void ReconnectToDB()
+        {
+            // Reconectamos con el dataAdapter y actualizamos la BD
+            SqlCommandBuilder cb = new SqlCommandBuilder(dataAdapter);
+            dataAdapter.Update(dataSet, "character");
         }
     }
 }

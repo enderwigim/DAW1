@@ -146,6 +146,7 @@
             this.btnSaveNew.TabIndex = 5;
             this.btnSaveNew.Text = "Guardar Nuevo";
             this.btnSaveNew.UseVisualStyleBackColor = true;
+            this.btnSaveNew.Click += new System.EventHandler(this.btnSaveNew_Click);
             // 
             // btnAddTeacher
             // 
@@ -156,6 +157,7 @@
             this.btnAddTeacher.TabIndex = 4;
             this.btnAddTeacher.Text = "Añadir";
             this.btnAddTeacher.UseVisualStyleBackColor = true;
+            this.btnAddTeacher.Click += new System.EventHandler(this.btnAddTeacher_Click);
             // 
             // groupBox1
             // 

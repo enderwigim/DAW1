@@ -18,19 +18,19 @@ namespace Ex4
         }
 
 
-        public Student (string dni, string name, string surname, string  tlf ,string address) : base(dni, name, surname, tlf)
+        public Student (string dni, string name, string surname, string address, string tlf) : base(dni, name, surname, tlf)
         {
             _address = address;
         }
-        public static Student CreateStudent(string dni, string name, string surname, string Tlf, string address)
+        public static Student CreateStudent(string dni, string name, string surname, string address, string tlf)
         {
             // This static function lets us create the Student just with our rules. If the data is not correct, the teacher won't be created and
             // null will be returned.
-            if ((dni.Length < 9 && dni.Length > 10) || string.IsNullOrEmpty(name) || string.IsNullOrEmpty(surname) || Tlf.Length < 9 || string.IsNullOrEmpty(address))
+            if ((dni.Length < 9 && dni.Length > 10) || string.IsNullOrEmpty(name) || string.IsNullOrEmpty(surname) || tlf.Length < 9 || string.IsNullOrEmpty(address))
             {
                 return null;
             }
-            return new Student(dni, name, surname, Tlf, address);
+            return new Student(dni, name, surname, tlf, address);
         }
     }
 }

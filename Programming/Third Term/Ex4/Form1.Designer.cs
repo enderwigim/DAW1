@@ -180,6 +180,7 @@
             this.btnShowLastTeacher.TabIndex = 3;
             this.btnShowLastTeacher.Text = "Ultimo";
             this.btnShowLastTeacher.UseVisualStyleBackColor = true;
+            this.btnShowLastTeacher.Click += new System.EventHandler(this.btnShowLastTeacher_Click);
             // 
             // btnShowNextTeacher
             // 
@@ -190,6 +191,7 @@
             this.btnShowNextTeacher.TabIndex = 2;
             this.btnShowNextTeacher.Text = "Siguiente";
             this.btnShowNextTeacher.UseVisualStyleBackColor = true;
+            this.btnShowNextTeacher.Click += new System.EventHandler(this.btnShowNextTeacher_Click);
             // 
             // btnShowPreviousTeacher
             // 
@@ -200,6 +202,7 @@
             this.btnShowPreviousTeacher.TabIndex = 1;
             this.btnShowPreviousTeacher.Text = "Anterior";
             this.btnShowPreviousTeacher.UseVisualStyleBackColor = true;
+            this.btnShowPreviousTeacher.Click += new System.EventHandler(this.btnShowPreviousTeacher_Click);
             // 
             // btnShowFirstTeacher
             // 
@@ -210,15 +213,16 @@
             this.btnShowFirstTeacher.TabIndex = 0;
             this.btnShowFirstTeacher.Text = "Primero";
             this.btnShowFirstTeacher.UseVisualStyleBackColor = true;
+            this.btnShowFirstTeacher.Click += new System.EventHandler(this.btnShowFirstTeacher_Click);
             // 
             // label5
             // 
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(318, 176);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(34, 13);
+            this.label5.Size = new System.Drawing.Size(35, 13);
             this.label5.TabIndex = 38;
-            this.label5.Text = "_mail:";
+            this.label5.Text = "Email:";
             // 
             // label4
             // 

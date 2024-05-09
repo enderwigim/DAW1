@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.VisualBasic;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -141,6 +142,54 @@ namespace Ex4
             }
             else
                 ErrorMessage();
+        }
+
+        private void btnUpdate_Click(object sender, EventArgs e)
+        {
+            string dni = txtDNI.Text;
+            string nombre = txtNombre.Text;
+            string surname = txtApellidos.Text;
+            string tlf = txtTlf.Text;
+            string email = txteMail.Text;
+
+            Teacher profesor = Teacher.CreateTeacher(dni, nombre, surname, tlf, email);
+            if (profesor != null)
+                db.UpdateRow(profesor, pos);
+            else
+                ErrorMessage();
+        }
+
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            DialogResult wantToDelete;
+            wantToDelete = MessageBox.Show("Are you sure that you want to delete this teacher?", " ", MessageBoxButtons.YesNo);
+            if (wantToDelete == DialogResult.Yes)
+            {
+                db.DeleteRow(pos);
+                if (db.AmmountOfEntries >= 1)
+                {
+                    // Nos vamos al primer registro y lo mostramos
+                    pos = 0;
+
+                    ShowEntry(pos);
+                    MessageBox.Show("Character Deleted");
+                }
+                else
+                {
+                    ShowEntry(pos);
+                }
+            }
+        }
+
+        private void btnShowEveryTeacher_Click(object sender, EventArgs e)
+        {
+            string surname = Interaction.InputBox("What surname do you want to look for?");
+            int foundedPos = db.LookBySurname(surname);
+            if (foundedPos != -1)
+                pos = foundedPos;
+            else
+                MessageBox.Show("That teacher wasn't founded");
+            ShowEntry(pos);
         }
     }
 }

@@ -66,6 +66,7 @@
             this.btnShowEveryTeacher.TabIndex = 50;
             this.btnShowEveryTeacher.Text = "Mostrar Profesores";
             this.btnShowEveryTeacher.UseVisualStyleBackColor = true;
+            this.btnShowEveryTeacher.Click += new System.EventHandler(this.btnShowEveryTeacher_Click);
             // 
             // btnLookBySurname
             // 
@@ -114,6 +115,7 @@
             this.btnDelete.TabIndex = 7;
             this.btnDelete.Text = "Eliminar";
             this.btnDelete.UseVisualStyleBackColor = true;
+            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
             // btnUpdate
             // 
@@ -124,6 +126,7 @@
             this.btnUpdate.TabIndex = 6;
             this.btnUpdate.Text = "Actualizar";
             this.btnUpdate.UseVisualStyleBackColor = true;
+            this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
             // 
             // groupBox2
             // 

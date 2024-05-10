@@ -5,16 +5,16 @@ USE EJERCICIO1
 GO
 
 CREATE TABLE LIBROS(
-    ISBN        CHAR(13) NOT NULL,
-    titulo      VARCHAR(100) NOT NULL,
-    precio      DECIMAL(4,2)
+    ISBN CHAR(13) NOT NULL,
+    titulo VARCHAR(100) NOT NULL,
+    precio DECIMAL(4,2)
     CONSTRAINT PK_LIBROS PRIMARY KEY (ISBN)
 )
 GO
 CREATE TABLE SOCIOS(
-    DNI         CHAR(10) NOT NULL,
-    nombre      VARCHAR(100) NOT NULL,
-    ciudad      VARCHAR(100) NOT NULL
+    DNI CHAR(10) NOT NULL,
+    nombre VARCHAR(100) NOT NULL,
+    ciudad VARCHAR(100) NOT NULL
     CONSTRAINT PK_SOCIOS PRIMARY KEY (DNI)
 )
 GO
@@ -32,9 +32,9 @@ CREATE TABLE PRESTAMOS(
 ) 
 GO
 CREATE TABLE LIBROS_PERDIDOS(
-    ISBN      CHAR(13) NOT NULL,
-    DNI       CHAR(10) NOT NULL,
-    nombre    VARCHAR(100) NOT NULL,
+    ISBN CHAR(13) NOT NULL,
+    DNI CHAR(10) NOT NULL,
+    nombre VARCHAR(100) NOT NULL,
     fechaBaja DATE NOT NULL
 )
 -- Insertamos datos de la tabla LIBROS
@@ -170,9 +170,9 @@ GO
 USE EJERCICIO2
 GO
 CREATE TABLE TECNICOS (
-    DNI     CHAR(10) NOT NULL,
-    nombre  VARCHAR(100) NOT NULL,
-    ciudad  VARCHAR(100) NOT NULL,
+    DNI CHAR(10) NOT NULL,
+    nombre VARCHAR(100) NOT NULL,
+    ciudad VARCHAR(100) NOT NULL,
     salario DECIMAL(8,2) NOT NULL,
     CONSTRAINT PK_TECNICOS PRIMARY KEY (DNI)
 )
@@ -293,18 +293,18 @@ BEGIN
         -- Tambien guardamos las reparaciones en las que hayan aparecido esos tecnicos.
         INSERT INTO REPARACIONES_HISTORICO
         SELECT r.*
-          FROM REPARACIONES r,
-               DELETED del
-         WHERE del.DNI = r.DNI_tecnico
+        FROM REPARACIONES r,
+            DELETED del
+        WHERE del.DNI = r.DNI_tecnico
 
         -- Realizamos un borrado en cascada.
         DELETE FROM REPARACIONES
-         WHERE DNI_tecnico IN (SELECT DNI
-                                 FROM DELETED)
+        WHERE DNI_tecnico IN (SELECT DNI
+                                FROM DELETED)
 
         DELETE FROM TECNICOS
-         WHERE DNI IN (SELECT DNI
-                         FROM DELETED)
+        WHERE DNI IN (SELECT DNI
+                        FROM DELETED)
         IF @tranOpen = 0
             COMMIT
 
@@ -326,7 +326,7 @@ END
 -- Validaciones
 BEGIN TRAN
 BEGIN TRY
-   DELETE FROM TECNICOS
+  DELETE FROM TECNICOS
     WHERE DNI = '87654321X'
        OR DNI = '98765432Y'
     COMMIT
@@ -368,31 +368,31 @@ USE EJERCICIO3
 
 GO
 CREATE TABLE ALMACENES(
-  codAlmacen  INT NOT NULL,
+  codAlmacen INT NOT NULL,
   descripcion VARCHAR(1000) NOT NULL,
-  direccion   VARCHAR(100) NOT NULL,
-  ciudad      VARCHAR(100) NOT NULL
+  direccion VARCHAR(100) NOT NULL,
+  ciudad VARCHAR(100) NOT NULL
   CONSTRAINT PK_ALMACENES PRIMARY KEY (codAlmacen)
 )
 GO
 CREATE TABLE PROVEEDORES(
   codProveedor INT NOT NULL,
-  nombre       VARCHAR(100) NOT NULL,
-  direccion    VARCHAR(100) NOT NULL,
-  ciudad       VARCHAR(100) NOT NULL,
-  deuda        DECIMAL(9,2) NOT NULL,
-  tipo         CHAR(2) NOT NULL DEFAULT 'MI',
+  nombre VARCHAR(100) NOT NULL,
+  direccion VARCHAR(100) NOT NULL,
+  ciudad VARCHAR(100) NOT NULL,
+  deuda DECIMAL(9,2) NOT NULL,
+  tipo CHAR(2) NOT NULL DEFAULT 'MI',
   CONSTRAINT PK_PROVEEDORES PRIMARY KEY (codProveedor),
 )
 GO
 CREATE TABLE ARTICULOS(
-  codArticulo   INT NOT NULL,
-  nombre        VARCHAR(100) NOT NULL,
-  stock         DECIMAL(7,0) NOT NULL,
-  pvp           DECIMAL(9,2) NOT NULL,
+  codArticulo INT NOT NULL,
+  nombre VARCHAR(100) NOT NULL,
+  stock DECIMAL(7,0) NOT NULL,
+  pvp DECIMAL(9,2) NOT NULL,
   precio_compra DECIMAL(9,2) NOT NULL,
-  codAlmacen    INT NOT NULL,
-  codProveedor  INT,
+  codAlmacen INT NOT NULL,
+  codProveedor INT,
   CONSTRAINT PK_ARTICULOS PRIMARY KEY (codArticulo),
   CONSTRAINT FK_ARTICULOS_PROVEEDORES FOREIGN KEY (codProveedor)
   REFERENCES PROVEEDORES(codProveedor),
@@ -468,12 +468,12 @@ BEGIN
     No estaremos borrando los articulos que esten en el almacen. Por mas que no podamos
     reponerlos. */
     DELETE FROM ARTICULOS
-     WHERE codProveedor IN (SELECT codProveedor
+    WHERE codProveedor IN (SELECT codProveedor
                               FROM DELETED)
 
     /* Borramos los proveedores que hayan sido borrados.*/
     DELETE FROM PROVEEDORES
-     WHERE codProveedor IN (SELECT codProveedor
+    WHERE codProveedor IN (SELECT codProveedor
                               FROM DELETED)
 
     IF @tranOpen = 0
@@ -492,10 +492,10 @@ END
 -- Validaciones
 BEGIN TRAN
 BEGIN TRY
-   DELETE FROM PROVEEDORES
+  DELETE FROM PROVEEDORES
     WHERE codProveedor = 1
        OR codProveedor = 2
-   COMMIT
+    COMMIT
 END TRY
 BEGIN CATCH
     ROLLBACK
@@ -544,7 +544,7 @@ ALTER TABLE CLIENTES_HISTORICOS
   ADD fechaUpdate DATETIME NOT NULL
 -- Alteramos la tabla, añadiendo codCliente y fechaUpdate como PK
 ALTER TABLE CLIENTES_HISTORICOS
-  ADD CONSTRAINT PK_CLIENTES_HISTORICOS PRIMARY KEY (codCLiente, fechaUpdate)
+ADD CONSTRAINT PK_CLIENTES_HISTORICOS PRIMARY KEY (codCLiente, fechaUpdate)
 
 GO
 CREATE OR ALTER TRIGGER TX_CLIENTES ON CLIENTES

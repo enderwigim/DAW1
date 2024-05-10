@@ -238,6 +238,7 @@ INSTEAD OF DELETE
 AS
 BEGIN
     BEGIN TRY
+
         -- Declaramos una variable para saber si hay un TRAN abierto
         DECLARE @tranOpen BIT = 1;
         IF @@TRANCOUNT = 0
@@ -338,16 +339,17 @@ CREATE TABLE ALMACENES(
   ciudad VARCHAR(100) NOT NULL
   CONSTRAINT PK_ALMACENES PRIMARY KEY (codAlmacen)
 )
+GO
 CREATE TABLE PROVEEDORES(
   codProveedor INT NOT NULL,
   nombre VARCHAR(100) NOT NULL,
   direccion VARCHAR(100) NOT NULL,
   ciudad VARCHAR(100) NOT NULL,
   deuda DECIMAL(9,2) NOT NULL,
-  tipo CHAR(2) NOT NULL
-  CONSTRAINT PK_PROVEEDORES PRIMARY KEY (codProveedor)
-  CONSTRAINT DEFAULT_TIPO DEFAULT 'MI'
+  tipo CHAR(2) NOT NULL DEFAULT 'MI',
+  CONSTRAINT PK_PROVEEDORES PRIMARY KEY (codProveedor),
 )
+GO
 CREATE TABLE ARTICULOS(
   codArticulo INT NOT NULL,
   nombre VARCHAR(100) NOT NULL,
@@ -355,7 +357,7 @@ CREATE TABLE ARTICULOS(
   pvp DECIMAL(9,2) NOT NULL,
   precio_compra DECIMAL(9,2) NOT NULL,
   codAlmacen INT NOT NULL,
-  codProveedor INT NOT NULL,
+  codProveedor INT,
   CONSTRAINT PK_ARTICULOS PRIMARY KEY (codArticulo),
   CONSTRAINT FK_ARTICULOS_PROVEEDORES FOREIGN KEY (codProveedor)
   REFERENCES PROVEEDORES(codProveedor),
@@ -363,6 +365,30 @@ CREATE TABLE ARTICULOS(
   REFERENCES ALMACENES(codAlmacen)
 )
 
+GO
+-- Insertamos datos:
+-- Almacenes
+INSERT INTO ALMACENES (codAlmacen, descripcion, direccion, ciudad) VALUES
+(1, 'Almacen Principal', 'Calle Principal 123', 'Ciudad Principal'),
+(2, 'Almacen Secundario', 'Avenida Secundaria 456', 'Ciudad Secundaria');
+
+-- Proveedores
+INSERT INTO PROVEEDORES (codProveedor, nombre, direccion, ciudad, deuda, tipo) VALUES
+(1, 'Proveedor A', 'Calle Proveedor A 789', 'Ciudad Proveedor A', 5000.00, 'MI'),
+(2, 'Proveedor B', 'Avenida Proveedor B 012', 'Ciudad Proveedor B', 3200.00, 'MA');
+
+-- Artículos
+-- Proveedor A
+INSERT INTO ARTICULOS (codArticulo, nombre, stock, pvp, precio_compra, codAlmacen, codProveedor) VALUES
+(1, 'Articulo A1', 10, 15.99, 10.00, 1, 1),
+(2, 'Articulo A2', 0, 20.50, 12.00, 1, 1);
+
+-- Proveedor B
+INSERT INTO ARTICULOS (codArticulo, nombre, stock, pvp, precio_compra, codAlmacen, codProveedor) VALUES
+(3, 'Articulo B1', 5, 25.99, 18.00, 1, 2),
+(4, 'Articulo B2', 3, 30.75, 22.00, 2, 2);
+
+-- Creamos y alteramos la tabla Articulos_Inexistentes.
 SELECT *
   INTO ARTICULOS_INEXISTENTES
   FROM ARTICULOS
@@ -371,11 +397,139 @@ SELECT *
 ALTER TABLE ARTICULOS_INEXISTENTES
   ADD fechaInsercion  DATE,
       nombreProveedor VARCHAR(100)
-
 GO
 CREATE OR ALTER TRIGGER TX_PROVEEDORES ON PROVEEDORES
 INSTEAD OF DELETE
 AS
 BEGIN
+  BEGIN TRY
+    -- Declaramos una variable para tomar en cuenta si hay transacciones abiertas.
+    -- tranOpen = 1, significa que esta abierta.
+    DECLARE @tranOpen BIT = 1
+
+    IF @@TRANCOUNT = 0
+      SET @tranOpen = 0
+
+    IF @tranOpen = 0
+      BEGIN TRAN
+    -- Insertamos en ARTICULOS_INEXISTENTES los articulos que tengan stock = 0 y cuyo codProveedor esté
+    -- en lo borrado
+    INSERT INTO ARTICULOS_INEXISTENTES
+    SELECT a.*, GETDATE(), d.nombre
+      FROM ARTICULOS a,
+           DELETED d
+     WHERE stock = 0
+       AND a.codProveedor = d.codProveedor
+    -- Updatearemos los articulos cuyo proveedor haya sido borrado, pero aun tengamos stock.
+    -- Con esto, evitamos eliminarlos de la DB y aun podemos venderlos hasta agotar stock.
+    UPDATE ARTICULOS
+      SET codProveedor = NULL
+    WHERE codProveedor IN (SELECT codProveedor
+                              FROM DELETED)
+      AND stock <> 0;
+
+    
+    /* Ahora borramos todos los articulos que tengan el codProveedor igual al que borramos.
+    No estaremos borrando los articulos que esten en el almacen. Por mas que no podamos
+    reponerlos. */
+    DELETE FROM ARTICULOS
+    WHERE codProveedor IN (SELECT codProveedor
+                              FROM DELETED)
+
+    /* Borramos los proveedores que hayan sido borrados.*/
+    DELETE FROM PROVEEDORES
+    WHERE codProveedor IN (SELECT codProveedor
+                              FROM DELETED)
+
+    IF @tranOpen = 0
+      COMMIT
+  END TRY
+  BEGIN CATCH
+    PRINT CONCAT('CODERROR: ', ERROR_NUMBER(),
+                  ', DESCRIPCION: ', ERROR_MESSAGE(),
+                  ', LINEA: ', ERROR_LINE(),
+                  ', PROCEDURE: ', ERROR_PROCEDURE())
+    IF @tranOpen = 0
+      ROLLBACK
+  END CATCH
+END
+
+-- Validaciones
+BEGIN TRAN
+BEGIN TRY
+  DELETE FROM PROVEEDORES
+    WHERE codProveedor = 1
+       OR codProveedor = 2
+    COMMIT
+END TRY
+BEGIN CATCH
+    ROLLBACK
+END CATCH
+
+-- Revisamos proveedores, aqui deberia estar vacio.
+SELECT * 
+  FROM PROVEEDORES
+
+-- Revisamos Articulos. Tanto Articulo A1, B1 y B2 deben estar aquí,
+-- pero con codProveedor = null.
+SELECT *
+  FROM ARTICULOS
+-- Revisamos y se ha insertado el Articulo A2
+SELECT *
+  FROM ARTICULOS_INEXISTENTES
+
+GO
+USE master
+DROP DATABASE EJERCICIO3
+
+/* ----------------------------------------------------------------------- */
+-- Ejercicio 04
+/*
+ ____________________________________________________________________
+/-- Por motivos legales, cada vez que se realiza la actualización  --\
+|   de un cliente en la tabla CLIENTES queremos que se almacenen     |
+|   todos sus datos en la tabla CLIENTES_HISTORICO (tendrá la        |
+|   misma estructura que la tabla CLIENTES más un campo con la       |
+|   fecha en la que se realiza la modificación).                     |
+|   NOTA: La fechaModificacion deberá formar parte de la PK de la    |
+|   tabla para permitir que puedan realizarse varias actualizaciones |
+|   de un mismo Cliente                                              |
+\____________________________________________________________________/
+*/
+use JARDINERIA
+
+-- Creamos la tabla clientes historicos.
+SELECT *
+  INTO CLIENTES_HISTORICOS
+  FROM CLIENTES
+ WHERE 1 = 0
+
+-- Alteramos la tabla, añadiendo valores.
+ALTER TABLE CLIENTES_HISTORICOS
+  ADD fechaUpdate DATETIME NOT NULL
+-- Alteramos la tabla, añadiendo codCliente y fechaUpdate como PK
+ALTER TABLE CLIENTES_HISTORICOS
+ADD CONSTRAINT PK_CLIENTES_HISTORICOS PRIMARY KEY (codCLiente, fechaUpdate)
+
+GO
+CREATE OR ALTER TRIGGER TX_CLIENTES ON CLIENTES
+AFTER UPDATE
+AS
+BEGIN
+
+  INSERT INTO CLIENTES_HISTORICOS
+  SELECT DELETED.*, GETDATE()
+    FROM DELETED
   
 END
+
+-- Validación
+UPDATE CLIENTES
+   SET nombre_cliente = 'SyA'
+ WHERE codCliente = 1
+-- GoldenFish pasa a ser SyA
+SELECT *
+  FROM CLIENTES
+-- Se guarda GoldenFish en Clientes_Historicos
+SELECT *
+  FROM CLIENTES_HISTORICOS

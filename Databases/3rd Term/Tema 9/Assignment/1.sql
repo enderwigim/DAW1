@@ -174,15 +174,25 @@ CREATE TABLE TECNICOS (
 )
 GO
 CREATE TABLE REPARACIONES(
-    idReparacion INT NOT NULL,
-    fecha SMALLDATETIME NOT NULL,
-    DNI_tecnico CHAR(10) NOT NULL,
-    concepto VARCHAR(1000) NOT NULL,
-    importe DECIMAL(8,2) NOT NULL,
+    idReparacion     INT NOT NULL,
+    fecha            SMALLDATETIME NOT NULL,
+    DNI_tecnico      CHAR(10) NOT NULL,
+    concepto         VARCHAR(1000) NOT NULL,
+    importe          DECIMAL(8,2) NOT NULL,
     CONSTRAINT PK_REPARACIONES PRIMARY KEY (idReparacion),
     CONSTRAINT FK_REPARACIONES_TECNICOS FOREIGN KEY (DNI_tecnico)
     REFERENCES TECNICOS(DNI)
     )
+
+GO
+-- En esta tabla guardaremos tipos con valores.
+
+CREATE TABLE TIPOS(
+  clave VARCHAR(100) NOT NULL,
+  valor VARCHAR(100) NOT NULL,
+  tipo  VARCHAR(100) NOT NULL
+  CONSTRAINT PK_TIPOS PRIMARY KEY (clave)
+)
 
 -- Creamos la tabla TECNICOS_RESERVA
 SELECT *
@@ -227,9 +237,22 @@ VALUES
 (8, '2024-05-02 12:00:00', '98765432Y', 'Reparación de calentador', 250.00),
 (9, '2024-05-03 15:00:00', '98765432Y', 'Reparación de secadora', 18000.00);
 
+-- Insertamos datos en tipos.
+INSERT INTO TIPOS (clave, valor, tipo)
+VALUES ('min-importes-guardar', '2500', 'DECIMAL(4,0)')
 
+GO
 
-
+-- Creamos una funcion que devuelva el value de la key que introducimos.
+CREATE OR ALTER FUNCTION GetValor(@clave VARCHAR(100))
+RETURNS VARCHAR(100)
+AS
+BEGIN
+  RETURN (SELECT valor
+            FROM TIPOS
+           WHERE clave = @clave)
+END
+GO
 
 GO
 -- Creamos el TRIGGER
@@ -248,6 +271,11 @@ BEGIN
         IF @tranOpen = 0
             BEGIN TRAN
 
+        -- Declaramos @value que utilizaremos para guardar los 2500 euros
+        -- De esta manera, con editar la tabla tipo nos ahorraremos cambiar el trigger manualmente.
+        DECLARE @value DECIMAL(4,0)
+        SELECT @value = CAST(dbo.GetValor('min-importes-guardar') AS DECIMAL(4,0))
+      
         -- Guardamos los tecnicos que hayan superado 2500 euros en reparaciones.
         INSERT INTO TECNICOS_RESERVA
         SELECT DELETED.*,
@@ -256,7 +284,7 @@ BEGIN
          WHERE DNI IN (SELECT DNI_tecnico
                          FROM REPARACIONES
                         GROUP BY DNI_tecnico
-                       HAVING SUM(importe) > 2500)
+                       HAVING SUM(importe) > @value)
         
         -- Tambien guardamos las reparaciones en las que hayan aparecido esos tecnicos.
         INSERT INTO REPARACIONES_HISTORICO
@@ -287,6 +315,9 @@ BEGIN
             ROLLBACK
         END CATCH
 END
+
+
+
 
 -- Validaciones
 BEGIN TRAN

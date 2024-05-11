@@ -33,9 +33,10 @@ namespace Ex3
 
         private void btnChangeCharacters_Click(object sender, EventArgs e)
         {
-            Form1 dbForm = new Form1(pos);
-            dbForm.ShowDialog();
-            pos = dbForm.FormPos();
+            CharCRUD CharCRUDDB = new CharCRUD(pos);
+            CharCRUDDB.ShowDialog();
+            // We update the pos with the one that our CharCRUD form was using at the moment of closing it.
+            pos = CharCRUDDB.FormPos();
             db.RefreshDB();
             //pos = 0;
             ShowEntry();

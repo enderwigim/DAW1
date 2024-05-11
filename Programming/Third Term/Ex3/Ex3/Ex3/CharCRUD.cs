@@ -14,9 +14,10 @@ using static System.Net.WebRequestMethods;
 
 namespace Ex3
 {
-    public partial class Form1 : Form
+    public partial class CharCRUD : Form
     {
         // Global Variables
+
         // Create a classArray and a classPosition to navigate through
         string[] classArray = {
             "Paladin",
@@ -32,11 +33,14 @@ namespace Ex3
         
         // Declare SqlDBHelper and it's position.
         SqlDBHelper db;
+        // Declare position
         private int pos;
         // A variable to know if we are working with a new entry
         private bool isANewEntry;
+
+
         // Constructor with a position added. That pos will come from the form that calls it.
-        public Form1(int position)
+        public CharCRUD(int position)
         {
             InitializeComponent();
             pos = position;
@@ -52,6 +56,8 @@ namespace Ex3
         }
         public int FormPos()
         {
+            // This function will let us return the position that our form is using.
+            // It will be helpful to get this form position once we shut it.
             return pos;
         }
         

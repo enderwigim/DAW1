@@ -23,78 +23,7 @@ namespace Ex3
         {
             InitializeComponent();
         }
-        public void ChangeEveryFont()
-        {
-
-            /* THIS WILL CHANGE EVERY FONT TO A CUSTOM ONE */
-            PrivateFontCollection pfc = new PrivateFontCollection();
-            string fontPath = Path.GetFullPath(@"..\\..\\font\\Alkhemikal.ttf");
-            pfc.AddFontFile(fontPath);
-            foreach (Control c in this.Controls)
-            {
-                c.Font = new Font(pfc.Families[0], 15, FontStyle.Regular);
-            }
-        }
-        public void ShowEntry()
-        {
-            Character entryCharacter = db.GetCharacter(pos);
-            if (entryCharacter != null)
-            {
-                lblName.Text = entryCharacter.Name;
-                lblFaction.Text = entryCharacter.Faction;
-                lblClass.Text = entryCharacter.Class.ToString();
-                lblLocation.Text = entryCharacter.Location;
-                lblLevel.Text = entryCharacter.Level.ToString();
-            } else {
-                lblName.Text = "Future Aventurer";
-                lblClass.Text = "Villager";
-                lblFaction.Text = "Unknown";
-                lblLevel.Text = "0";
-                lblLocation.Text = "Create a character and start your adventure!";
-                pos = 0;
-            }
-
-            ManageButtons();
-            ChangeEveryFont();
-            ManageFactionImage();
-            ManageClassImage();
-        }
-        public void ManageFactionImage()
-        {
-            string imgPath = @"..\\..\\img\\";
-            if (lblFaction.Text.ToLower() == "horde")
-            {
-                imgPath = Path.GetFullPath(imgPath + lblFaction.Text.ToLower() + ".png");
-            } else if (lblFaction.Text.ToLower() == "alliance")
-            {
-                imgPath = Path.GetFullPath(imgPath + lblFaction.Text.ToLower() + ".png");
-            } else
-            {
-                factionImg.Image = null;
-                return;
-            }
-            factionImg.Image = Image.FromFile(imgPath);
-        }
-        
-        public void ManageClassImage()
-        {
-            string imgPath = @"..\\..\\img\\";
-            imgPath = Path.GetFullPath(imgPath + lblClass.Text.ToLower() + ".gif");
-            characterImg.Image = Image.FromFile(imgPath);
-        }
-        public void ManageButtons()
-        {
-            
-            btnShowNext.Enabled = (db.AmmountOfCharacters != 0 && pos < db.AmmountOfCharacters - 1);
-            btnShowPrevious.Enabled = (db.AmmountOfCharacters != 0 && pos > 0);
-            if (db.AmmountOfCharacters == 0)
-            {
-                btnChangeCharacters.Text = "CREATE";
-            } else
-            {
-                btnChangeCharacters.Text = "EDIT";
-            }
-        }
+        // Form buttons
         private void ViewCharacter_Load(object sender, EventArgs e)
         {
             ChangeEveryFont();
@@ -138,6 +67,86 @@ namespace Ex3
             }
             ShowEntry();
         }
-        
+        // Form functions
+        public void ChangeEveryFont()
+        {
+
+            /* THIS WILL CHANGE EVERY FONT TO A CUSTOM ONE */
+            PrivateFontCollection pfc = new PrivateFontCollection();
+            string fontPath = Path.GetFullPath(@"..\\..\\font\\Alkhemikal.ttf");
+            pfc.AddFontFile(fontPath);
+            foreach (Control c in this.Controls)
+            {
+                c.Font = new Font(pfc.Families[0], 15, FontStyle.Regular);
+            }
+        }
+        public void ShowEntry()
+        {
+            Character entryCharacter = db.GetCharacter(pos);
+            if (entryCharacter != null)
+            {
+                lblName.Text = entryCharacter.Name;
+                lblFaction.Text = entryCharacter.Faction;
+                lblClass.Text = entryCharacter.Class.ToString();
+                lblLocation.Text = entryCharacter.Location;
+                lblLevel.Text = entryCharacter.Level.ToString();
+            }
+            else
+            {
+                lblName.Text = "Future Aventurer";
+                lblClass.Text = "Villager";
+                lblFaction.Text = "Unknown";
+                lblLevel.Text = "0";
+                lblLocation.Text = "Create a character and start your adventure!";
+                pos = 0;
+            }
+
+            ManageButtons();
+            ChangeEveryFont();
+            ManageFactionImage();
+            ManageClassImage();
+        }
+        public void ManageFactionImage()
+        {
+            // With this, we will manage the faction image that our program will show
+            string imgPath = @"..\\..\\img\\";
+            // If faction = Horde, we will show that icon
+            if (lblFaction.Text.ToLower() == "horde")
+            {
+                imgPath = Path.GetFullPath(imgPath + lblFaction.Text.ToLower() + ".png");
+            }
+            else if (lblFaction.Text.ToLower() == "alliance") // Else, show alliance icon
+            {
+                imgPath = Path.GetFullPath(imgPath + lblFaction.Text.ToLower() + ".png");
+            }
+            else
+            {
+                // If those two option doesnt fit. No image will be shown
+                factionImg.Image = null;
+                return;
+            }
+            factionImg.Image = Image.FromFile(imgPath);
+        }
+
+        public void ManageClassImage()
+        {
+            // This will manage the class image shown
+            string imgPath = @"..\\..\\img\\";
+            imgPath = Path.GetFullPath(imgPath + lblClass.Text.ToLower() + ".gif");
+            characterImg.Image = Image.FromFile(imgPath);
+        }
+        public void ManageButtons()
+        {
+            btnShowNext.Enabled = (db.AmmountOfCharacters != 0 && pos < db.AmmountOfCharacters - 1);
+            btnShowPrevious.Enabled = (db.AmmountOfCharacters != 0 && pos > 0);
+            if (db.AmmountOfCharacters == 0)
+            {
+                btnChangeCharacters.Text = "CREATE";
+            }
+            else
+            {
+                btnChangeCharacters.Text = "EDIT";
+            }
+        }
     }
 }

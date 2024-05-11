@@ -54,15 +54,9 @@ namespace Ex3
             ManageClassImage();
 
         }
-        public int FormPos()
-        {
-            // This function will let us return the position that our form is using.
-            // It will be helpful to get this form position once we shut it.
-            return pos;
-        }
+        
         
         // CRUD BUTTONS
-        // AddNewCharacter
         private void btnAddNewCharacter_Click(object sender, EventArgs e)
         {
             //Set every txt to Empty or to default value.
@@ -129,6 +123,7 @@ namespace Ex3
                 }
             } else
             {
+                // This error is not common to get. But we need to handle the possibility.
                 ErrorClass();
             }
 
@@ -225,6 +220,53 @@ namespace Ex3
                 ErrorClass();
             }
         }
+        private void btnNextClass_Click(object sender, EventArgs e)
+        {
+            UpdateClassPosition();
+            if (classPosition < classArray.Length - 1)
+            {
+                classPosition++;
+            }
+            else
+            {
+                classPosition = 0;
+            }
+            lblClassSelector.Text = classArray[classPosition];
+            ManageClassImage();
+            // Necesitamos vereficar si la data es valida. En caso de que lo sea. Despues de tocar el boton, el usuario podra 
+            // updatear el boton.
+            if (!isANewEntry)
+            {
+                if (dataIsValid())
+                {
+                    btnUpdateChar.Enabled = true;
+                }
+            }
+        }
+
+        private void btnPreviousClass_Click(object sender, EventArgs e)
+        {
+            UpdateClassPosition();
+            if (classPosition > 0)
+            {
+                classPosition--;
+            }
+            else
+            {
+                classPosition = classArray.Length - 1;
+            }
+            lblClassSelector.Text = classArray[classPosition];
+            ManageClassImage();
+            if (!isANewEntry)
+            {
+                if (dataIsValid())
+                {
+                    btnUpdateChar.Enabled = true;
+                }
+            }
+        }
+
+        // textbox management.
         private void txtName_TextChanged(object sender, EventArgs e)
         {
             if (!isANewEntry)
@@ -295,53 +337,8 @@ namespace Ex3
                 }
             }
         }
-        private void btnNextClass_Click(object sender, EventArgs e)
-        {
-            UpdateClassPosition();
-            if (classPosition < classArray.Length - 1)
-            {
-                classPosition++;
-            }
-            else
-            {
-                classPosition = 0;
-            }
-            lblClassSelector.Text = classArray[classPosition];
-            ManageClassImage();
-            // Necesitamos vereficar si la data es valida. En caso de que lo sea. Despues de tocar el boton, el usuario podra 
-            // updatear el boton.
-            if (!isANewEntry)
-            {
-                if (dataIsValid())
-                {
-                    btnUpdateChar.Enabled = true;
-                }
-            }
-        }
-
-        private void btnPreviousClass_Click(object sender, EventArgs e)
-        {
-            UpdateClassPosition();
-            if (classPosition > 0)
-            {
-                classPosition--;
-            }
-            else
-            {
-                classPosition = classArray.Length - 1;
-            }
-            lblClassSelector.Text = classArray[classPosition];
-            ManageClassImage();
-            if (!isANewEntry)
-            {
-                if (dataIsValid())
-                {
-                    btnUpdateChar.Enabled = true;
-                }
-            }
-        }
-
-
+        
+        // Functions
         public void ShowEntry(int pos)
         {
             Character character = db.GetCharacter(pos);
@@ -401,7 +398,7 @@ namespace Ex3
         }
         public void CheckCRUDbtns()
         {
-            // In case, the ammount of teachers is more than 1 and is not a new entry, the following buttons will be activated.
+            // In case, the ammount of characters is more than 1 and is not a new entry, the following buttons will be activated.
             btnDeleteChar.Enabled = (db.AmmountOfCharacters >= 1 && !isANewEntry);
             btnCreateNew.Enabled = (db.AmmountOfCharacters >= 1 && isANewEntry);
             btnAddNewCharacter.Enabled = (!isANewEntry);
@@ -412,6 +409,7 @@ namespace Ex3
         }
         public void CheckNavButtons()
         {
+            // Navigation simple management.
             btnShowNext.Enabled = (db.AmmountOfCharacters != 0 && pos < db.AmmountOfCharacters - 1 && !isANewEntry);
             btnShowPrevious.Enabled = (db.AmmountOfCharacters != 0 && pos > 0 && !isANewEntry);
             btnShowLast.Enabled = (db.AmmountOfCharacters != 0 && pos != db.AmmountOfCharacters - 1 && !isANewEntry);
@@ -429,11 +427,13 @@ namespace Ex3
         }
         public void ErrorClass()
         {
+            // If the class introduced is not into this possibilities. This generic error will appear.
             MessageBox.Show("The classes available are: \n" +
-                "Paladin\nDeathKnight\nPriest\nMage\nWarlock\nWarrior\nRogue\nHunter\nDruid\nShaman");
+                "Paladin\nDeathKnight\nPriest\nMage\nWarlock\nWarrior\nRogue\nHunter");
         }
         public bool dataIsValid()
         {
+            // This function return if the data in the inputs are valid or not.
             bool dataIsValid = false;
             string name = txtName.Text;
             string @class = lblClassSelector.Text;
@@ -460,6 +460,8 @@ namespace Ex3
        
         public void UpdateIfWasChangedAndIsValid()
         {
+            // If some changes were done, we will give the user the oportunity to change them
+            // If those changes are not valid, data wont be updated
             if (!isANewEntry)
             {
                 if (checkIfChanges(pos))
@@ -483,6 +485,7 @@ namespace Ex3
         }
         public bool checkIfChanges(int pos)
         {
+            // Return if the parameters are different from the ones in the DB
             bool itChanged = false;
 
             string name = txtName.Text;
@@ -525,8 +528,6 @@ namespace Ex3
                 btnNextClass.Enabled = false;
                 btnPreviousClass.Enabled = false;
             }
-
-
         }
 
 
@@ -557,6 +558,12 @@ namespace Ex3
                 }
             }
             return @class;
+        }
+        public int FormPos()
+        {
+            // This function will let us return the position that our form is using.
+            // It will be helpful to get this form position once we shut it.
+            return pos;
         }
 
     }

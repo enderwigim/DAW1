@@ -72,6 +72,11 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="CustomRegex.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="ViewCharacter.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -80,6 +85,10 @@
     </Compile>
     <EmbeddedResource Include="CharCRUD.resx">
       <DependentUpon>CharCRUD.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="ViewCharacter.resx">
       <DependentUpon>ViewCharacter.cs</DependentUpon>

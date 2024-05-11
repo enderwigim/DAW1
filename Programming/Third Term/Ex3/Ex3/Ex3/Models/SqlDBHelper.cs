@@ -18,13 +18,12 @@ namespace Ex3.Models
         // Attributes to save ammount of characters.
         private int _ammountOfCharacters;
         
-        // Propiedad de solo lectura.
+        
         public int AmmountOfCharacters
         {
             get => _ammountOfCharacters;
         }
-        // Constructor del objeto. 
-        // En el mismo hacemos la conexión y creamos dataSet y dataAdapter
+        
 
 
         public SqlDBHelper()
@@ -34,6 +33,7 @@ namespace Ex3.Models
         }
         public void RefreshDB()
         {
+            // This function creates the connections and update the dataSet and dataAdapter.
             string filePath = Path.GetFullPath(@"..\\..\\AppData\\Character.mdf;");
             SqlConnection con = new SqlConnection("Data Source = (LocalDB)\\MSSQLLocalDB; AttachDbFilename=" + filePath + "Integrated Security=True");
             // Abrimos la conexión.
@@ -50,7 +50,7 @@ namespace Ex3.Models
         public Character GetCharacter(int pos)
         {
             Character character = null;
-            // Objeto que nos permite recoger un registro de la tabla.
+            
             DataRow entry;
 
             if (pos >= 0 && pos < _ammountOfCharacters)

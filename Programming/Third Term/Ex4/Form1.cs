@@ -70,6 +70,136 @@ namespace Ex4
             pos = 0;
             ShowEntry(pos);
         }
+        
+
+        private void btnAddTeacher_Click(object sender, EventArgs e)
+        {
+            txtDNI.Clear();
+            txtNombre.Clear();
+            txtApellidos.Clear();
+            txtTlf.Clear();
+            txteMail.Clear();
+
+            btnSaveNew.Enabled = true;
+            btnAddTeacher.Enabled = false;
+            isANewEntry = true;
+
+            CheckButtons();
+            CheckNavButtons();
+            ManageTxts();
+        }
+
+        private void btnSaveNew_Click(object sender, EventArgs e)
+        {
+            string dni = txtDNI.Text;
+            string nombre = txtNombre.Text;
+            string surname = txtApellidos.Text;
+            string tlf = txtTlf.Text;
+            string email = txteMail.Text;
+
+            Teacher profesor = Teacher.CreateTeacher(dni, nombre, surname, tlf, email);
+            if (profesor != null)
+            {
+                if(db.CreateRow(profesor))
+                {
+                    btnSaveNew.Enabled = false;
+                    isANewEntry = false;
+                    pos = db.AmmountOfEntries - 1;
+                    ShowEntry(pos);
+                }
+                else
+                {
+                    MessageBox.Show("That teacher is already in the database");
+                }
+                
+
+            }
+            else
+                ErrorMessage();
+        }
+
+        private void btnUpdate_Click(object sender, EventArgs e)
+        {
+            string dni = txtDNI.Text;
+            string nombre = txtNombre.Text;
+            string surname = txtApellidos.Text;
+            string tlf = txtTlf.Text;
+            string email = txteMail.Text;
+
+            Teacher profesor = Teacher.CreateTeacher(dni, nombre, surname, tlf, email);
+            if (profesor != null)
+                db.UpdateRow(profesor, pos);
+            else
+                ErrorMessage();
+        }
+
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            DialogResult wantToDelete;
+            wantToDelete = MessageBox.Show("Are you sure that you want to delete this teacher?", " ", MessageBoxButtons.YesNo);
+            if (wantToDelete == DialogResult.Yes)
+            {
+                db.DeleteRow(pos);
+                if (db.AmmountOfEntries >= 1)
+                {
+                    if (pos > 0)
+                    {
+                        // We will show the previous student.
+                        pos--;
+                    }
+                    // Else we show that position student
+                    ShowEntry(pos);
+                    MessageBox.Show("Teacher Deleted");
+                }
+                else
+                {
+                    ShowEntry(pos);
+                }
+            }
+        }
+
+        private void btnShowEveryTeacher_Click(object sender, EventArgs e)
+        {
+            string everyName = db.GetEveryName();
+            if (everyName != "")
+            {
+                MessageBox.Show("The teachers in the database are: \n" + everyName);
+            } 
+            else
+            {
+                MessageBox.Show("There's no teachers in the database");
+            }
+        }
+
+        private void btnLookBySurname_Click(object sender, EventArgs e)
+        {
+            string surname = Interaction.InputBox("What surname do you want to look for?");
+            int foundedPos = db.LookBySurname(surname);
+            if (foundedPos != -1)
+                pos = foundedPos;
+            else
+                MessageBox.Show("That teacher wasn't founded");
+            ShowEntry(pos);
+        }
+        public void CheckButtons()
+        {
+            btnAddTeacher.Enabled = (!isANewEntry);
+            btnDelete.Enabled = (db.AmmountOfEntries != 0 && !isANewEntry);
+            btnSaveNew.Enabled = (isANewEntry);
+            btnLookBySurname.Enabled = (db.AmmountOfEntries > 1 && !isANewEntry);
+            btnShowEveryTeacher.Enabled = (db.AmmountOfEntries > 1 && !isANewEntry);
+
+            btnUpdate.Enabled = false; 
+        }
+
+        public void ManageTxts()
+        {
+            txtDNI.ReadOnly = (!(db.AmmountOfEntries >= 1) && !isANewEntry);
+            txtNombre.ReadOnly = (!(db.AmmountOfEntries >= 1) && !isANewEntry);
+            txtApellidos.ReadOnly = (!(db.AmmountOfEntries >= 1) && !isANewEntry);
+            txtTlf.ReadOnly = (!(db.AmmountOfEntries >= 1) && !isANewEntry);
+            txteMail.ReadOnly = (!(db.AmmountOfEntries >= 1) && !isANewEntry);
+        }
         public void ShowEntry(int pos)
         {
             if (db.AmmountOfEntries >= 1)
@@ -128,125 +258,5 @@ namespace Ex4
             btnShowLastTeacher.Enabled = (db.AmmountOfEntries != 0 && pos != db.AmmountOfEntries - 1 && !isANewEntry);
             btnShowFirstTeacher.Enabled = (db.AmmountOfEntries != 0 && pos != 0 && !isANewEntry);
         }
-
-        private void btnAddTeacher_Click(object sender, EventArgs e)
-        {
-            txtDNI.Clear();
-            txtNombre.Clear();
-            txtApellidos.Clear();
-            txtTlf.Clear();
-            txteMail.Clear();
-
-            btnSaveNew.Enabled = true;
-            btnAddTeacher.Enabled = false;
-            isANewEntry = true;
-
-            CheckButtons();
-            CheckNavButtons();
-            ManageTxts();
-        }
-
-        private void btnSaveNew_Click(object sender, EventArgs e)
-        {
-            string dni = txtDNI.Text;
-            string nombre = txtNombre.Text;
-            string surname = txtApellidos.Text;
-            string tlf = txtTlf.Text;
-            string email = txteMail.Text;
-
-            Teacher profesor = Teacher.CreateTeacher(dni, nombre, surname, tlf, email);
-            if (profesor != null)
-            {
-                db.CreateRow(profesor);
-                btnSaveNew.Enabled = false;
-                isANewEntry = false;
-                pos = db.AmmountOfEntries - 1;
-                ShowEntry(pos);
-
-            }
-            else
-                ErrorMessage();
-        }
-
-        private void btnUpdate_Click(object sender, EventArgs e)
-        {
-            string dni = txtDNI.Text;
-            string nombre = txtNombre.Text;
-            string surname = txtApellidos.Text;
-            string tlf = txtTlf.Text;
-            string email = txteMail.Text;
-
-            Teacher profesor = Teacher.CreateTeacher(dni, nombre, surname, tlf, email);
-            if (profesor != null)
-                db.UpdateRow(profesor, pos);
-            else
-                ErrorMessage();
-        }
-
-        private void btnDelete_Click(object sender, EventArgs e)
-        {
-            DialogResult wantToDelete;
-            wantToDelete = MessageBox.Show("Are you sure that you want to delete this teacher?", " ", MessageBoxButtons.YesNo);
-            if (wantToDelete == DialogResult.Yes)
-            {
-                db.DeleteRow(pos);
-                if (db.AmmountOfEntries >= 1)
-                {
-                    // We will show the previous teacher.
-                    pos--;
-
-                    ShowEntry(pos);
-                    MessageBox.Show("Character Deleted");
-                }
-                else
-                {
-                    ShowEntry(pos);
-                }
-            }
-        }
-
-        private void btnShowEveryTeacher_Click(object sender, EventArgs e)
-        {
-            string everyName = db.GetEveryName();
-            if (everyName != "")
-            {
-                MessageBox.Show("The teachers in the database are: \n" + everyName);
-            } 
-            else
-            {
-                MessageBox.Show("There's no teachers in the database");
-            }
-        }
-
-        private void btnLookBySurname_Click(object sender, EventArgs e)
-        {
-            string surname = Interaction.InputBox("What surname do you want to look for?");
-            int foundedPos = db.LookBySurname(surname);
-            if (foundedPos != -1)
-                pos = foundedPos;
-            else
-                MessageBox.Show("That teacher wasn't founded");
-            ShowEntry(pos);
-        }
-        public void CheckButtons()
-        {
-            btnAddTeacher.Enabled = (!isANewEntry);
-            btnDelete.Enabled = (db.AmmountOfEntries != 0 && !isANewEntry);
-            btnSaveNew.Enabled = (isANewEntry);
-            btnLookBySurname.Enabled = (db.AmmountOfEntries > 1 && !isANewEntry);
-            btnShowEveryTeacher.Enabled = (db.AmmountOfEntries > 1 && !isANewEntry);
-
-            btnUpdate.Enabled = false; 
-        }
-
-        public void ManageTxts()
-        {
-            txtDNI.ReadOnly = (!(db.AmmountOfEntries >= 1) && !isANewEntry);
-            txtNombre.ReadOnly = (!(db.AmmountOfEntries >= 1) && !isANewEntry);
-            txtApellidos.ReadOnly = (!(db.AmmountOfEntries >= 1) && !isANewEntry);
-            txtTlf.ReadOnly = (!(db.AmmountOfEntries >= 1) && !isANewEntry);
-            txteMail.ReadOnly = (!(db.AmmountOfEntries >= 1) && !isANewEntry);
-        }
-        
     }
 }

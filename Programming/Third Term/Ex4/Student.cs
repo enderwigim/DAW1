@@ -30,7 +30,7 @@ namespace Ex4
             {
                 return null;
             }
-            return new Student(dni, name, surname, tlf, address);
+            return new Student(dni, name, surname, address, tlf);
         }
     }
 }

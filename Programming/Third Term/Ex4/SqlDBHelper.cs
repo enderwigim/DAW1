@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+using System.Net;
 
 namespace Ex4
 {
@@ -69,6 +70,7 @@ namespace Ex4
                 }
                 else if (tableName == "Cursos")
                 {
+                    entity = Course.CreateCourse(Convert.ToInt32(entry[0]), entry[1].ToString());
 
                 }
             }
@@ -83,12 +85,19 @@ namespace Ex4
             {
                 UpdateTeacher((Teacher)entity, ref entry);
             }
+            else if (tableName == "Alumnos")
+            {
+                UpdateStudent((Student)entity, ref entry);
+            }
+            else if (tableName == "Cursos")
+            {
+
+            }
 
             ReconnectToDB();
         }
         public bool CreateRow(Entity entity)
         {
-
             bool wasCreated = false;
             try
             {
@@ -97,15 +106,37 @@ namespace Ex4
 
                 if (tableName == "Profesores")
                 {
-                    UpdateTeacher((Teacher)entity, ref entry);
+                    if (!IsIDInDataBase((Teacher)entity))
+                    {
+                        UpdateTeacher((Teacher)entity, ref entry);
+                        
+                    }
+                    else
+                    {
+                        return wasCreated;
+                    }
                 }
                 else if (tableName == "Alumnos")
                 {
-                    UpdateStudent((Student)entity, ref entry);
+                    if (!IsIDInDataBase(((Student)entity)))
+                    {
+                        UpdateStudent((Student)entity, ref entry);
+                    }
+                    else
+                    {
+                        return wasCreated;
+                    }
                 }
                 else if (tableName == "Cursos")
                 {
-
+                    if (!IsIDInDataBase((Course)entity))
+                    {
+                        UpdateCourse((Course)entity, ref entry);
+                    }
+                    else
+                    {
+                        return wasCreated;
+                    }
                 }
 
                 dataSet.Tables[tableName].Rows.Add(entry);
@@ -145,6 +176,11 @@ namespace Ex4
             entry[3] = student.Address;
             entry[4] = student.Tlf;
         }
+        public void UpdateCourse(Course course, ref DataRow entry)
+        {
+            entry[0] = course.ID;
+            entry[1] = course.Name;
+        }
         public void ReconnectToDB()
         {
             // Reconectamos con el dataAdapter y actualizamos la BD
@@ -183,6 +219,38 @@ namespace Ex4
 
             }
             return everyName;
+        }
+        public bool IsIDInDataBase(Person person)
+        {
+            // This will let us check if the dni is in the db
+
+            bool isInDB = false;
+            for (int i = 0; i < AmmountOfEntries; i++)
+            {
+                DataRow entry = dataSet.Tables[tableName].Rows[i];
+                if (entry[0].ToString() == person.DNI)
+                {
+                    isInDB = true;
+                }
+            }
+            return isInDB;
+
+
+        }
+        public bool IsIDInDataBase(Course course)
+        {
+            // This will let us check if the id is in the db
+
+            bool isInDB = false;
+            for (int i = 0; i < AmmountOfEntries; i++)
+            {
+                DataRow entry = dataSet.Tables[tableName].Rows[i];
+                if (Convert.ToInt32(entry[0]) == course.ID)
+                {
+                    isInDB = true;
+                }
+            }
+            return isInDB;
         }
     }
 }

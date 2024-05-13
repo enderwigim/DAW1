@@ -62,7 +62,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Course.cs" />
     <Compile Include="Entity.cs" />
+    <Compile Include="FCurso.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FCurso.Designer.cs">
+      <DependentUpon>FCurso.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -74,7 +81,16 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SqlDBHelper.cs" />
     <Compile Include="Student.cs" />
+    <Compile Include="Students.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Students.Designer.cs">
+      <DependentUpon>Students.cs</DependentUpon>
+    </Compile>
     <Compile Include="Teacher.cs" />
+    <EmbeddedResource Include="FCurso.resx">
+      <DependentUpon>FCurso.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
@@ -87,6 +103,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Students.resx">
+      <DependentUpon>Students.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

@@ -1,5 +1,4 @@
-﻿using Microsoft.VisualBasic;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -11,17 +10,16 @@ using System.Windows.Forms;
 
 namespace Ex4
 {
-    public partial class FStudents : Form
+    public partial class FCurso : Form
     {
-        public FStudents()
+        public FCurso()
         {
             InitializeComponent();
         }
-        // Global Variables
         SqlDBHelper db;
         private int pos;
         private bool isANewEntry = false;
-        private void Students_Load(object sender, EventArgs e)
+        private void FCurso_Load(object sender, EventArgs e)
         {
             db = new SqlDBHelper("Cursos");
             pos = 0;
@@ -31,13 +29,13 @@ namespace Ex4
             btnSaveNew.Enabled = false;
         }
 
-        private void btnShowFirstStudent_Click(object sender, EventArgs e)
+        private void btnShowFirstCourse_Click(object sender, EventArgs e)
         {
             pos = 0;
             ShowEntry(pos);
         }
 
-        private void btnShowPreviousStudent_Click(object sender, EventArgs e)
+        private void btnShowPreviousCourse_Click(object sender, EventArgs e)
         {
             if (pos != 0)
             {
@@ -50,7 +48,7 @@ namespace Ex4
             ShowEntry(pos);
         }
 
-        private void btnShowNextStudent_Click(object sender, EventArgs e)
+        private void btnShowNextCourse_Click(object sender, EventArgs e)
         {
             if (pos != db.AmmountOfEntries - 1)
             {
@@ -63,23 +61,20 @@ namespace Ex4
             ShowEntry(pos);
         }
 
-        private void btnShowLastStudent_Click(object sender, EventArgs e)
+        private void btnShowLastCourse_Click(object sender, EventArgs e)
         {
-
             pos = db.AmmountOfEntries - 1;
             ShowEntry(pos);
         }
 
-        private void btnAddStudent_Click(object sender, EventArgs e)
+        private void btnAddCourse_Click(object sender, EventArgs e)
         {
-            txtDNI.Clear();
-            txtNombre.Clear();
-            txtApellidos.Clear();
-            txtTlf.Clear();
-            txtAddress.Clear();
+            txtID.Clear();
+            txtName.Clear();
+
 
             btnSaveNew.Enabled = true;
-            btnAddStudent.Enabled = false;
+            btnAddCourse.Enabled = false;
             isANewEntry = true;
 
             CheckButtons();
@@ -89,16 +84,14 @@ namespace Ex4
 
         private void btnSaveNew_Click(object sender, EventArgs e)
         {
-            string dni = txtDNI.Text;
-            string nombre = txtNombre.Text;
-            string surname = txtApellidos.Text;
-            string tlf = txtTlf.Text;
-            string address = txtAddress.Text;
+            int id = int.Parse(txtID.Text);
+            string nombre = txtName.Text;
 
-            Student student = Student.CreateStudent(dni, nombre, surname, address, tlf);
-            if (student != null)
+
+            Course course = Course.CreateCourse(id, nombre);
+            if (course != null)
             {
-                if (db.CreateRow(student))
+                if (db.CreateRow(course))
                 {
                     btnSaveNew.Enabled = false;
                     isANewEntry = false;
@@ -107,7 +100,7 @@ namespace Ex4
                 }
                 else
                 {
-                    MessageBox.Show("That student is already in the database");
+                    MessageBox.Show("That course is already in the database");
                 }
 
             }
@@ -117,15 +110,13 @@ namespace Ex4
 
         private void btnUpdate_Click(object sender, EventArgs e)
         {
-            string dni = txtDNI.Text;
-            string nombre = txtNombre.Text;
-            string surname = txtApellidos.Text;
-            string tlf = txtTlf.Text;
-            string address = txtAddress.Text;
+            int id = int.Parse(txtID.Text);
+            string nombre = txtName.Text;
 
-            Student student = Student.CreateStudent(dni, nombre, surname, tlf, address);
-            if (student != null)
-                db.UpdateRow(student, pos);
+
+            Course course = Course.CreateCourse(id, nombre);
+            if (course != null)
+                db.UpdateRow(course, pos);
             else
                 ErrorMessage();
         }
@@ -154,65 +145,35 @@ namespace Ex4
                 }
             }
         }
-
-        private void btnLookBySurname_Click(object sender, EventArgs e)
-        {
-            string surname = Interaction.InputBox("What surname do you want to look for?");
-            int foundedPos = db.LookBySurname(surname);
-            if (foundedPos != -1)
-                pos = foundedPos;
-            else
-                MessageBox.Show("That student wasn't founded");
-            ShowEntry(pos);
-        }
-
-        private void btnShowEveryStudent_Click(object sender, EventArgs e)
-        {
-            string everyName = db.GetEveryName();
-            if (everyName != "")
-            {
-                MessageBox.Show("The students in the database are: \n" + everyName);
-            }
-            else
-            {
-                MessageBox.Show("There's no students in the database");
-            }
-        }
         public void CheckButtons()
         {
-            btnAddStudent.Enabled = (!isANewEntry);
+            btnAddCourse.Enabled = (!isANewEntry);
             btnDelete.Enabled = (db.AmmountOfEntries != 0 && !isANewEntry);
             btnSaveNew.Enabled = (isANewEntry);
-            btnLookBySurname.Enabled = (db.AmmountOfEntries > 1 && !isANewEntry);
-            btnShowEveryStudent.Enabled = (db.AmmountOfEntries > 1 && !isANewEntry);
+            
 
             btnUpdate.Enabled = false;
         }
 
         public void ManageTxts()
         {
-            txtDNI.ReadOnly = (!(db.AmmountOfEntries >= 1) && !isANewEntry);
-            txtNombre.ReadOnly = (!(db.AmmountOfEntries >= 1) && !isANewEntry);
-            txtApellidos.ReadOnly = (!(db.AmmountOfEntries >= 1) && !isANewEntry);
-            txtTlf.ReadOnly = (!(db.AmmountOfEntries >= 1) && !isANewEntry);
-            txtAddress.ReadOnly = (!(db.AmmountOfEntries >= 1) && !isANewEntry);
+            txtID.ReadOnly = (!isANewEntry);
+            txtName.ReadOnly = (!(db.AmmountOfEntries >= 1) && !isANewEntry);
         }
         public void ShowEntry(int pos)
         {
             if (db.AmmountOfEntries >= 1)
             {
-                Student student = (Student)db.GetEntry(pos);
-                if (student == null)
+                Course course = (Course)db.GetEntry(pos);
+                if (course == null)
                 {
                     ErrorMessage();
                 }
                 else
                 {
-                    txtDNI.Text = student.DNI;
-                    txtNombre.Text = student.Name;
-                    txtApellidos.Text = student.Surname;
-                    txtTlf.Text = student.Tlf;
-                    txtAddress.Text = student.Address;
+                    txtID.Text = course.ID.ToString();
+                    txtName.Text = course.Name;
+                  
                 }
                 // lblEntryNumbers management.
                 lblEntryNumber.Text = (int)((pos + 1)) + " de " + db.AmmountOfEntries;
@@ -229,11 +190,8 @@ namespace Ex4
         }
         public void ShowEmpty()
         {
-            txtDNI.Text = string.Empty;
-            txtNombre.Text = string.Empty;
-            txtApellidos.Text = string.Empty;
-            txtTlf.Text = string.Empty;
-            txtAddress.Text = string.Empty;
+            txtID.Text = string.Empty;
+            txtName.Text = string.Empty;
 
             lblEntryNumber.Text = "0 de 0";
 
@@ -251,10 +209,10 @@ namespace Ex4
         }
         public void CheckNavButtons()
         {
-            btnShowNextStudent.Enabled = (db.AmmountOfEntries != 0 && pos < db.AmmountOfEntries - 1 && !isANewEntry);
-            btnShowPreviousStudent.Enabled = (db.AmmountOfEntries != 0 && pos > 0 && !isANewEntry);
-            btnShowLastStudent.Enabled = (db.AmmountOfEntries != 0 && pos != db.AmmountOfEntries - 1 && !isANewEntry);
-            btnShowFirstStudent.Enabled = (db.AmmountOfEntries != 0 && pos != 0 && !isANewEntry);
+            btnShowNextCourse.Enabled = (db.AmmountOfEntries != 0 && pos < db.AmmountOfEntries - 1 && !isANewEntry);
+            btnShowPreviousCourse.Enabled = (db.AmmountOfEntries != 0 && pos > 0 && !isANewEntry);
+            btnShowLastCourse.Enabled = (db.AmmountOfEntries != 0 && pos != db.AmmountOfEntries - 1 && !isANewEntry);
+            btnShowFirstCourse.Enabled = (db.AmmountOfEntries != 0 && pos != 0 && !isANewEntry);
         }
     }
 }

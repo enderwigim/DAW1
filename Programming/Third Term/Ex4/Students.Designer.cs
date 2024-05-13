@@ -42,12 +42,12 @@
             this.btnUpdate = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.btnSaveNew = new System.Windows.Forms.Button();
-            this.btnAddTeacher = new System.Windows.Forms.Button();
+            this.btnAddStudent = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.btnShowLastTeacher = new System.Windows.Forms.Button();
-            this.btnShowNextTeacher = new System.Windows.Forms.Button();
-            this.btnShowPreviousTeacher = new System.Windows.Forms.Button();
-            this.btnShowFirstTeacher = new System.Windows.Forms.Button();
+            this.btnShowLastStudent = new System.Windows.Forms.Button();
+            this.btnShowNextStudent = new System.Windows.Forms.Button();
+            this.btnShowPreviousStudent = new System.Windows.Forms.Button();
+            this.btnShowFirstStudent = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -180,7 +180,7 @@
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.btnSaveNew);
-            this.groupBox2.Controls.Add(this.btnAddTeacher);
+            this.groupBox2.Controls.Add(this.btnAddStudent);
             this.groupBox2.ForeColor = System.Drawing.SystemColors.MenuHighlight;
             this.groupBox2.Location = new System.Drawing.Point(26, 432);
             this.groupBox2.Margin = new System.Windows.Forms.Padding(4);
@@ -205,22 +205,22 @@
             // 
             // btnAddTeacher
             // 
-            this.btnAddTeacher.ForeColor = System.Drawing.SystemColors.MenuText;
-            this.btnAddTeacher.Location = new System.Drawing.Point(24, 23);
-            this.btnAddTeacher.Margin = new System.Windows.Forms.Padding(4);
-            this.btnAddTeacher.Name = "btnAddTeacher";
-            this.btnAddTeacher.Size = new System.Drawing.Size(215, 54);
-            this.btnAddTeacher.TabIndex = 4;
-            this.btnAddTeacher.Text = "Añadir";
-            this.btnAddTeacher.UseVisualStyleBackColor = true;
-            this.btnAddTeacher.Click += new System.EventHandler(this.btnAddTeacher_Click);
+            this.btnAddStudent.ForeColor = System.Drawing.SystemColors.MenuText;
+            this.btnAddStudent.Location = new System.Drawing.Point(24, 23);
+            this.btnAddStudent.Margin = new System.Windows.Forms.Padding(4);
+            this.btnAddStudent.Name = "btnAddTeacher";
+            this.btnAddStudent.Size = new System.Drawing.Size(215, 54);
+            this.btnAddStudent.TabIndex = 4;
+            this.btnAddStudent.Text = "Añadir";
+            this.btnAddStudent.UseVisualStyleBackColor = true;
+            this.btnAddStudent.Click += new System.EventHandler(this.btnAddStudent_Click);
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.btnShowLastTeacher);
-            this.groupBox1.Controls.Add(this.btnShowNextTeacher);
-            this.groupBox1.Controls.Add(this.btnShowPreviousTeacher);
-            this.groupBox1.Controls.Add(this.btnShowFirstTeacher);
+            this.groupBox1.Controls.Add(this.btnShowLastStudent);
+            this.groupBox1.Controls.Add(this.btnShowNextStudent);
+            this.groupBox1.Controls.Add(this.btnShowPreviousStudent);
+            this.groupBox1.Controls.Add(this.btnShowFirstStudent);
             this.groupBox1.ForeColor = System.Drawing.SystemColors.MenuHighlight;
             this.groupBox1.Location = new System.Drawing.Point(26, 299);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(4);
@@ -233,51 +233,51 @@
             // 
             // btnShowLastTeacher
             // 
-            this.btnShowLastTeacher.ForeColor = System.Drawing.SystemColors.MenuText;
-            this.btnShowLastTeacher.Location = new System.Drawing.Point(763, 23);
-            this.btnShowLastTeacher.Margin = new System.Windows.Forms.Padding(4);
-            this.btnShowLastTeacher.Name = "btnShowLastTeacher";
-            this.btnShowLastTeacher.Size = new System.Drawing.Size(215, 54);
-            this.btnShowLastTeacher.TabIndex = 3;
-            this.btnShowLastTeacher.Text = "Ultimo";
-            this.btnShowLastTeacher.UseVisualStyleBackColor = true;
-            this.btnShowLastTeacher.Click += new System.EventHandler(this.btnShowLastTeacher_Click);
+            this.btnShowLastStudent.ForeColor = System.Drawing.SystemColors.MenuText;
+            this.btnShowLastStudent.Location = new System.Drawing.Point(763, 23);
+            this.btnShowLastStudent.Margin = new System.Windows.Forms.Padding(4);
+            this.btnShowLastStudent.Name = "btnShowLastTeacher";
+            this.btnShowLastStudent.Size = new System.Drawing.Size(215, 54);
+            this.btnShowLastStudent.TabIndex = 3;
+            this.btnShowLastStudent.Text = "Ultimo";
+            this.btnShowLastStudent.UseVisualStyleBackColor = true;
+            this.btnShowLastStudent.Click += new System.EventHandler(this.btnShowLastStudent_Click);
             // 
             // btnShowNextTeacher
             // 
-            this.btnShowNextTeacher.ForeColor = System.Drawing.SystemColors.MenuText;
-            this.btnShowNextTeacher.Location = new System.Drawing.Point(533, 23);
-            this.btnShowNextTeacher.Margin = new System.Windows.Forms.Padding(4);
-            this.btnShowNextTeacher.Name = "btnShowNextTeacher";
-            this.btnShowNextTeacher.Size = new System.Drawing.Size(215, 54);
-            this.btnShowNextTeacher.TabIndex = 2;
-            this.btnShowNextTeacher.Text = "Siguiente";
-            this.btnShowNextTeacher.UseVisualStyleBackColor = true;
-            this.btnShowNextTeacher.Click += new System.EventHandler(this.btnShowNextTeacher_Click);
+            this.btnShowNextStudent.ForeColor = System.Drawing.SystemColors.MenuText;
+            this.btnShowNextStudent.Location = new System.Drawing.Point(533, 23);
+            this.btnShowNextStudent.Margin = new System.Windows.Forms.Padding(4);
+            this.btnShowNextStudent.Name = "btnShowNextTeacher";
+            this.btnShowNextStudent.Size = new System.Drawing.Size(215, 54);
+            this.btnShowNextStudent.TabIndex = 2;
+            this.btnShowNextStudent.Text = "Siguiente";
+            this.btnShowNextStudent.UseVisualStyleBackColor = true;
+            this.btnShowNextStudent.Click += new System.EventHandler(this.btnShowNextStudent_Click);
             // 
             // btnShowPreviousTeacher
             // 
-            this.btnShowPreviousTeacher.ForeColor = System.Drawing.SystemColors.MenuText;
-            this.btnShowPreviousTeacher.Location = new System.Drawing.Point(285, 23);
-            this.btnShowPreviousTeacher.Margin = new System.Windows.Forms.Padding(4);
-            this.btnShowPreviousTeacher.Name = "btnShowPreviousTeacher";
-            this.btnShowPreviousTeacher.Size = new System.Drawing.Size(215, 54);
-            this.btnShowPreviousTeacher.TabIndex = 1;
-            this.btnShowPreviousTeacher.Text = "Anterior";
-            this.btnShowPreviousTeacher.UseVisualStyleBackColor = true;
-            this.btnShowPreviousTeacher.Click += new System.EventHandler(this.btnShowPreviousTeacher_Click);
+            this.btnShowPreviousStudent.ForeColor = System.Drawing.SystemColors.MenuText;
+            this.btnShowPreviousStudent.Location = new System.Drawing.Point(285, 23);
+            this.btnShowPreviousStudent.Margin = new System.Windows.Forms.Padding(4);
+            this.btnShowPreviousStudent.Name = "btnShowPreviousTeacher";
+            this.btnShowPreviousStudent.Size = new System.Drawing.Size(215, 54);
+            this.btnShowPreviousStudent.TabIndex = 1;
+            this.btnShowPreviousStudent.Text = "Anterior";
+            this.btnShowPreviousStudent.UseVisualStyleBackColor = true;
+            this.btnShowPreviousStudent.Click += new System.EventHandler(this.btnShowPreviousStudent_Click);
             // 
             // btnShowFirstTeacher
             // 
-            this.btnShowFirstTeacher.ForeColor = System.Drawing.SystemColors.MenuText;
-            this.btnShowFirstTeacher.Location = new System.Drawing.Point(24, 23);
-            this.btnShowFirstTeacher.Margin = new System.Windows.Forms.Padding(4);
-            this.btnShowFirstTeacher.Name = "btnShowFirstTeacher";
-            this.btnShowFirstTeacher.Size = new System.Drawing.Size(215, 54);
-            this.btnShowFirstTeacher.TabIndex = 0;
-            this.btnShowFirstTeacher.Text = "Primero";
-            this.btnShowFirstTeacher.UseVisualStyleBackColor = true;
-            this.btnShowFirstTeacher.Click += new System.EventHandler(this.btnShowFirstTeacher_Click);
+            this.btnShowFirstStudent.ForeColor = System.Drawing.SystemColors.MenuText;
+            this.btnShowFirstStudent.Location = new System.Drawing.Point(24, 23);
+            this.btnShowFirstStudent.Margin = new System.Windows.Forms.Padding(4);
+            this.btnShowFirstStudent.Name = "btnShowFirstTeacher";
+            this.btnShowFirstStudent.Size = new System.Drawing.Size(215, 54);
+            this.btnShowFirstStudent.TabIndex = 0;
+            this.btnShowFirstStudent.Text = "Primero";
+            this.btnShowFirstStudent.UseVisualStyleBackColor = true;
+            this.btnShowFirstStudent.Click += new System.EventHandler(this.btnShowFirstStudent_Click);
             // 
             // label5
             // 
@@ -378,12 +378,12 @@
         private System.Windows.Forms.Button btnUpdate;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Button btnSaveNew;
-        private System.Windows.Forms.Button btnAddTeacher;
+        private System.Windows.Forms.Button btnAddStudent;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.Button btnShowLastTeacher;
-        private System.Windows.Forms.Button btnShowNextTeacher;
-        private System.Windows.Forms.Button btnShowPreviousTeacher;
-        private System.Windows.Forms.Button btnShowFirstTeacher;
+        private System.Windows.Forms.Button btnShowLastStudent;
+        private System.Windows.Forms.Button btnShowNextStudent;
+        private System.Windows.Forms.Button btnShowPreviousStudent;
+        private System.Windows.Forms.Button btnShowFirstStudent;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;

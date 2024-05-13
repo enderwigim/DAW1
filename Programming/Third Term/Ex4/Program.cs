@@ -16,7 +16,7 @@ namespace Ex4
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new FTeacher());
+            Application.Run(new FStudents());
         }
     }
 }

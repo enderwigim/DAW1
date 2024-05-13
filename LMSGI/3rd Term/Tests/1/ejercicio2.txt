@@ -1,7 +1,0 @@
-a) //empresa
-b) //contacto/text()
-c) //cliente[@tipo="A"]/contacto
-d) //cliente[ventas>3000]/empresa/text()
-e) //contacto | //telefonos/movil
-f) //cliente[pais="Arabia Saudí"]/email/text()
-g) //telefonos/particular/../../@id

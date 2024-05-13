@@ -72,24 +72,44 @@ namespace Ex4
         }
         public void ShowEntry(int pos)
         {
+            if (db.AmmountOfEntries >= 1)
+            {
+                Teacher teacher = (Teacher)db.GetEntry(pos);
+                if (teacher == null)
+                {
+                    ErrorMessage();
+                }
+                else
+                {
+                    txtDNI.Text = teacher.DNI;
+                    txtNombre.Text = teacher.Name;
+                    txtApellidos.Text = teacher.Surname;
+                    txtTlf.Text = teacher.Tlf;
+                    txteMail.Text = teacher.eMail;
+                }
+                // lblEntryNumbers management.
+                lblEntryNumber.Text = (int)((pos + 1)) + " de " + db.AmmountOfEntries;
+                
 
-            Teacher teacher = (Teacher)db.GetEntry(pos);
-            if (teacher == null)
+            } else
             {
-                ErrorMessage();
+                ShowEmpty();
             }
-            else
-            {
-                txtDNI.Text = teacher.DNI;
-                txtNombre.Text = teacher.Name;
-                txtApellidos.Text = teacher.Surname;
-                txtTlf.Text = teacher.Tlf;
-                txteMail.Text = teacher.eMail;
-            }
-            // lblEntryNumbers management.
-            lblEntryNumber.Text = (int)((pos + 1)) + " de " + db.AmmountOfEntries;
-            //CheckButtons();
+            CheckButtons();
             CheckNavButtons();
+            ManageTxts();
+        }
+        public void ShowEmpty()
+        {
+            txtDNI.Text = string.Empty;
+            txtNombre.Text = string.Empty;
+            txtApellidos.Text = string.Empty;
+            txtTlf.Text = string.Empty;
+            txteMail.Text = string.Empty;
+
+            lblEntryNumber.Text = "0 de 0";
+
+            
         }
         public void ErrorMessage()
         {
@@ -120,6 +140,10 @@ namespace Ex4
             btnSaveNew.Enabled = true;
             btnAddTeacher.Enabled = false;
             isANewEntry = true;
+
+            CheckButtons();
+            CheckNavButtons();
+            ManageTxts();
         }
 
         private void btnSaveNew_Click(object sender, EventArgs e)
@@ -168,8 +192,8 @@ namespace Ex4
                 db.DeleteRow(pos);
                 if (db.AmmountOfEntries >= 1)
                 {
-                    // Nos vamos al primer registro y lo mostramos
-                    pos = 0;
+                    // We will show the previous teacher.
+                    pos--;
 
                     ShowEntry(pos);
                     MessageBox.Show("Character Deleted");
@@ -214,5 +238,15 @@ namespace Ex4
 
             btnUpdate.Enabled = false; 
         }
+
+        public void ManageTxts()
+        {
+            txtDNI.ReadOnly = (!(db.AmmountOfEntries >= 1) && !isANewEntry);
+            txtNombre.ReadOnly = (!(db.AmmountOfEntries >= 1) && !isANewEntry);
+            txtApellidos.ReadOnly = (!(db.AmmountOfEntries >= 1) && !isANewEntry);
+            txtTlf.ReadOnly = (!(db.AmmountOfEntries >= 1) && !isANewEntry);
+            txteMail.ReadOnly = (!(db.AmmountOfEntries >= 1) && !isANewEntry);
+        }
+        
     }
 }

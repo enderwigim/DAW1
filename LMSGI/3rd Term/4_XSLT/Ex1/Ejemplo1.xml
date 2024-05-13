@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<?xml-stylesheet href="EjemploXSLT_2.xsl" type="text/xsl"?>
+<expedient alumne="José Rodriguez García">
+ <asignatura id="1">
+ <nom>Programació</nom>
+ <nota>Notable</nota>
+ </assignatura>
+ <asignatura id="2">
+ <nom>Sistemes operatius</nom>
+ <nota>Excel·lent</nota>
+ </assignatura>
+ <asignatura id="3">
+ <nom>Disseny d'interfícies</nom>
+ <nota>Suspens</nota>
+ </assignatura>
+ <asignatura id="4">
+  <nom>Bases de dades</nom>
+ <nota>Bien</nota>
+ </assignatura>
+</expedient>

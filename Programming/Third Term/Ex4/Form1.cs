@@ -233,8 +233,8 @@ namespace Ex4
             btnAddTeacher.Enabled = (!isANewEntry);
             btnDelete.Enabled = (db.AmmountOfEntries != 0 && !isANewEntry);
             btnSaveNew.Enabled = (isANewEntry);
-            btnLookBySurname.Enabled = (db.AmmountOfEntries > 0 && !isANewEntry);
-            btnShowEveryTeacher.Enabled = (db.AmmountOfEntries > 0 && !isANewEntry);
+            btnLookBySurname.Enabled = (db.AmmountOfEntries > 1 && !isANewEntry);
+            btnShowEveryTeacher.Enabled = (db.AmmountOfEntries > 1 && !isANewEntry);
 
             btnUpdate.Enabled = false; 
         }

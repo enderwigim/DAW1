@@ -1,6 +1,6 @@
 ﻿namespace Ex3
 {
-    partial class Form1
+    partial class CharCRUD
     {
         /// <summary>
         /// Variable del diseñador necesaria.

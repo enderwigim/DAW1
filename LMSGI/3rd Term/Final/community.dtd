@@ -1,8 +1,9 @@
 <!ELEMENT comunidades (comunidad+)>
 <!ELEMENT comunidad (persona+)>
-<!ELEMENT persona (nombre, edad, habilidades, inventario*)>
+<!ELEMENT persona (nombre, edad, img ,habilidades, inventario*)>
 <!ELEMENT nombre (#PCDATA)>
 <!ELEMENT edad (#PCDATA)>
+<!ELEMENT img (#PCDATA)>
 <!ELEMENT habilidades (cardio, ingenio, pelea, disparo)>
 <!ELEMENT cardio (#PCDATA)>
 <!ELEMENT ingenio (#PCDATA)>

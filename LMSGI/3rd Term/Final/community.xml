@@ -1,10 +1,11 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE comunidades SYSTEM "community.dtd">
+<?xml-stylesheet type="text/xsl" href="community.xsl"?>
 <comunidades>
 <comunidad nombre="Los protas" cantidadHabitantes="2">
     <persona>
         <nombre>Sergio</nombre>
         <edad>37</edad>
+        <img>abel.png</img>
         <habilidades>
             <cardio>1</cardio>
             <ingenio>3</ingenio>
@@ -50,6 +51,7 @@
     <persona>
         <nombre>Abel</nombre>
         <edad>20</edad>
+        <img>abel.png</img>
         <habilidades>
             <cardio>5</cardio>
             <ingenio>5</ingenio>
@@ -90,6 +92,7 @@
 <comunidad nombre="Los Supervivientes" cantidadHabitantes="3">
     <persona>
         <nombre>Luisa</nombre>
+        <img>abel.png</img>
         <edad>28</edad>
         <habilidades>
             <cardio>1</cardio>
@@ -124,8 +127,9 @@
         </inventario>
     </persona>
     <persona>
-        <nombre>Pablo</nombre>
+        <nombre>Alex</nombre>
         <edad>34</edad>
+        <img>Alex.jpeg</img>
         <habilidades>
             <cardio>1</cardio>
             <ingenio>3</ingenio>
@@ -161,6 +165,7 @@
     <persona>
         <nombre>Ana</nombre>
         <edad>25</edad>
+        <img>abel.png</img>
         <habilidades>
             <cardio>1</cardio>
             <ingenio>3</ingenio>
@@ -203,6 +208,7 @@
         <persona>
             <nombre>John</nombre>
             <edad>23</edad>
+            <img>Juan.png</img>
             <habilidades>
                 <cardio>5</cardio>
                 <ingenio>5</ingenio>
@@ -238,6 +244,7 @@
         <persona>
             <nombre>Emily</nombre>
             <edad>25</edad>
+            <img>Megan.png</img>
             <habilidades>
                 <cardio>3</cardio>
                 <ingenio>4</ingenio>
@@ -268,11 +275,12 @@
         <persona>
             <nombre>Paula</nombre>
             <edad>21</edad>
+            <img>Pau.png</img>
             <habilidades>
-                <cardio>2</cardio>
+                <cardio>5</cardio>
                 <ingenio>5</ingenio>
-                <pelea>2</pelea>
-                <disparo>1</disparo>
+                <pelea>5</pelea>
+                <disparo>5</disparo>
             </habilidades>
             <inventario>
                 <item tipo="consumible">
@@ -298,6 +306,7 @@
         <persona>
             <nombre>Sophia</nombre>
             <edad>19</edad>
+            <img>Megan.png</img>
             <habilidades>
                 <cardio>3</cardio>
                 <ingenio>3</ingenio>

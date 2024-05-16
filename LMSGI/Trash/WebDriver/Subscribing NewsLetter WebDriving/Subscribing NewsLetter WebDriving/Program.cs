@@ -21,9 +21,13 @@ namespace Subscribing_NewsLetter_WebDriving
             string sCurrentDirectory = AppDomain.CurrentDomain.BaseDirectory;
             string sFile = System.IO.Path.Combine(sCurrentDirectory, @"..\..\..\..\Data\webs.xml");
             string sFilePath = Path.GetFullPath(sFile);
-
+            Console.WriteLine(sFilePath);
             // We create our XML reader.
             XMLReader reader = new XMLReader(sFilePath);
+
+            reader.CreateButton();
+            Console.ReadLine();
+            /*
             // Create Driver
             Driver chromeDriver = new Driver();
 
@@ -53,6 +57,7 @@ namespace Subscribing_NewsLetter_WebDriving
 
             }
             chromeDriver.DriveClose();
+            */
             
             
         }

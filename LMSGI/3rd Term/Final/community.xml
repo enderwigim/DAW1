@@ -5,7 +5,7 @@
     <persona>
         <nombre>Sergio</nombre>
         <edad>37</edad>
-        <img>abel.png</img>
+        <img>Sergio.png</img>
         <habilidades>
             <cardio>1</cardio>
             <ingenio>3</ingenio>
@@ -306,7 +306,7 @@
         <persona>
             <nombre>Sophia</nombre>
             <edad>19</edad>
-            <img>Megan.png</img>
+            <img>Sophie.png</img>
             <habilidades>
                 <cardio>3</cardio>
                 <ingenio>3</ingenio>

@@ -1,109 +1,108 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet version="1.0"
-                xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
-
-    <xsl:output method="html" indent="yes"/>
-    <xsl:template match="/comunidades">
+<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+    <xsl:template match="/">
         <html>
             <head>
                 <title>Comunidades</title>
                 <style>
                     body {
                         font-family: Arial, sans-serif;
-                        background-color: #f4f4f4;
-                        color: #333333;
+                        background-color: #222;
+                        color: #ddd;
                     }
-                    .comunidad {
-                        margin-bottom: 20px;
-                        padding: 10px;
-                        border: 1px solid #cccccc;
-                        background-color: #ffffff;
+                    h1 {
+                        color: #FF5733; 
+                    }
+                    h2 {
+                        color: #9B870C; 
+                    }
+                    h3 {
+                        color: #D9BF77; 
+                    }
+                    p {
+                        color: #ddd;
+                    }
+                    .habilidad, .item {
+                        color: #FFD700; 
                     }
                     .persona {
-                        display: flex;
-                        justify-content: space-between;
-                        align-items: flex-start;
-                        margin-bottom: 10px;
+                        border: 1px solid #666;
                         padding: 10px;
-                        border: 1px solid #cccccc;
-                        background-color: #e9f7fd;
-                    }
-                    .persona-details {
-                        flex: 1;
-                        margin-right: 20px;
-                        justify-content: center;
+                        margin: 10px 0;
+                        display: flex;
+                        align-items: flex-start;
+                        background-color: #333; 
                     }
                     .persona img {
-                        max-width: 150px;
-                        height: auto;
-                        border: 1px solid #cccccc;
-                        padding: 5px;
-                        background-color: #ffffff;
+                        margin-right: 20px;
+                        width: 100px;
+                        height: 100px;
                     }
-                    .inventario {
-                        margin-top: 10px;
-                        padding: 10px;
-                        border-top: 1px solid #cccccc;
-                        background-color: #ffffff;
+                    .persona-info {
+                        flex: 1;
                     }
                     table {
                         width: 100%;
                         border-collapse: collapse;
                     }
+                    th, td {
+                        border: 1px solid #666;
+                        padding: 8px;
+                        text-align: left;
+                    }
                     th {
-                        padding: 5px;
-                        text-align: left;
-                        border: 1px solid #cccccc;
-                        background-color: #d9edf7;
+                        background-color: #444; /* Gris */
                     }
-                    td {
-                        padding: 5px;
-                        text-align: left;
-                        border: 1px solid #cccccc;
+                    tr:first-child {
+                        border-bottom: 2px solid #666; /* Borde gris */
                     }
-                    h1, h2, h3, h4 {
-                        color: #2c3e50;
-                    }
-                    
                 </style>
             </head>
             <body>
                 <h1>Comunidades</h1>
-                <xsl:for-each select="comunidad">
+                <xsl:for-each select="/comunidades/comunidad">
                     <div class="comunidad">
-                        <h2><xsl:value-of select="@nombre"/> - <xsl:value-of select="@cantidadHabitantes"/> habitantes</h2>
+                        <h2>Comunidad: <xsl:value-of select="@nombre"/></h2>
+                        <p>Cantidad de Habitantes: <xsl:value-of select="@cantidadHabitantes"/></p>
                         <xsl:for-each select="persona">
                             <div class="persona">
-                                <div class="persona-details">
-                                    <h3><xsl:value-of select="nombre"/> (Edad: <xsl:value-of select="edad"/>)</h3>
+                                <img src="img/{img}" alt="{nombre}"/>
+                                <div class="persona-info">
+                                    <h3>Nombre: <xsl:value-of select="nombre"/></h3>
+                                    <p>Edad: <xsl:value-of select="edad"/></p>
                                     <h4>Habilidades</h4>
-                                    <ul>
-                                        <li>Cardio: <xsl:value-of select="habilidades/cardio"/></li>
-                                        <li>Ingenio: <xsl:value-of select="habilidades/ingenio"/></li>
-                                        <li>Pelea: <xsl:value-of select="habilidades/pelea"/></li>
-                                        <li>Disparo: <xsl:value-of select="habilidades/disparo"/></li>
-                                    </ul>
-                                    <div class="inventario">
-                                        <h4>Inventario</h4>
-                                        <table>
+                                    <table>
+                                        <tr>
+                                            <th>Cardio</th>
+                                            <th>Ingenio</th>
+                                            <th>Pelea</th>
+                                            <th>Disparo</th>
+                                        </tr>
+                                        <tr>
+                                            <td class="habilidad"><xsl:value-of select="habilidades/cardio"/></td>
+                                            <td class="habilidad"><xsl:value-of select="habilidades/ingenio"/></td>
+                                            <td class="habilidad"><xsl:value-of select="habilidades/pelea"/></td>
+                                            <td class="habilidad"><xsl:value-of select="habilidades/disparo"/></td>
+                                        </tr>
+                                    </table>
+                                    <h4>Inventario</h4>
+                                    <table>
+                                        <tr>
+                                            <th>Nombre</th>
+                                            <th>Descripción</th>
+                                            <th>Cantidad</th>
+                                            <th>Tipo</th>
+                                        </tr>
+                                        <xsl:for-each select="inventario/item">
                                             <tr>
-                                                <th>Nombre</th>
-                                                <th>Tipo</th>
-                                                <th>Descripción</th>
-                                                <th>Cantidad</th>
+                                                <td class="item"><xsl:value-of select="nombre"/></td>
+                                                <td class="item"><xsl:value-of select="descripcion"/></td>
+                                                <td class="item"><xsl:value-of select="cantidad"/></td>
+                                                <td class="item"><xsl:value-of select="@tipo"/></td>
                                             </tr>
-                                            <xsl:for-each select="inventario/item">
-                                                <tr>
-                                                    <td><xsl:value-of select="nombre"/></td>
-                                                    <td><xsl:value-of select="@tipo"/></td>
-                                                    <td><xsl:value-of select="descripcion"/></td>
-                                                    <td><xsl:value-of select="cantidad"/></td>
-                                                </tr>
-                                            </xsl:for-each>
-                                        </table>
-                                    </div>
+                                        </xsl:for-each>
+                                    </table>
                                 </div>
-                                <img src="img/{img}" alt="Imagen de {nombre}"/>
                             </div>
                         </xsl:for-each>
                     </div>

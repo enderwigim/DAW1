@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?xml-stylesheet type="text/xsl" href="Ex2.xsl"?>
+<?xml-stylesheet type="text/xsl" href="Ex4.xsl"?>
     <receta>
         <titulo>Churros</titulo>
         <tiempo_elaboracion t_medida= "minutos">30</tiempo_elaboracion>
@@ -8,10 +8,10 @@
         <comensales></comensales>
         <ingredientes comensales="10">
             <ingrediente categoria="principal">
-            <nombre>Harina de trigo</nombre>
-            <cantidad>300</cantidad>
-            <medida>gramos</medida>
-        </ingrediente>
+                <nombre>Harina de trigo</nombre>
+                <cantidad>300</cantidad>
+                <medida>gramos</medida>
+            </ingrediente>
         <ingrediente categoria="principal">
             <nombre>Agua</nombre>
             <cantidad>440</cantidad>

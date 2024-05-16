@@ -31,12 +31,46 @@ namespace Ex4
 
         private void btnShowFirstCourse_Click(object sender, EventArgs e)
         {
+            if (DidDataChanged())
+            {
+                if (isDataValid())
+                {
+                    DialogResult wantToUpdate = MessageBox.Show("Changes detected do you want to update?", " ", MessageBoxButtons.YesNo);
+                    if (wantToUpdate == DialogResult.Yes)
+                    {
+                        btnUpdate.Enabled = true;
+                        btnUpdate.PerformClick();
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Changes were detected, but they are not valid");
+                }
+
+            }
             pos = 0;
             ShowEntry(pos);
         }
 
         private void btnShowPreviousCourse_Click(object sender, EventArgs e)
         {
+            if (DidDataChanged())
+            {
+                if (isDataValid())
+                {
+                    DialogResult wantToUpdate = MessageBox.Show("Changes detected do you want to update?", " ", MessageBoxButtons.YesNo);
+                    if (wantToUpdate == DialogResult.Yes)
+                    {
+                        btnUpdate.Enabled = true;
+                        btnUpdate.PerformClick();
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Changes were detected, but they are not valid");
+                }
+
+            }
             if (pos != 0)
             {
                 pos--;
@@ -50,6 +84,23 @@ namespace Ex4
 
         private void btnShowNextCourse_Click(object sender, EventArgs e)
         {
+            if (DidDataChanged())
+            {
+                if (isDataValid())
+                {
+                    DialogResult wantToUpdate = MessageBox.Show("Changes detected do you want to update?", " ", MessageBoxButtons.YesNo);
+                    if (wantToUpdate == DialogResult.Yes)
+                    {
+                        btnUpdate.Enabled = true;
+                        btnUpdate.PerformClick();
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Changes were detected, but they are not valid");
+                }
+
+            }
             if (pos != db.AmmountOfEntries - 1)
             {
                 pos++;
@@ -63,6 +114,23 @@ namespace Ex4
 
         private void btnShowLastCourse_Click(object sender, EventArgs e)
         {
+            if (DidDataChanged())
+            {
+                if (isDataValid())
+                {
+                    DialogResult wantToUpdate = MessageBox.Show("Changes detected do you want to update?", " ", MessageBoxButtons.YesNo);
+                    if (wantToUpdate == DialogResult.Yes)
+                    {
+                        btnUpdate.Enabled = true;
+                        btnUpdate.PerformClick();
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Changes were detected, but they are not valid");
+                }
+
+            }
             pos = db.AmmountOfEntries - 1;
             ShowEntry(pos);
         }
@@ -84,7 +152,7 @@ namespace Ex4
 
         private void btnSaveNew_Click(object sender, EventArgs e)
         {
-            int id = int.Parse(txtID.Text);
+            string id = txtID.Text;
             string nombre = txtName.Text;
 
 
@@ -110,15 +178,24 @@ namespace Ex4
 
         private void btnUpdate_Click(object sender, EventArgs e)
         {
-            int id = int.Parse(txtID.Text);
-            string nombre = txtName.Text;
+            string id = txtID.Text;
+            string nombre = txtName.Text;  
 
 
             Course course = Course.CreateCourse(id, nombre);
             if (course != null)
-                db.UpdateRow(course, pos);
+            {
+                if (db.UpdateRow(course, pos))
+                {
+                    MessageBox.Show("Data Updated");
+                } else
+                {
+                    MessageBox.Show("That course is alredy in the database");
+                }
+            }
             else
                 ErrorMessage();
+            ShowEntry(pos);
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
@@ -157,7 +234,7 @@ namespace Ex4
 
         public void ManageTxts()
         {
-            txtID.ReadOnly = (!isANewEntry);
+            txtID.ReadOnly = (!(db.AmmountOfEntries >= 1) && !isANewEntry);
             txtName.ReadOnly = (!(db.AmmountOfEntries >= 1) && !isANewEntry);
         }
         public void ShowEntry(int pos)
@@ -200,12 +277,9 @@ namespace Ex4
         public void ErrorMessage()
         {
             MessageBox.Show("There was an error with the data introduced: \n" +
-                            "Follow the next to do it properly\n" +
-                            "DNI: A12345678B || 12345678A\n" +
-                            "Nombre: Can't be empty\n" +
-                            "Apellido: Can't be empty\n" +
-                            "Telefono: 666666666\n" +
-                            "Address: Yapeyu 493");
+                            "Follow the next examaple to do it properly\n" +
+                            "ID: DAW  (MIN 3 CHARACTERS | MAX 4 CHARACTERS)\n" +
+                            "Name: Desarrollo de Aplicaciones Web\n");
         }
         public void CheckNavButtons()
         {
@@ -214,5 +288,53 @@ namespace Ex4
             btnShowLastCourse.Enabled = (db.AmmountOfEntries != 0 && pos != db.AmmountOfEntries - 1 && !isANewEntry);
             btnShowFirstCourse.Enabled = (db.AmmountOfEntries != 0 && pos != 0 && !isANewEntry);
         }
+        public bool isDataValid()
+        {
+            bool isValid = false;
+            
+            string id = txtID.Text;
+            string name = txtName.Text;
+
+            if (Course.CreateCourse(id, name) != null)
+            {
+                isValid = true;
+            }
+            return isValid;
+
+            
+        }
+        public bool DidDataChanged()
+        {
+            bool dataChanged = true;
+            Course dbCourse = (Course)db.GetEntry(pos);
+            if (dbCourse.ID == txtID.Text &&
+                dbCourse.Name == txtName.Text)
+                dataChanged = false;
+            return dataChanged;
+        }
+        private void txtID_TextChanged(object sender, EventArgs e)
+        {
+            if (isDataValid() && !isANewEntry)
+            {
+                btnUpdate.Enabled = true;
+            } else
+            {
+                btnUpdate.Enabled = false;
+            }
+        }
+
+        private void txtName_TextChanged(object sender, EventArgs e)
+        {
+            
+            if (isDataValid() && !isANewEntry)
+            {
+                btnUpdate.Enabled = true;
+            }
+            else
+            {
+                btnUpdate.Enabled = false;
+            }
+        }
+
     }
 }

@@ -272,6 +272,7 @@
             this.txtDNI.Name = "txtDNI";
             this.txtDNI.Size = new System.Drawing.Size(189, 20);
             this.txtDNI.TabIndex = 51;
+            this.txtDNI.TextChanged += new System.EventHandler(this.txtDNI_TextChanged);
             // 
             // txtNombre
             // 
@@ -279,6 +280,7 @@
             this.txtNombre.Name = "txtNombre";
             this.txtNombre.Size = new System.Drawing.Size(189, 20);
             this.txtNombre.TabIndex = 52;
+            this.txtNombre.TextChanged += new System.EventHandler(this.txtNombre_TextChanged);
             // 
             // txtTlf
             // 
@@ -286,6 +288,7 @@
             this.txtTlf.Name = "txtTlf";
             this.txtTlf.Size = new System.Drawing.Size(189, 20);
             this.txtTlf.TabIndex = 53;
+            this.txtTlf.TextChanged += new System.EventHandler(this.txtTlf_TextChanged);
             // 
             // txtApellidos
             // 
@@ -293,6 +296,7 @@
             this.txtApellidos.Name = "txtApellidos";
             this.txtApellidos.Size = new System.Drawing.Size(189, 20);
             this.txtApellidos.TabIndex = 54;
+            this.txtApellidos.TextChanged += new System.EventHandler(this.txtApellidos_TextChanged);
             // 
             // txteMail
             // 
@@ -300,6 +304,7 @@
             this.txteMail.Name = "txteMail";
             this.txteMail.Size = new System.Drawing.Size(189, 20);
             this.txteMail.TabIndex = 55;
+            this.txteMail.TextChanged += new System.EventHandler(this.txteMail_TextChanged);
             // 
             // FTeacher
             // 

@@ -28,7 +28,7 @@ namespace Ex4
         {
             // This static function lets us create the Teacher just with our rules. If the data is not correct, the teacher won't be created and
             // null will be returned.
-            if ((dni.Length < 9 && dni.Length > 10) ||
+            if (dni.Length != 9 ||
                  string.IsNullOrEmpty(name) || 
                  string.IsNullOrEmpty(surname) || 
                  Tlf.Length < 9 || 

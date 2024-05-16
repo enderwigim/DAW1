@@ -34,6 +34,22 @@ namespace Ex4
 
         private void btnShowNextTeacher_Click(object sender, EventArgs e)
         {
+            if (DidDataChanged())
+            {
+                if (isDataValid())
+                {
+                    DialogResult wantToUpdate = MessageBox.Show("Changes detected do you want to update?", " ", MessageBoxButtons.YesNo);
+                    if (wantToUpdate == DialogResult.Yes)
+                    {
+                        btnUpdate.Enabled = true;
+                        btnUpdate.PerformClick();
+                    }
+                } else
+                {
+                    MessageBox.Show("Changes were detected, but they are not valid");
+                }
+                
+            }
             if (pos != db.AmmountOfEntries - 1)
             {
                 pos++;
@@ -43,6 +59,7 @@ namespace Ex4
                 pos = 0;
             }
             ShowEntry(pos);
+            
         }
 
         private void btnShowPreviousTeacher_Click(object sender, EventArgs e)
@@ -109,7 +126,7 @@ namespace Ex4
                 }
                 else
                 {
-                    MessageBox.Show("That teacher is already in the database");
+                    MessageBox.Show("That DNI is already in the database.");
                 }
                 
 
@@ -128,9 +145,17 @@ namespace Ex4
 
             Teacher profesor = Teacher.CreateTeacher(dni, nombre, surname, tlf, email);
             if (profesor != null)
-                db.UpdateRow(profesor, pos);
+                if (db.UpdateRow(profesor, pos)) 
+                {
+                    MessageBox.Show("Data Updated");
+                } else
+                {
+                    MessageBox.Show("That DNI is already in the DB");
+                }
             else
                 ErrorMessage();
+
+            btnUpdate.Enabled = false;
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
@@ -257,6 +282,60 @@ namespace Ex4
             btnShowPreviousTeacher.Enabled = (db.AmmountOfEntries != 0 && pos > 0 && !isANewEntry);
             btnShowLastTeacher.Enabled = (db.AmmountOfEntries != 0 && pos != db.AmmountOfEntries - 1 && !isANewEntry);
             btnShowFirstTeacher.Enabled = (db.AmmountOfEntries != 0 && pos != 0 && !isANewEntry);
+        }
+
+        private void txtDNI_TextChanged(object sender, EventArgs e)
+        {
+            
+            
+        }
+
+        private void txtNombre_TextChanged(object sender, EventArgs e)
+        {
+            btnUpdate.Enabled = isDataValid() && !isANewEntry;
+        }
+
+        private void txtTlf_TextChanged(object sender, EventArgs e)
+        {
+            btnUpdate.Enabled = isDataValid() && !isANewEntry;
+        }
+
+        private void txtApellidos_TextChanged(object sender, EventArgs e)
+        {
+            btnUpdate.Enabled = isDataValid() && !isANewEntry;
+        }
+
+        private void txteMail_TextChanged(object sender, EventArgs e)
+        {
+            btnUpdate.Enabled = isDataValid() && !isANewEntry;
+        }
+        public bool DidDataChanged()
+        {
+            bool dataChanged = true;
+            Teacher dbTeacher = (Teacher)db.GetEntry(pos);
+            if (dbTeacher.DNI == txtDNI.Text &&
+                dbTeacher.Name == txtNombre.Text &&
+                dbTeacher.Surname == txtApellidos.Text &&
+                dbTeacher.Tlf == txtTlf.Text &&
+                dbTeacher.eMail == txteMail.Text)
+                dataChanged = false;
+            return dataChanged;
+        }
+        public bool isDataValid()
+        {
+            bool isValid = false;
+            string dni = txtDNI.Text;
+            string nombre = txtNombre.Text;
+            string surname = txtApellidos.Text;
+            string tlf = txtTlf.Text;
+            string email = txteMail.Text;
+
+            Teacher teacher = Teacher.CreateTeacher(dni, nombre, surname, tlf, email);
+            if (teacher != null)
+            {
+                isValid = true;
+            }
+            return isValid;
         }
     }
 }

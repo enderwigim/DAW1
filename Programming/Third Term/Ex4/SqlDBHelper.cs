@@ -7,6 +7,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 using System.Net;
+using Microsoft.VisualBasic.Devices;
+using System.Drawing;
 
 namespace Ex4
 {
@@ -28,9 +30,15 @@ namespace Ex4
         // En el mismo hacemos la conexión y creamos dataSet y dataAdapter
         public SqlDBHelper(string tableName)
         {
+            this.tableName = tableName;
+            CreateConnection();
+
+        }
+        public void CreateConnection()
+        {
+            // This function will let us do the connection and reset the DataSet and DataAdapter in case of needing it.
             string filePath = Path.GetFullPath(@"..\\..\\AppData\\Instituto.mdf;");
             SqlConnection con = new SqlConnection("Data Source = (LocalDB)\\MSSQLLocalDB; AttachDbFilename=" + filePath + "Integrated Security=True");
-
             // Abrimos la conexión.
             con.Open();
             string cadenaSQL = "SELECT * From " + tableName;
@@ -41,8 +49,6 @@ namespace Ex4
             _ammountOfEntries = dataSet.Tables[tableName].Rows.Count;
             // Cerramos la conexión.
             con.Close();
-            this.tableName = tableName;
-
         }
         public Entity GetEntry(int pos)
         {
@@ -70,86 +76,109 @@ namespace Ex4
                 }
                 else if (tableName == "Cursos")
                 {
-                    entity = Course.CreateCourse(Convert.ToInt32(entry[0]), entry[1].ToString());
+                    entity = Course.CreateCourse(entry[0].ToString(), entry[1].ToString());
 
                 }
             }
             return entity;
         }
-        public void UpdateRow(Entity entity, int pos)
+        public bool UpdateRow(Entity entity, int pos)
         {
+            // This boolean will not be activated just if the Primary Key is already in the database
+            bool rowUpdated = false;
+            int ammountOfPKs = 0;
+
+
+
             // We get the current entry
             DataRow entry = dataSet.Tables[tableName].Rows[pos];
+
             // If tableName is Profesores, we will UpdateTeacher. But if it is Students we will UpdateStudents
             if (tableName == "Profesores")
             {
+                // We update the dataSet
                 UpdateTeacher((Teacher)entity, ref entry);
+                // With the dataSet updated we need to know if the ammountOfPK is more than 1
+                ammountOfPKs = GetAmmountOfTimesIDInDataSet((Person)entity);
             }
             else if (tableName == "Alumnos")
             {
+
                 UpdateStudent((Student)entity, ref entry);
+                ammountOfPKs = GetAmmountOfTimesIDInDataSet((Person)entity);
             }
             else if (tableName == "Cursos")
             {
+                UpdateCourse((Course)entity, ref entry);
+                ammountOfPKs = GetAmmountOfTimesIDInDataSet((Course)entity);
 
             }
+            // If the ammountOfPK is more than 1. That would mean that the PK is repeated in the dataSet. In that case,
+            // we should not ReconnectToDB(), but reset the DataSet
+            if (ammountOfPKs == 1)
+            {
+                rowUpdated = true;
+                ReconnectToDB();
+                return rowUpdated;
+            }
+            // We will need to update the DataSet, so we recreate the connection.
+            CreateConnection();
+            return rowUpdated;
 
-            ReconnectToDB();
+
+
         }
         public bool CreateRow(Entity entity)
         {
             bool wasCreated = false;
-            try
+
+            // Cogemos el registro situado en la posición actual.
+            DataRow entry = dataSet.Tables[tableName].NewRow();
+
+            if (tableName == "Profesores")
             {
-                // Cogemos el registro situado en la posición actual.
-                DataRow entry = dataSet.Tables[tableName].NewRow();
-
-                if (tableName == "Profesores")
+                if (!IsIDInDataBase((Teacher)entity) && 
+                    !checkIfDNIExistInOtherTable("Alumnos", (Person)entity))
                 {
-                    if (!IsIDInDataBase((Teacher)entity))
-                    {
-                        UpdateTeacher((Teacher)entity, ref entry);
-                        
-                    }
-                    else
-                    {
-                        return wasCreated;
-                    }
-                }
-                else if (tableName == "Alumnos")
-                {
-                    if (!IsIDInDataBase(((Student)entity)))
-                    {
-                        UpdateStudent((Student)entity, ref entry);
-                    }
-                    else
-                    {
-                        return wasCreated;
-                    }
-                }
-                else if (tableName == "Cursos")
-                {
-                    if (!IsIDInDataBase((Course)entity))
-                    {
-                        UpdateCourse((Course)entity, ref entry);
-                    }
-                    else
-                    {
-                        return wasCreated;
-                    }
-                }
+                    UpdateTeacher((Teacher)entity, ref entry);
 
-                dataSet.Tables[tableName].Rows.Add(entry);
-                _ammountOfEntries++;
-
-                ReconnectToDB();
-                wasCreated = true;
-                return wasCreated;
+                }
+                else
+                {
+                    return wasCreated;
+                }
             }
-            catch
+            else if (tableName == "Alumnos")
             {
-                return wasCreated;
+                if (!IsIDInDataBase(((Student)entity)) && 
+                    !checkIfDNIExistInOtherTable("Profesores", (Person)entity))
+                {
+                    UpdateStudent((Student)entity, ref entry);
+                }
+                else
+                {
+                    return wasCreated;
+                }
             }
+            else if (tableName == "Cursos")
+            {
+                if (!IsIDInDataBase((Course)entity))
+                {
+                    UpdateCourse((Course)entity, ref entry);
+                }
+                else
+                {
+                    return wasCreated;
+                }
+            }
+
+            dataSet.Tables[tableName].Rows.Add(entry);
+            _ammountOfEntries++;
+
+            ReconnectToDB();
+            wasCreated = true;
+            return wasCreated;
+
 
 
         }
@@ -225,6 +254,7 @@ namespace Ex4
             // This will let us check if the dni is in the db
 
             bool isInDB = false;
+
             for (int i = 0; i < AmmountOfEntries; i++)
             {
                 DataRow entry = dataSet.Tables[tableName].Rows[i];
@@ -233,6 +263,7 @@ namespace Ex4
                     isInDB = true;
                 }
             }
+
             return isInDB;
 
 
@@ -245,12 +276,52 @@ namespace Ex4
             for (int i = 0; i < AmmountOfEntries; i++)
             {
                 DataRow entry = dataSet.Tables[tableName].Rows[i];
-                if (Convert.ToInt32(entry[0]) == course.ID)
+                if (entry[0].ToString() == course.ID)
                 {
                     isInDB = true;
                 }
             }
             return isInDB;
+        }
+        public int GetAmmountOfTimesIDInDataSet(Course course)
+        {
+            // This function will let us know if the ID of the course is more than once in the DataSet.
+            // It's important to know this because this will check the current DataSet.
+            int ammountOfTimes = 0;
+            for (int i = 0; i < AmmountOfEntries; i++)
+            {
+                DataRow entry = dataSet.Tables[tableName].Rows[i];
+                if (entry[0].ToString() == course.ID)
+                {
+                    ammountOfTimes++;
+                }
+            }
+            return ammountOfTimes;
+        }
+        public int GetAmmountOfTimesIDInDataSet(Person person)
+        {
+            // This function will let us know if the DNI of the person is more than once in the DataSet.
+            // It's important to know this because this will check the current DataSet.
+            int ammountOfTimes = 0;
+            for (int i = 0; i < AmmountOfEntries; i++)
+            {
+                DataRow entry = dataSet.Tables[tableName].Rows[i];
+                if (entry[0].ToString() == person.DNI)
+                {
+                    ammountOfTimes++;
+                }
+            }
+            return ammountOfTimes;
+        }
+        public bool checkIfDNIExistInOtherTable(string newTableName, Person person)
+        {
+            bool checkIfDNIExist;
+            SqlDBHelper db = new SqlDBHelper(newTableName);
+            checkIfDNIExist = db.IsIDInDataBase(person);
+            
+            return checkIfDNIExist;
+
+
         }
     }
 }

@@ -62,6 +62,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Gestor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Gestor.Designer.cs">
+      <DependentUpon>Gestor.cs</DependentUpon>
+    </Compile>
     <Compile Include="Course.cs" />
     <Compile Include="Entity.cs" />
     <Compile Include="FCurso.cs">
@@ -70,11 +76,11 @@
     <Compile Include="FCurso.Designer.cs">
       <DependentUpon>FCurso.cs</DependentUpon>
     </Compile>
-    <Compile Include="Form1.cs">
+    <Compile Include="FTeachers.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="FTeachers.Designer.cs">
+      <DependentUpon>FTeachers.cs</DependentUpon>
     </Compile>
     <Compile Include="Person.cs" />
     <Compile Include="Program.cs" />
@@ -88,11 +94,14 @@
       <DependentUpon>Students.cs</DependentUpon>
     </Compile>
     <Compile Include="Teacher.cs" />
+    <EmbeddedResource Include="Gestor.resx">
+      <DependentUpon>Gestor.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FCurso.resx">
       <DependentUpon>FCurso.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <EmbeddedResource Include="FTeachers.resx">
+      <DependentUpon>FTeachers.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

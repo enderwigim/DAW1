@@ -159,7 +159,8 @@ namespace Ex4
             Course course = Course.CreateCourse(id, nombre);
             if (course != null)
             {
-                if (db.CreateRow(course))
+                int result = db.CreateRow(course);
+                if (result == 0)
                 {
                     btnSaveNew.Enabled = false;
                     isANewEntry = false;
@@ -168,7 +169,7 @@ namespace Ex4
                 }
                 else
                 {
-                    MessageBox.Show("That course is already in the database");
+                    MessageBox.Show("That course already exists");
                 }
 
             }

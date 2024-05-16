@@ -117,16 +117,20 @@ namespace Ex4
             Teacher profesor = Teacher.CreateTeacher(dni, nombre, surname, tlf, email);
             if (profesor != null)
             {
-                if(db.CreateRow(profesor))
+                int result = db.CreateRow(profesor);
+                if (result == 0)
                 {
                     btnSaveNew.Enabled = false;
                     isANewEntry = false;
                     pos = db.AmmountOfEntries - 1;
                     ShowEntry(pos);
                 }
-                else
+                else if (result == -1)
                 {
-                    MessageBox.Show("That DNI is already in the database.");
+                    MessageBox.Show("That teacher already exists.");
+                }else
+                {
+                    MessageBox.Show("That DNI is from a student");
                 }
                 
 

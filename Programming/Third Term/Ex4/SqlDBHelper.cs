@@ -128,55 +128,65 @@ namespace Ex4
 
 
         }
-        public bool CreateRow(Entity entity)
+        public int CreateRow(Entity entity)
         {
-            bool wasCreated = false;
+            // wasCreated will return:
+            // 0 if everything went okay.
+            // -1 if the ID is in this very same table
+            // -2 if the ID is in other table.
+            int wasCreated = -1;
 
             // Cogemos el registro situado en la posición actual.
             DataRow entry = dataSet.Tables[tableName].NewRow();
 
             if (tableName == "Profesores")
             {
-                if (!IsIDInDataBase((Teacher)entity) && 
-                    !checkIfDNIExistInOtherTable("Alumnos", (Person)entity))
+                if (!IsIDInDataBase((Teacher)entity))
                 {
-                    UpdateTeacher((Teacher)entity, ref entry);
-
-                }
-                else
-                {
-                    return wasCreated;
+                    if(!checkIfDNIExistInOtherTable("Alumnos", (Person)entity))
+                    {
+                        UpdateTeacher((Teacher)entity, ref entry);
+                        wasCreated = 0;
+                    }
+                    else
+                    {
+                        wasCreated = -2;
+                        
+                    }
                 }
             }
             else if (tableName == "Alumnos")
             {
-                if (!IsIDInDataBase(((Student)entity)) && 
-                    !checkIfDNIExistInOtherTable("Profesores", (Person)entity))
+                if (!IsIDInDataBase(((Student)entity)))
                 {
-                    UpdateStudent((Student)entity, ref entry);
-                }
-                else
-                {
-                    return wasCreated;
-                }
+                    if(!checkIfDNIExistInOtherTable("Profesores", (Person)entity))
+                    {
+                        UpdateStudent((Student)entity, ref entry);
+                        wasCreated = 0;
+                    }
+                    else
+                    {
+                        wasCreated = -2;
+                    }
+
+                } 
             }
             else if (tableName == "Cursos")
             {
                 if (!IsIDInDataBase((Course)entity))
                 {
                     UpdateCourse((Course)entity, ref entry);
+                    wasCreated = 0;
                 }
-                else
-                {
-                    return wasCreated;
-                }
+                
+            }
+            if (wasCreated == 0)
+            {
+                dataSet.Tables[tableName].Rows.Add(entry);
+                _ammountOfEntries++;
             }
 
-            dataSet.Tables[tableName].Rows.Add(entry);
-            _ammountOfEntries++;
-
             ReconnectToDB();
-            wasCreated = true;
             return wasCreated;
 
 
@@ -316,6 +326,7 @@ namespace Ex4
         public bool checkIfDNIExistInOtherTable(string newTableName, Person person)
         {
             bool checkIfDNIExist;
+            
             SqlDBHelper db = new SqlDBHelper(newTableName);
             checkIfDNIExist = db.IsIDInDataBase(person);
             

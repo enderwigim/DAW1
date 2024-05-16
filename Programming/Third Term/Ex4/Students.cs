@@ -165,16 +165,21 @@ namespace Ex4
             Student student = Student.CreateStudent(dni, nombre, surname, address, tlf);
             if (student != null)
             {
-                if (db.CreateRow(student))
+                int result = db.CreateRow(student);
+                if (result == 0)
                 {
                     btnSaveNew.Enabled = false;
                     isANewEntry = false;
                     pos = db.AmmountOfEntries - 1;
                     ShowEntry(pos);
                 }
+                else if (result == -1)
+                {
+                    MessageBox.Show("That student already exists.");
+                }
                 else
                 {
-                    MessageBox.Show("That student is already in the database");
+                    MessageBox.Show("That DNI is from a teacher");
                 }
 
             }
@@ -362,61 +367,27 @@ namespace Ex4
 
         private void txtDNI_TextChanged(object sender, EventArgs e)
         {
-            if (isDataValid())
-            {
-                btnUpdate.Enabled = true;
-            } else 
-            { 
-                btnUpdate.Enabled = false; 
-            }
+            btnUpdate.Enabled = isDataValid() && !isANewEntry;
         }
 
         private void txtNombre_TextChanged(object sender, EventArgs e)
         {
-            if (isDataValid())
-            {
-                btnUpdate.Enabled = true;
-            }
-            else
-            {
-                btnUpdate.Enabled = false;
-            }
+            btnUpdate.Enabled = isDataValid() && !isANewEntry;
         }
 
         private void txtTlf_TextChanged(object sender, EventArgs e)
         {
-            if (isDataValid())
-            {
-                btnUpdate.Enabled = true;
-            }
-            else
-            {
-                btnUpdate.Enabled = false;
-            }
+            btnUpdate.Enabled = isDataValid() && !isANewEntry;
         }
 
         private void txtApellidos_TextChanged(object sender, EventArgs e)
         {
-            if (isDataValid())
-            {
-                btnUpdate.Enabled = true;
-            }
-            else
-            {
-                btnUpdate.Enabled = false;
-            }
+            btnUpdate.Enabled = isDataValid() && !isANewEntry;
         }
 
         private void txtAddress_TextChanged(object sender, EventArgs e)
         {
-            if (isDataValid())
-            {
-                btnUpdate.Enabled = true;
-            }
-            else
-            {
-                btnUpdate.Enabled = false;
-            }
+            btnUpdate.Enabled = isDataValid() && !isANewEntry;
         }
     }
 }

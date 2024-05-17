@@ -7,7 +7,7 @@ using System.Xml.Serialization;
 
 namespace SerializingTest
 {
-    /*
+    
     public class Button
     {
 
@@ -48,6 +48,10 @@ namespace SerializingTest
             _type = type;
             _insert = insert;
         }
+        public Button() 
+        {
+
+        }
         public static Button Create(string name, string xPath, string type, string insert)        // Seba: Te falta el ? a la derecha de lo que devuelve para 
         {                                                                                          // indicar que puede devolver null, no hace nada pero ayuda a quien usa el codigo (vos)
 
@@ -59,5 +63,5 @@ namespace SerializingTest
         }
 
     }
-    */
+    
 }

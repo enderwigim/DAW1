@@ -11,17 +11,14 @@ namespace SerializingTest
     internal class Program
     {
         static void Main(string[] args)
-        {
-            var serializer = new XmlSerializer(typeof(Page));
+        { 
+            var serializer = new XmlSerializer(typeof(PageList));
             using (StreamReader reader = new StreamReader("webs.xml"))
             {
-                var page = (Page)serializer.Deserialize(reader);
-                Console.WriteLine(page.Url);
+                var pageList = (PageList)serializer.Deserialize(reader);
+                Console.WriteLine(pageList.Pages[0].Url);
                 
-                foreach (Button button in page.Buttons)
-                {
-                    Console.WriteLine($"Name: {button.Name}, Xpath: {button.Type}");
-                }
+                
                 Console.ReadLine();
             }
         }

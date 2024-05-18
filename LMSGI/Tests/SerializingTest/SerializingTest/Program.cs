@@ -16,7 +16,7 @@ namespace SerializingTest
             using (StreamReader reader = new StreamReader("webs.xml"))
             {
                 var pageList = (PageList)serializer.Deserialize(reader);
-                Console.WriteLine(pageList.Pages[0].Url);
+                Console.WriteLine(pageList);
                 
                 
                 Console.ReadLine();

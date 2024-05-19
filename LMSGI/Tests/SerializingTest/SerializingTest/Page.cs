@@ -7,6 +7,7 @@ using System.Xml.Serialization;
 
 namespace SerializingTest
 {
+    [Serializable]
     [XmlRoot("page")]
     public class Page
     {

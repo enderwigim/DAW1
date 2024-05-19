@@ -12,13 +12,12 @@ namespace Subscribing_NewsLetter_WebDriving
 {
     public class Driver
     {
-        private IWebDriver _chromeDriver;        // Seba: Inicia en nulo, en el constructor lo inicias, pero, te vas a acordar de hacerlo en todos los constructores?
-                                                    // si te olvidas, te explota la aplicación: Si no ganas nada inicializando el atributo en el constructor, no lo inicies ahi,
-                                                    // a parte consume espacio que en este constructor no importa, pero en algunos que ya tienen otras cosas ocupa espacio
+        private IWebDriver _chromeDriver = new ChromeDriver();       
+                                                    
+                                                   
         public Driver()
         {
-            // Create an instance for Chrome.
-            _chromeDriver = new ChromeDriver();
+            // Let's just maximize the window.
             _chromeDriver.Manage().Window.Maximize();
         }
 
@@ -31,8 +30,8 @@ namespace Subscribing_NewsLetter_WebDriving
         {
             try
             {
-                var buttonDriver = _chromeDriver.FindElement(By.XPath(button.XPath));    // Seba: Estos if esta bien aqui ya que son lo suficientemente pequeños, si fuesen 
-                if (button.Type.ToLower() == "click")                                      // mas grandes siempre podes pasarlos a funciones.
+                var buttonDriver = _chromeDriver.FindElement(By.XPath(button.XPath));    
+                if (button.Type.ToLower() == "click")                                    
                     buttonDriver.Click();
                 else if (button.Type.ToLower() == "text")
                     buttonDriver.SendKeys(button.Insert);
@@ -45,16 +44,15 @@ namespace Subscribing_NewsLetter_WebDriving
             }
             catch (Exception ex)
             {
+                Console.Error.WriteLine("The following error happened. We will follow to the next page.");
                 Console.Error.WriteLine(ex.ToString());
-                return;
-                
-                                        // Seba: Cuida los espacios, formatea bien el codigo. 
+                return;        
             }
         }
         public void DriveClose()
         {
-            _chromeDriver.Close();            // Seba: Si es una opcion de diseño en particular conservala, es a gusto de cada, pero investiga el using a ver que te parece
-        }                                        // te va a prevenir de dolores de cabeza.
+            _chromeDriver.Close();            
+        }                                        
 
 
     }

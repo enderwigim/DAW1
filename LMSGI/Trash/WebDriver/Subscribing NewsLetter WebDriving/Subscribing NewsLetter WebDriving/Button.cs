@@ -24,6 +24,7 @@ namespace Subscribing_NewsLetter_WebDriving
         [XmlElement("insert")]
         public string Insert => _insert;
 
+        public Button() { }
         private Button(string name, string xPath, string type, string insert)
         {
             _name = name;

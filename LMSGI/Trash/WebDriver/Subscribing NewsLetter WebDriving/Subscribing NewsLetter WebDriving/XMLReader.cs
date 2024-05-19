@@ -1,13 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml;
-using System.Xml.Linq;
 using System.Xml.Serialization;
-using System.Xml.XPath;
+
 
 namespace Subscribing_NewsLetter_WebDriving
 {
@@ -47,18 +41,6 @@ namespace Subscribing_NewsLetter_WebDriving
                 return null;
             }
         }
-        /*
-        public string GetWebURL(int paginaIndex)
-        {
-            XmlNodeList pagina = _listaPaginas.Item(paginaIndex).ChildNodes;
-            return pagina.Item(0).InnerText;
-        }
-        public int CountItems(string tag)
-        {
-            XmlNodeList xml = _document.SelectNodes("//" + tag);
-            return xml.Count;
 
-        }
-        */
     }
 }

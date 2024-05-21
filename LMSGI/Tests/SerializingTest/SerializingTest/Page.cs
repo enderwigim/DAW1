@@ -7,7 +7,8 @@ using System.Xml.Serialization;
 
 namespace SerializingTest
 {
-    [XmlRoot("pagina")]
+    [Serializable]
+    [XmlRoot("page")]
     public class Page
     {
         // It should be use on the attribute but in the property

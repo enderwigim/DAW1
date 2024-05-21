@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Serialization;
+﻿using System.Xml.Serialization;
 
 namespace Subscribing_NewsLetter_WebDriving
 {
@@ -24,6 +19,7 @@ namespace Subscribing_NewsLetter_WebDriving
         [XmlElement("insert")]
         public string Insert => _insert;
 
+        public Button() { }
         private Button(string name, string xPath, string type, string insert)
         {
             _name = name;

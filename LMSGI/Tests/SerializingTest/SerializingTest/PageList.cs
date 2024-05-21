@@ -7,6 +7,7 @@ using System.Xml.Serialization;
 
 namespace SerializingTest
 {
+    [Serializable]
     [XmlRoot("pages")]
     public class PageList
     {
@@ -14,7 +15,7 @@ namespace SerializingTest
         [XmlElement("page")]
         public List<Page> Pages { get; set; }
         public PageList() {
-            pages = new List<Page>();
+            Pages = new List<Page>();
         }
     }
 }

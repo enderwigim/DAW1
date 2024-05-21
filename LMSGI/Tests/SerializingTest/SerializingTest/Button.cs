@@ -7,7 +7,7 @@ using System.Xml.Serialization;
 
 namespace SerializingTest
 {
-    
+    [Serializable]
     public class Button
     {
 

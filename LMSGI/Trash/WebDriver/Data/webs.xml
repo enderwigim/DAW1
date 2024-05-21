@@ -1,51 +1,4 @@
 ﻿<pages>
-  <page>
-      <URL>https://wizzair.com/en-gb/newsletter</URL>
-      <buttons>
-      <button>
-        <name>cookie</name>
-        <xpath>"//*[@id=\"onetrust-accept-btn-handler\"]"</xpath>
-        <type>click</type>
-        <insert></insert>
-      </button>
-      <button>
-        <name>name</name>
-        <xpath>"//*[@id=\"app\"]/div/main/div/form/fieldset/div[1]/div[1]/div/div/label/input"</xpath>
-        <type>text</type>
-        <insert>name</insert>
-      </button>
-      <button>
-        <name>surname</name>
-        <xpath>"*[@id='app']/div/main/div/form/fieldset/div[1]/div[2]/div/div/label/input"</xpath>
-        <type>text</type>
-        <insert>surname</insert>
-      </button>
-      <button>
-        <name>gender</name>
-        <xpath>"*//*[@id=\"app\"]/div/main/div/form/fieldset/div[1]/div[3]/div/div/label/select"</xpath>
-        <type>select</type>
-        <insert>0</insert>
-      </button>
-      <button>
-        <name>email</name>
-        <xpath>"//*[@id=\"app\"]/div/main/div/form/fieldset/div[2]/div/label/input"</xpath>
-        <type>text</type>
-        <insert>email</insert>
-      </button>
-      <button>
-        <name>checkbox</name>
-        <xpath>"//*[@id=\"app\"]/div/main/div/form/fieldset/div[4]/div[1]/span/label[1]"</xpath>
-        <type>button</type>
-        <insert></insert>
-      </button>
-      <button>
-        <name>submit</name>
-        <xpath>"//*[@id=\"app\"]/div/main/div/form/fieldset/div[4]/div[2]/button"</xpath>
-        <type>button</type>
-        <insert></insert>
-      </button>
-      </buttons>
-    </page>
     <page>
       <URL>https://www.google.com/</URL>
         <button>
@@ -67,5 +20,33 @@
           <insert></insert>
         </button>
     </page>
-
+      <page>
+    <URL>https://www.youtube.com/</URL>
+    <buttons>
+      <button>
+        <name>cookies</name>
+        <xpath>//*[@id="content"]/div[2]/div[6]/div[1]/ytd-button-renderer[1]/yt-button-shape/button/yt-touch-feedback-shape/div/div[2]</xpath>
+        <type>click</type>
+        <insert></insert>
+      </button>
+      <button>
+        <name>search</name>
+        <xpath>//*[@id='search']</xpath>
+        <type>text</type>
+        <insert>Baitybait</insert>
+      </button>
+      <button>
+        <name>submit</name>
+        <xpath>//*[@id='search-icon-legacy']</xpath>
+        <type>click</type>
+        <insert></insert>
+      </button>
+      <button>
+        <name>videoText</name>
+        <xpath>//*[@id='video-title']/yt-formatted-string</xpath>
+        <type>click</type>
+        <insert></insert>
+      </button>
+      </buttons>
+ </page>
 </pages>

@@ -1,6 +1,6 @@
 <!ELEMENT comunidades (comunidad+)>
 <!ELEMENT comunidad (persona+)>
-<!ELEMENT persona (nombre, edad, img ,habilidades, inventario*)>
+<!ELEMENT persona (nombre, edad, img, habilidades, inventario*)>
 <!ELEMENT nombre (#PCDATA)>
 <!ELEMENT edad (#PCDATA)>
 <!ELEMENT img (#PCDATA)>
@@ -9,7 +9,7 @@
 <!ELEMENT ingenio (#PCDATA)>
 <!ELEMENT pelea (#PCDATA)>
 <!ELEMENT disparo (#PCDATA)>
-<!ELEMENT inventario (item)>
+<!ELEMENT inventario (item*)>
 <!ELEMENT item (nombre, descripcion, cantidad)>
 <!-- A partir de item, tenemos que declarar que va a pasar con el el elemento nombre.
 Existen dos opciones, ya que existe un nombre que se utiliza distinto. 
@@ -19,6 +19,6 @@ elementos de la misma manera. (Cosa que me parece mas logica, solo porque valida
 mismo tipo de dato.-->
 <!ELEMENT descripcion (#PCDATA)>
 <!ELEMENT cantidad (#PCDATA)>
-<!ATTLIST comunidad nombre CDATA #REQUIRED>
+<!ATTLIST comunidad nombre ID #REQUIRED>
 <!ATTLIST comunidad cantidadHabitantes CDATA #REQUIRED>
-<!ATTLIST item tipo (armaMele | armaDistancia | consumible | mochila | equipamiento )>
+<!ATTLIST item tipo (armaMele | armaDistancia | consumible | mochila | equipamiento) #IMPLIED>

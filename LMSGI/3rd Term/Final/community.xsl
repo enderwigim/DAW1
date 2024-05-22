@@ -25,6 +25,9 @@
                     .habilidad, .item {
                         color: #FFD700; 
                     }
+                    .habilidad_baja {
+                        color: #808080
+                    }
                     .persona {
                         border: 1px solid #666;
                         padding: 10px;
@@ -79,10 +82,38 @@
                                             <th>Disparo</th>
                                         </tr>
                                         <tr>
-                                            <td class="habilidad"><xsl:value-of select="habilidades/cardio"/></td>
-                                            <td class="habilidad"><xsl:value-of select="habilidades/ingenio"/></td>
-                                            <td class="habilidad"><xsl:value-of select="habilidades/pelea"/></td>
-                                            <td class="habilidad"><xsl:value-of select="habilidades/disparo"/></td>
+                                            <td>
+                                                <xsl:if test="habilidades/cardio &lt; 4">
+                                                    <span class="habilidad_baja"><xsl:value-of select="habilidades/cardio"/></span>
+                                                </xsl:if>
+                                                <xsl:if test="habilidades/cardio &gt;= 4">
+                                                    <span class="habilidad"><xsl:value-of select="habilidades/cardio"/></span>
+                                                </xsl:if>
+                                            </td>
+                                            <td>
+                                                <xsl:if test="habilidades/ingenio &lt; 4">
+                                                    <span class="habilidad_baja"><xsl:value-of select="habilidades/ingenio"/></span>
+                                                </xsl:if>
+                                                <xsl:if test="habilidades/ingenio &gt;= 4">
+                                                    <span class="habilidad"><xsl:value-of select="habilidades/ingenio"/></span>
+                                                </xsl:if>
+                                            </td>
+                                            <td>
+                                                <xsl:if test="habilidades/pelea &lt; 4">
+                                                    <span class="habilidad_baja"><xsl:value-of select="habilidades/pelea"/></span>
+                                                </xsl:if>
+                                                <xsl:if test="habilidades/pelea &gt;= 4">
+                                                    <span class="habilidad"><xsl:value-of select="habilidades/pelea"/></span>
+                                                </xsl:if>
+                                            </td>
+                                            <td>
+                                                <xsl:if test="habilidades/disparo &lt; 4">
+                                                    <span class="habilidad_baja"><xsl:value-of select="habilidades/disparo"/></span>
+                                                </xsl:if>
+                                                <xsl:if test="habilidades/disparo &gt;= 4">
+                                                    <span class="habilidad"><xsl:value-of select="habilidades/disparo"/></span>
+                                                </xsl:if>
+                                            </td>
                                         </tr>
                                     </table>
                                     <h4>Inventario</h4>

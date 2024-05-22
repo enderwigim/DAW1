@@ -655,7 +655,7 @@ PRINT CONCAT(@numEmpleados, ' empleados han sido actualizados');
 --	Recuerda que debes incluir la SELECT y comprobar el funcionamiento
 -------------------------------------------------------------------------------------------
 GO
-
+USE JARDINERIA
 
 GO
 CREATE OR ALTER FUNCTION getCostePedido(@codPedido INT)
@@ -679,7 +679,7 @@ BEGIN
 	
 END
 GO
-DECLARE @codCliente INT = 9
+DECLARE @codCliente INT = 1
 SELECT dbo.getCostePedidos(@codCLiente);
 
 

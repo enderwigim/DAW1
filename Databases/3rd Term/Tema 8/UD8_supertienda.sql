@@ -91,9 +91,75 @@ PRINT 'Procedimiento terminado'
 --		
 --	  *Comprueba que el funcionamiento es correcto realizando una desde un script y comprobando la finalización del mismo
 -------------------------------------------------------------------------------------------
+EXEC sp_help SUBCATEGORIAS
+-- Subcategoria maneja una PK IDENTITY
+GO
+CREATE OR ALTER PROCEDURE CrearSubcategoriaProducto (@codCategoria CHAR(2),
+                                                     @nombreSubCategoria VARCHAR(100),
+                                                     @codSubCategoria INT OUTPUT)
+AS
+BEGIN
+      -- SETEAMOS @codSubCategoria a null
+      SET @codSubCategoria = NULL
 
+      --Validamos los parametros
+      DECLARE @validationErrors VARCHAR(MAX) = ''
 
+      -- Validamos que @codCategoria no sea null.
+      IF @codCategoria IS NULL 
+        OR LEN(@codCategoria) < 2
+      BEGIN
+        SET @validationErrors += ' @codCategoria,'
+      END
 
+      IF @nombreSubCategoria IS NULL
+        SET @validationErrors += ' @nombreSubCategoria,'
+      
+      IF @validationErrors <> ''
+      BEGIN
+        SET @validationErrors = 'El formato de los siguientes parametros es erroneo:' + @validationErrors;
+        -- Extraemos el ultimo caracter, que será una ,
+        SET @validationErrors = LEFT(@validationErrors, LEN(@validationErrors) - 1) 
+        PRINT @validationErrors
+        RETURN -1
+      END
+
+      -- Validamos que @codCategoria exista.
+      IF NOT EXISTS (SELECT *
+                      FROM CATEGORIAS
+                      WHERE UPPER(codCategoria) =  UPPER(@codCategoria))
+      BEGIN
+        PRINT '@codCategoria no existe en la base de datos.'
+        RETURN -1
+      END
+
+      INSERT INTO SUBCATEGORIAS(codCategoria, nombre)
+      VALUES(@codCategoria, @nombreSubCategoria)
+      
+      -- SETEAMOS @codSubCategoria
+      SET @codSubCategoria = SCOPE_IDENTITY()
+
+END
+
+GO
+DECLARE @ret INT;
+DECLARE @nombre VARCHAR(100) = 'SebaCrack'
+DECLARE @codCategoria CHAR(2) = 'al'
+DECLARE @codSubCategoria INT = NULL
+
+EXEC @ret = CrearSubcategoriaProducto @codCategoria, @nombre, @codSubCategoria OUTPUT
+
+IF @ret <> 0
+  RETURN
+
+PRINT 'Procedimiento compleado con exito'
+PRINT @codSubCategoria
+
+DELETE FROM SUBCATEGORIAS
+  WHERE codSubcategoria = 1006
+
+SELECT *
+  FROM SUBCATEGORIAS
 
 -------------------------------------------------------------------------------------------
 -- 3. Implementa un procedimiento que cree un nuevo producto en la base de datos.
@@ -189,8 +255,22 @@ PRINT 'Procedimiento terminado'
 --  Ayuda: recuerda incluir el prefijo dbo. al llamar a la función
 --   En las funciones nunca debes indicar un valor directamente (es decir, "hardcodeado")
 -------------------------------------------------------------------------------------------
-SELECT codCliente, <llamada a tu funcion>
-  FROM CLIENTES;
+GO
+
+CREATE OR ALTER FUNCTION getNumPedidos (@codCliente INT)
+RETURNS DECIMAL(10,0)
+AS
+BEGIN
+    RETURN (SELECT ISNULL(COUNT(codPedido), 0)
+              FROM PEDIDOS
+             WHERE codCliente = @codCliente)
+    
+END
+
+SELECT codCliente,
+       dbo.getNumPedidos(codCliente) AS Cantidad_Pedidos 
+  FROM CLIENTES
+
 
 
 -------------------------------------------------------------------------------------------

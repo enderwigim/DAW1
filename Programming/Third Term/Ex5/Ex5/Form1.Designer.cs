@@ -46,6 +46,8 @@
             this.lblEntryNumber = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.txtLocation = new System.Windows.Forms.TextBox();
+            this.charCrud = new System.Windows.Forms.BindingSource(this.components);
+            this.characterDataSet = new Ex5.characterDataSet();
             this.txtLevel = new System.Windows.Forms.TextBox();
             this.txtFaction = new System.Windows.Forms.TextBox();
             this.txtName = new System.Windows.Forms.TextBox();
@@ -53,8 +55,6 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.charCrud = new System.Windows.Forms.BindingSource(this.components);
-            this.characterDataSet = new Ex5.characterDataSet();
             this.characterTableAdapter = new Ex5.characterDataSetTableAdapters.characterTableAdapter();
             ((System.ComponentModel.ISupportInitialize)(this.characterImg)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -71,6 +71,7 @@
             this.btnPreviousClass.TabIndex = 54;
             this.btnPreviousClass.Text = "Previous";
             this.btnPreviousClass.UseVisualStyleBackColor = true;
+            this.btnPreviousClass.Click += new System.EventHandler(this.btnPreviousClass_Click);
             // 
             // btnNextClass
             // 
@@ -80,10 +81,12 @@
             this.btnNextClass.TabIndex = 47;
             this.btnNextClass.Text = "Next";
             this.btnNextClass.UseVisualStyleBackColor = true;
+            this.btnNextClass.Click += new System.EventHandler(this.btnNextClass_Click);
             // 
             // lblClassSelector
             // 
             this.lblClassSelector.AutoSize = true;
+            this.lblClassSelector.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.charCrud, "class", true));
             this.lblClassSelector.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblClassSelector.Location = new System.Drawing.Point(616, 375);
             this.lblClassSelector.Name = "lblClassSelector";
@@ -177,6 +180,7 @@
             this.btnAddNewCharacter.TabIndex = 13;
             this.btnAddNewCharacter.Text = "Add New Character";
             this.btnAddNewCharacter.UseVisualStyleBackColor = true;
+            this.btnAddNewCharacter.Click += new System.EventHandler(this.btnAddNewCharacter_Click);
             // 
             // btnCreateNew
             // 
@@ -186,6 +190,7 @@
             this.btnCreateNew.TabIndex = 10;
             this.btnCreateNew.Text = "Create New Character";
             this.btnCreateNew.UseVisualStyleBackColor = true;
+            this.btnCreateNew.Click += new System.EventHandler(this.btnCreateNew_Click);
             // 
             // btnDeleteChar
             // 
@@ -229,6 +234,16 @@
             this.txtLocation.Name = "txtLocation";
             this.txtLocation.Size = new System.Drawing.Size(309, 20);
             this.txtLocation.TabIndex = 46;
+            // 
+            // charCrud
+            // 
+            this.charCrud.DataMember = "character";
+            this.charCrud.DataSource = this.characterDataSet;
+            // 
+            // characterDataSet
+            // 
+            this.characterDataSet.DataSetName = "characterDataSet";
+            this.characterDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
             // txtLevel
             // 
@@ -289,16 +304,6 @@
             this.label1.Size = new System.Drawing.Size(35, 13);
             this.label1.TabIndex = 39;
             this.label1.Text = "Name";
-            // 
-            // charCrud
-            // 
-            this.charCrud.DataMember = "character";
-            this.charCrud.DataSource = this.characterDataSet;
-            // 
-            // characterDataSet
-            // 
-            this.characterDataSet.DataSetName = "characterDataSet";
-            this.characterDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
             // characterTableAdapter
             // 

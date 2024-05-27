@@ -46,8 +46,12 @@ namespace Ex5
             {
                 try
                 {
-                    charCrud.MoveNext();
-                    ShowData();
+                    if (DataValidator.IsCharacterValid(txtName.Text, txtLevel.Text, txtFaction.Text, txtLocation.Text) != "")
+                    {
+                        charCrud.MoveNext();
+                        ShowData();
+                    }
+                    
                 }
                 catch (ConstraintException ex)
                 {
@@ -119,21 +123,6 @@ namespace Ex5
                 MessageBox.Show("That level is not in the correct format. It must be between 1 - 80");
             }
         }
-        public void ShowData()
-        {
-            ManageClassButtons();
-            ManageClassLbl();
-            ManageEntryLbl();
-        }
-        public void ManageEntryLbl()
-        {
-            lblEntryNumber.Text = (charCrud.Position + 1) + " de " + charCrud.Count;
-        }
-        public void ManageClassLbl()
-        {
-            lblClassSelector.Text = classArray[classPosition];
-        }
-
         private void btnAddNewCharacter_Click(object sender, EventArgs e)
         {
             charCrud.AddNew();
@@ -165,6 +154,34 @@ namespace Ex5
         {
             btnNextClass.Enabled = (classPosition < classArray.Length - 1);
             btnPreviousClass.Enabled = (classPosition > 0);
+        }
+        public void ShowData()
+        {
+            ManageClassButtons();
+            ManageClassLbl();
+            ManageEntryLbl();
+        }
+        public void ManageEntryLbl()
+        {
+            lblEntryNumber.Text = (charCrud.Position + 1) + " de " + charCrud.Count;
+        }
+        public void ManageClassLbl()
+        {
+            lblClassSelector.Text = classArray[classPosition];
+        }
+
+        private void btnDeleteChar_Click(object sender, EventArgs e)
+        {
+            charCrud.RemoveCurrent();
+
+            characterTableAdapter.Update(characterDataSet.character);
+        }
+
+        private void btnUpdateChar_Click(object sender, EventArgs e)
+        {
+            charCrud.EndEdit();
+
+            characterTableAdapter.Update(characterDataSet.character);
         }
     }
 }

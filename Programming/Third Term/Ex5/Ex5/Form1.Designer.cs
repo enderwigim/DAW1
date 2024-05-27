@@ -200,6 +200,7 @@
             this.btnDeleteChar.TabIndex = 11;
             this.btnDeleteChar.Text = "Delete Character";
             this.btnDeleteChar.UseVisualStyleBackColor = true;
+            this.btnDeleteChar.Click += new System.EventHandler(this.btnDeleteChar_Click);
             // 
             // btnUpdateChar
             // 
@@ -209,6 +210,7 @@
             this.btnUpdateChar.TabIndex = 11;
             this.btnUpdateChar.Text = "Update Character";
             this.btnUpdateChar.UseVisualStyleBackColor = true;
+            this.btnUpdateChar.Click += new System.EventHandler(this.btnUpdateChar_Click);
             // 
             // lblEntryNumber
             // 

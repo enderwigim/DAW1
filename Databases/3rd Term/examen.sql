@@ -20,6 +20,7 @@ DECLARE @ciudad VARCHAR(40)
 DECLARE @cantidadEmpleados INT
 
 -- Declaramos el primer cursor
+DECLARE Cur_Oficina CURSOR FOR
 SELECT codOficina,
        ciudad
   FROM OFICINAS

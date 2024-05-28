@@ -142,13 +142,14 @@ namespace Ex5
             {
                 classPosition++;
             }
-            ShowData();
+            ManageClassLbl();
+
         }
 
         private void btnPreviousClass_Click(object sender, EventArgs e)
         {
             classPosition--;
-            ShowData();
+            ManageClassLbl();
         }
         public void ManageClassButtons()
         {
@@ -158,8 +159,8 @@ namespace Ex5
         public void ShowData()
         {
             ManageClassButtons();
-            ManageClassLbl();
             ManageEntryLbl();
+            ManageButtons();
         }
         public void ManageEntryLbl()
         {
@@ -182,6 +183,13 @@ namespace Ex5
             charCrud.EndEdit();
 
             characterTableAdapter.Update(characterDataSet.character);
+        }
+        public void ManageButtons()
+        {
+            btnShowNext.Enabled = (charCrud.Position < charCrud.Count - 1);
+            btnShowLast.Enabled = (charCrud.Position < charCrud.Count - 1);
+            btnShowPrevious.Enabled = (charCrud.Position > 0);
+            btnShowFirst.Enabled = (charCrud.Position > 0);
         }
     }
 }

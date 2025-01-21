@@ -16,9 +16,9 @@ Each project in this repository includes practical examples of the technologies 
 
 - **Programming**: Folder containing projects that focus on programming logic, algorithms, and different programming languages like JavaScript or Python.
 
-- **Development Environments**: Folder with projects that cover the setup and usage of various development environments, tools, and editors.
+- **IDE**: Folder with projects that cover the setup and usage of various development environments, tools, and editors.
 
-- **Markup Languages**: Folder with projects where you learn and practice HTML, XML, and other markup languages.
+- **LMSGI**: Folder with projects where you learn and practice HTML, XML, and other markup languages.
 
 - **Databases**: Folder containing projects related to databases, including SQL queries and database schema design.
 
